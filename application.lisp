@@ -15,7 +15,6 @@
 
 ;; The double colons are to access unexported functions & symbols
 ;; single colon if it is exported. Be careful with unexported/internal symbols
-;; (setf (bts::html-mode) :html5)
 
 ;; Other than the landing page (aka "index.html") all other web app pages uses this boilerplate
 ;; Taken from  https://github.com/rajasegar/cl-bootstrap/blob/master/demo/demo.lisp
