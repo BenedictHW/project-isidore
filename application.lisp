@@ -117,7 +117,9 @@
     (:h1 :class "title" "Contact")
     (:h1 "Ways to get in contact")
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
-    (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))))
+    (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
+    (:h1 :id "article-history" "Blog Article Transparency Policy")
+    (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /static/blog/ folder)."))))
 ;;; for development
 (defvar *app-dev* nil)
 
