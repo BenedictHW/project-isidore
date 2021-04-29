@@ -78,7 +78,7 @@
                                (:h2 "Nice to meet you.")))
                    (:hr)
                    (:br)
-                   (:p "Welcome to my personal website! This website was built with" (:a :href "https://github.com/hanshenwang/" :target "_blank" "<s> Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" "Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
+                   (:p "Welcome to my personal website! This website was built with" (:a :href "https://nextjs.org" :target "_blank" "<s> Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" "Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
                    (:p :class "codrops-demos"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
