@@ -14,10 +14,10 @@
   <link>http://hanshenwang.com/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Tue, 25 May 2021 02:07:15 -0400</pubDate>
-  <lastBuildDate>Tue, 25 May 2021 02:07:15 -0400</lastBuildDate>
+  <pubDate>Tue, 25 May 2021 03:19:07 -0400</pubDate>
+  <lastBuildDate>Tue, 25 May 2021 03:19:07 -0400</lastBuildDate>
   <generator>Emacs 27.1 Org-mode 9.4.6</generator>
-  <webMaster>contact.hanshen.wang@gmail.com (Hanshen Wang)</webMaster>
+  <webMaster>hanshen@hanshenwang.com (Hanshen Wang)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
     <title>Hanshen Wang Blog RSS</title>
@@ -27,9 +27,9 @@
 
   <item>
     <title>Installation of Spacemacs on Windows 10 via WSL2</title>
-    <link>http://hanshenwang.com/installation-of-spacemacs.html</link>
-    <author>contact.hanshen.wang@gmail.com (Hanshen Wang)</author>
-    <guid isPermaLink="false">http://hanshenwang.com/installation-of-spacemacs.html</guid>
+    <link>http://hanshenwang.com//blog/installation-of-spacemacs.html</link>
+    <author>hanshen@hanshenwang.com (Hanshen Wang)</author>
+    <guid isPermaLink="false">http://hanshenwang.com//blog/installation-of-spacemacs.html</guid>
     <pubDate>Thu, 04 Feb 2021 00:00:00 -0500</pubDate>
 
     <description><![CDATA[]]></description>
