@@ -6,6 +6,7 @@
   :version "0.0.1"
   :serial t
   :depends-on (#:hunchentoot
-               #:cl-who)
+               #:cl-who
+               #:cl-css)
   :components ((:file "application")
                (:file "heroku")))
