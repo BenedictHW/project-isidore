@@ -128,10 +128,14 @@
 (defvar *app-dev* nil)
 
 (defun stop-dev-server ()
+  (if (probe-file "/home/hanshen/project-isidore/static/index.css")
+      ;; Deletes the index.css file generated with cl-css
+      (delete-file "/home/hanshen/project-isidore/static/index.css"))
   (if (ws:started-p *app-dev*)
-      (ws:stop *app-dev*)))
+        (ws:stop *app-dev*)))
 
 (defun start-dev-server ()
+  ;; Generated index.css file for index.html use
   (css:compile-css
    "/home/hanshen/project-isidore/static/index.css"
    '(
