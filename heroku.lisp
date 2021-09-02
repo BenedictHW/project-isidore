@@ -280,10 +280,10 @@
       :line-height" 200px"
       )
      (".cb-slideshow li:nth-child(1) span"
-      :background-image "url(pic1.jpg)"
+      :background-image "url(pic1.webp)"
       )
      (".cb-slideshow li:nth-child(2) span"
-      :background-image "url(pic2.jpg)"
+      :background-image "url(pic2.webp)"
       :-webkit-animation-delay" 6s"
       :-moz-animation-delay" 6s"
       :-o-animation-delay" 6s"
@@ -291,7 +291,7 @@
       :animation-delay" 6s"
       )
      (".cb-slideshow li:nth-child(3) span"
-      :background-image" url(pic3.jpg)"
+      :background-image" url(pic3.webp)"
       :-webkit-animation-delay" 12s"
       :-moz-animation-delay" 12s"
       :-o-animation-delay" 12s"
@@ -299,7 +299,7 @@
       :animation-delay" 12s"
       )
      (".cb-slideshow li:nth-child(4) span"
-      :background-image" url(pic4.jpg)"
+      :background-image" url(pic4.webp)"
       :-webkit-animation-delay" 18s"
       :-moz-animation-delay" 18s"
       :-o-animation-delay" 18s"
@@ -307,7 +307,7 @@
       :animation-delay" 18s"
       )
      (".cb-slideshow li:nth-child(5) span"
-      :background-image" url(pic5.jpg)"
+      :background-image" url(pic5.webp)"
       :-webkit-animation-delay" 24s"
       :-moz-animation-delay" 24s"
       :-o-animation-delay" 24s"
@@ -315,7 +315,7 @@
       :animation-delay" 24s"
       )
      (".cb-slideshow li:nth-child(6) span"
-      :background-image" url(pic6.jpg)"
+      :background-image" url(pic6.webp)"
       :-webkit-animation-delay" 30s"
       :-moz-animation-delay" 30s"
       :-o-animation-delay" 30s"

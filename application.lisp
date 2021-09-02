@@ -56,7 +56,8 @@
   (ht:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
     (:html :lang "en"
            (:head
-            (:meta :charset "utf-8" :name "viewport" :content "width=device-width, initial-scale=1")
+            (:meta :charset "utf-8" :name "viewport" :content
+  "width=device-width, initial-scale=1" :description "Personal Web Application")
             (:title "HanshenWang.com")
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
             (:link :rel "preconnect" :href "https://fonts.gstatic.com")
@@ -64,24 +65,27 @@
             (:script :src "script.js"))
            (:body
             (:ul :class "cb-slideshow" ; background CSS3 slideshow
-                 (:li (:span "pic1.jpg"))
-                 (:li (:span "pic2.jpg"))
-                 (:li (:span "pic3.jpg"))
-                 (:li (:span "pic4.jpg"))
-                 (:li (:span "pic5.jpg"))
-                 (:li (:span "pic6.jpg")))
+                 (:li (:span "pic1.webp"))
+                 (:li (:span "pic2.webp"))
+                 (:li (:span "pic3.webp"))
+                 (:li (:span "pic4.webp"))
+                 (:li (:span "pic5.webp"))
+                 (:li (:span "pic6.webp")))
             (:div :class "container"
                   (:header
                    (:div :class "portfolio-container"
                          (:div :class "portfolio-section"
-                               (:img :src "profile.jpg" :alt "Author Profile Picture"))
+                               (:img :src "profile.webp" :alt "Author Profile Picture"))
                          (:div :class "portfolio-section"
                                (:h1 "Hey There!") (:br)
                                (:h2 "I'm Hanshen.") (:br)
                                (:h2 "Nice to meet you.")))
                    (:hr)
                    (:br)
-                   (:p "Welcome to my personal website! This website was built with" (:a :href "https://nextjs.org" :target "_blank" "<s> Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" "Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
+                   (:p "Welcome to my personal website! This website was built
+  with" (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" "<s>
+  Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/"
+  :target "_blank" :rel "noreferrer""Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
                    (:p :class "codrops-demos"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
@@ -135,6 +139,7 @@
         (ws:stop *app-dev*)))
 
 (defun start-dev-server ()
+  (stop-dev-server)
   ;; Generated index.css file for index.html use
   (css:compile-css
    "/home/hanshen/project-isidore/static/index.css"
@@ -412,10 +417,10 @@
       :line-height" 200px"
       )
      (".cb-slideshow li:nth-child(1) span"
-      :background-image "url(pic1.jpg)"
+      :background-image "url(pic1.webp)"
       )
      (".cb-slideshow li:nth-child(2) span"
-      :background-image "url(pic2.jpg)"
+      :background-image "url(pic2.webp)"
       :-webkit-animation-delay" 6s"
       :-moz-animation-delay" 6s"
       :-o-animation-delay" 6s"
@@ -423,7 +428,7 @@
       :animation-delay" 6s"
       )
      (".cb-slideshow li:nth-child(3) span"
-      :background-image" url(pic3.jpg)"
+      :background-image" url(pic3.webp)"
       :-webkit-animation-delay" 12s"
       :-moz-animation-delay" 12s"
       :-o-animation-delay" 12s"
@@ -431,7 +436,7 @@
       :animation-delay" 12s"
       )
      (".cb-slideshow li:nth-child(4) span"
-      :background-image" url(pic4.jpg)"
+      :background-image" url(pic4.webp)"
       :-webkit-animation-delay" 18s"
       :-moz-animation-delay" 18s"
       :-o-animation-delay" 18s"
@@ -439,7 +444,7 @@
       :animation-delay" 18s"
       )
      (".cb-slideshow li:nth-child(5) span"
-      :background-image" url(pic5.jpg)"
+      :background-image" url(pic5.webp)"
       :-webkit-animation-delay" 24s"
       :-moz-animation-delay" 24s"
       :-o-animation-delay" 24s"
@@ -447,7 +452,7 @@
       :animation-delay" 24s"
       )
      (".cb-slideshow li:nth-child(6) span"
-      :background-image" url(pic6.jpg)"
+      :background-image" url(pic6.webp)"
       :-webkit-animation-delay" 30s"
       :-moz-animation-delay" 30s"
       :-o-animation-delay" 30s"
