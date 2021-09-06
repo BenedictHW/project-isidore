@@ -11,7 +11,8 @@
                     (#:ht #:cl-who) ; hypertext markup generation
                     (#:css #:cl-css))
   (:export #:start-dev-server
-           #:stop-dev-server))
+           #:stop-dev-server
+           #:generate-index-css))
 
 ;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
 (in-package #:project-isidore)
@@ -57,7 +58,7 @@
     (:html :lang "en"
            (:head
             (:meta :charset "utf-8" :name "viewport" :content
-  "width=device-width, initial-scale=1" :description "Personal Web Application")
+                   "width=device-width, initial-scale=1" :description "Personal Web Application")
             (:title "HanshenWang.com")
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
             (:link :rel "preconnect" :href "https://fonts.gstatic.com")
@@ -85,7 +86,7 @@
                    (:p "Welcome to my personal website! This website was built
   with" (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" "<s>
   Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/"
-  :target "_blank" :rel "noreferrer""Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
+                                 :target "_blank" :rel "noreferrer""Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
                    (:p :class "codrops-demos"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
@@ -128,21 +129,10 @@
     (:h1 :id "article-history" "Blog Article Transparency Policy")
     (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /static/blog/ folder)."))))
 
-;;; for development
-(defvar *app-dev* nil)
-
-(defun stop-dev-server ()
-  (if (probe-file "/home/hanshen/project-isidore/static/index.css")
-      ;; Deletes the index.css file generated with cl-css
-      (delete-file "/home/hanshen/project-isidore/static/index.css"))
-  (if (ws:started-p *app-dev*)
-        (ws:stop *app-dev*)))
-
-(defun start-dev-server ()
-  (stop-dev-server)
+(defun generate-index-css (output-location)
   ;; Generated index.css file for index.html use
   (css:compile-css
-   "/home/hanshen/project-isidore/static/index.css"
+   output-location
    '(
      ;; CSS Reset
      ("body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td" :margin 0 :padding 0)
@@ -676,7 +666,17 @@
        :font-size" 80px"
        )
       )
-     ))
+     )))
+
+;;; for development
+(defvar *app-dev* nil)
+
+(defun stop-dev-server ()
+  (if (ws:started-p *app-dev*)
+      (ws:stop *app-dev*)))
+
+(defun start-dev-server ()
+  (generate-index-css "/home/hanshen/project-isidore/static/index.css")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler
