@@ -60,8 +60,6 @@
                    "width=device-width, initial-scale=1" :description "Personal Web Application")
             (:title "HanshenWang.com")
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
-            (:link :rel "preconnect" :href "https://fonts.gstatic.com")
-            (:link :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Source+Code+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" :rel "stylesheet")
             (:script :src "script.js"))
            (:body
             (:ul :class "cb-slideshow" ; background CSS3 slideshow
@@ -133,6 +131,19 @@
   (css:compile-css
    output-location
    '(
+     ;; Load Fonts
+     ("@font-face"
+      :font-family "Cinzel"
+      :font-style "normal"
+      :font-weight "500"
+      :src "url('/cinzel-v11-latin-500.woff2') format('woff2')"
+      )
+     ("@font-face"
+      :font-family "EB Garamond"
+      :font-style "normal"
+      :font-weight "500"
+      :src "url('/eb-garamond-v15-latin-500.woff2') format('woff2')"
+      )
      ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
       :position" fixed"
@@ -339,7 +350,7 @@
       :overflow-x" hidden"
       )
      ("h1,h2"
-      :font-family" 'Lato', sans-serif"
+      :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size"100%"
       :font-weight"normal"
       )
@@ -381,7 +392,7 @@
       :border-radius" 9999px"
       )
      (".container > header h1"
-      :font-family" 'Lato', sans-serif"
+      :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 35px"
       :line-height" 35px"
       :position" relative"
@@ -391,14 +402,14 @@
       :padding" 0px 0px 5px 0px"
       )
      (".container > header h2"
-      :font-family" 'Lato', sans-serif"
+      :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 1.5em"
       :font-style" bold"
       :color" #f8f8f8"
       :text-shadow" 1px 1px 1px rgba(0,0,0,0.6)"
       )
      (".container > header p"
-      :font-family" 'EB Garamond', serif"
+      :font-family" 'EB Garamond', 'Times New Roman', serif"
       )
      ;; Button Style
      ("p.portfolio-button"
@@ -409,11 +420,11 @@
       :display" inline-block"
       :border" 1px solid #425de6"
       :padding" 4px 10px 3px"
-      :font-family" 'Cinzel', serif"
+      :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 13px"
       :line-height" 18px"
       :margin" 2px 3px"
-      :font-weight" 800"
+      :font-weight" 500"
       :-webkit-box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
       :-moz-box-shadow"0px 1px 1px rgba(0,0,0,0.1)"
       :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
