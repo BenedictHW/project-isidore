@@ -20,7 +20,6 @@
 ;; The double colons are to access unexported functions & symbols
 ;; single colon if it is exported. Be careful with unexported/internal symbols
 
-
 ;; Other than the landing page (aka "index.html") all other web app pages uses this boilerplate
 ;; Taken from  https://github.com/rajasegar/cl-bootstrap/blob/master/demo/demo.lisp
 (defmacro app-page ((&key title) &body body)
@@ -87,7 +86,7 @@
   with" (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" "<s>
   Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/"
                                  :target "_blank" :rel "noreferrer""Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for, and may the wind be always at your back.")
-                   (:p :class "codrops-demos"
+                   (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
                        (:a :href "/blog/archive.html" "Blog")
@@ -134,227 +133,7 @@
   (css:compile-css
    output-location
    '(
-     ;; CSS Reset
-     ("body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td" :margin 0 :padding 0)
-     ("html,body"
-      :margin"0"
-      :padding"0"
-      )
-     ("table"
-      :border-collapse"collapse"
-      :border-spacing"0"
-      )
-     ("fieldset,img"
-      :border"0"
-      )
-     ("input"
-      :border"1px solid #b0b0b0"
-      :padding"3px 5px 4px"
-      :color"#979797"
-      :width"190px"
-      )
-     ("address,caption,cite,code,dfn,th,var"
-      :font-style"normal"
-      :font-weight"normal"
-      )
-     ("ol,ul"
-      :list-style"none"
-      )
-     ("caption,th"
-      :text-align"left"
-      )
-     ("h1,h2,h3,h4,h5,h6"
-      :font-family" 'Lato', sans-serif"
-      :font-size"100%"
-      :font-weight"normal"
-      )
-     ("q:before,q:after"
-      :content"''"
-      )
-     ("abbr,acronym"
-      :border"0"
-      )
-     ;; General Demo Style
-
-     ("body"
-      :background" #000"
-      :font-weight" 400"
-      :font-size" 15px"
-      :color" #fff"
-      :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
-      :overflow-y" scroll"
-      :overflow-x" hidden"
-      )
-     (".ie7 body"
-      :overflow"hidden"
-      )
-     ("a"
-      :color" #00d9ff"
-      :text-decoration" none"
-      )
-     (".container"
-      :position" relative"
-      :text-align" center"
-      )
-     (".clr"
-      :clear" both"
-      )
-     (".container > header"
-      :position" absolute"
-      :left" 0"
-      :right" 0"
-      :top" 5rem"
-      :margin" auto"
-      :max-width" 30rem"
-      :padding" 3rem 3rem"
-      :background-color" rgba(0, 0, 0, 0.3)"
-      :border-radius" 80px"
-      :box-shadow" 0 0 30px 20px rgba(0,0,0,0.3)"
-      :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
-      :display" block"
-      :text-align" center"
-      )
-     (".portfolio-container"
-      :display"flex"
-      :flex-direction"row"
-      )
-     (".portfolio-section"
-      :flex" 50%"
-      )
-     (".container > header img"
-      :width" 150px"
-      :height" 150px"
-      :margin" 0rem auto"
-      :border-radius" 9999px"
-      )
-     (".container > header h1"
-      :font-family" 'Lato', sans-serif"
-      :font-size" 35px"
-      :line-height" 35px"
-      :position" relative"
-      :font-weight" 400"
-      :color" #fff"
-      :text-shadow" 1px 1px 1px rgba(0,0,0,0.3)"
-      :padding" 0px 0px 5px 0px"
-      )
-     (".container > header h1 span"
-
-      )
-     (".container > header h2, p.info"
-      :font-family" 'Lato', sans-serif"
-      :font-size" 1.5em"
-      :font-style" bold"
-      :color" #f8f8f8"
-      :text-shadow" 1px 1px 1px rgba(0,0,0,0.6)"
-      )
-     (".container > header p"
-      :font-family" 'EB Garamond', serif"
-      )
-     ;; Header Style
-     (".codrops-top"
-      :font-family" Arial, sans-serif"
-      :line-height" 24px"
-      :font-size" 11px"
-      :width" 100%"
-      :background" #000"
-      :opacity" 0.9"
-      :text-transform" uppercase"
-      :z-index" 9999"
-      :position" relative"
-      :-moz-box-shadow" 1px 0px 2px #000"
-      :-webkit-box-shadow" 1px 0px 2px #000"
-      :box-shadow" 1px 0px 2px #000"
-      )
-     (".codrops-top a"
-      :padding" 0px 10px"
-      :letter-spacing" 1px"
-      :color" #ddd"
-      :display" block"
-      :float" left"
-      )
-     (".codrops-top a:hover"
-      :color" #fff"
-      )
-     (".codrops-top span.right"
-      :float" right"
-      )
-     (".codrops-top span.right a"
-      :float" none"
-      :display" inline"
-      )
-
-     ("p.codrops-demos"
-      :display" block"
-      :padding" 15px 0px"
-      )
-     ( "p.codrops-demos a,p.codrops-demos a.current-demo,p.codrops-demos a.current-demo:hover"
-      :display" inline-block"
-      :border" 1px solid #425de6"
-      :padding" 4px 10px 3px"
-      :font-family" 'Cinzel', serif"
-      :font-size" 13px"
-      :line-height" 18px"
-      :margin" 2px 3px"
-      :font-weight" 800"
-      :-webkit-box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
-      :-moz-box-shadow"0px 1px 1px rgba(0,0,0,0.1)"
-      :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
-      :color"#fff"
-      :-webkit-border-radius" 5px"
-      :-moz-border-radius" 5px"
-      :border-radius" 5px"
-      :background" #6295e3"
-      :background" -moz-linear-gradient(top, #6295e3 0%, #6286e3 44%, #425de6 100%)"
-      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6295e3), color-stop(44%,#6286e3), color-stop(100%,#425de6))"
-      :background" -webkit-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" -o-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" -ms-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      )
-     ("p.codrops-demos a:hover"
-      :background" #425de6"
-      )
-     ("p.codrops-demos a:active"
-      :background" #425de6"
-      :background" -moz-linear-gradient(top, #425de6 0%, #6286e3 56%, #6295e3 100%)"
-      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#425de6), color-stop(56%,#6286e3), color-stop(100%,#6295e3))"
-      :background" -webkit-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" -o-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" -ms-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :-webkit-box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
-      :-moz-box-shadow"0px 1px 1px rgba(255,255,255,0.9)"
-      :box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
-      )
-     ("p.codrops-demos a.current-demo,p.codrops-demos a.current-demo:hover"
-      :color" #A5727D"
-      :background" #425de6"
-      )
-     ;; Media Queries
-     ("@media screen and (max-width: 767px)"
-      (".container > header"
-       :text-align" center"
-       )
-      ("p.codrops-demos"
-       :position" relative"
-       :top" auto"
-       :left" auto"
-       )
-      (".portfolio-container"
-       :flex-direction" column"
-       )
-      )
-
-     ("span"
-      :border-right" .05em solid"
-      :animation" caret 1s steps(1) infinite"
-      )
-
-     ("@keyframes caret"
-      ("50%"
-       :border-color" transparent"
-       )
-      )
+     ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
       :position" fixed"
       :width" 100%"
@@ -384,27 +163,6 @@
       :-o-animation" imageAnimation 36s linear infinite 0s"
       :-ms-animation" imageAnimation 36s linear infinite 0s"
       :animation" imageAnimation 36s linear infinite 0s"
-      )
-     (".cb-slideshow li div"
-      :z-index" 1000"
-      :position" absolute"
-      :bottom" 30px"
-      :left" 0px"
-      :width" 100%"
-      :text-align" center"
-      :opacity" 0"
-      :color" #fff"
-      :-webkit-animation" titleAnimation 36s linear infinite 0s"
-      :-moz-animation" titleAnimation 36s linear infinite 0s"
-      :-o-animation" titleAnimation 36s linear infinite 0s"
-      :-ms-animation" titleAnimation 36s linear infinite 0s"
-      :animation" titleAnimation 36s linear infinite 0s"
-      )
-     (".cb-slideshow li div h3"
-      :font-family" 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif"
-      :font-size" 240px"
-      :padding" 0"
-      :line-height" 200px"
       )
      (".cb-slideshow li:nth-child(1) span"
       :background-image "url(pic1.webp)"
@@ -565,105 +323,139 @@
       ("100%"
        :opacity" 0")
       )
-     ;; Animation for the title
-
-     ("@-webkit-keyframes titleAnimation "
-      ("0%"
-       :opacity" 0"
-       )
-      ("8%"
-       :opacity" 1"
-       )
-      ("17%"
-       :opacity" 1"
-       )
-      ("19%"
-       :opacity" 0"
-       )
-      ("100%"
-       :opacity" 0"
-       )
-      )
-     ("@-moz-keyframes titleAnimation "
-      ("0%"
-       :opacity" 0"
-       )
-      ("8%"
-       :opacity" 1"
-       )
-      ("17%"
-       :opacity" 1"
-       )
-      ("19%"
-       :opacity" 0"
-       )
-      ("100%"
-       :opacity" 0"
-       )
-      )
-     ("@-o-keyframes titleAnimation "
-      ("0%"
-       :opacity" 0"
-       )
-      ("8%"
-       :opacity" 1"
-       )
-      ("17%"
-       :opacity" 1"
-       )
-      ("19%"
-       :opacity" 0"
-       )
-      ("100%"
-       :opacity" 0"
-       )
-      )
-     ("@-ms-keyframes titleAnimation "
-      ("0%"
-       :opacity" 0"
-       )
-      ("8%"
-       :opacity" 1"
-       )
-      ("17%"
-       :opacity" 1"
-       )
-      ("19%"
-       :opacity" 0"
-       )
-      ("100%"
-       :opacity" 0"
-       )
-      )
-     ("@keyframes titleAnimation "
-      ("0%"
-       :opacity" 0"
-       )
-      ("8%"
-       :opacity" 1"
-       )
-      ("17%"
-       :opacity" 1"
-       )
-      ("19%"
-       :opacity" 0"
-       )
-      ("100%"
-       :opacity" 0"
-       )
-      )
      ;; Show at least something when animations not supported
      (".no-cssanimations .cb-slideshow li span"
       :opacity" 1"
       )
-     ("@media screen and (max-width: 1140px)"
-      (".cb-slideshow li div h3"
-       :font-size" 140px"
-       )
+     ;; General Demo Style
+     ("html,body,div,dl,dt,dd,ul,ol,li,h1,h2,pre,form,fieldset,input,textarea,p,blockquote,th,td" :margin 0 :padding 0)
+     ("body"
+      :background" #000"
+      :font-weight" 400"
+      :font-size" 15px"
+      :color" #fff"
+      :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
+      :overflow-y" scroll"
+      :overflow-x" hidden"
       )
-     ("@media screen and (max-width: 600px)"
-      (".cb-slideshow li div h3"
-       :font-size" 80px"
+     ("h1,h2"
+      :font-family" 'Lato', sans-serif"
+      :font-size"100%"
+      :font-weight"normal"
+      )
+     ("a"
+      :color" #00d9ff"
+      :text-decoration" none"
+      )
+     ;; Black intro panel
+     (".container"
+      :position" relative"
+      :text-align" center"
+      )
+     (".container > header"
+      :position" absolute"
+      :left" 0"
+      :right" 0"
+      :top" 5rem"
+      :margin" auto"
+      :max-width" 30rem"
+      :padding" 3rem 3rem"
+      :background-color" rgba(0, 0, 0, 0.3)"
+      :border-radius" 80px"
+      :box-shadow" 0 0 30px 20px rgba(0,0,0,0.3)"
+      :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
+      :display" block"
+      :text-align" center"
+      )
+     (".portfolio-container"
+      :display"flex"
+      :flex-direction"row"
+      )
+     (".portfolio-section"
+      :flex" 50%"
+      )
+     (".container > header img"
+      :width" 150px"
+      :height" 150px"
+      :margin" 0rem auto"
+      :border-radius" 9999px"
+      )
+     (".container > header h1"
+      :font-family" 'Lato', sans-serif"
+      :font-size" 35px"
+      :line-height" 35px"
+      :position" relative"
+      :font-weight" 400"
+      :color" #fff"
+      :text-shadow" 1px 1px 1px rgba(0,0,0,0.3)"
+      :padding" 0px 0px 5px 0px"
+      )
+     (".container > header h2"
+      :font-family" 'Lato', sans-serif"
+      :font-size" 1.5em"
+      :font-style" bold"
+      :color" #f8f8f8"
+      :text-shadow" 1px 1px 1px rgba(0,0,0,0.6)"
+      )
+     (".container > header p"
+      :font-family" 'EB Garamond', serif"
+      )
+     ;; Button Style
+     ("p.portfolio-button"
+      :display" block"
+      :padding" 15px 0px"
+      )
+     ( "p.portfolio-button a"
+      :display" inline-block"
+      :border" 1px solid #425de6"
+      :padding" 4px 10px 3px"
+      :font-family" 'Cinzel', serif"
+      :font-size" 13px"
+      :line-height" 18px"
+      :margin" 2px 3px"
+      :font-weight" 800"
+      :-webkit-box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
+      :-moz-box-shadow"0px 1px 1px rgba(0,0,0,0.1)"
+      :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
+      :color"#fff"
+      :-webkit-border-radius" 5px"
+      :-moz-border-radius" 5px"
+      :border-radius" 5px"
+      :background" #6295e3"
+      :background" -moz-linear-gradient(top, #6295e3 0%, #6286e3 44%, #425de6 100%)"
+      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6295e3), color-stop(44%,#6286e3), color-stop(100%,#425de6))"
+      :background" -webkit-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
+      :background" -o-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
+      :background" -ms-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
+      :background" linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
+      )
+     ("p.portfolio-button a:hover"
+      :background" #425de6"
+      )
+     ("p.portfolio-button a:active"
+      :background" #425de6"
+      :background" -moz-linear-gradient(top, #425de6 0%, #6286e3 56%, #6295e3 100%)"
+      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#425de6), color-stop(56%,#6286e3), color-stop(100%,#6295e3))"
+      :background" -webkit-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
+      :background" -o-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
+      :background" -ms-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
+      :background" linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
+      :-webkit-box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
+      :-moz-box-shadow"0px 1px 1px rgba(255,255,255,0.9)"
+      :box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
+      )
+     ;; Media Queries
+     ("@media screen and (max-width: 767px)"
+      (".container > header"
+       :text-align" center"
+       )
+      ("p.portfolio-button"
+       :position" relative"
+       :top" auto"
+       :left" auto"
+       )
+      (".portfolio-container"
+       :flex-direction" column"
        )
       )
      )))
