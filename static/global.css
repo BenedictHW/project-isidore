@@ -1,4 +1,5 @@
 /* Import Fonts */
+@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; src: url('/cinzel-v11-latin-regular.woff2') format('woff2'); }
 @font-face { font-family: Cinzel; font-style: normal; font-weight: 500; src: url('/cinzel-v11-latin-500.woff2') format('woff2'); }
 @font-face { font-family: Cinzel; font-style: normal; font-weight: 600; src: url('/cinzel-v11-latin-600.woff2') format('woff2'); }
 @font-face { font-family: EB Garamond; font-style: normal; font-weight: 400; src: url('/eb-garamond-v15-latin-regular.woff2') format('woff2'); }
@@ -11,7 +12,7 @@
 @font-face { font-family: EB Garamond; font-style: italic; font-weight: 700; src: url('/eb-garamond-v15-latin-700italic.woff2') format('woff2'); }
 /* Navbar CSS */
 .header-fixed {
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     z-index: 1;
@@ -35,8 +36,9 @@
 .navbar .logo a {
     display: block;
     margin-left: 10%;
-    font-size: 30px;
+    font-size: 22px;
     font-family: 'Cinzel';
+    font-weight: 500;
     color: #000;
     text-decoration: none;
 }
@@ -167,6 +169,7 @@
         display: block;
         padding: 0 8px;
         font-size: 16px;
+        font-weight: 400;
         font-family: 'Cinzel';
         line-height: 60px;
         color: #000;
