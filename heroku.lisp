@@ -5,6 +5,7 @@
 ;; Takes a PORT parameter as Heroku assigns a different PORT per environment
 (defun initialize-application (&key port)
   (project-isidore:generate-index-css "/app/static/index.css")
+  (project-isidore:generate-global-css "/app/static/global.css")
   (setf hunchentoot:*dispatch-table*
         ;; for an explanation of ` and , and '. see https://stackoverflow.com/questions/60378335/quote-comma-in-common-lisp
         `(hunchentoot:dispatch-easy-handlers
