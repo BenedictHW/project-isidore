@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-05-25 Tue 03:19 -->
+<!-- 2021-09-11 Sat 15:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Installation of Spacemacs on Windows 10 via WSL2</title>
+<title>Spacemacs on Windows 10 via WSL2</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="Site Admin">
+<meta name="author" content="Site Admin.">
 
-                      <link rel="stylesheet" type="text/css" href="../global.css"/>
-                      <link rel="preconnect" href="https://fonts.gstatic.com">
-                      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&family=Source+Code+Pro:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet">
                       <link rel="stylesheet" type="text/css" href="../global.css"/>
                       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/googlecode.min.css" />
                       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
@@ -78,15 +75,15 @@
                           </nav>
                         </div>
                       </div>
-                      <h1 class="title">Installation of Spacemacs on Windows 10 via WSL2</h1>
-                      <p class="subtitle">A step by step tutorial with context</p> <br/>
-                      <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-05-25 Tue 03:18</p>
+                      <h1 class="title">Spacemacs on Windows 10 via WSL2</h1>
+                      <p class="subtitle">A step by step installation tutorial with context</p> <br/>
+                      <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-09-11 Sat 15:30</p>
 </div>
 <div id="content">
-<div class="abstract" id="org21a84c3">
+<div class="abstract" id="orgaf1db84">
 <p>
-Take advantage of the unparalleled, customized, text editing capabilities of
-Emacs from within Windows OS.
+Take advantage of the unparalleled, extensible, and powerful text editing
+capabilities of GNU Emacs from within Windows OS.
 </p>
 
 </div>
@@ -97,38 +94,35 @@ Emacs from within Windows OS.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#Introduction">1. Introduction&#xa0;&#xa0;&#xa0;<span class="tag"><span class="computing">computing</span></span></a>
+<li><a href="#Introduction">1. Introduction</a></li>
+<li><a href="#Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">2. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
+<li><a href="#Install-X-Server">3. Install X Server</a></li>
+<li><a href="#Install-Spacemacs">4. Install Spacemacs</a>
 <ul>
-<li><a href="#org3e9fd65">1.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
-<li><a href="#Install-X-Server">1.2. Install X Server</a></li>
-<li><a href="#Install-Spacemacs">1.3. Install Spacemacs</a>
-<ul>
-<li><a href="#Fixing-the-Font">1.3.1. Fixing the Font</a></li>
+<li><a href="#Fixing-the-Font">4.1. Fixing the Font</a></li>
 </ul>
 </li>
-<li><a href="#How-WSL-Ubuntu-files-are-treated-by-Windows">1.4. How WSL (Ubuntu) files are treated by Windows</a>
+<li><a href="#How-WSL-Ubuntu-files-are-treated-by-Windows">5. How WSL (Ubuntu) files are treated by Windows</a>
 <ul>
-<li><a href="#Further-Reading">1.4.1. Further Reading</a></li>
-<li><a href="#Symlink-to-your-Windows-folders">1.4.2. Symlink to your Windows folders</a></li>
+<li><a href="#Further-Reading">5.1. Further Reading</a></li>
+<li><a href="#Symlink-to-your-Windows-folders">5.2. Symlink to your Windows folders</a></li>
 </ul>
 </li>
-<li><a href="#Getting-Comfortable-with-Spacemacs">1.5. Getting Comfortable with Spacemacs</a>
+<li><a href="#Getting-Comfortable-with-Spacemacs">6. Getting Comfortable with Spacemacs</a>
 <ul>
-<li><a href="#Prerequisite-familiarity-with-basic-vim-operations">1.5.1. Prerequisite: familiarity with basic vim operations</a></li>
-<li><a href="#Watch-and-Learn">1.5.2. Watch and Learn</a></li>
-<li><a href="#Do-and-Explore">1.5.3. Do and Explore</a></li>
-<li><a href="#Customize">1.5.4. Customize</a></li>
+<li><a href="#Prerequisite-familiarity-with-basic-vim-operations">6.1. Prerequisite: familiarity with basic vim operations</a></li>
+<li><a href="#Watch-and-Learn">6.2. Watch and Learn</a></li>
+<li><a href="#Do-and-Explore">6.3. Do and Explore</a></li>
+<li><a href="#Customize">6.4. Customize</a></li>
 </ul>
 </li>
-<li><a href="#Conclusion">1.6. Conclusion</a></li>
-<li><a href="#Sources-and-Credits">1.7. Sources and Credits</a></li>
-</ul>
-</li>
+<li><a href="#Conclusion">7. Conclusion</a></li>
+<li><a href="#Sources-and-Credits">8. Sources and Credits</a></li>
 </ul>
 </div>
 </nav>
 <div id="outline-container-Introduction" class="outline-2">
-<h2 id="Introduction"><span class="section-number-2">1.</span> Introduction&#xa0;&#xa0;&#xa0;<span class="tag"><span class="computing">computing</span></span></h2>
+<h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
 Is it possible to judge whether or not a piece of music is objectively good,
@@ -146,8 +140,9 @@ something useful!
 </p>
 
 <ol class="org-ol">
-<li>Prerequisites</li>
-</ol>
+<li><p>
+Prerequisites
+</p>
 
 <p>
 Check that you meet the requirements for running WSL2. "Win + r", type in
@@ -166,17 +161,14 @@ Compare your Windows version with the below
 <ul class="org-ul">
 <li>For x64 systems: Version 1903 or higher, with Build 18362 or higher.</li>
 <li>For ARM64 systems: Version 2004 or higher, with Build 19041 or higher.</li>
-</ul>
+</ul></li>
+</ol>
+</div>
 </div>
 
-<div id="outline-container-org3e9fd65" class="outline-3">
-<h3 id="org3e9fd65"><span class="section-number-3">1.1.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h3>
-<div class="outline-text-3" id="text-1-1">
-<p>
-:CUSTOM<sub>ID</sub>:
-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution
-</p>
-
+<div id="outline-container-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution" class="outline-2">
+<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
+<div class="outline-text-2" id="text-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">
 <p>
 I feel obliged to point out that there exist multiple popular ways of
 installing Emacs on a Windows machine. You may compile Emacs source code and
@@ -223,8 +215,9 @@ now you have to download and run the Linux kernel update package from Microsoft.
 
 <ul class="org-ul">
 <li><a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi</a></li>
-<li><a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi</a></li>
-</ul>
+<li><p>
+<a href="https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi">https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_arm64.msi</a>
+</p>
 
 <p>
 Last but not least, set WSL 2 as the default version when you install a new
@@ -247,21 +240,24 @@ Now you can go to the window store and download your preferred Linux distributio
 <ul class="org-ul">
 <li>Ubuntu (This one updates to the latest long term support version)</li>
 <li>Ubuntu 20.04 (Stays on 20.04 LTS)</li>
-<li>Ubuntu 18.04 (Stays on 18.04 LTS)</li>
-</ul>
+<li><p>
+Ubuntu 18.04 (Stays on 18.04 LTS)
+</p>
 
 <p>
 <a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">If for some reason you are unable to download applications from the Windows
 store, you can install the distribution through manual methods.</a> After
 installing through the window store, launching the Ubuntu will ask you for a
 username and password for your superuser account.
-</p>
+</p></li>
+</ul></li>
+</ul>
 </div>
 </div>
 
-<div id="outline-container-Install-X-Server" class="outline-3">
-<h3 id="Install-X-Server"><span class="section-number-3">1.2.</span> Install X Server</h3>
-<div class="outline-text-3" id="text-Install-X-Server">
+<div id="outline-container-Install-X-Server" class="outline-2">
+<h2 id="Install-X-Server"><span class="section-number-2">3.</span> Install X Server</h2>
+<div class="outline-text-2" id="text-Install-X-Server">
 <p>
 This is the software that allows Linux to display GUI elements. You have
 many options here:
@@ -275,12 +271,22 @@ many options here:
 
 <p>
 I have chosen Vcxsrv. Simple installation and configuration.
-<a href="https://sourceforge.net/projects/vcxsrv/">Download and run the sourceforge
-installer and you can launch the program by the "Xlaunch" shortcut.</a> No
+Download and run the sourceforge
+installer and you can launch the program by the "Xlaunch" shortcut.]] No
 need to change any of the settings. Click next until the end and you should
 see a system tray icon. Feel free to add the "X Launch" shortcut to your
 Windows (Win + R) folder.
 </p>
+
+<p>
+After installation, create a new desktop shortcut and use the following
+command. Add the following command in the properties → shortcut →target
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-string">"C:\Program Files\VcXsrv\vcxsrv.exe"</span> :0 -ac -terminate -lesspointer -multiwindow -clipboard -wgl -dpi auto
+</pre>
+</div>
 
 <p>
 The last step before launching is to configure your X Server correctly. In
@@ -299,9 +305,9 @@ The reason for the above is because the internal IP address of the WSL (2) serve
 </div>
 </div>
 
-<div id="outline-container-Install-Spacemacs" class="outline-3">
-<h3 id="Install-Spacemacs"><span class="section-number-3">1.3.</span> Install Spacemacs</h3>
-<div class="outline-text-3" id="text-Install-Spacemacs">
+<div id="outline-container-Install-Spacemacs" class="outline-2">
+<h2 id="Install-Spacemacs"><span class="section-number-2">4.</span> Install Spacemacs</h2>
+<div class="outline-text-2" id="text-Install-Spacemacs">
 <p>
 Spacemacs is a preset configuration of Emacs, so we must first make sure
 Emacs is installed properly. The default Emacs build that comes with Ubuntu
@@ -349,9 +355,9 @@ download is completed, you will have successfully installed spacemacs.
 </p>
 </div>
 
-<div id="outline-container-Fixing-the-Font" class="outline-4">
-<h4 id="Fixing-the-Font"><span class="section-number-4">1.3.1.</span> Fixing the Font</h4>
-<div class="outline-text-4" id="text-Fixing-the-Font">
+<div id="outline-container-Fixing-the-Font" class="outline-3">
+<h3 id="Fixing-the-Font"><span class="section-number-3">4.1.</span> Fixing the Font</h3>
+<div class="outline-text-3" id="text-Fixing-the-Font">
 <p>
 If you get a message informing you that "adobe source code pro" cannot be
 found, you can install it with the following WSL bash commands<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>,
@@ -376,9 +382,9 @@ rm -rf source-code-pro<span class="org-rainbow-delimiters-depth-1">{</span>,.zip
 </div>
 </div>
 
-<div id="outline-container-How-WSL-Ubuntu-files-are-treated-by-Windows" class="outline-3">
-<h3 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-3">1.4.</span> How WSL (Ubuntu) files are treated by Windows</h3>
-<div class="outline-text-3" id="text-How-WSL-Ubuntu-files-are-treated-by-Windows">
+<div id="outline-container-How-WSL-Ubuntu-files-are-treated-by-Windows" class="outline-2">
+<h2 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-2">5.</span> How WSL (Ubuntu) files are treated by Windows</h2>
+<div class="outline-text-2" id="text-How-WSL-Ubuntu-files-are-treated-by-Windows">
 <p>
 <b>DO NOT</b> access the WSL linux files under @appdata/canonical etc. in the
 Windows explorer. According to the WSL developers, this is due to
@@ -400,9 +406,9 @@ To access your linux files, in your WSL bash terminal enter in
 </ol>
 </div>
 
-<div id="outline-container-Further-Reading" class="outline-4">
-<h4 id="Further-Reading"><span class="section-number-4">1.4.1.</span> Further Reading</h4>
-<div class="outline-text-4" id="text-Further-Reading">
+<div id="outline-container-Further-Reading" class="outline-3">
+<h3 id="Further-Reading"><span class="section-number-3">5.1.</span> Further Reading</h3>
+<div class="outline-text-3" id="text-Further-Reading">
 <ul class="org-ul">
 <li><a href="https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/">What's new for WSL in Windows 10 version 1903? | Windows Command Line</a></li>
 <li><a href="https://devblogs.microsoft.com/commandline/a-deep-dive-into-how-wsl-allows-windows-to-access-linux-files/">A Deep Dive Into How WSL Allows Windows to Access Linux Files | Windows
@@ -415,9 +421,9 @@ Line</a></li>
 </div>
 </div>
 
-<div id="outline-container-Symlink-to-your-Windows-folders" class="outline-4">
-<h4 id="Symlink-to-your-Windows-folders"><span class="section-number-4">1.4.2.</span> Symlink to your Windows folders</h4>
-<div class="outline-text-4" id="text-Symlink-to-your-Windows-folders">
+<div id="outline-container-Symlink-to-your-Windows-folders" class="outline-3">
+<h3 id="Symlink-to-your-Windows-folders"><span class="section-number-3">5.2.</span> Symlink to your Windows folders</h3>
+<div class="outline-text-3" id="text-Symlink-to-your-Windows-folders">
 <p>
 Author has created symbolic links to make filesystem navigation more
 simple. Without symbolic links, your Windows files are accessible through
@@ -436,9 +442,9 @@ ln -s /mnt/c/Users/Hanshen/Videos/ ~/
 </div>
 </div>
 
-<div id="outline-container-Getting-Comfortable-with-Spacemacs" class="outline-3">
-<h3 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-3">1.5.</span> Getting Comfortable with Spacemacs</h3>
-<div class="outline-text-3" id="text-Getting-Comfortable-with-Spacemacs">
+<div id="outline-container-Getting-Comfortable-with-Spacemacs" class="outline-2">
+<h2 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-2">6.</span> Getting Comfortable with Spacemacs</h2>
+<div class="outline-text-2" id="text-Getting-Comfortable-with-Spacemacs">
 <p>
 A couple of first steps to get yourself grounded. Makre sure you take
 caution to avoid the dreaded Emacs pinkie. Repetitive strain injury and
@@ -453,18 +459,20 @@ benefits spill over to applications outside of Emacs as well. To do so:
 <li>swap left ctrl and left alt.</li>
 <li>swap left alt (physically the left ctrl key) with the Windows key. This
 will retain comfortable alt-tabbing.</li>
-<li>swap esc with caps lock.</li>
-</ol>
+<li><p>
+swap esc with caps lock.
+</p>
 
 <p>
 Emacs is designed to be keyboard driven, although scrolling and mouse
 support works out of the box. Now let's get started.
-</p>
+</p></li>
+</ol>
 </div>
 
-<div id="outline-container-Prerequisite-familiarity-with-basic-vim-operations" class="outline-4">
-<h4 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-4">1.5.1.</span> Prerequisite: familiarity with basic vim operations</h4>
-<div class="outline-text-4" id="text-Prerequisite-familiarity-with-basic-vim-operations">
+<div id="outline-container-Prerequisite-familiarity-with-basic-vim-operations" class="outline-3">
+<h3 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-3">6.1.</span> Prerequisite: familiarity with basic vim operations</h3>
+<div class="outline-text-3" id="text-Prerequisite-familiarity-with-basic-vim-operations">
 <p>
 If are new or want a brushup, access the built in tutorial via "SPC h T v"
 in spacemacs ("SPC h T e" for the emacs version). If you pause after
@@ -482,9 +490,9 @@ more interactive vim tutorials are easily found online.
 </div>
 </div>
 
-<div id="outline-container-Watch-and-Learn" class="outline-4">
-<h4 id="Watch-and-Learn"><span class="section-number-4">1.5.2.</span> Watch and Learn</h4>
-<div class="outline-text-4" id="text-Watch-and-Learn">
+<div id="outline-container-Watch-and-Learn" class="outline-3">
+<h3 id="Watch-and-Learn"><span class="section-number-3">6.2.</span> Watch and Learn</h3>
+<div class="outline-text-3" id="text-Watch-and-Learn">
 <p>
 In terms of time efficiency, depth of content covered, and ease of
 understanding, nothing
@@ -505,9 +513,9 @@ information is the placement of custom user layers and snippets in the
 </div>
 </div>
 
-<div id="outline-container-Do-and-Explore" class="outline-4">
-<h4 id="Do-and-Explore"><span class="section-number-4">1.5.3.</span> Do and Explore</h4>
-<div class="outline-text-4" id="text-Do-and-Explore">
+<div id="outline-container-Do-and-Explore" class="outline-3">
+<h3 id="Do-and-Explore"><span class="section-number-3">6.3.</span> Do and Explore</h3>
+<div class="outline-text-3" id="text-Do-and-Explore">
 <p>
 Spacemacs places it's help commands under "SPC h", so give those a try. A
 hint for new users, "SPC h d", opens up a plethora of information. I'm am
@@ -526,9 +534,9 @@ is also accessible here (or in Emacs, "SPC h r").</a>
 </div>
 </div>
 
-<div id="outline-container-Customize" class="outline-4">
-<h4 id="Customize"><span class="section-number-4">1.5.4.</span> Customize</h4>
-<div class="outline-text-4" id="text-Customize">
+<div id="outline-container-Customize" class="outline-3">
+<h3 id="Customize"><span class="section-number-3">6.4.</span> Customize</h3>
+<div class="outline-text-3" id="text-Customize">
 <p>
 Lastly here is a step by step example to install
 <a href="https://github.com/Wilfred/helpful">the "helpful" package.</a> This is just
@@ -559,9 +567,7 @@ fact, that README contains all the information we need for all three use
 cases above. Quoted below:
 </p>
 
-<p>
-#+BEGIN<sub>quote</sub>
-</p>
+<blockquote>
 <ol class="org-ol">
 <li>For a local package:
 
@@ -605,11 +611,10 @@ For a package hosted on github the recipe for github packages can be used i.e. a
 
 <p>
 to the list \`dotspacemacs-additional-packages\` in your dotspacemacs
+file.
 </p></li>
 </ol>
-<p>
-file. #+End<sub>quote</sub>
-</p>
+</blockquote>
 
 <p>
 There is no substitute for reading the documentation of the package. Or the
@@ -652,12 +657,12 @@ variable. Save, "SPC f s" and reload "SPC f e R".
 </div>
 </div>
 
-<div id="outline-container-Conclusion" class="outline-3">
-<h3 id="Conclusion"><span class="section-number-3">1.6.</span> Conclusion</h3>
-<div class="outline-text-3" id="text-Conclusion">
+<div id="outline-container-Conclusion" class="outline-2">
+<h2 id="Conclusion"><span class="section-number-2">7.</span> Conclusion</h2>
+<div class="outline-text-2" id="text-Conclusion">
 <p>
 So there you have it. The universality and power of vim's modal editing
-combined with the endless flexibility of a lisp interpreter. Made "modern"
+combined with the endless flexibility of the emacs lisp interpreter. Made "modern"
 and accessible thanks to the blood, sweat, tears and smarts of open-source
 contributors. Where to go from here?
 </p>
@@ -682,9 +687,10 @@ Blog Rants: Emergency Elisp</a></li>
 version of Jupyter notebooks</a> once you get familiar with Emacs. In
 particular, this is thanks to
 <a href="https://rgoswami.me/posts/jupyter-orgmode/">the org-babel package.</a></li>
-<li>Fear of missing out on the freshest news in the Emacs sphere?
-<a href="https://sachachua.com/blog/emacs/">Sacha Chua has got you covered.</a></li>
-</ul>
+<li><p>
+Fear of missing out on the freshest news in the Emacs sphere?
+<a href="https://sachachua.com/blog/emacs/">Sacha Chua has got you covered.</a>
+</p>
 
 <p>
 Once you get comfortable enough, you may even want to remove spacemacs and
@@ -692,18 +698,18 @@ roll your own custom configuration. There is, however, no rush at all. My
 thoughts on future blog posts include a showcase of three org-mode packages
 which are particularly dear to my heart: org-brain, org-agenda, and
 org-babel. I hope this tutorial has helped you, and have a wonderful day.
-</p>
+</p></li>
+</ul>
 </div>
 </div>
 
-<div id="outline-container-Sources-and-Credits" class="outline-3">
-<h3 id="Sources-and-Credits"><span class="section-number-3">1.7.</span> Sources and Credits</h3>
-<div class="outline-text-3" id="text-Sources-and-Credits">
+<div id="outline-container-Sources-and-Credits" class="outline-2">
+<h2 id="Sources-and-Credits"><span class="section-number-2">8.</span> Sources and Credits</h2>
+<div class="outline-text-2" id="text-Sources-and-Credits">
 <ul class="org-ul">
 <li><a href="http://mdr78.github.io/2019/07/01/windows-spacemacs-install.html">The definitive guide to installing Spacemacs on Windows</a></li>
 <li><a href="https://github.com/hubisan/emacs-wsl">GitHub - hubisan/emacs-wsl: Install and run Emacs with the Windows Subsystem &#x2026;</a></li>
 </ul>
-</div>
 </div>
 </div>
 <div id="footnotes">
