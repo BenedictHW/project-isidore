@@ -1,20 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
-     $sans: Helvetica, sans-serif;
-     $serif: Georgia, serif;
-     $monospace: Lucida Console, monospace;
-     $code-size: 80%;
-     $smaller: 90%;
-     $max-width: 710px;
 
      /* Navbar CSS */
      .header-fixed {
-         position: fixed;
+         position: absolute;
+         left: 0;
          top: 0;
          z-index: 1;
          width: 100%;
          margin: 0;
-         background-color: rgba(21, 21, 21, 1);
-         box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.1);
+         background-color: #FDF6E3;
      }
 
      .navbar {
@@ -60,19 +54,16 @@
        font-style: normal;
        font-weight: normal;
      }
-     .navbar label i:before,
-     .navbar label i:after {
+     .navbar label i:before, .navbar label i:after {
        content: '';
        height: 100%;
        position: absolute;
        transition: all .2s ease-out;
        width: 100%;
      }
-     .navbar label i,
-     .navbar label i:before,
-     .navbar label i:after {
+     .navbar label i, .navbar label i:before, .navbar label i:after {
        display: block;
-       background: #eee;
+       background: black;
      }
      .navbar label i:before {
        top: 5px;
@@ -90,7 +81,7 @@
        opacity: 0.99;
      }
      .header #navbar-toggle:checked ~ label {
-       background: #212121;
+       background: gray;
        border-radius: 50%;
      }
      .header #navbar-toggle:checked ~ label i {
@@ -102,8 +93,7 @@
      .header #navbar-toggle:checked ~ label i:after {
        transform: rotate(45deg);
      }
-     .header #navbar-toggle:checked ~ label:not(.steps) i:before,
-     .header #navbar-toggle:checked ~ label:not(.steps) i:after {
+     .header #navbar-toggle:checked ~ label:not(.steps) i:before, .header #navbar-toggle:checked ~ label:not(.steps) i:after {
        top: 0;
      }
 
@@ -119,7 +109,7 @@
            height: 100%;
            transition: all 0.3s ease-out;
            display: table;
-           background: #ddd;
+           background: #f5deb3;
          }
          .navbar nav ul {
            margin: 0;
@@ -139,13 +129,14 @@
            transition: all 0.3s ease-out;
          }
          .navbar nav li:hover {
-           background: #212121;
+           background: #FDF6E3;
          }
          .navbar nav li:hover a {
-           color: #fff;
+           color: brown;
            transition: all 0.3s ease-out;
          }
          .navbar nav li a {
+           font-family: 'Cinzel', 'Times New Roman', serif;
            color: #212121;
          }
      }
@@ -183,15 +174,13 @@
      }
 
      /* End of Navbar CSS */
-     html{
-       background-color: #FDF6E3;
-     }
-     body {
+     html, body {
          width: 95%;
-         margin: 2% auto;
+         margin: 8% auto;
+         background-color: #FDF6E3;
          font-size: 14px;
          line-height: 1.4em;
-         font-family: $serif;
+         font-family: 'EB Garamond', 'Times New Roman', serif;
          color: #333;
      }
 
@@ -205,6 +194,10 @@
          body {
              width: 900px;
          }
+     }
+
+     #content {
+       width: 80%;
      }
 
      ::selection {
@@ -255,7 +248,7 @@
      }
 
      .status {
-         font-size: $smaller;
+         font-size: 90%;
          margin: 2em auto;
      }
 
@@ -268,7 +261,7 @@
      }
 
      #footnotes {
-         font-size: $smaller;
+         font-size: 90%;
      }
 
      .footpara {
@@ -307,13 +300,13 @@
 
      .MathJax_Display {
          margin: 0!important;
-         width: $smaller!important;
+         width: 90%!important;
      }
 
      h1,h2,h3,h4,h5,h6 {
          color: #A5573E;
          line-height: 1em;
-         font-family: $sans;
+         font-family: 'Arial', non-serif;
      }
      /* JS Generated Anchors to Table of Contents */
      h2 a {
@@ -442,7 +435,7 @@
 
      kbd {
          background-color: #f7f7f7;
-         font-size: $code-size;
+         font-size: 80%;
          margin: 0 .1em;
          padding: .1em .6em;
      }
@@ -453,8 +446,8 @@
          padding: .1em 0.3em;
          border-radius: 3px;
          background-clip: padding-box;
-         font-size: $code-size;
-         font-family: $monospace;
+         font-size: 80%;
+         font-family: 'Courier New', monospace;
          line-height: 1;
      }
 
@@ -464,14 +457,14 @@
          padding: .1em 0.3em;
          border-radius: 3px;
          background-clip: padding-box;
-         font-size: $code-size;
-         font-family: $monospace;
+         font-size: 80%;
+         font-family: 'Courier New', monospace;
          line-height: 1;
      }
 
      .priority {
          color: orange;
-         font-family: $monospace;
+         font-family: 'Courier New', monospace;
      }
 
      /* Because tag span is set to float.  This is more like a hacking.  Maybe we
@@ -481,7 +474,7 @@
      }
 
      .tag {
-         font-family: $monospace;
+         font-family: 'Courier New', monospace;
          font-size: 0.7em;
          font-weight: normal;
      }
@@ -500,7 +493,7 @@
 
      .timestamp {
          color: #333;
-         font-size: $smaller;
+         font-size: 90%;
      }
 
      .timestamp-kwd {
@@ -530,7 +523,7 @@
      }
 
      #postamble p, #preamble p {
-         font-size: $smaller;
+         font-size: 90%;
          margin: .2em;
      }
 
@@ -543,7 +536,7 @@
      }
 
      .generated {
-       font-family: monospace;
+       font-family: 'Courier New', monospace;
        text-align: center;
      }
 
@@ -558,14 +551,14 @@
          border-radius: 3px;
          background-clip: padding-box;
          color: #333;
-         font-size: $code-size;
+         font-size: 80%;
      }
 
      .org-src-container {
          border: 1px solid #ccc;
          box-shadow: 3px 3px 3px #eee;
-         font-family: $monospace;
-         font-size: $code-size;
+         font-family: 'Courier New', monospace;
+         font-size: 80%;
          margin: 1em auto;
          padding: 0.1em 0.5em;
          position: relative;
@@ -585,7 +578,7 @@
          border-bottom-left-radius: 8px;
          border: 0;
          color: white;
-         font-size: $code-size;
+         font-size: 80%;
      }
 
      /* from http://demo.thi.ng/org-spec/ */
@@ -818,7 +811,7 @@
      }
 
      .linenr {
-         font-size: $smaller;
+         font-size: 90%;
      }
 
      .code-highlighted {
@@ -826,7 +819,7 @@
      }
 
      #bibliography {
-         font-size: $smaller;
+         font-size: 90%;
      }
 
      #bibliography table {
@@ -844,7 +837,7 @@
          }
      }
      .cryptedmail:after {
-       font-family: 'EB Garamond', serif;
+       font-family: 'EB Garamond', 'Times New Roman', serif;
        font-size:1.5rem;
        content: attr(data-name) "@" attr(data-domain) "." attr(data-tld);
 }
