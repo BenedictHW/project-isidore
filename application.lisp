@@ -9,11 +9,13 @@
   (:use #:cl)
   (:local-nicknames (#:ws #:hunchentoot) ; web server
                     (#:ht #:cl-who) ; hypertext markup generation
-                    (#:css #:cl-css))
+                    (#:css #:cl-css)
+                    (#:js #:parenscript))
   (:export #:start-dev-server
            #:stop-dev-server
            #:generate-index-css
-           #:generate-global-css))
+           #:generate-global-css
+           #:generate-index-js))
 
 ;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
 (in-package #:project-isidore)
@@ -59,7 +61,7 @@
                    "width=device-width, initial-scale=1" :description "Personal Web Application")
             (:title "HanshenWang.com")
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
-            (:script :src "script.js"))
+            (:script :src "index.js"))
            (:body
             (:ul :class "cb-slideshow" ; background CSS3 slideshow
                  (:li (:span "pic1.webp"))
@@ -126,7 +128,7 @@
     (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /static/blog/ folder)."))))
 
 (defun generate-index-css (output-location)
-  ;; Generated index.css file for index.html use
+  "Generated index.css file for index.html use"
   (css:compile-css
    output-location
    '(
@@ -470,7 +472,7 @@
       )
      )))
 (defun generate-global-css (output-location)
-  ;; Generate global.css file for site-wide use
+  "Generate global.css file for site-wide use"
   (css:compile-css
    output-location
    '(
@@ -1365,6 +1367,12 @@
       :font-size"1.5rem"
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
+(defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/static/index.js"))
+  "Generate script.js file for index.html use"
+  (ensure-directories-exist output)
+  (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
+    (format stream (js:ps-compile-file input))))
+
 
 ;;; for development
 (defvar *app-dev* nil)
@@ -1376,6 +1384,7 @@
 (defun start-dev-server ()
   (generate-index-css "/home/hanshen/project-isidore/static/index.css")
   (generate-global-css "/home/hanshen/project-isidore/static/global.css")
+  (generate-index-js :input "index.lisp" :output "/home/hanshen/project-isidore/static/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler

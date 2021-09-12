@@ -1,3 +1,4 @@
 /static/index.css
-/static/blog/rss.xml
+/static/index.js
+/static/global.css
 *.fasl

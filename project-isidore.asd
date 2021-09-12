@@ -7,6 +7,7 @@
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
-               #:cl-css)
+               #:cl-css
+               #:parenscript)
   :components ((:file "application")
                (:file "heroku")))
