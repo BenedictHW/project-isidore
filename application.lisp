@@ -137,13 +137,13 @@
       :font-family "Cinzel"
       :font-style "normal"
       :font-weight "500"
-      :src "url('/cinzel-v11-latin-500.woff2') format('woff2')"
+      :src "url('cinzel-v11-latin-500.woff2') format('woff2')"
       )
      ("@font-face"
       :font-family "EB Garamond"
       :font-style "normal"
       :font-weight "500"
-      :src "url('/eb-garamond-v15-latin-500.woff2') format('woff2')"
+      :src "url('eb-garamond-v15-latin-500.woff2') format('woff2')"
       )
      ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
@@ -482,7 +482,7 @@
       :font-family "Cinzel"
       :font-style "normal"
       :font-weight "400"
-      :src "url('/cinzel-v11-latin-regular.woff2') format('woff2')"
+      :src "url('cinzel-v11-latin-regular.woff2') format('woff2')"
       )
 
      (
@@ -490,7 +490,7 @@
       :font-family "Cinzel"
       :font-style "normal"
       :font-weight "500"
-      :src "url('/cinzel-v11-latin-500.woff2') format('woff2')"
+      :src "url('cinzel-v11-latin-500.woff2') format('woff2')"
       )
 
      (
@@ -498,7 +498,7 @@
       :font-family "Montserrat"
       :font-style "normal"
       :font-weight "400"
-      :src "url('/montserrat-v18-latin-regular.woff2') format('woff2')"
+      :src "url('montserrat-v18-latin-regular.woff2') format('woff2')"
       )
 
      (
@@ -506,7 +506,7 @@
       :font-family "Montserrat"
       :font-style "italic"
       :font-weight "400"
-      :src "url('/montserrat-v18-latin-italic.woff2') format('woff2')"
+      :src "url('montserrat-v18-latin-italic.woff2') format('woff2')"
       )
 
      (
@@ -514,7 +514,7 @@
       :font-family "EB Garamond"
       :font-style "normal"
       :font-weight "400"
-      :src "url('/eb-garamond-v15-latin-regular.woff2') format('woff2')"
+      :src "url('eb-garamond-v15-latin-regular.woff2') format('woff2')"
       )
 
      (
@@ -522,7 +522,7 @@
       :font-family "EB Garamond"
       :font-style "italic"
       :font-weight "400"
-      :src "url('/eb-garamond-v15-latin-italic.woff2') format('woff2')"
+      :src "url('eb-garamond-v15-latin-italic.woff2') format('woff2')"
       )
      ;; Navbar CSS
      (".header-fixed "
@@ -705,7 +705,7 @@
       )
      ("body "
       :width" 95%"
-      :margin" 5% auto"
+      :margin" 2% auto"
       :font-size" 14px"
       :line-height" 1.4em"
       :font-family" 'EB Garamond', 'Times New Roman', serif"
@@ -734,6 +734,7 @@
       )
 
      ("p "
+      :line-height "2em"
       :margin" 1em auto"
       )
 
@@ -1384,7 +1385,7 @@
 (defun start-dev-server ()
   (generate-index-css "/home/hanshen/project-isidore/assets/index.css")
   (generate-global-css "/home/hanshen/project-isidore/assets/global.css")
-  (generate-index-js :input "index.lisp" :output "/home/hanshen/project-isidore/assets/index.js")
+  (generate-index-js :input "/home/hanshen/project-isidore/index.lisp" :output "/home/hanshen/project-isidore/assets/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler
