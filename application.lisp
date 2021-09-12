@@ -128,23 +128,14 @@
     (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /assets/blog/ folder)."))))
 
 (defun generate-index-css (output-location)
-  "Generated index.css file for index.html use"
+  "Generated index.css file for index.html use. When using cl-css, \"~~\" is
+  needed to output a single \"~\", otherwise an error will be thrown"
   (css:compile-css
    output-location
    '(
-     ;; Load Fonts
-     ("@font-face"
-      :font-family "Cinzel"
-      :font-style "normal"
-      :font-weight "500"
-      :src "url('cinzel-v11-latin-500.woff2') format('woff2')"
-      )
-     ("@font-face"
-      :font-family "EB Garamond"
-      :font-style "normal"
-      :font-weight "500"
-      :src "url('eb-garamond-v15-latin-500.woff2') format('woff2')"
-      )
+     ;; Font styles
+     ("@import"
+      :url"('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap')")
      ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
       :position" fixed"
@@ -152,11 +143,9 @@
       :height" 100%"
       :top" 0px"
       :left" 0px"
-      :z-index" 0"
-      )
+      :z-index" 0")
      (".cb-slideshow:after"
-      :content" ''"
-      )
+      :content" ''")
      (".cb-slideshow li span"
       :width" 100%"
       :height" 100%"
@@ -174,112 +163,93 @@
       :-moz-animation" imageAnimation 36s linear infinite 0s"
       :-o-animation" imageAnimation 36s linear infinite 0s"
       :-ms-animation" imageAnimation 36s linear infinite 0s"
-      :animation" imageAnimation 36s linear infinite 0s"
-      )
+      :animation" imageAnimation 36s linear infinite 0s")
      (".cb-slideshow li:nth-child(1) span"
-      :background-image "url(pic1.webp)"
-      )
+      :background-image "url(pic1.webp)")
      (".cb-slideshow li:nth-child(2) span"
       :background-image "url(pic2.webp)"
       :-webkit-animation-delay" 6s"
       :-moz-animation-delay" 6s"
       :-o-animation-delay" 6s"
       :-ms-animation-delay" 6s"
-      :animation-delay" 6s"
-      )
+      :animation-delay" 6s")
      (".cb-slideshow li:nth-child(3) span"
       :background-image" url(pic3.webp)"
       :-webkit-animation-delay" 12s"
       :-moz-animation-delay" 12s"
       :-o-animation-delay" 12s"
       :-ms-animation-delay" 12s"
-      :animation-delay" 12s"
-      )
+      :animation-delay" 12s")
      (".cb-slideshow li:nth-child(4) span"
       :background-image" url(pic4.webp)"
       :-webkit-animation-delay" 18s"
       :-moz-animation-delay" 18s"
       :-o-animation-delay" 18s"
       :-ms-animation-delay" 18s"
-      :animation-delay" 18s"
-      )
+      :animation-delay" 18s")
      (".cb-slideshow li:nth-child(5) span"
       :background-image" url(pic5.webp)"
       :-webkit-animation-delay" 24s"
       :-moz-animation-delay" 24s"
       :-o-animation-delay" 24s"
       :-ms-animation-delay" 24s"
-      :animation-delay" 24s"
-      )
+      :animation-delay" 24s")
      (".cb-slideshow li:nth-child(6) span"
       :background-image" url(pic6.webp)"
       :-webkit-animation-delay" 30s"
       :-moz-animation-delay" 30s"
       :-o-animation-delay" 30s"
       :-ms-animation-delay" 30s"
-      :animation-delay" 30s"
-      )
+      :animation-delay" 30s")
      (".cb-slideshow li:nth-child(2) div"
       :-webkit-animation-delay" 6s"
       :-moz-animation-delay" 6s"
       :-o-animation-delay" 6s"
       :-ms-animation-delay" 6s"
-      :animation-delay" 6s"
-      )
+      :animation-delay" 6s")
      (".cb-slideshow li:nth-child(3) div"
       :-webkit-animation-delay" 12s"
       :-moz-animation-delay" 12s"
       :-o-animation-delay" 12s"
       :-ms-animation-delay" 12s"
-      :animation-delay" 12s"
-      )
+      :animation-delay" 12s")
      (".cb-slideshow li:nth-child(4) div"
       :-webkit-animation-delay" 18s"
       :-moz-animation-delay" 18s"
       :-o-animation-delay" 18s"
       :-ms-animation-delay" 18s"
-      :animation-delay" 18s"
-      )
+      :animation-delay" 18s")
      (".cb-slideshow li:nth-child(5) div"
       :-webkit-animation-delay" 24s"
       :-moz-animation-delay" 24s"
       :-o-animation-delay" 24s"
       :-ms-animation-delay" 24s"
-      :animation-delay" 24s"
-      )
+      :animation-delay" 24s")
      (".cb-slideshow li:nth-child(6) div"
       :-webkit-animation-delay" 30s"
       :-moz-animation-delay" 30s"
       :-o-animation-delay" 30s"
       :-ms-animation-delay" 30s"
-      :animation-delay" 30s"
-      )
+      :animation-delay" 30s")
      ;; Animation for the slideshow images
      ("@-webkit-keyframes imageAnimation"
       ("0%"
        :opacity" 0"
-       :-webkit-animation-timing-function" ease-in"
-       )
+       :-webkit-animation-timing-function" ease-in")
       ("8%"
        :opacity" 1"
-       :-webkit-animation-timing-function" ease-out"
-       )
+       :-webkit-animation-timing-function" ease-out")
       ("17%"
-       :opacity" 1"
-       )
+       :opacity" 1")
       ("25%"
-       :opacity" 0"
-       )
+       :opacity" 0")
       ("100%"
-       :opacity" 0"
-       )
-      )
+       :opacity" 0"))
 
      ("@-moz-keyframes imageAnimation"
       ("0%"
        :opacity" 0"
-       :-moz-animation-timing-function" ease-in"
-       )
+       :-moz-animation-timing-function" ease-in")
       ("8%"
        :opacity" 1"
        :-moz-animation-timing-function" ease-out")
@@ -288,13 +258,11 @@
       ("25%"
        :opacity" 0")
       ("100%"
-       :opacity" 0")
-      )
+       :opacity" 0"))
      ("@-o-keyframes imageAnimation"
       ("0%"
        :opacity" 0"
-       :-o-animation-timing-function" ease-in"
-       )
+       :-o-animation-timing-function" ease-in")
       ("8%"
        :opacity" 1"
        :-o-animation-timing-function" ease-out")
@@ -303,13 +271,11 @@
       ("25%"
        :opacity" 0")
       ("100%"
-       :opacity" 0")
-      )
+       :opacity" 0"))
      ("@-ms-keyframes imageAnimation"
       ("0%"
        :opacity" 0"
-       :-ms-animation-timing-function" ease-in"
-       )
+       :-ms-animation-timing-function" ease-in")
       ("8%"
        :opacity" 1"
        :-ms-animation-timing-function" ease-out")
@@ -318,13 +284,11 @@
       ("25%"
        :opacity" 0")
       ("100%"
-       :opacity" 0")
-      )
+       :opacity" 0"))
      ("@keyframes imageAnimation"
       ("0%"
        :opacity" 0"
-       :animation-timing-function" ease-in"
-       )
+       :animation-timing-function" ease-in")
       ("8%"
        :opacity" 1"
        :animation-timing-function" ease-out")
@@ -348,22 +312,18 @@
       :color" #fff"
       :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
       :overflow-y" scroll"
-      :overflow-x" hidden"
-      )
+      :overflow-x" hidden")
      ("h1,h2"
       :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size"100%"
-      :font-weight"normal"
-      )
+      :font-weight"normal")
      ("a"
       :color" #00d9ff"
-      :text-decoration" none"
-      )
+      :text-decoration" none")
      ;; Black intro panel
      (".container"
       :position" relative"
-      :text-align" center"
-      )
+      :text-align" center")
      (".container > header"
       :position" absolute"
       :left" 0"
@@ -377,21 +337,17 @@
       :box-shadow" 0 0 30px 20px rgba(0,0,0,0.3)"
       :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
       :display" block"
-      :text-align" center"
-      )
+      :text-align" center")
      (".portfolio-container"
       :display"flex"
-      :flex-direction"row"
-      )
+      :flex-direction"row")
      (".portfolio-section"
-      :flex" 50%"
-      )
+      :flex" 50%")
      (".container > header img"
       :width" 150px"
       :height" 150px"
       :margin" 0rem auto"
-      :border-radius" 9999px"
-      )
+      :border-radius" 9999px")
      (".container > header h1"
       :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 35px"
@@ -400,23 +356,19 @@
       :font-weight" 400"
       :color" #fff"
       :text-shadow" 1px 1px 1px rgba(0,0,0,0.3)"
-      :padding" 0px 0px 5px 0px"
-      )
+      :padding" 0px 0px 5px 0px")
      (".container > header h2"
       :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 1.5em"
       :font-style" bold"
       :color" #f8f8f8"
-      :text-shadow" 1px 1px 1px rgba(0,0,0,0.6)"
-      )
+      :text-shadow" 1px 1px 1px rgba(0,0,0,0.6)")
      (".container > header p"
-      :font-family" 'EB Garamond', 'Times New Roman', serif"
-      )
+      :font-family" 'EB Garamond', 'Times New Roman', serif")
      ;; Button Style
      ("p.portfolio-button"
       :display" block"
-      :padding" 15px 0px"
-      )
+      :padding" 15px 0px")
      ( "p.portfolio-button a"
       :display" inline-block"
       :border" 1px solid #425de6"
@@ -439,11 +391,9 @@
       :background" -webkit-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
       :background" -o-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
       :background" -ms-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      )
+      :background" linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)")
      ("p.portfolio-button a:hover"
-      :background" #425de6"
-      )
+      :background" #425de6")
      ("p.portfolio-button a:active"
       :background" #425de6"
       :background" -moz-linear-gradient(top, #425de6 0%, #6286e3 56%, #6295e3 100%)"
@@ -454,76 +404,25 @@
       :background" linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
       :-webkit-box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
       :-moz-box-shadow"0px 1px 1px rgba(255,255,255,0.9)"
-      :box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
-      )
+      :box-shadow" 0px 1px 1px rgba(255,255,255,0.9)")
      ;; Media Queries
      ("@media screen and (max-width: 767px)"
       (".container > header"
-       :text-align" center"
-       )
+       :text-align" center")
       ("p.portfolio-button"
        :position" relative"
        :top" auto"
-       :left" auto"
-       )
+       :left" auto")
       (".portfolio-container"
-       :flex-direction" column"
-       )
-      )
-     )))
+       :flex-direction" column")))))
 (defun generate-global-css (output-location)
   "Generate global.css file for site-wide use"
   (css:compile-css
    output-location
    '(
-     ;; font import
-     (
-      "@font-face"
-      :font-family "Cinzel"
-      :font-style "normal"
-      :font-weight "400"
-      :src "url('cinzel-v11-latin-regular.woff2') format('woff2')"
-      )
-
-     (
-      "@font-face"
-      :font-family "Cinzel"
-      :font-style "normal"
-      :font-weight "500"
-      :src "url('cinzel-v11-latin-500.woff2') format('woff2')"
-      )
-
-     (
-      "@font-face"
-      :font-family "Montserrat"
-      :font-style "normal"
-      :font-weight "400"
-      :src "url('montserrat-v18-latin-regular.woff2') format('woff2')"
-      )
-
-     (
-      "@font-face"
-      :font-family "Montserrat"
-      :font-style "italic"
-      :font-weight "400"
-      :src "url('montserrat-v18-latin-italic.woff2') format('woff2')"
-      )
-
-     (
-      "@font-face"
-      :font-family "EB Garamond"
-      :font-style "normal"
-      :font-weight "400"
-      :src "url('eb-garamond-v15-latin-regular.woff2') format('woff2')"
-      )
-
-     (
-      "@font-face"
-      :font-family "EB Garamond"
-      :font-style "italic"
-      :font-weight "400"
-      :src "url('eb-garamond-v15-latin-italic.woff2') format('woff2')"
-      )
+     ;; Font Import
+     ("@import"
+      :url "('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap')")
      ;; Navbar CSS
      (".header-fixed "
       :position" relative"
