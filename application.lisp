@@ -125,7 +125,7 @@
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
     (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
-    (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /static/blog/ folder)."))))
+    (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /assets/blog/ folder)."))))
 
 (defun generate-index-css (output-location)
   "Generated index.css file for index.html use"
@@ -1367,7 +1367,7 @@
       :font-size"1.5rem"
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
-(defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/static/index.js"))
+(defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/assets/index.js"))
   "Generate script.js file for index.html use"
   (ensure-directories-exist output)
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
@@ -1382,12 +1382,12 @@
       (ws:stop *app-dev*)))
 
 (defun start-dev-server ()
-  (generate-index-css "/home/hanshen/project-isidore/static/index.css")
-  (generate-global-css "/home/hanshen/project-isidore/static/global.css")
-  (generate-index-js :input "index.lisp" :output "/home/hanshen/project-isidore/static/index.js")
+  (generate-index-css "/home/hanshen/project-isidore/assets/index.css")
+  (generate-global-css "/home/hanshen/project-isidore/assets/global.css")
+  (generate-index-js :input "index.lisp" :output "/home/hanshen/project-isidore/assets/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler
-            "/" "/home/hanshen/project-isidore/static/")))
+            "/" "/home/hanshen/project-isidore/assets/")))
   (setf *app-dev*
         (ws:start (make-instance 'ws:easy-acceptor :port 4242))))
