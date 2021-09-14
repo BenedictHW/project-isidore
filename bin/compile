@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+BUILDPACK_VERSION="0.1.0"
+
+function getenv() {
+  ENV_NAME="$1"
+  DEFAULT="$2"
+  ENV_VAL="$DEFAULT"
+
+  if [ -f "$ENV_DIR/$ENV_NAME" ]; then
+    ENV_VAL=$(cat "$ENV_DIR/$ENV_NAME")
+  fi
+
+  echo "$ENV_VAL"
+}
+
+function info {
+  echo "        $1"
+}
+
+function log {
+  echo "------> $1"
+}
+
+# shellcheck disable=SC2164
+# shellcheck disable=SC2046
+BUILDPACK_DIR=$(cd $(dirname "$0"); cd ..; pwd) # absolute path of buildpack
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+CL_IMPL="$(getenv CL_IMPL 'ccl-bin')"
+
+log "-----> Common Lisp buildpack $BUILDPACK_VERSION"
+info "BUILD_DIR: $BUILD_DIR"
+info "CACHE_DIR: $BUILD_DIR"
+info "ENV_DIR: $ENV_DIR"
+info "CL_IMPL: $CL_IMPL"
+
+if [ "$RESET_CACHE" ]; then
+  log "flushing cache"
+  rm -rf "${CACHEDIR:?}/"*
+fi
+
+git clone -b release https://github.com/roswell/roswell.git
+pushd roswell || exit
+sh bootstrap
+./configure --prefix ~/.local/
+make
+make install
+export PATH=$PATH:~/.local/bin/
+ros setup
+ros install "$CL_IMPL"
+ros use "$CL_IMPL"
+popd || exit
+
+log "compiling application"
+export BUILDPACK_DIR
+export CACHE_DIR
+export BUILD_DIR
+
+ros run --asdf --load "$BUILDPACK_DIR/bin/compile.lisp" --quit
+log "compilation complete"
+
+chmod a+x "$BUILD_DIR/lispapp"
