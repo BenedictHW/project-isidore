@@ -19,7 +19,7 @@
 
 ;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
 (in-package #:project-isidore)
-
+
 ;; The double colons are to access unexported functions & symbols
 ;; single colon if it is exported. Be careful with unexported/internal symbols
 
@@ -1268,7 +1268,7 @@
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
 (defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/assets/index.js"))
-  "Generate script.js file for index.html use"
+  "Generate script.js file for index.html use. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
   (ensure-directories-exist output)
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
     (format stream (js:ps-compile-file input))))
