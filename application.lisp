@@ -34,6 +34,9 @@
             (:head
              (:meta :charset "utf-8" :name "viewport" :content "width=device-width, initial-scale=1")
              (:title, title)
+             (:link :rel "preconnect" :href="https://fonts.googleapis.com")
+             (:link :rel "preconnect" :href="https://fonts.gstatic.com" :crossorigin)
+             (:link :href  "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap" :rel "stylesheet")
              (:link :type "text/css" :href "global.css" :rel "stylesheet"))
             (:body
              (:div :class "header header-fixed"
@@ -60,6 +63,9 @@
             (:meta :charset "utf-8" :name "viewport" :content
                    "width=device-width, initial-scale=1" :description "Personal Web Application")
             (:title "HanshenWang.com")
+            (:link :rel "preconnect" :href "https://fonts.googleapis.com")
+            (:link :rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin)
+            (:link :href  "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap" :rel "stylesheet")
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
             (:script :src "index.js"))
            (:body
@@ -133,9 +139,6 @@
   (css:compile-css
    output-location
    '(
-     ;; Font styles
-     ("@import"
-      :url"('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&display=swap')")
      ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
       :position" fixed"
@@ -420,9 +423,6 @@
   (css:compile-css
    output-location
    '(
-     ;; Font Import
-     ("@import"
-      :url "('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap')")
      ;; Navbar CSS
      (".header-fixed "
       :position" relative"
@@ -976,6 +976,7 @@
       :border" 1px solid #DDD"
       :border-radius" 3px"
       :background-clip" padding-box"
+      :background-color "#F5F5F5"
       :color" #333"
       :font-size" 80%"
       )
