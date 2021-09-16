@@ -984,6 +984,7 @@
      (".org-src-container "
       :border" 1px solid #ccc"
       :box-shadow" 3px 3px 3px #eee"
+      :background-color "#F5E8C4"
       :font-family" 'Courier New', monospace"
       :font-size" 80%"
       :margin" 1em auto"
