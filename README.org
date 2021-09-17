@@ -17,4 +17,4 @@ Prerequisites:
 (project-isidore:start-dev-server) ; starts server at localhost:4242
 #+end_src
 
-Full documentation available here:
+Full documentation available here: https://www.hanshenwang.com/blog/project-isidore-doc.html

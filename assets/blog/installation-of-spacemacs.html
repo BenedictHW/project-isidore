@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-09-13 Mon 16:58 -->
+<!-- 2021-09-17 Fri 17:58 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spacemacs on Windows 10 via WSL2</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Site Admin.">
 
-                             <link rel="stylesheet" type="text/css" href="../global.css"/>
-                             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/googlecode.min.css" />
-                             <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
-                             <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
+  <link rel="stylesheet" type="text/css" href="../global.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+  <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
 <script type="text/javascript">
-// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
 <!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
 </script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -60,27 +88,27 @@
 <body>
 <div id="preamble" class="status">
 
-                             <div class="header header-fixed">
-                               <div class="navbar container">
-                                 <div class="logo"><a href="/">Hanshen Wang</a></div>
-                                 <input type="checkbox" id="navbar-toggle" >
-                                 <label for="navbar-toggle"><i></i></label>
-                                 <nav class="menu">
-                                   <ul>
-                                     <li><a href="/about">About</a></li>
-                                     <li><a href="/work">Work</a></li>
-                                     <li><a href="/blog/archive.html">Blog</a></li>
-                                     <li><a href="/contact">Contact</a></li>
-                                   </ul>
-                                 </nav>
-                               </div>
-                             </div>
-                             <h1 class="title">Spacemacs on Windows 10 via WSL2</h1>
-                             <p class="subtitle">A step by step installation tutorial with context</p> <br/>
-                             <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-09-13 Mon 16:58</p>
+                                    <div class="header header-fixed">
+                                      <div class="navbar container">
+                                        <div class="logo"><a href="/">Hanshen Wang</a></div>
+                                        <input type="checkbox" id="navbar-toggle" >
+                                        <label for="navbar-toggle"><i></i></label>
+                                        <nav class="menu">
+                                          <ul>
+                                            <li><a href="/about">About</a></li>
+                                            <li><a href="/work">Work</a></li>
+                                            <li><a href="/blog/archive.html">Blog</a></li>
+                                            <li><a href="/contact">Contact</a></li>
+                                          </ul>
+                                        </nav>
+                                      </div>
+                                    </div>
+                                    <h1 class="title">Spacemacs on Windows 10 via WSL2</h1>
+                                    <p class="subtitle">A step by step installation tutorial with context</p> <br/>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-09-17 Fri 17:58</p>
 </div>
 <div id="content">
-<div class="abstract" id="org2d98060">
+<div class="abstract">
 <p>
 Take advantage of the unparalleled, extensible, and powerful text editing
 capabilities of GNU Emacs from within Windows OS.
@@ -121,8 +149,8 @@ capabilities of GNU Emacs from within Windows OS.
 </ul>
 </div>
 </nav>
-<div id="outline-container-Introduction" class="outline-2">
-<h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-org0535696" class="outline-2">
+<h2 id="Introduction"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
 Is it possible to judge whether or not a piece of music is objectively good,
@@ -166,8 +194,8 @@ Compare your Windows version with the below
 </div>
 </div>
 
-<div id="outline-container-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution" class="outline-2">
-<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
+<div id="outline-container-org8692b5d" class="outline-2">
+<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
 <div class="outline-text-2" id="text-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">
 <p>
 I feel obliged to point out that there exist multiple popular ways of
@@ -255,8 +283,8 @@ username and password for your superuser account.
 </div>
 </div>
 
-<div id="outline-container-Install-X-Server" class="outline-2">
-<h2 id="Install-X-Server"><span class="section-number-2">3.</span> Install X Server</h2>
+<div id="outline-container-org4a9640d" class="outline-2">
+<h2 id="Install-X-Server"><span class="section-number-2">3</span> Install X Server</h2>
 <div class="outline-text-2" id="text-Install-X-Server">
 <p>
 This is the software that allows Linux to display GUI elements. You have
@@ -305,8 +333,8 @@ The reason for the above is because the internal IP address of the WSL (2) serve
 </div>
 </div>
 
-<div id="outline-container-Install-Spacemacs" class="outline-2">
-<h2 id="Install-Spacemacs"><span class="section-number-2">4.</span> Install Spacemacs</h2>
+<div id="outline-container-org26e4b09" class="outline-2">
+<h2 id="Install-Spacemacs"><span class="section-number-2">4</span> Install Spacemacs</h2>
 <div class="outline-text-2" id="text-Install-Spacemacs">
 <p>
 Spacemacs is a preset configuration of Emacs, so we must first make sure
@@ -355,8 +383,8 @@ download is completed, you will have successfully installed spacemacs.
 </p>
 </div>
 
-<div id="outline-container-Fixing-the-Font" class="outline-3">
-<h3 id="Fixing-the-Font"><span class="section-number-3">4.1.</span> Fixing the Font</h3>
+<div id="outline-container-org7d1c0bf" class="outline-3">
+<h3 id="Fixing-the-Font"><span class="section-number-3">4.1</span> Fixing the Font</h3>
 <div class="outline-text-3" id="text-Fixing-the-Font">
 <p>
 If you get a message informing you that "adobe source code pro" cannot be
@@ -382,8 +410,8 @@ rm -rf source-code-pro<span class="org-rainbow-delimiters-depth-1">{</span>,.zip
 </div>
 </div>
 
-<div id="outline-container-How-WSL-Ubuntu-files-are-treated-by-Windows" class="outline-2">
-<h2 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-2">5.</span> How WSL (Ubuntu) files are treated by Windows</h2>
+<div id="outline-container-orgfdf15c0" class="outline-2">
+<h2 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-2">5</span> How WSL (Ubuntu) files are treated by Windows</h2>
 <div class="outline-text-2" id="text-How-WSL-Ubuntu-files-are-treated-by-Windows">
 <p>
 <b>DO NOT</b> access the WSL linux files under @appdata/canonical etc. in the
@@ -406,8 +434,8 @@ To access your linux files, in your WSL bash terminal enter in
 </ol>
 </div>
 
-<div id="outline-container-Further-Reading" class="outline-3">
-<h3 id="Further-Reading"><span class="section-number-3">5.1.</span> Further Reading</h3>
+<div id="outline-container-org9b2879e" class="outline-3">
+<h3 id="Further-Reading"><span class="section-number-3">5.1</span> Further Reading</h3>
 <div class="outline-text-3" id="text-Further-Reading">
 <ul class="org-ul">
 <li><a href="https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/">What's new for WSL in Windows 10 version 1903? | Windows Command Line</a></li>
@@ -421,8 +449,8 @@ Line</a></li>
 </div>
 </div>
 
-<div id="outline-container-Symlink-to-your-Windows-folders" class="outline-3">
-<h3 id="Symlink-to-your-Windows-folders"><span class="section-number-3">5.2.</span> Symlink to your Windows folders</h3>
+<div id="outline-container-org6ee65de" class="outline-3">
+<h3 id="Symlink-to-your-Windows-folders"><span class="section-number-3">5.2</span> Symlink to your Windows folders</h3>
 <div class="outline-text-3" id="text-Symlink-to-your-Windows-folders">
 <p>
 Author has created symbolic links to make filesystem navigation more
@@ -442,8 +470,8 @@ ln -s /mnt/c/Users/Hanshen/Videos/ ~/
 </div>
 </div>
 
-<div id="outline-container-Getting-Comfortable-with-Spacemacs" class="outline-2">
-<h2 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-2">6.</span> Getting Comfortable with Spacemacs</h2>
+<div id="outline-container-org7f375eb" class="outline-2">
+<h2 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-2">6</span> Getting Comfortable with Spacemacs</h2>
 <div class="outline-text-2" id="text-Getting-Comfortable-with-Spacemacs">
 <p>
 A couple of first steps to get yourself grounded. Makre sure you take
@@ -470,8 +498,8 @@ support works out of the box. Now let's get started.
 </ol>
 </div>
 
-<div id="outline-container-Prerequisite-familiarity-with-basic-vim-operations" class="outline-3">
-<h3 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-3">6.1.</span> Prerequisite: familiarity with basic vim operations</h3>
+<div id="outline-container-orgb345200" class="outline-3">
+<h3 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-3">6.1</span> Prerequisite: familiarity with basic vim operations</h3>
 <div class="outline-text-3" id="text-Prerequisite-familiarity-with-basic-vim-operations">
 <p>
 If are new or want a brushup, access the built in tutorial via "SPC h T v"
@@ -490,8 +518,8 @@ more interactive vim tutorials are easily found online.
 </div>
 </div>
 
-<div id="outline-container-Watch-and-Learn" class="outline-3">
-<h3 id="Watch-and-Learn"><span class="section-number-3">6.2.</span> Watch and Learn</h3>
+<div id="outline-container-orgfb1faf7" class="outline-3">
+<h3 id="Watch-and-Learn"><span class="section-number-3">6.2</span> Watch and Learn</h3>
 <div class="outline-text-3" id="text-Watch-and-Learn">
 <p>
 In terms of time efficiency, depth of content covered, and ease of
@@ -513,8 +541,8 @@ information is the placement of custom user layers and snippets in the
 </div>
 </div>
 
-<div id="outline-container-Do-and-Explore" class="outline-3">
-<h3 id="Do-and-Explore"><span class="section-number-3">6.3.</span> Do and Explore</h3>
+<div id="outline-container-org2bfaf38" class="outline-3">
+<h3 id="Do-and-Explore"><span class="section-number-3">6.3</span> Do and Explore</h3>
 <div class="outline-text-3" id="text-Do-and-Explore">
 <p>
 Spacemacs places it's help commands under "SPC h", so give those a try. A
@@ -534,8 +562,8 @@ is also accessible here (or in Emacs, "SPC h r").</a>
 </div>
 </div>
 
-<div id="outline-container-Customize" class="outline-3">
-<h3 id="Customize"><span class="section-number-3">6.4.</span> Customize</h3>
+<div id="outline-container-org1d77bf0" class="outline-3">
+<h3 id="Customize"><span class="section-number-3">6.4</span> Customize</h3>
 <div class="outline-text-3" id="text-Customize">
 <p>
 Lastly here is a step by step example to install
@@ -657,8 +685,8 @@ variable. Save, "SPC f s" and reload "SPC f e R".
 </div>
 </div>
 
-<div id="outline-container-Conclusion" class="outline-2">
-<h2 id="Conclusion"><span class="section-number-2">7.</span> Conclusion</h2>
+<div id="outline-container-org0d65b4a" class="outline-2">
+<h2 id="Conclusion"><span class="section-number-2">7</span> Conclusion</h2>
 <div class="outline-text-2" id="text-Conclusion">
 <p>
 So there you have it. The universality and power of vim's modal editing
@@ -703,8 +731,8 @@ org-babel. I hope this tutorial has helped you, and have a wonderful day.
 </div>
 </div>
 
-<div id="outline-container-Sources-and-Credits" class="outline-2">
-<h2 id="Sources-and-Credits"><span class="section-number-2">8.</span> Sources and Credits</h2>
+<div id="outline-container-org453bdbd" class="outline-2">
+<h2 id="Sources-and-Credits"><span class="section-number-2">8</span> Sources and Credits</h2>
 <div class="outline-text-2" id="text-Sources-and-Credits">
 <ul class="org-ul">
 <li><a href="http://mdr78.github.io/2019/07/01/windows-spacemacs-install.html">The definitive guide to installing Spacemacs on Windows</a></li>
@@ -726,43 +754,43 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
 </div></div>
 <div id="postamble" class="status">
 <script>
-                       const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );
+                              const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );
 
-                       headers.forEach( header => {
-                         header.insertAdjacentHTML('afterbegin',
-                          '<a href="#table-of-contents">&#8689;</a>'
-                         );
-                       });
-                       </script>
-                       <hr/>
-                       <footer>
-                         <div class="copyright-container">
-                           <div class="copyright">
-                             Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><br/>
-                             Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
-                             Content is available under
-                             <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                               CC-BY-SA 4.0
-                             </a> unless otherwise noted.
-                           </div>
-                           <div class="cc-badge">
-                             <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                               <img alt="Creative Commons License"
-                                    src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
-                             </a>
-                           </div>
-                           <div class="rss-badge">
-                             <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
-                               <img alt="Really Simple Syndication - RSS"
-                                    src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png" />
-                             </a>
-                           </div>
-                         </div>
+                              headers.forEach( header => {
+                                header.insertAdjacentHTML('afterbegin',
+                                 '<a href="#table-of-contents">&#8689;</a>'
+                                );
+                              });
+                              </script>
+                              <hr/>
+                              <footer>
+                                <div class="copyright-container">
+                                  <div class="copyright">
+                                    Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><br/>
+                                    Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
+                                    Content is available under
+                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                                      CC-BY-SA 4.0
+                                    </a> unless otherwise noted.
+                                  </div>
+                                  <div class="cc-badge">
+                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                                      <img alt="Creative Commons License"
+                                           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+                                    </a>
+                                  </div>
+                                  <div class="rss-badge">
+                                    <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
+                                      <img alt="Really Simple Syndication - RSS"
+                                           src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png" />
+                                    </a>
+                                  </div>
+                                </div>
 
-                         <div class="generated">
-                           Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.4.6) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
-                         </div>
-                       </footer>
+                                <div class="generated">
+                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                </div>
+                              </footer>
 </div>
 </body>
 </html>
