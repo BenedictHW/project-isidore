@@ -3,7 +3,7 @@
 
 The third iteration of my personal website. It was quite fun building this with CL.
 
-Code is under the LGPL-2.1 License. Content is available under CC-BY-SA 4.0
+Code is under the GNU-LGPL-3.0 License. Content is available under CC-BY-SA 4.0
 unless otherwise noted.
 
 ** Development Quick Start
