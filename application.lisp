@@ -129,7 +129,11 @@
     (:h1 :class "title" "Contact")
     (:h1 "Ways to get in contact")
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
-    (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
+            (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
+            (:p "My PGP Key Fingerprint:	06DD A936 90F7 75E3 715B 628C CA94 9A6D 46BC 2BBE")
+            (:p "My PGP Public Key is available" (:a :target "_blank" :href
+  "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a secondary
+  source, at" (:a :target "_blank" :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
     (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /assets/blog/ folder)."))))
 
@@ -1266,7 +1270,7 @@
       )
      (".cryptedmail:after "
       :font-family" 'EB Garamond', 'Times New Roman', serif"
-      :font-size"1.5rem"
+      :font-size"1.2 rem"
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
 (defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/assets/index.js"))
