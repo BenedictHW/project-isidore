@@ -3,18 +3,18 @@
 
 The third iteration of my personal website. It was quite fun building this with CL.
 
-Copyright (c) 2021 Hanshen Wang. Source code is under the GNU-LGPL-3.0 License. Blog
-content is available under CC-BY-SA 4.0 unless otherwise noted.
+Copyright (c) 2021 Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/lgpl-3.0.en.html][GNU-LGPL-3.0 License]]. Blog
+content is available under [[https://creativecommons.org/licenses/by-sa/4.0/legalcode][CC-BY-SA 4.0 License]] unless otherwise noted.
 
 ** Development Quick Start
 
 Prerequisites:
-- An ANSI Common Lisp implementation (Code portability untested, developed using [[http://www.sbcl.org/][Steel Bank Common Lisp]])
-- [[https://common-lisp.net/project/asdf/][ASDF]] & [[https://www.quicklisp.org/beta/][Quicklisp]]
+- An ANSI Common Lisp implementation (Portability untested, developed using [[http://www.sbcl.org/][Steel Bank Common Lisp]])
+- [[https://www.quicklisp.org/beta/][Quicklisp]]
 
 #+begin_src lisp
 (ql:quickload :project-isidore)
-(project-isidore:start-dev-server) ; starts server at localhost:4242
+(project-isidore:start-dev-server) ; starts server at http://localhost:4242
 #+end_src
 
 Full documentation available here: https://www.hanshenwang.com/blog/project-isidore-doc.html
