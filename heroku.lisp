@@ -19,6 +19,7 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
+
 (in-package #:cl-user)
 
 ;;; application entry point
@@ -33,9 +34,7 @@
         `(hunchentoot:dispatch-easy-handlers
           ,(hunchentoot:create-folder-dispatcher-and-handler ; Requires full system path
                                                     "/" "/app/assets/"))) ; /app is the root on a heroku filesystem
-
   (when *acceptor*
     (hunchentoot:stop *acceptor*))
-
   (setf *acceptor*
         (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port port))))

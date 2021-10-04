@@ -130,6 +130,7 @@ inferred system"))
                        (:a :href "/work" "Work")
                        (:a :href "/blog/archive.html" "Blog")
                        (:a :href "/contact" "Contact"))))))))
+
 (ws:define-easy-handler (about :uri "/about") ()
   (app-page (:title "HanshenWang.com")
     (:h1 :class "title" "About")
@@ -146,6 +147,7 @@ inferred system"))
     (and temptations, but that's to be expected). So please forgive my
     amateurish writing, for it is my wish that you will take away something of
     use, and pay it forwards.")))
+
 (ws:define-easy-handler (work :uri "/work") ()
   (app-page (:title "HanshenWang.com")
     (:h1 :class "title" "Work")
@@ -158,6 +160,7 @@ inferred system"))
     (:ul
      (:li (:a :target "_blank" :href "https://github.com/HanshenWang" "Github Repositories"))
      (:li (:a :href "/blog/archive.html" "Collected Notes")))))
+
 (ws:define-easy-handler (contact :uri "/contact") ()
   (app-page (:title "HanshenWang.com")
     (:h1 :class "title" "Contact")
@@ -457,6 +460,7 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
        :left" auto")
       (".portfolio-container"
        :flex-direction" column")))))
+
 (defun generate-global-css (output-location)
   "Generate global.css file for site-wide use. Takes OUTPUT-LOCATION as a
 pathname. This pathname is created if it does not exist."
@@ -1309,6 +1313,7 @@ pathname. This pathname is created if it does not exist."
       :font-size"1.2 rem"
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
+
 (defun generate-index-js (&key (input #P"index.lisp") (output #P"assets/index.js"))
   "Generate script.js file for index.html use. This script emulates a typewriter
       effect. INPUT must be parenscript compatible. OUTPUT must be placed in the
@@ -1316,7 +1321,6 @@ pathname. This pathname is created if it does not exist."
   (ensure-directories-exist output)
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
     (format stream (js:ps-compile-file input))))
-
 
 ;;; For local application development
 ;; The application ("main") entry point is heroku-toplevel and is defined in compile.lisp. The
