@@ -19,33 +19,43 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
-
-;;;; initialize-application is the function launched by the heroku buildpack. This has been moved to heroku.lisp as the function must be under the "cl-user" namespace and not project-isidore.
+
+;;; initialize-application is the function launched by the heroku buildpack.
+;;; This has been initially defined in heroku.lisp as the function must be under
+;;; the CL-USER namespace and not project-isidore with the current build process.
 (defpackage #:project-isidore
   ;; :use means there is no need to prefix hunchentoot:define-easy-handler and instead use just define-easy-handler
   ;; As per https://lispcookbook.github.io/cl-cookbook/packages.html#about-use-ing-packages-being-a-bad-practice,
-  ;; use nicknames instead
+  ;; use package local nicknames instead
   (:use #:cl)
   (:local-nicknames (#:ws #:hunchentoot) ; web server
                     (#:ht #:cl-who) ; hypertext markup generation
-                    (#:css #:cl-css)
-                    (#:js #:parenscript))
+                    (#:css #:cl-css) ; CSS generation
+                    (#:js #:parenscript)) ; CL to JS transpiler
   (:export #:start-dev-server
            #:stop-dev-server
            #:generate-index-css
            #:generate-global-css
-           #:generate-index-js))
+           #:generate-index-js)
+  (:documentation
+   "Project Isidore default package. When subsystems have enough form they are
+moved to project-isidore-name-of-subsystem. Project Isidore will use ASDF's package
+inferred system as soon as package inferred systems does not collide with
+package local nicknames. The ASDF bundled with SBCL can be found with
+(asdf:asdf-version). When this > 3.3.4, refactor Project Isidore to use package
+inferred system"))
 
-;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
+;;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
 (in-package #:project-isidore)
 
-;; The double colons are to access unexported functions & symbols
-;; single colon if it is exported. Be careful with unexported/internal symbols
-
-;; Other than the landing page (aka "index.html") all other web app pages uses this boilerplate
-;; Taken from  https://github.com/rajasegar/cl-bootstrap/blob/master/demo/demo.lisp
+;;; The double colons are to access unexported functions & symbols
+;;; single colon if it is exported. Be careful with unexported/internal symbols
 (defmacro app-page ((&key title) &body body)
-  ;; =, g g= to call =jump-to-definition=
+  "Template HTML for application webpages. Other than the landing page (aka
+'index.html') and the static blog post .html files, all other web app pages uses this boilerplate."
+  ;; For Spacemacs users with common-lisp layer,
+  ;; =g d= to call =jump-to-definition=
+  ;; =C-o= to call =evil-jump-backward=
   ;; https://stackoverflow.com/questions/30150186/what-does-backtick-mean-in-lisp
   ;; http://www.lispworks.com/documentation/HyperSpec/Body/02_df.htm
   `(ht:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
@@ -75,6 +85,9 @@
              (:div :class "copyright-container"
                    (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang. All Rights Reserved."))))))
 
+;;; Project Isidore webpage views. The :uri keyword of define-easy-handler
+;;; maps to DOMAINNAME/HOST as such: /about maps to http://localhost:8080/about
+;;; or https://hanshenwang.com/about
 (ws:define-easy-handler (root :uri "/") ()
   (ht:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
     (:html :lang "en"
@@ -101,6 +114,8 @@
                          (:div :class "portfolio-section"
                                (:img :src "profile.webp" :alt "Author Profile Picture"))
                          (:div :class "portfolio-section"
+                               ;; index.js typewriter effect needs the greeting
+                               ;; to be HTML tag h1.
                                (:h1 "Hey There!") (:br)
                                (:h2 "I'm Hanshen.") (:br)
                                (:h2 "Nice to meet you.")))
@@ -154,11 +169,12 @@
   "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a secondary
   source, at" (:a :target "_blank" :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
-    (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/" "in the version-controlled Github repository (under the /assets/blog/ folder)."))))
-
+    (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in the version-controlled Github repository ."))))
+
+;;; Generate global.css, index.css and index.js static assets
 (defun generate-index-css (output-location)
-  "Generated index.css file for index.html use. When using cl-css, \"~~\" is
-  needed to output a single \"~\", otherwise an error will be thrown"
+  "Generated index.css file for index.html use. Takes OUTPUT-LOCATION as a
+pathname. This pathname is created if it does not exist. When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an error will be thrown"
   (css:compile-css
    output-location
    '(
@@ -442,7 +458,8 @@
       (".portfolio-container"
        :flex-direction" column")))))
 (defun generate-global-css (output-location)
-  "Generate global.css file for site-wide use"
+  "Generate global.css file for site-wide use. Takes OUTPUT-LOCATION as a
+pathname. This pathname is created if it does not exist."
   (css:compile-css
    output-location
    '(
@@ -1293,16 +1310,23 @@
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
 (defun generate-index-js (&key (input #P"index.lisp") (output #P"assets/index.js"))
-  "Generate script.js file for index.html use. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
+  "Generate script.js file for index.html use. This script emulates a typewriter
+      effect. INPUT must be parenscript compatible. OUTPUT must be placed in the
+      assets folder. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
   (ensure-directories-exist output)
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
     (format stream (js:ps-compile-file input))))
 
 
-;;; for development
+;;; For local application development
+;; The application ("main") entry point is heroku-toplevel and is defined in compile.lisp. The
+;; runtime initialize-application is re-defined also in heroku.lisp. That is the version
+;; run in production.
 (defvar *app-dev* nil)
 
 (defun start-dev-server (&key (port 8080) (host "localhost"))
+  "Start the web server at HOST and PORT. Generate static CSS and Javascript
+files used by homepage. Optional HOST and PORT"
   (when (ws:started-p *app-dev*)
     (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port)))
   (generate-index-css "assets/index.css") ; path name is relative
@@ -1310,6 +1334,8 @@
   (generate-index-js :input "index.lisp" :output "assets/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
+          ;; http://HOST:PORT/example.jpg will dispatched to
+          ;; /project-isidore/assets/example.jpg
           ,(ws:create-folder-dispatcher-and-handler
             "/" "assets/")))
   (setf *app-dev*

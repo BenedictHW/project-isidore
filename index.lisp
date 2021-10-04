@@ -20,6 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
+;;; See generate-index-jss under application.lisp
 (ps:chain ps-dom2-symbols:document
        (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
                                            (lambda (event)

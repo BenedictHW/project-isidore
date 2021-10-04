@@ -21,4 +21,5 @@
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 ;;; This file is part of Project Isidore.
 
+;;; See bin/compile.lisp
 (ql:quickload :project-isidore)
