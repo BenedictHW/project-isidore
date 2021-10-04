@@ -1292,7 +1292,7 @@
       :font-size"1.2 rem"
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
-(defun generate-index-js (&key (input #P"index.lisp") (output #P"/home/hanshen/project-isidore/assets/index.js"))
+(defun generate-index-js (&key (input #P"index.lisp") (output #P"assets/index.js"))
   "Generate script.js file for index.html use. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
   (ensure-directories-exist output)
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
@@ -1303,15 +1303,15 @@
 (defvar *app-dev* nil)
 
 (defun start-dev-server ()
-  (generate-index-css "/home/hanshen/project-isidore/assets/index.css")
-  (generate-global-css "/home/hanshen/project-isidore/assets/global.css")
-  (generate-index-js :input "/home/hanshen/project-isidore/index.lisp" :output "/home/hanshen/project-isidore/assets/index.js")
   (when (ws:started-p *app-dev*)
     (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port)))
+  (generate-index-css "assets/index.css") ; path name is relative
+  (generate-global-css "assets/global.css")
+  (generate-index-js :input "index.lisp" :output "assets/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler
-            "/" "/home/hanshen/project-isidore/assets/")))
+            "/" "assets/")))
   (setf *app-dev*
         (ws:start (make-instance 'ws:easy-acceptor :port 4242))))
   (format t "Server successfully started at http://~A:~A/~%" host port))
