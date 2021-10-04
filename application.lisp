@@ -1302,7 +1302,7 @@
 ;;; for development
 (defvar *app-dev* nil)
 
-(defun start-dev-server ()
+(defun start-dev-server (&key (port 8080) (host "localhost"))
   (when (ws:started-p *app-dev*)
     (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port)))
   (generate-index-css "assets/index.css") ; path name is relative
@@ -1313,7 +1313,9 @@
           ,(ws:create-folder-dispatcher-and-handler
             "/" "assets/")))
   (setf *app-dev*
-        (ws:start (make-instance 'ws:easy-acceptor :port 4242))))
+        (ws:start (make-instance 'ws:easy-acceptor
+                                 :port port
+                                 :address host)))
   (format t "Server successfully started at http://~A:~A/~%" host port))
 
 (defun stop-dev-server ()
