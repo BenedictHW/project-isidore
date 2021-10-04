@@ -1302,17 +1302,24 @@
 ;;; for development
 (defvar *app-dev* nil)
 
-(defun stop-dev-server ()
-  (if (ws:started-p *app-dev*)
-      (ws:stop *app-dev*)))
-
 (defun start-dev-server ()
   (generate-index-css "/home/hanshen/project-isidore/assets/index.css")
   (generate-global-css "/home/hanshen/project-isidore/assets/global.css")
   (generate-index-js :input "/home/hanshen/project-isidore/index.lisp" :output "/home/hanshen/project-isidore/assets/index.js")
+  (when (ws:started-p *app-dev*)
+    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port)))
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ,(ws:create-folder-dispatcher-and-handler
             "/" "/home/hanshen/project-isidore/assets/")))
   (setf *app-dev*
         (ws:start (make-instance 'ws:easy-acceptor :port 4242))))
+  (format t "Server successfully started at http://~A:~A/~%" host port))
+
+(defun stop-dev-server ()
+  "Stop the web server started by start-dev-server, if it exists"
+  (if (ws:started-p *app-dev*)
+      (progn
+        (ws:stop *app-dev*)
+        (format t "Server successfully stopped"))
+      (format t "No server running. Start server with start-dev-server")))
