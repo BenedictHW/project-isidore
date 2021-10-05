@@ -1331,8 +1331,9 @@ pathname. This pathname is created if it does not exist."
 (defun start-dev-server (&key (port 8080) (host "localhost"))
   "Start the web server at HOST and PORT. Generate static CSS and Javascript
 files used by homepage. Optional HOST and PORT"
-  (when (ws:started-p *app-dev*)
-    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port)))
+  (unless (equalp *app-dev* nil) ; only true upon first loading
+    (when (ws:started-p *app-dev*)
+    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port))))
   (generate-index-css "assets/index.css") ; path name is relative
   (generate-global-css "assets/global.css")
   (generate-index-js :input "index.lisp" :output "assets/index.js")
@@ -1350,8 +1351,9 @@ files used by homepage. Optional HOST and PORT"
 
 (defun stop-dev-server ()
   "Stop the web server started by start-dev-server, if it exists"
-  (if (ws:started-p *app-dev*)
-      (progn
-        (ws:stop *app-dev*)
-        (format t "Server successfully stopped"))
-      (format t "No server running. Start server with start-dev-server")))
+  (unless (equalp *app-dev* nil) ; only true upon first loading
+    (if (ws:started-p *app-dev*)
+        (progn
+          (ws:stop *app-dev*)
+          (return-from stop-dev-server (format t "Server successfully stopped")))))
+  (format t "No server running. Start server with start-dev-server"))
