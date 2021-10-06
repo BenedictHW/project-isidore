@@ -28,7 +28,6 @@ cat << EOF
 addons:
 config_vars:
   PATH: /usr/bin:/bin
-  CCL_DEFAULT_DIRECTORY: ccl
 default_process_types:
   web: ./lispapp
 EOF

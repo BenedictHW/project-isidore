@@ -50,7 +50,7 @@ BUILDPACK_DIR=$(cd $(dirname "$0"); cd ..; pwd) # absolute path of buildpack
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
-CL_IMPL="$(getenv CL_IMPL 'ccl-bin')"
+CL_IMPL="sbcl-bin"
 
 log "-----> Common Lisp buildpack $BUILDPACK_VERSION"
 info "BUILD_DIR: $BUILD_DIR"
