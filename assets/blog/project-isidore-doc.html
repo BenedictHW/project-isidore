@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-09-18 Sat 00:56 -->
+<!-- 2021-10-06 Wed 04:51 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Isidore Design Notebook</title>
@@ -17,50 +17,26 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
   <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -105,10 +81,10 @@ for the JavaScript code in this tag.
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Personal web application meta documentation with Org Babel</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-09-18 Sat 00:55</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-10-06 Wed 04:51</p>
 </div>
 <div id="content">
-<div class="abstract">
+<div class="abstract" id="org2bb13ed">
 <p>
 
 </p>
@@ -144,18 +120,10 @@ project documentation and enables literate programming via org-babel.
 <ul>
 <li><a href="#Heroku-Buildpack-Exposition">6.1. Heroku Buildpack Exposition</a>
 <ul>
-<li><a href="#orgcf13bdb">6.1.1. Detect Script</a>
-<ul>
-<li><a href="#org17aa21b">Heroku Compile</a></li>
-</ul>
-</li>
+<li><a href="#orgcf13bdb">6.1.1. Detect Script</a></li>
 <li><a href="#orgccb8647">6.1.2. Compile Script</a>
 <ul>
-<li><a href="#org2901d15">Compile Lisp</a>
-<ul>
-<li><a href="#Heroku">Heroku</a></li>
-</ul>
-</li>
+<li><a href="#org2901d15">Compile Lisp</a></li>
 </ul>
 </li>
 <li><a href="#org03956d2">6.1.3. Release Script</a></li>
@@ -167,21 +135,31 @@ project documentation and enables literate programming via org-babel.
 <ul>
 <li><a href="#orgf9103fa">7.1. CI with Github Actions</a></li>
 <li><a href="#org6d76874">7.2. Debugging</a></li>
+<li><a href="#orga26a215">7.3. Logging</a></li>
 </ul>
 </li>
 <li><a href="#Project-History-Credits">8. Project History &amp; Credits</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org033c35f" class="outline-2">
-<h2 id="Introduction"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-Introduction" class="outline-2">
+<h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
 Welcome! Make sure that your Common Lisp development environment is <a href="#org823fb92">properly set
-up.</a> If that's no issue jump to the <a href="#org00efde1">Org Publish Pipeline Section</a>, <a href="#Builds-Deployment">Heroku
-Deployment Section</a> or a <a href="#Project-Isidore-System-Definition">high level project overview</a>. Due to article length
-navigation buttons are inserted next to each header to take one back to the
-table of contents.
+up.</a> If that's no issue jump to whatever is most useful to you.
+</p>
+
+<ul class="org-ul">
+<li><a href="#org00efde1">Org Publish Pipeline Section - How I Blog from Org Mode</a></li>
+<li><a href="#Builds-Deployment">Heroku Deployment Section - How to Deploy Common Lisp on Heroku</a></li>
+<li><a href="#Project-Isidore-System-Definition">High level project overview - What goes where</a>.</li>
+</ul>
+
+<p>
+Due to article length navigation buttons are inserted next to each header to
+take one back to the table of contents. As always the source code is <a href="https://github.com/HanshenWang/project-isidore">here</a> for
+you to play with.
 </p>
 
 <ol class="org-ol">
@@ -258,7 +236,7 @@ Stop Development Server with
 </div>
 
 <div id="outline-container-org823fb92" class="outline-2">
-<h2 id="org823fb92"><span class="section-number-2">2</span> Common Lisp Environment Setup</h2>
+<h2 id="org823fb92"><span class="section-number-2">2.</span> Common Lisp Environment Setup</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li><a href="031a3b02-b36c-4875-b714-6ff8e9a3978c">&lt;&#x2013;Practical Common Lisp</a></li>
@@ -338,7 +316,7 @@ sbcl --load quicklisp.lisp
 </div>
 
 <p>
-Quicklisp also installs ASDF, the defacto project system in Common Lisp.
+Quicklisp also installs ASDF, the defacto project system manager in Common Lisp.
 After quickloading a project, it will be stored locally. It will be in a
 directory similar to:
 </p>
@@ -460,8 +438,8 @@ useful.
 </p>
 </div>
 </div>
-<div id="outline-container-org62e4a95" class="outline-2">
-<h2 id="Project-Isidore-System-Definition"><span class="section-number-2">3</span> Project Isidore System Definition</h2>
+<div id="outline-container-Project-Isidore-System-Definition" class="outline-2">
+<h2 id="Project-Isidore-System-Definition"><span class="section-number-2">3.</span> Project Isidore System Definition</h2>
 <div class="outline-text-2" id="text-Project-Isidore-System-Definition">
 <p>
 Running <code>org-babel-tangle</code> on this document only produces source code. In the
@@ -481,7 +459,6 @@ Project Isidore
 <li><a href="#orgf9103fa">CI.yml</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#Application">application.lisp</a></li>
 <li>/assets
 <ul class="org-ul">
 <li>Website icon and background image files.</li>
@@ -492,15 +469,21 @@ Project Isidore
 </ul></li>
 <li>/bin
 <ul class="org-ul">
-<li><a href="#orgccb8647">compile</a></li>
 <li><a href="#orgcf13bdb">detect</a></li>
-<li><a href="#org03956d2">release</a></li>
+<li><a href="#orgccb8647">compile</a></li>
 <li><a href="#org2901d15">compile.lisp</a></li>
+<li><a href="#org03956d2">release</a></li>
 </ul></li>
-<li><a href="#Heroku">heroku.lisp</a></li>
-<li><a href="#org17aa21b">heroku-compile.lisp</a></li>
-<li><a href="#Index-lisp">index.lisp</a></li>
+<li>/doc
+<ul class="org-ul">
+<li>This very document</li>
+</ul></li>
 <li><a href="#Project-Isidore-System-Definition">project-isidore.asd</a></li>
+<li>/src
+<ul class="org-ul">
+<li><a href="#Application">application.lisp</a></li>
+<li><a href="#Index-lisp">index.lisp</a></li>
+</ul></li>
 <li>/test
 <ul class="org-ul">
 <li><a href="#org92ac5d0">project-isidore-tests.lisp</a></li>
@@ -508,24 +491,1775 @@ Project Isidore
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-lisp" id="orga17704e"><span class="org-rainbow-delimiters-depth-1">(</span>asdf:defsystem <span class="org-comment-delimiter">#:</span><span class="org-doc">project-isidore</span>
-  <span class="org-builtin">:name</span> <span class="org-string">"Project Isidore"</span>
-  <span class="org-builtin">:author</span> <span class="org-string">"Hanshen Wang <a href="mailto:hanshen%40hanshenwang.com">&lt;hanshen@hanshenwang.com&gt;</a>"</span>
-  <span class="org-builtin">:description</span> <span class="org-string">"Personal Web Application"</span>
-  <span class="org-builtin">:license</span>  <span class="org-string">"GNU Lesser Public License 3.0"</span>
-  <span class="org-builtin">:version</span> <span class="org-string">"0.0.1"</span>
-  <span class="org-builtin">:serial</span> t
-  <span class="org-builtin">:depends-on</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-comment-delimiter">#:</span><span class="org-doc">hunchentoot</span>
-               <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-who</span>
-               <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-css</span>
-               <span class="org-comment-delimiter">#:</span><span class="org-doc">parenscript</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-builtin">:components</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:file</span> <span class="org-string">"application"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-               <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:file</span> <span class="org-string">"heroku"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-builtin">:in-order-to</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>asdf:test-op <span class="org-rainbow-delimiters-depth-4">(</span>asdf:test-op <span class="org-builtin">:project-isidore/test</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp" id="orga17704e"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">project-isidore.asd</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
 &#12;
-<span class="org-rainbow-delimiters-depth-1">(</span>asdf:defsystem <span class="org-comment-delimiter">#:</span><span class="org-doc">project-isidore/test</span>
-  <span class="org-builtin">:name</span> <span class="org-string">"Project Isidore Tests"</span>
-  <span class="org-builtin">:author</span> <span class="org-string">"Hanshen Wang <a href="mailto:hanshen%40hanshenwang.com">&lt;hanshen@hanshenwang.com&gt;</a>"</span>
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">&lt;https://www.gnu.org/licenses/&gt;.</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+
+</a><span class="org-rainbow-delimiters-depth-1"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">asdf:defsystem </a><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">project-isidore</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:name</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"Project Isidore"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:author</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"Hanshen Wang </a><a href="mailto:hanshen%40hanshenwang.com">&lt;hanshen@hanshenwang.com&gt;</a><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:description</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"Personal Web Application"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:license</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">  </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"GNU Lesser Public License 3.0"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:version</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"1.0.0"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:serial</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> t
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:depends-on</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">hunchentoot</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+               </a><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">cl-who</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+               </a><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">cl-css</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+               </a><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">parenscript</a></span><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:components</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-rainbow-delimiters-depth-3"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:module</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"src"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+                </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:components</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-rainbow-delimiters-depth-4"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-rainbow-delimiters-depth-5"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:file</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"application"</a></span><span class="org-rainbow-delimiters-depth-5"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-4"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-3"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:in-order-to</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-rainbow-delimiters-depth-3"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">asdf:test-op </a><span class="org-rainbow-delimiters-depth-4"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">asdf:test-op </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:project-isidore/test</a></span><span class="org-rainbow-delimiters-depth-4"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-3"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><span class="org-rainbow-delimiters-depth-1"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+&#12;
+</a><span class="org-rainbow-delimiters-depth-1"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">asdf:defsystem </a><span class="org-comment-delimiter"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">#:</a></span><span class="org-doc"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">project-isidore/test</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:name</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"Project Isidore Tests"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:author</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :version &quot;1.0.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"Hanshen Wang </a><a href="mailto:hanshen%40hanshenwang.com">&lt;hanshen@hanshenwang.com&gt;</a>"</span>
   <span class="org-builtin">:description</span> <span class="org-string">"Personal Web Application Test Suite"</span>
   <span class="org-builtin">:license</span> <span class="org-string">"GNU Lesser Public License 3.0"</span>
   <span class="org-builtin">:version</span> <span class="org-string">"0.0.1"</span>
@@ -543,7 +2277,7 @@ Project Isidore
 </div>
 
 <div id="outline-container-orgf30db02" class="outline-3">
-<h3 id="orgf30db02"><span class="section-number-3">3.1</span> System dependencies</h3>
+<h3 id="orgf30db02"><span class="section-number-3">3.1.</span> System dependencies</h3>
 <div class="outline-text-3" id="text-3-1">
 <ol class="org-ol">
 <li><p>
@@ -560,7 +2294,17 @@ Looking for a library? In addition to online search queries, use command(s)
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:who-depends-on <span class="org-builtin">:library</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; usage in lisp ecosystem</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql-dist:dependency-tree <span class="org-builtin">:library</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; number of dependencies upstream</span>
 </pre>
-</div></li>
+</div>
+
+<p>
+In addition, look to <a href="https://github.com/sabracrolleton/sabracrolleton.github.io">Sabracrolleton's</a> detailed reviews of Common Lisp
+libraries. Another great hint to library quality is the Github page for Zach
+Beane, who does the thankless job of maintaining Quicklisp. He will take the
+time to submit bug reports, and so his Github page lists all said bug
+reports. We can then roughly take the number of commits an author makes
+versus the number of bug reports Zach has to submit.
+<a href="https://github.com/quicklisp?tab=overview&amp;from=2021-03-01&amp;to=2021-03-31">https://github.com/quicklisp?tab=overview&amp;from=2021-03-01&amp;to=2021-03-31</a>
+</p></li>
 
 <li>Common Lisp Dependencies</li>
 </ol>
@@ -585,13 +2329,13 @@ Looking for a library? In addition to online search queries, use command(s)
 <tbody>
 <tr>
 <td class="org-left">Hunchentoot</td>
-<td class="org-left">Edi Weitz</td>
+<td class="org-left">Edmund Weitz</td>
 <td class="org-left">Web Server</td>
 </tr>
 
 <tr>
 <td class="org-left">CL-WHO</td>
-<td class="org-left">Edi Weitz</td>
+<td class="org-left">Edmund Weitz</td>
 <td class="org-left">HTML Generation</td>
 </tr>
 
@@ -603,7 +2347,7 @@ Looking for a library? In addition to online search queries, use command(s)
 
 <tr>
 <td class="org-left">Parenscript</td>
-<td class="org-left">Manuel Odendahl</td>
+<td class="org-left">Manuel Odendahl &amp; Edward Marco Baringer</td>
 <td class="org-left">Lisp to Javascript Transpiler</td>
 </tr>
 
@@ -629,7 +2373,7 @@ See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-templ
 </div>
 
 <div id="outline-container-org00efde1" class="outline-2">
-<h2 id="org00efde1"><span class="section-number-2">4</span> Org Publish Pipeline</h2>
+<h2 id="org00efde1"><span class="section-number-2">4.</span> Org Publish Pipeline</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 In Spacemacs you will need to enable the <code>org</code> layer. Org Mode comes with Org
@@ -653,6 +2397,10 @@ remove extraneous links, update citations, check formatting etc.</li>
 My Org Publish config is part of my literate .spacemacs org file. I plan to
 publish the entire dotfile one day, similar to <a href="http://doc.norang.ca/org-mode.html">Org Mode - Organize Your Life In
 Plain Text!</a> Until then, here is all the relevant configuration extracted.
+</p>
+
+<p>
+Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/good_tutorials_on_orgpublish/">good tutorials on org-publish : emacs</a>
 </p>
 
 <div class="org-src-container">
@@ -867,15 +2615,11 @@ Plain Text!</a> Until then, here is all the relevant configuration extracted.
       <span class="org-rainbow-delimiters-depth-3">(</span>org-rss-publish-to-rss plist filename dir<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
-
-<p>
-Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/good_tutorials_on_orgpublish/">good tutorials on org-publish : emacs</a>
-</p>
 </div>
 </div>
 
-<div id="outline-container-org2c59d48" class="outline-2">
-<h2 id="Application"><span class="section-number-2">5</span> Application</h2>
+<div id="outline-container-Application" class="outline-2">
+<h2 id="Application"><span class="section-number-2">5.</span> Application</h2>
 <div class="outline-text-2" id="text-Application">
 <p>
 The Application itself is still very barebones. It does two things: serve
@@ -2186,8 +3930,8 @@ static blog content, and generate the CSS and JS assets upon startup.
 </pre>
 </div>
 </div>
-<div id="outline-container-org88d7ef7" class="outline-3">
-<h3 id="Index-lisp"><span class="section-number-3">5.1</span> Index.lisp</h3>
+<div id="outline-container-Index-lisp" class="outline-3">
+<h3 id="Index-lisp"><span class="section-number-3">5.1.</span> Index.lisp</h3>
 <div class="outline-text-3" id="text-Index-lisp">
 <p>
 This file exists to be used in the function <b>generate index JS.</b> In the
@@ -2218,8 +3962,8 @@ is to emulate a typewriter effect on the index homepage. Hence the name index.li
 </div>
 </div>
 </div>
-<div id="outline-container-org8dff084" class="outline-2">
-<h2 id="Builds-Deployment"><span class="section-number-2">6</span> Builds and Deployment</h2>
+<div id="outline-container-Builds-Deployment" class="outline-2">
+<h2 id="Builds-Deployment"><span class="section-number-2">6.</span> Builds and Deployment</h2>
 <div class="outline-text-2" id="text-Builds-Deployment">
 <p>
 Github and Heroku make for an appropriate abstraction for the level we're
@@ -2262,6 +4006,7 @@ simplified, <a href="#Heroku-Buildpack-Exposition">I highly encourage you to rol
 heroku create --buildpack https://github.com/HanshenWang/project-isidore
 <span class="org-comment-delimiter"># </span><span class="org-comment">Change ENV variable to use SBCL instead of the default CCL</span>
 heroku config:set <span class="org-variable-name">CL_IMPL</span>=sbcl-bin
+heroku config:set <span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-highlight-numbers-number">2.1.9</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Push to production with</span>
 git push heroku master
 </pre>
@@ -2370,8 +4115,8 @@ In the future we can try apache bench.
 </ol>
 </div>
 
-<div id="outline-container-orgc44da15" class="outline-3">
-<h3 id="Heroku-Buildpack-Exposition"><span class="section-number-3">6.1</span> Heroku Buildpack Exposition</h3>
+<div id="outline-container-Heroku-Buildpack-Exposition" class="outline-3">
+<h3 id="Heroku-Buildpack-Exposition"><span class="section-number-3">6.1.</span> Heroku Buildpack Exposition</h3>
 <div class="outline-text-3" id="text-Heroku-Buildpack-Exposition">
 <p>
 Heroku is a platform-as-a-service. In our production server we are provided with
@@ -2405,114 +4150,234 @@ but a <a href="https://www.petekeen.net/introduction-to-heroku-buildpacks">bette
 </p>
 
 <p>
-The Heroku build pack that works with SBCL implementation can be found here:
-<a href="https://gitlab.com/bendersteed/heroku-buildpack-common-lisp">bendersteed / heroku-buildpack-common-lisp · GitLab</a> ] (<a href="https://bendersteed.gitlab.io/post/deploying-common-lisp-to-heroku/">see Author's journal of
-the buildpack fork</a>). In case the blog goes down, the following is reiterated.
-Relevant caveats include that in order for the buildpack to work, you have to
-define the initialize-application symbol in CL-USER package. This is not really
-good style, I would pretty much prefer to be able to have the function in my
-package (aka run in the REPL, <code>in-package :project-isidore</code>). For now I
-workaround this caveat by adding a heroku.lisp file to my system.
+The most "plug-and-play" Heroku build pack that works with the SBCL
+implementation can be found here: <a href="https://gitlab.com/bendersteed/heroku-buildpack-common-lisp">bendersteed / heroku-buildpack-common-lisp ·
+GitLab</a> (<a href="https://bendersteed.gitlab.io/post/deploying-common-lisp-to-heroku/">see Author's journal of the buildpack fork</a>).
 </p>
+
+<p>
+My custom buildpack differs in two ways:
+</p>
+
+<ol class="org-ol">
+<li>I do not use Roswell. Roswell is a useful abstraction, but is too much for my</li>
+</ol>
+<p>
+use case. I believe my build process should be as simple as needs be.
+</p>
+
+<ol class="org-ol">
+<li>I target only SBCL. I'm not aiming to provide a general purpose buildpack for</li>
+</ol>
+<p>
+public consumption.
+</p>
+
+<p>
+The aforementioned "plug-and-play" solution is up to date and contains a
+link to a sample application. If you wish to put together a buildpack suited for
+your needs, I have looked through the forks of <a href="https://github.com/mtravers/heroku-buildpack-cl">Mike Travers' original Common Lisp
+buildpack</a> and three stand out:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://github.com/avodonosov/heroku-buildpack-cl2">GitHub - avodonosov/heroku-buildpack-cl2</a>
+An evolutionary variant of the original that &#x2013; and I quote from the README &#x2013;
+"Doesn't force your application to be saved into a lisp image at Heroku."
+Checkout the forks from this branch.</li>
+<li><a href="https://github.com/hackeryarn/heroku-buildpack-cl">GitHub - hackeryarn/heroku-buildpack-cl</a> &amp; <a href="https://github.com/own-pt/heroku-buildpack-cl">GitHub - own-pt/heroku-buildpack-cl</a> are the
+most direct descendants of the original. The former has a better compile.lisp
+(especially for Quicklisp loading) while the latter has the correct current
+CURL incantation in the compile script.</li>
+</ul>
 </div>
 
 <div id="outline-container-orgcf13bdb" class="outline-4">
-<h4 id="orgcf13bdb"><span class="section-number-4">6.1.1</span> Detect Script</h4>
+<h4 id="orgcf13bdb"><span class="section-number-4">6.1.1.</span> Detect Script</h4>
 <div class="outline-text-4" id="text-6-1-1">
 <div class="org-src-container">
-<pre class="src src-sh" id="org85a468f"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+<pre class="src src-sh" id="org85a468f"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> sh</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">bin/detect &lt;build-dir&gt;</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">this pack is valid for apps with a heroku-compile.lisp in the root</span>
-<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">[</span> -f <span class="org-string">"$1/heroku-compile.lisp"</span> <span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-keyword">then</span>
-  <span class="org-builtin">echo</span> <span class="org-string">"CLFramework"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">detect bash script</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">This pack is valid for ONLY for apps with an 'project-isidore.asd' in the</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">root, replace with appropriate system-definition file.</span>
+<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">[</span> -f <span class="org-string">"$1/project-isidore.asd"</span> <span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-keyword">then</span>
+  <span class="org-builtin">echo</span> <span class="org-string">"COMMON LISP"</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">exiting with 0 status is UNIX convention meaning everything ran alright</span>
   <span class="org-keyword">exit</span> <span class="org-highlight-numbers-number">0</span>
 <span class="org-keyword">else</span>
+  <span class="org-builtin">echo</span> <span class="org-string">"The buildpack was unable to detect a system declaration file with the</span>
+<span class="org-string">'project-isidore.asd' extension. Check if the '.slugignore' or '.gitignore' files are</span>
+<span class="org-string">interfering. Make sure an '.asd' file is at the root of the directory structure.</span>
+
+<span class="org-string">For more information, see:</span>
+<span class="org-string">https://devcenter.heroku.com/articles/buildpacks</span>
+<span class="org-string">https://lispcookbook.github.io/cl-cookbook/systems.html</span>
+<span class="org-string">https://common-lisp.net/project/asdf/</span>
+<span class="org-string">"</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">exiting with non-zero status is UNIX convention for the opposite</span>
   <span class="org-keyword">exit</span> <span class="org-highlight-numbers-number">1</span>
 <span class="org-keyword">fi</span>
 
 </pre>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org17aa21b" class="outline-5">
-<h5 id="org17aa21b">Heroku Compile</h5>
-<div class="outline-text-5" id="text-org17aa21b">
-<div class="org-src-container">
-<pre class="src src-lisp" id="org4ddacbf"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
 <div id="outline-container-orgccb8647" class="outline-4">
-<h4 id="orgccb8647"><span class="section-number-4">6.1.2</span> Compile Script</h4>
+<h4 id="orgccb8647"><span class="section-number-4">6.1.2.</span> Compile Script</h4>
 <div class="outline-text-4" id="text-6-1-2">
 <div class="org-src-container">
 <pre class="src src-bash" id="orga620a21"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">bin/compile &lt;build-dir&gt; &lt;cache-dir&gt; &lt;env-dir&gt;</span>
 
-<span class="org-variable-name">BUILDPACK_VERSION</span>=<span class="org-string">"0.1.0"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">compile bash script</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
 
+<span class="org-variable-name">BUILDPACK_VERSION</span>=<span class="org-string">"1.0.48"</span>
+
+<span class="org-comment-delimiter">#######################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">0. Helper Functions #</span>
+<span class="org-comment-delimiter">#######################</span>
+
+<span class="org-builtin">set</span> -o errexit    <span class="org-comment-delimiter"># </span><span class="org-comment">always exit on error</span>
+<span class="org-builtin">set</span> -o pipefail   <span class="org-comment-delimiter"># </span><span class="org-comment">don't ignore exit codes when piping output</span>
+<span class="org-builtin">unset</span> GIT_DIR     <span class="org-comment-delimiter"># </span><span class="org-comment">Avoid GIT_DIR leak from previous build steps</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Allows us to retrieve ENV variables modified by end user</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">In Heroku CLI, see heroku:config set EXAMPLE_ENV_VAR=foobar</span>
 <span class="org-keyword">function</span> <span class="org-function-name">getenv</span><span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-  <span class="org-variable-name">ENV_NAME</span>=<span class="org-string">"$1"</span>
-  <span class="org-variable-name">DEFAULT</span>=<span class="org-string">"$2"</span>
-  <span class="org-variable-name">ENV_VAL</span>=<span class="org-string">"$DEFAULT"</span>
+    <span class="org-variable-name">ENV_NAME</span>=<span class="org-string">"$1"</span>
+    <span class="org-variable-name">DEFAULT</span>=<span class="org-string">"$2"</span>
+    <span class="org-variable-name">ENV_VAL</span>=<span class="org-string">"$DEFAULT"</span>
 
-  <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-2">[</span> -f <span class="org-string">"$ENV_DIR/$ENV_NAME"</span> <span class="org-rainbow-delimiters-depth-2">]</span>; <span class="org-keyword">then</span>
-    <span class="org-variable-name">ENV_VAL</span>=$<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-sh-quoted-exec">cat</span> <span class="org-string">"$ENV_DIR/$ENV_NAME"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-keyword">fi</span>
+    <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-2">[</span> -f <span class="org-string">"$ENV_DIR/$ENV_NAME"</span> <span class="org-rainbow-delimiters-depth-2">]</span>; <span class="org-keyword">then</span>
+        <span class="org-variable-name">ENV_VAL</span>=$<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-sh-quoted-exec">cat</span> <span class="org-string">"$ENV_DIR/$ENV_NAME"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+    <span class="org-keyword">fi</span>
 
-  <span class="org-builtin">echo</span> <span class="org-string">"$ENV_VAL"</span>
+    <span class="org-builtin">echo</span> <span class="org-string">"$ENV_VAL"</span>
+<span class="org-rainbow-delimiters-depth-1">}</span>
+
+<span class="org-keyword">function</span> <span class="org-function-name">log</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+  <span class="org-builtin">echo</span> <span class="org-string">"-----&gt; $1"</span>
 <span class="org-rainbow-delimiters-depth-1">}</span>
 
 <span class="org-keyword">function</span> <span class="org-function-name">info</span> <span class="org-rainbow-delimiters-depth-1">{</span>
   <span class="org-builtin">echo</span> <span class="org-string">"        $1"</span>
 <span class="org-rainbow-delimiters-depth-1">}</span>
 
-<span class="org-keyword">function</span> <span class="org-function-name">log</span> <span class="org-rainbow-delimiters-depth-1">{</span>
-  <span class="org-builtin">echo</span> <span class="org-string">"------&gt; $1"</span>
-<span class="org-rainbow-delimiters-depth-1">}</span>
+<span class="org-comment-delimiter">################################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">1. Get Environment Variables #</span>
+<span class="org-comment-delimiter">################################</span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">shellcheck disable=SC2164</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">shellcheck disable=SC2046</span>
 <span class="org-variable-name">BUILDPACK_DIR</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">cd</span> $<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-sh-quoted-exec">dirname</span> <span class="org-string">"$0"</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-builtin">cd</span> ..; <span class="org-builtin">pwd</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">absolute path of buildpack</span>
-
 <span class="org-variable-name">BUILD_DIR</span>=$<span class="org-highlight-numbers-number">1</span>
 <span class="org-variable-name">CACHE_DIR</span>=$<span class="org-highlight-numbers-number">2</span>
 <span class="org-variable-name">ENV_DIR</span>=$<span class="org-highlight-numbers-number">3</span>
-<span class="org-variable-name">CL_IMPL</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL 'ccl-bin')"</span>
+<span class="org-variable-name">CL_DIR</span>=<span class="org-string">"$CACHE_DIR/sbcl"</span>
+<span class="org-variable-name">CL_IMPL</span>=<span class="org-string">"sbcl-bin"</span>
+<span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL_VER '2.1.9')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
 
-log <span class="org-string">"-----&gt; Common Lisp buildpack $BUILDPACK_VERSION"</span>
+<span class="org-comment-delimiter">####################</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. Run Buildpack #</span>
+<span class="org-comment-delimiter">####################</span>
+info <span class="org-string">"====== Common Lisp Buildpack $BUILDPACK_VERSION ======"</span>
+info <span class="org-string">"BUILDPACK_DIR: $BUILDPACK_DIR"</span>
 info <span class="org-string">"BUILD_DIR: $BUILD_DIR"</span>
-info <span class="org-string">"CACHE_DIR: $BUILD_DIR"</span>
-info <span class="org-string">"ENV_DIR: $ENV_DIR"</span>
+info <span class="org-string">"CACHE_DIR: $CACHE_DIR"</span>
+info <span class="org-string">"CL_DIR: $CL_DIR"</span>
 info <span class="org-string">"CL_IMPL: $CL_IMPL"</span>
+info <span class="org-string">"CL_IMPL_VER: $CL_IMPL_VER"</span>
 
 <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">[</span> <span class="org-string">"$RESET_CACHE"</span> <span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-keyword">then</span>
-  log <span class="org-string">"flushing cache"</span>
-  rm -rf <span class="org-string">"${CACHEDIR:?}/"</span>*
+    log <span class="org-string">"Flushing Cache..."</span>
+    rm -rf <span class="org-string">"${CACHEDIR:?}/"</span>*
 <span class="org-keyword">fi</span>
 
-git clone -b release https://github.com/roswell/roswell.git
-<span class="org-builtin">pushd</span> roswell || <span class="org-keyword">exit</span>
-sh bootstrap
-./configure --prefix ~/.local/
-make
-make install
-<span class="org-builtin">export</span> <span class="org-variable-name">PATH</span>=$<span class="org-variable-name">PATH</span>:~/.local/bin/
-ros setup
-ros install <span class="org-string">"$CL_IMPL"</span>
-ros use <span class="org-string">"$CL_IMPL"</span>
-<span class="org-builtin">popd</span> || <span class="org-keyword">exit</span>
+<span class="org-comment-delimiter">##########################################</span>
+log <span class="org-string">"I. Installing STEEL BANK COMMON LISP"</span>
+<span class="org-comment-delimiter">##########################################</span>
 
-log <span class="org-string">"compiling application"</span>
+<span class="org-variable-name">CL_PACKAGE</span>=<span class="org-string">"http://prdownloads.sourceforge.net/sbcl/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2"</span>
+<span class="org-variable-name">DECOMPRESS</span>=<span class="org-string">"tar jxf - -C $CL_DIR"</span>
+
+rm -rf $<span class="org-variable-name">CL_DIR</span> <span class="org-comment-delimiter"># </span><span class="org-comment">delete old leftover directory</span>
+
+<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">[</span> <span class="org-negation-char">!</span> -d $<span class="org-variable-name">CL_DIR</span> <span class="org-rainbow-delimiters-depth-1">]</span>; <span class="org-keyword">then</span>
+    info <span class="org-string">"Fetching STEEL BANK COMMON LISP..."</span>
+    mkdir -p $<span class="org-variable-name">CL_DIR</span> &amp;&amp; curl -L $<span class="org-variable-name">CL_PACKAGE</span> -o - | $<span class="org-variable-name">DECOMPRESS</span>
+<span class="org-keyword">fi</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Add to slug</span>
+cp -r $<span class="org-variable-name">CL_DIR</span> $<span class="org-variable-name">BUILD_DIR</span>
+info <span class="org-string">"STEEL BANK COMMON LISP Version $CL_IMPL_VER Successfully Installed"</span>
+
+<span class="org-comment-delimiter">##############################</span>
+log <span class="org-string">"II. Installing Quicklisp"</span>
+<span class="org-comment-delimiter">##############################</span>
+
+<span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-1">[</span> <span class="org-negation-char">!</span> -d $<span class="org-variable-name">BUILDPACK_DIR</span>/lib/ <span class="org-rainbow-delimiters-depth-1">]</span> ; <span class="org-keyword">then</span>
+    info <span class="org-string">"Fetching Quicklisp..."</span>
+    mkdir $<span class="org-variable-name">BUILDPACK_DIR</span>/lib  &amp;&amp; curl https://beta.quicklisp.org/quicklisp.lisp -o $<span class="org-variable-name">BUILDPACK_DIR</span>/lib/quicklisp.lisp
+    info <span class="org-string">"Quicklisp Successfully Installed"</span>
+<span class="org-keyword">fi</span>
+
+<span class="org-comment-delimiter">####################################</span>
+log <span class="org-string">"III. Compiling Lisp Executable"</span>
+<span class="org-comment-delimiter">####################################</span>
+
 <span class="org-builtin">export</span> BUILDPACK_DIR
-<span class="org-builtin">export</span> CACHE_DIR
 <span class="org-builtin">export</span> BUILD_DIR
-
-ros run --asdf --load <span class="org-string">"$BUILDPACK_DIR/bin/compile.lisp"</span> --quit
-log <span class="org-string">"compilation complete"</span>
-
-chmod a+x <span class="org-string">"$BUILD_DIR/lispapp"</span>
+<span class="org-builtin">export</span> CACHE_DIR
+info <span class="org-string">"Starting Build..."</span>
+info <span class="org-string">"Loading $BUILDPACK_DIR/bin/compile.lisp..."</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">As per /sbcl-$CL_IMPL_VER-x86-64-linux/INSTALL, we run SBCL without installing</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">it, from the top of binary distribution directory: $ sh run-sbcl.sh</span>
+sh $<span class="org-variable-name">CL_DIR</span>/sbcl-$<span class="org-variable-name">CL_IMPL_VER</span>-x86-64-linux/run-sbcl.sh --load <span class="org-string">"$BUILDPACK_DIR/bin/compile.lisp"</span>
+chmod a+x <span class="org-string">"$BUILD_DIR/lispapp"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">grant permissions for application</span>
+log <span class="org-string">"Successfully Loaded $BUILDPACK_DIR/bin/compile.lisp"</span>
+info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span>
 
 </pre>
 </div>
@@ -2522,109 +4387,153 @@ chmod a+x <span class="org-string">"$BUILD_DIR/lispapp"</span>
 <h5 id="org2901d15">Compile Lisp</h5>
 <div class="outline-text-5" id="text-org2901d15">
 <div class="org-src-container">
-<pre class="src src-lisp" id="org9c8688a"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-builtin">:cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-lisp" id="org9c8688a"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">compile.lisp</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; buildpack requires cl-user package space</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-posix</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">asdf</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">flet</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>env-to-dirs <span class="org-rainbow-delimiters-depth-4">(</span>x<span class="org-rainbow-delimiters-depth-4">)</span>
-         <span class="org-rainbow-delimiters-depth-4">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-5">(</span>pathname <span class="org-rainbow-delimiters-depth-6">(</span>concatenate 'string
-                #+sbcl <span class="org-rainbow-delimiters-depth-7">(</span>sb-posix:getenv x<span class="org-rainbow-delimiters-depth-7">)</span>
-                #+ccl <span class="org-rainbow-delimiters-depth-7">(</span>getenv x<span class="org-rainbow-delimiters-depth-7">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span> <span class="org-rainbow-delimiters-depth-3">(</span>env-to-dirs <span class="org-string">"BUILD_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*cache-dir*</span> <span class="org-rainbow-delimiters-depth-3">(</span>env-to-dirs <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*buildpack-dir*</span> <span class="org-rainbow-delimiters-depth-3">(</span>env-to-dirs <span class="org-string">"BUILDPACK_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Identify if this build is local/production (remote)</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Change to nil if building locally</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconstant</span> <span class="org-variable-name">+productionp+</span> t<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defconstant</span> <span class="org-variable-name">+quicklisp-dist-version+</span> <span class="org-string">"2021-08-07"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== COMPILE.LISP ======"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;  *build-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;  *cache-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;  *buildpack-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *buildpack-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Setup Production Environment</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp +productionp+ t<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">flet</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-rainbow-delimiters-depth-5">(</span>x<span class="org-rainbow-delimiters-depth-5">)</span>
+           <span class="org-rainbow-delimiters-depth-5">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-6">(</span>pathname <span class="org-rainbow-delimiters-depth-7">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-8">(</span>sb-posix:getenv x<span class="org-rainbow-delimiters-depth-8">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*buildpack-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"BUILDPACK_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"BUILD_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*cache-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Tell ASDF to store binaries in the cache dir.</span>
-#+ccl <span class="org-rainbow-delimiters-depth-1">(</span>ccl:setenv <span class="org-string">"XDG_CACHE_HOME"</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-3">(</span>getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"/.asdf/"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-#+sbcl <span class="org-rainbow-delimiters-depth-1">(</span>sb-posix:setenv <span class="org-string">"XDG_CACHE_HOME"</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-3">(</span>sb-posix:getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-                 <span class="org-string">"/.asdf/"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Whitespace to enhance readability in Heroku logs</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *build-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *cache-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *buildpack-dir* = ~a~%"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *buildpack-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Notify ASDF that our build and cache dir is an awesome place to find asf files.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>asdf:initialize-source-registry `<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:source-registry</span>
-                                    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-                                    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-                                    <span class="org-builtin">:inherit-configuration</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Tell ASDF to store binaries in the cache dir.</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>sb-posix:setenv <span class="org-string">"XDG_CACHE_HOME"</span> <span class="org-rainbow-delimiters-depth-3">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-4">(</span>sb-posix:getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                                 <span class="org-string">"/.asdf/"</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-highlight-numbers-number">1</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">App can redefine this to do runtime initializations</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">initialize-application</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;key</span> port<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">declare</span> <span class="org-rainbow-delimiters-depth-3">(</span>ignore port<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Notify ASDF that our build and cache dir is an awesome place to find '.asd' files.</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>asdf:initialize-source-registry `<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:source-registry</span>
+                                     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                                     <span class="org-builtin">:inherit-configuration</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Default toplevel, app can redefine.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">heroku-toplevel</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>initialize-application <span class="org-builtin">:port</span> <span class="org-rainbow-delimiters-depth-3">(</span>parse-integer  #+sbcl <span class="org-rainbow-delimiters-depth-4">(</span>sb-posix:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-4">)</span>
-            #+ccl <span class="org-rainbow-delimiters-depth-4">(</span>getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> <span class="org-rainbow-delimiters-depth-3">(</span>sleep <span class="org-highlight-numbers-number">600</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>     <span class="org-comment">;sleep forever</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*root*</span> <span class="org-string">"/app"</span><span class="org-rainbow-delimiters-depth-1">)</span>      <span class="org-comment">;this is always the app root on Heroku now?</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Install Quicklisp</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>ql-setup <span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-6">(</span>append *cache-dir* '<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-string">"quicklisp"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-builtin">:defaults</span> <span class="org-string">"setup.lisp"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>probe-file ql-setup<span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>load ql-setup<span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">progn</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>load <span class="org-rainbow-delimiters-depth-6">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-7">(</span>append *buildpack-dir* '<span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"lib"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span> <span class="org-builtin">:defaults</span> <span class="org-string">"quicklisp.lisp"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>funcall <span class="org-rainbow-delimiters-depth-6">(</span>symbol-function <span class="org-rainbow-delimiters-depth-7">(</span>find-symbol <span class="org-string">"INSTALL"</span> <span class="org-rainbow-delimiters-depth-8">(</span>find-package <span class="org-string">"QUICKLISP-QUICKSTART"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                   <span class="org-builtin">:path</span> <span class="org-rainbow-delimiters-depth-6">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-7">(</span>pathname-directory ql-setup<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+          <span class="org-rainbow-delimiters-depth-5">(</span>funcall <span class="org-rainbow-delimiters-depth-6">(</span>symbol-function <span class="org-rainbow-delimiters-depth-7">(</span>find-symbol <span class="org-string">"INSTALL-DIST"</span> <span class="org-rainbow-delimiters-depth-8">(</span>find-package <span class="org-string">"QL-DIST"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                   <span class="org-rainbow-delimiters-depth-6">(</span>format nil <span class="org-string">"http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt"</span> +quicklisp-dist-version+<span class="org-rainbow-delimiters-depth-6">)</span>
+                   <span class="org-builtin">:replace</span> t <span class="org-builtin">:prompt</span> nil<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Run the app's own build.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;* Load application's heroku-compile.lisp "</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>load <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir* <span class="org-builtin">:defaults</span> <span class="org-string">"heroku-compile.lisp"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Save the application as an image</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>app-file <span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir* <span class="org-builtin">:defaults</span> <span class="org-string">"lispapp"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">note that the buildpack's bin/release refers to this application name.</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;* create slug's ./lispapp via save-application"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  #+ccl <span class="org-rainbow-delimiters-depth-2">(</span>save-application app-file
-        <span class="org-builtin">:prepend-kernel</span> t
-        <span class="org-builtin">:toplevel-function</span> #'heroku-toplevel<span class="org-rainbow-delimiters-depth-2">)</span>
-  #+sbcl <span class="org-rainbow-delimiters-depth-2">(</span>save-lisp-and-die app-file
-          <span class="org-builtin">:toplevel</span> #'heroku-toplevel
-          <span class="org-builtin">:executable</span> t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-</pre>
-</div>
-</div>
-
-<div id="outline-container-orgdefa3a2" class="outline-6">
-<h6 id="Heroku">Heroku</h6>
-<div class="outline-text-6" id="text-Heroku">
-<p>
-This redefines initialize-application
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp" id="org9edeaf3"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">App can redefine this to do runtime initialization</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">application entry point</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*acceptor*</span> nil<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Takes a PORT parameter as Heroku assigns a different PORT per environment</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*root*</span> <span class="org-string">"/app"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; this is always the app root on Heroku.</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">initialize-application</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;key</span> port<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-index-css <span class="org-string">"/app/assets/index.css"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-global-css <span class="org-string">"/app/assets/global.css"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-index-js <span class="org-builtin">:input</span> <span class="org-string">"index.lisp"</span> <span class="org-builtin">:output</span> <span class="org-string">"/app/assets/index.js"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-index-css <span class="org-string">"assets/index.css"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-global-css <span class="org-string">"assets/global.css"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:generate-index-js <span class="org-builtin">:input</span> <span class="org-string">"src/index.lisp"</span> <span class="org-builtin">:output</span> <span class="org-string">"assets/index.js"</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>setf hunchentoot:*dispatch-table*
-        <span class="org-comment-delimiter">;; </span><span class="org-comment">for an explanation of ` and , and '. see https://stackoverflow.com/questions/60378335/quote-comma-in-common-lisp</span>
         `<span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:dispatch-easy-handlers
           ,<span class="org-rainbow-delimiters-depth-4">(</span>hunchentoot:create-folder-dispatcher-and-handler <span class="org-comment">; Requires full system path</span>
-                                                    <span class="org-string">"/"</span> <span class="org-string">"/app/assets/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment">; /app is the root on a heroku filesystem</span>
-
+            <span class="org-string">"/"</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment">; /app is the root on a heroku filesystem</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> *acceptor*
     <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:stop *acceptor*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-
   <span class="org-rainbow-delimiters-depth-2">(</span>setf *acceptor*
         <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:start <span class="org-rainbow-delimiters-depth-4">(</span>make-instance 'hunchentoot:easy-acceptor <span class="org-builtin">:port</span> port<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Default toplevel, app can redefine.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">application-toplevel</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>equalp +productionp+ nil<span class="org-rainbow-delimiters-depth-3">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span>sb-posix:setenv <span class="org-string">"PORT"</span> <span class="org-string">"8080"</span> <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment">; or PORT will return NIL</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>initialize-application <span class="org-builtin">:port</span> <span class="org-rainbow-delimiters-depth-3">(</span>parse-integer <span class="org-rainbow-delimiters-depth-4">(</span>sb-posix:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> <span class="org-rainbow-delimiters-depth-3">(</span>sleep <span class="org-highlight-numbers-number">600</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; sleep forever</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Save the application as an image</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">buildpack's bin/release refers to ./lispapp as the application name.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp +productionp+ nil<span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>setf *build-dir* <span class="org-string">"bin/"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; local binary stored under</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>app-file <span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir* <span class="org-builtin">:defaults</span> <span class="org-string">"lispapp"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>save-lisp-and-die app-file <span class="org-builtin">:toplevel</span> #'application-toplevel <span class="org-builtin">:executable</span> t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== END OF COMPILE.LISP ======"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div>
+
 <div id="outline-container-org03956d2" class="outline-4">
-<h4 id="org03956d2"><span class="section-number-4">6.1.3</span> Release Script</h4>
+<h4 id="org03956d2"><span class="section-number-4">6.1.3.</span> Release Script</h4>
 <div class="outline-text-4" id="text-6-1-3">
 <div class="org-src-container">
-<pre class="src src-sh" id="org7b2d933"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+<pre class="src src-sh" id="org7b2d933"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">bin/release &lt;build-dir&gt;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">release bash script</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
 
 cat &lt;&lt; EOF
 <span class="org-sh-heredoc">---</span>
 <span class="org-sh-heredoc">addons:</span>
 <span class="org-sh-heredoc">config_vars:</span>
 <span class="org-sh-heredoc">  PATH: /usr/bin:/bin</span>
-<span class="org-sh-heredoc">  CCL_DEFAULT_DIRECTORY: ccl</span>
 <span class="org-sh-heredoc">default_process_types:</span>
 <span class="org-sh-heredoc">  web: ./lispapp</span>
 <span class="org-sh-heredoc">EOF</span>
@@ -2636,7 +4545,7 @@ cat &lt;&lt; EOF
 </div>
 </div>
 <div id="outline-container-org92ac5d0" class="outline-2">
-<h2 id="org92ac5d0"><span class="section-number-2">7</span> Testing</h2>
+<h2 id="org92ac5d0"><span class="section-number-2">7.</span> Testing</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 There does exist a detailed evaluation of the many existing Common Lisp testing
@@ -2644,11 +4553,27 @@ frameworks, the most recent iteration by <a href="https://sabracrolleton.github.
 as our testing framework of choice.
 </p>
 <div class="org-src-container">
-<pre class="src src-lisp" id="org1ee4940"><span class="org-comment-delimiter">#|</span>
-<span class="org-comment">Copyright 2021 Hanshen Wang</span>
-
-<span class="org-comment">Distributed under the LGPL license (see LICENSE file)</span>
-<span class="org-comment">|#</span>
+<pre class="src src-lisp" id="org1ee4940"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">project-isidore-tests.lisp</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">it under the terms of the GNU General Public License as published by</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">the Free Software Foundation, either version 3 of the License, or</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">(at your option) any later version.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful,</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">GNU General Public License for more details.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU General Public License</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">along with Project Isidore.  If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defpackage</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">project-isidore/test</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:use</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl</span><span class="org-rainbow-delimiters-depth-2">)</span>
@@ -2671,7 +4596,7 @@ as our testing framework of choice.
 </div>
 
 <div id="outline-container-orgf9103fa" class="outline-3">
-<h3 id="orgf9103fa"><span class="section-number-3">7.1</span> CI with Github Actions</h3>
+<h3 id="orgf9103fa"><span class="section-number-3">7.1.</span> CI with Github Actions</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 The test suite defined above will be run on every push or pull request to the
@@ -2680,7 +4605,29 @@ pass, then Heroku will automatically <a href="#Builds-Deployment">deploy a build
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml" id="orgd1ba27d">name: CI
+<pre class="src src-yaml" id="orgd1ba27d"># Continous Integration.yml
+#
+# Copyright (c) 2021 Hanshen Wang.
+#
+# Author: Hanshen Wang &lt;Hanshen@HanshenWang.com&gt;
+# URL: https://github.com/HanshenWang/project-isidore
+#
+# This file is part of Project Isidore.
+#
+# Project Isidore is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Project Isidore is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Project Isidore.  If not, see &lt;https://www.gnu.org/licenses/&gt;.
+
+name: CI
 
 # Controls when the action will run. Triggers the workflow on push for any branch, and
 # pull requests to master
@@ -2715,18 +4662,18 @@ jobs:
           ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-
           ${{ runner.os }}-dot-roswell-
 
-    - name: Install roswell
+    - name: Install Roswell
       # always run install, since it does some global installs and setup that isn't cached
       env:
        LISP: ${{ matrix.lisp }}
       run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
 
-    - name: Install parachute
+    - name: Install Parachute
       run: |
         ros install parachute
         echo "$HOME/.roswell/bin" &gt;&gt; $GITHUB_PATH
 
-    - name: Run lisp
+    - name: Run Lisp
       continue-on-error: true
       shell: bash
       run: |
@@ -2742,12 +4689,13 @@ jobs:
       shell: bash
       run: |
         run-parachute -l "project-isidore/test" "project-isidore/test"
+
 </pre>
 </div>
 </div>
 </div>
 <div id="outline-container-org6d76874" class="outline-3">
-<h3 id="org6d76874"><span class="section-number-3">7.2</span> Debugging</h3>
+<h3 id="org6d76874"><span class="section-number-3">7.2.</span> Debugging</h3>
 <div class="outline-text-3" id="text-7-2">
 <div class="org-src-container">
 <pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-2">(</span>optimize <span class="org-rainbow-delimiters-depth-3">(</span>debug <span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -2755,9 +4703,18 @@ jobs:
 </div>
 </div>
 </div>
+<div id="outline-container-orga26a215" class="outline-3">
+<h3 id="orga26a215"><span class="section-number-3">7.3.</span> Logging</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Heroku will store your application logs for you. Logging is a step above print debugging and can be thought of
+as "live" documentation.
+</p>
 </div>
-<div id="outline-container-orgf34a153" class="outline-2">
-<h2 id="Project-History-Credits"><span class="section-number-2">8</span> Project History &amp; Credits</h2>
+</div>
+</div>
+<div id="outline-container-Project-History-Credits" class="outline-2">
+<h2 id="Project-History-Credits"><span class="section-number-2">8.</span> Project History &amp; Credits</h2>
 <div class="outline-text-2" id="text-Project-History-Credits">
 <p>
 For previous project iterations/experience, see project-isidore-java repository
@@ -2776,7 +4733,7 @@ Customize to your hearts content.</li>
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
 <li>Common Lisp Community</li>
-<li>Github, Heroku, Cloudflare</li>
+<li>Github, Heroku, Cloudflare, Sourceforge</li>
 </ul>
 </div>
 </div>
@@ -2799,6 +4756,12 @@ Scott Chacon.
 </tr>
 </table>
 </div>
+
+<p>
+;; Local Variables:
+;; eval: (add-hook 'first-change-hook (lambda ()(if (y-or-n-p "Tanglesync?")(org-tanglesync-process-buffer-interactive))) nil t)
+;; End:
+</p>
 </div>
 <div id="postamble" class="status">
 <script>
@@ -2816,7 +4779,7 @@ Scott Chacon.
                                   <div class="copyright">
                                     Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><br/>
                                     Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
-                                    Content is available under
+                                    Blog content is available under
                                     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
                                       CC-BY-SA 4.0
                                     </a> unless otherwise noted.
@@ -2836,7 +4799,7 @@ Scott Chacon.
                                 </div>
 
                                 <div class="generated">
-                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.4.6) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
                                 </div>
                               </footer>
 </div>

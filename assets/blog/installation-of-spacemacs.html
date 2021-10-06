@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-09-17 Fri 17:58 -->
+<!-- 2021-10-06 Wed 04:39 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spacemacs on Windows 10 via WSL2</title>
+<title>Installation of Spacemacs on Windows 10 via WSL2</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Site Admin.">
 
@@ -17,50 +17,26 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
   <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -103,12 +79,12 @@ for the JavaScript code in this tag.
                                         </nav>
                                       </div>
                                     </div>
-                                    <h1 class="title">Spacemacs on Windows 10 via WSL2</h1>
-                                    <p class="subtitle">A step by step installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-09-17 Fri 17:58</p>
+                                    <h1 class="title">Installation of Spacemacs on Windows 10 via WSL2</h1>
+                                    <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-10-06 Wed 04:39</p>
 </div>
 <div id="content">
-<div class="abstract">
+<div class="abstract" id="org9754f54">
 <p>
 Take advantage of the unparalleled, extensible, and powerful text editing
 capabilities of GNU Emacs from within Windows OS.
@@ -145,22 +121,23 @@ capabilities of GNU Emacs from within Windows OS.
 </ul>
 </li>
 <li><a href="#Conclusion">7. Conclusion</a></li>
-<li><a href="#Sources-and-Credits">8. Sources and Credits</a></li>
+<li><a href="#Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep">8. Bonus! Why is my GUI Spacemacs interrupted by Sleep?</a></li>
+<li><a href="#Sources-and-Credits">9. Sources and Credits</a></li>
 </ul>
 </div>
 </nav>
-<div id="outline-container-org0535696" class="outline-2">
-<h2 id="Introduction"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-Introduction" class="outline-2">
+<h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
 Is it possible to judge whether or not a piece of music is objectively good,
 perfect and beautiful? The word "objectively" must sound a bit old fashioned,
-after all, every man is doing what is right in his own eyes in these times.
+after all, every man is doing what is right in his own eyes in these times<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
 But we can be reasonably certain that a song which has been well loved
 generation after generation has a quality absent from a yet untested,
 recently released album. Yes, I'm talking about Emacs here. 40 odd years is a
 terribly long time in the world of software. We have reason to be grateful as
-spacemacs has done its part in flattening the notorious Emacs learning curve.
+Spacemacs has done its part in flattening the notorious Emacs learning curve.
 But enough evangelizing. This comprehensive tutorial can be said to be
 directed towards non-programmers who are comfortable with computing (as this
 write-up originally existed as personal notes of mine). I hope you take away
@@ -194,8 +171,8 @@ Compare your Windows version with the below
 </div>
 </div>
 
-<div id="outline-container-org8692b5d" class="outline-2">
-<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
+<div id="outline-container-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution" class="outline-2">
+<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
 <div class="outline-text-2" id="text-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">
 <p>
 I feel obliged to point out that there exist multiple popular ways of
@@ -283,8 +260,8 @@ username and password for your superuser account.
 </div>
 </div>
 
-<div id="outline-container-org4a9640d" class="outline-2">
-<h2 id="Install-X-Server"><span class="section-number-2">3</span> Install X Server</h2>
+<div id="outline-container-Install-X-Server" class="outline-2">
+<h2 id="Install-X-Server"><span class="section-number-2">3.</span> Install X Server</h2>
 <div class="outline-text-2" id="text-Install-X-Server">
 <p>
 This is the software that allows Linux to display GUI elements. You have
@@ -333,8 +310,8 @@ The reason for the above is because the internal IP address of the WSL (2) serve
 </div>
 </div>
 
-<div id="outline-container-org26e4b09" class="outline-2">
-<h2 id="Install-Spacemacs"><span class="section-number-2">4</span> Install Spacemacs</h2>
+<div id="outline-container-Install-Spacemacs" class="outline-2">
+<h2 id="Install-Spacemacs"><span class="section-number-2">4.</span> Install Spacemacs</h2>
 <div class="outline-text-2" id="text-Install-Spacemacs">
 <p>
 Spacemacs is a preset configuration of Emacs, so we must first make sure
@@ -354,7 +331,7 @@ sudo apt install emacs27
 </div>
 
 <p>
-Enter the following in your WSL terminal to install spacemacs from the develop branch. It is strongly recommended to use develop over master as bugs get fixed more quickly on develop. You have the option to change later on. Make sure git is installed on Ubuntu and clone the spacemacs repo.
+Enter the following in your WSL terminal to install Spacemacs from the develop branch. It is strongly recommended to use develop over master as bugs get fixed more quickly on develop. You have the option to change later on. Make sure git is installed on Ubuntu and clone the Spacemacs repo.
 </p>
 
 <div class="org-src-container">
@@ -363,7 +340,7 @@ Enter the following in your WSL terminal to install spacemacs from the develop b
 </div>
 
 <p>
-Now for the moment of truth. Launch spacemacs by the following command in the WSL terminal.
+Now for the moment of truth. Launch Spacemacs by the following command in the WSL terminal.
 </p>
 
 <div class="org-src-container">
@@ -379,16 +356,16 @@ dotspacemacs (~/.spacemacs) file and if you are a beginner, the full
 installation is preferred over the base installation. In the first initial
 startup, you will have to wait for all the MELPA packages to download and
 install. MELPA is the package manager for all Emacs packages. After the
-download is completed, you will have successfully installed spacemacs.
+download is completed, you will have successfully installed Spacemacs.
 </p>
 </div>
 
-<div id="outline-container-org7d1c0bf" class="outline-3">
-<h3 id="Fixing-the-Font"><span class="section-number-3">4.1</span> Fixing the Font</h3>
+<div id="outline-container-Fixing-the-Font" class="outline-3">
+<h3 id="Fixing-the-Font"><span class="section-number-3">4.1.</span> Fixing the Font</h3>
 <div class="outline-text-3" id="text-Fixing-the-Font">
 <p>
 If you get a message informing you that "adobe source code pro" cannot be
-found, you can install it with the following WSL bash commands<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>,
+found, you can install it with the following WSL bash commands<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>,
 </p>
 
 <div class="org-src-container">
@@ -410,8 +387,8 @@ rm -rf source-code-pro<span class="org-rainbow-delimiters-depth-1">{</span>,.zip
 </div>
 </div>
 
-<div id="outline-container-orgfdf15c0" class="outline-2">
-<h2 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-2">5</span> How WSL (Ubuntu) files are treated by Windows</h2>
+<div id="outline-container-How-WSL-Ubuntu-files-are-treated-by-Windows" class="outline-2">
+<h2 id="How-WSL-Ubuntu-files-are-treated-by-Windows"><span class="section-number-2">5.</span> How WSL (Ubuntu) files are treated by Windows</h2>
 <div class="outline-text-2" id="text-How-WSL-Ubuntu-files-are-treated-by-Windows">
 <p>
 <b>DO NOT</b> access the WSL linux files under @appdata/canonical etc. in the
@@ -434,8 +411,8 @@ To access your linux files, in your WSL bash terminal enter in
 </ol>
 </div>
 
-<div id="outline-container-org9b2879e" class="outline-3">
-<h3 id="Further-Reading"><span class="section-number-3">5.1</span> Further Reading</h3>
+<div id="outline-container-Further-Reading" class="outline-3">
+<h3 id="Further-Reading"><span class="section-number-3">5.1.</span> Further Reading</h3>
 <div class="outline-text-3" id="text-Further-Reading">
 <ul class="org-ul">
 <li><a href="https://devblogs.microsoft.com/commandline/whats-new-for-wsl-in-windows-10-version-1903/">What's new for WSL in Windows 10 version 1903? | Windows Command Line</a></li>
@@ -449,8 +426,8 @@ Line</a></li>
 </div>
 </div>
 
-<div id="outline-container-org6ee65de" class="outline-3">
-<h3 id="Symlink-to-your-Windows-folders"><span class="section-number-3">5.2</span> Symlink to your Windows folders</h3>
+<div id="outline-container-Symlink-to-your-Windows-folders" class="outline-3">
+<h3 id="Symlink-to-your-Windows-folders"><span class="section-number-3">5.2.</span> Symlink to your Windows folders</h3>
 <div class="outline-text-3" id="text-Symlink-to-your-Windows-folders">
 <p>
 Author has created symbolic links to make filesystem navigation more
@@ -470,8 +447,8 @@ ln -s /mnt/c/Users/Hanshen/Videos/ ~/
 </div>
 </div>
 
-<div id="outline-container-org7f375eb" class="outline-2">
-<h2 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-2">6</span> Getting Comfortable with Spacemacs</h2>
+<div id="outline-container-Getting-Comfortable-with-Spacemacs" class="outline-2">
+<h2 id="Getting-Comfortable-with-Spacemacs"><span class="section-number-2">6.</span> Getting Comfortable with Spacemacs</h2>
 <div class="outline-text-2" id="text-Getting-Comfortable-with-Spacemacs">
 <p>
 A couple of first steps to get yourself grounded. Makre sure you take
@@ -498,17 +475,17 @@ support works out of the box. Now let's get started.
 </ol>
 </div>
 
-<div id="outline-container-orgb345200" class="outline-3">
-<h3 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-3">6.1</span> Prerequisite: familiarity with basic vim operations</h3>
+<div id="outline-container-Prerequisite-familiarity-with-basic-vim-operations" class="outline-3">
+<h3 id="Prerequisite-familiarity-with-basic-vim-operations"><span class="section-number-3">6.1.</span> Prerequisite: familiarity with basic vim operations</h3>
 <div class="outline-text-3" id="text-Prerequisite-familiarity-with-basic-vim-operations">
 <p>
 If are new or want a brushup, access the built in tutorial via "SPC h T v"
-in spacemacs ("SPC h T e" for the emacs version). If you pause after
+in Spacemacs ("SPC h T e" for the emacs version). If you pause after
 hitting "SPC", you will see a popup. This package is called
 <a href="https://github.com/justbur/emacs-which-key">"emacs-which-key"</a> and it
 frees you for remembering 1001 commands. Like memorizing a piano piece, you
 will pick up your most commonly used bindings soon enough. To extend this
-analogy further, spacemacs bindings are not without reason, but are
+analogy further, Spacemacs bindings are not without reason, but are
 designed to be mnemonic. If you are new to vim's way of modal editing, here
 is some helpful reading:
 <a href="https://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim/1220118#1220118">vi -
@@ -518,8 +495,8 @@ more interactive vim tutorials are easily found online.
 </div>
 </div>
 
-<div id="outline-container-orgfb1faf7" class="outline-3">
-<h3 id="Watch-and-Learn"><span class="section-number-3">6.2</span> Watch and Learn</h3>
+<div id="outline-container-Watch-and-Learn" class="outline-3">
+<h3 id="Watch-and-Learn"><span class="section-number-3">6.2.</span> Watch and Learn</h3>
 <div class="outline-text-3" id="text-Watch-and-Learn">
 <p>
 In terms of time efficiency, depth of content covered, and ease of
@@ -541,8 +518,8 @@ information is the placement of custom user layers and snippets in the
 </div>
 </div>
 
-<div id="outline-container-org2bfaf38" class="outline-3">
-<h3 id="Do-and-Explore"><span class="section-number-3">6.3</span> Do and Explore</h3>
+<div id="outline-container-Do-and-Explore" class="outline-3">
+<h3 id="Do-and-Explore"><span class="section-number-3">6.3.</span> Do and Explore</h3>
 <div class="outline-text-3" id="text-Do-and-Explore">
 <p>
 Spacemacs places it's help commands under "SPC h", so give those a try. A
@@ -553,7 +530,7 @@ modes. A buffer can have one major mode, and multiple minor modes. Of
 course, Emacs being Emacs, it's possible to have two major modes
 <a href="https://github.com/polymode/polymode">with the package Polymode.</a> "SPC h
 d b" will pull up a buffer describing the currently active modes. You can
-access the spacemacs beginner tutorial with "SPC h SPC", and then typing in
+access the Spacemacs beginner tutorial with "SPC h SPC", and then typing in
 "Beginner's Tutorial". Now you can navigate the tutorial with the movement
 keys you have just learned.
 <a href="https://develop.spacemacs.org/doc/BEGINNERS_TUTORIAL.html">The tutorial
@@ -562,8 +539,8 @@ is also accessible here (or in Emacs, "SPC h r").</a>
 </div>
 </div>
 
-<div id="outline-container-org1d77bf0" class="outline-3">
-<h3 id="Customize"><span class="section-number-3">6.4</span> Customize</h3>
+<div id="outline-container-Customize" class="outline-3">
+<h3 id="Customize"><span class="section-number-3">6.4.</span> Customize</h3>
 <div class="outline-text-3" id="text-Customize">
 <p>
 Lastly here is a step by step example to install
@@ -656,7 +633,7 @@ previously opened ~/.spacemacs (dotspacemacs) file buffer with "SPC b b".
 One important point to keep in mind is that all key bindings are simply
 calling a command. From the code and package docs we can see that
 "helpful-variable" is a command. To run any interactive function in Emacs,
-we will use M-x ("alt-x" or the spacemacs way: "SPC SPC") and type in
+we will use M-x ("alt-x" or the Spacemacs way: "SPC SPC") and type in
 "helpful-variable". Before we run it by hitting RET (enter), we notice &#x2013;
 thanks to helm, an emacs completion package &#x2013; that the keybinding already
 set for that command is "C-h v". Good to know. Press ESC to exit.
@@ -685,8 +662,8 @@ variable. Save, "SPC f s" and reload "SPC f e R".
 </div>
 </div>
 
-<div id="outline-container-org0d65b4a" class="outline-2">
-<h2 id="Conclusion"><span class="section-number-2">7</span> Conclusion</h2>
+<div id="outline-container-Conclusion" class="outline-2">
+<h2 id="Conclusion"><span class="section-number-2">7.</span> Conclusion</h2>
 <div class="outline-text-2" id="text-Conclusion">
 <p>
 So there you have it. The universality and power of vim's modal editing
@@ -721,7 +698,7 @@ Fear of missing out on the freshest news in the Emacs sphere?
 </p>
 
 <p>
-Once you get comfortable enough, you may even want to remove spacemacs and
+Once you get comfortable enough, you may even want to remove Spacemacs and
 roll your own custom configuration. There is, however, no rush at all. My
 thoughts on future blog posts include a showcase of three org-mode packages
 which are particularly dear to my heart: org-brain, org-agenda, and
@@ -731,8 +708,64 @@ org-babel. I hope this tutorial has helped you, and have a wonderful day.
 </div>
 </div>
 
-<div id="outline-container-org453bdbd" class="outline-2">
-<h2 id="Sources-and-Credits"><span class="section-number-2">8</span> Sources and Credits</h2>
+
+<div id="outline-container-Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep" class="outline-2">
+<h2 id="Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep"><span class="section-number-2">8.</span> Bonus! Why is my GUI Spacemacs interrupted by Sleep?</h2>
+<div class="outline-text-2" id="text-Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep">
+<p>
+I have kept this for last because this adds quite a bit of complexity to the
+installation process. It's best to make sure the above is familiar before
+marching on. WSL2 networking is still very much a work in progress, and <a href="https://github.com/microsoft/wslg">WSLg</a>
+will be restricted to Windows 11 only. <a href="https://superuser.com/questions/1474559/wsl2-x11-programs-disappear%20">Therefore X server sessions are not kept
+alive</a> after the computer goes to sleep. This can be a deal breaker for some. If
+that is the case, then here is the workaround I use: <a href="https://derkoe.dev/blog/development-environment-in-wsl2/%20">courtesy of Mr. Christian Koberl.</a>
+</p>
+
+<p>
+My own notes after completing said workaround.
+</p>
+
+<p>
+DO NOT uninstall or change your previous VCXSRV setup. I keep both X2Go and
+VCXSRV open as otherwise my clipboard will stop working. Hard to debug.
+</p>
+
+<p>
+After each WSL/Windows restart
+</p>
+
+<ul class="org-ul">
+<li>Launch ssh in Linux (if not started yet): sudo service ssh start</li>
+<li>Launch “X2Go Client” on Windows ad connect to the server with WSL user/password</li>
+<li>Now you can launch X11 apps via the tray icon (see X2Go Published Applications)</li>
+</ul>
+
+<p>
+To get sound you can use this link, <a href="https://www.linuxuprising.com/2021/03/how-to-get-sound-pulseaudio-to-work-on.html">How To Get Sound (PulseAudio) To Work On
+WSL2 - Linux Uprising Blog</a>
+</p>
+
+<p>
+The reason I do not use this option is due to battery usage as indicated by the
+Windows task manager. X2go client uses pulseaudio server and the cpu usage for
+<code>windows audio process</code> will be stuck around 8-10% CPU. My elfeed-mpv function
+is also very slow. I will have to wait until Windows 11 with WSLg before
+managing my music with Emacs ;).
+</p>
+
+<blockquote>
+<p>
+Under Options → Settings → Pulseaudio settings, you can now disable audio input
+(microphone support.) This itself is desirable for many users, but it also
+serves as a workaround for the issue of PulseAudio failing to do output simply
+because input is unavailable. &#x2013; <a href="https://wiki.x2go.org/doku.php/doc:release-notes-mswin:x2goclient-4.0.5.1">doc:release-notes-mswin:x2goclient-4.0.5.1 {X2Go - everywhere@home}</a>
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-Sources-and-Credits" class="outline-2">
+<h2 id="Sources-and-Credits"><span class="section-number-2">9.</span> Sources and Credits</h2>
 <div class="outline-text-2" id="text-Sources-and-Credits">
 <ul class="org-ul">
 <li><a href="http://mdr78.github.io/2019/07/01/windows-spacemacs-install.html">The definitive guide to installing Spacemacs on Windows</a></li>
@@ -745,6 +778,13 @@ org-babel. I hope this tutorial has helped you, and have a wonderful day.
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+Judges 21:24 DRA. What would medieval Thomists think of the word
+"self-actualization"? Can man remake himself in his own image anymore than a
+creature can be the first cause of itself, to reduce his potential to actual in
+such a manner?
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
 <a href="https://askubuntu.com/questions/193072/how-to-use-the-adobe-source-code-pro-font">Software
 installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
 </p></div></div>
@@ -768,7 +808,7 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
                                   <div class="copyright">
                                     Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><br/>
                                     Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
-                                    Content is available under
+                                    Blog content is available under
                                     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
                                       CC-BY-SA 4.0
                                     </a> unless otherwise noted.
@@ -788,7 +828,7 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
                                 </div>
 
                                 <div class="generated">
-                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.4.6) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
                                 </div>
                               </footer>
 </div>
