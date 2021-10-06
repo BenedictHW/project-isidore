@@ -24,32 +24,32 @@
 (require :sb-posix)
 (require 'asdf)
 
+;;; Identify if this build is local/production (remote)
+;;; Change to nil if building locally
+(defconstant +productionp+ t)
 
-(format t "~&  *build-dir* = ~a" (make-pathname :directory *build-dir*))
-(format t "~&  *cache-dir* = ~a" (make-pathname :directory *cache-dir*))
-(format t "~&  *buildpack-dir* = ~a" (make-pathname :directory *buildpack-dir*))
+;;; Setup Production Environment
+(when (equalp +productionp+ t)
   (flet ((env-to-dirs (x)
            (pathname-directory (pathname (concatenate 'string (sb-posix:getenv x) "/")))))
     (defvar *buildpack-dir* (env-to-dirs "BUILDPACK_DIR"))
     (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
     (defvar *cache-dir* (env-to-dirs "CACHE_DIR")))
 
+  (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
+  (format t "~&        *cache-dir* = ~a" (make-pathname :directory *cache-dir*))
+  (format t "~&        *buildpack-dir* = ~a~%" (make-pathname :directory *buildpack-dir*))
 
-;;; Notify ASDF that our build and cache dir is an awesome place to find asf files.
-(asdf:initialize-source-registry `(:source-registry
-                                    (:tree ,(make-pathname :directory *build-dir*))
-                                    (:tree ,(make-pathname :directory *cache-dir*))
-                                    :inherit-configuration))
   ;; Tell ASDF to store binaries in the cache dir.
   (sb-posix:setenv "XDG_CACHE_HOME" (concatenate 'string (sb-posix:getenv "CACHE_DIR")
                                                  "/.asdf/") 1)
 
-;;; App can redefine this to do runtime initializations
-(defun initialize-application (&key port)
-  (declare (ignore port)))
+  ;; Notify ASDF that our build and cache dir is an awesome place to find '.asd' files.
+  (asdf:initialize-source-registry `(:source-registry
+                                     (:tree ,(make-pathname :directory *build-dir*))
+                                     (:tree ,(make-pathname :directory *cache-dir*))
+                                     :inherit-configuration))
 
-
-(defvar *root* "/app")			;this is always the app root on Heroku now?
 
 ;;; Run the app's own build.
 (ql:quickload :project-isidore)
@@ -76,10 +76,15 @@
 
 ;;; Default toplevel, app can redefine.
 (defun application-toplevel ()
+  (when (equalp +productionp+ nil)
+    (sb-posix:setenv "PORT" "8080" 0)) ; or PORT will return NIL
   (initialize-application :port (parse-integer (sb-posix:getenv "PORT")))
   (loop (sleep 600))) ; sleep forever
 
 ;;; Save the application as an image
+(when (equalp +productionp+ nil)
+  (setf *build-dir* "bin/")) ; local binary stored under
+
 (let ((app-file (make-pathname :directory *build-dir* :defaults "lispapp")))
   (save-lisp-and-die app-file :toplevel #'application-toplevel :executable t))
 
