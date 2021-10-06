@@ -1315,7 +1315,7 @@ pathname. This pathname is created if it does not exist."
       :content" attr(data-name) \"@\" attr(data-domain) \".\" attr(data-tld)"
       ))))
 
-(defun generate-index-js (&key (input #P"index.lisp") (output #P"assets/index.js"))
+(defun generate-index-js (&key (input #P"../src/index.lisp") (output #P"../assets/index.js"))
   "Generate script.js file for index.html use. This script emulates a typewriter
       effect. INPUT must be parenscript compatible. OUTPUT must be placed in the
       assets folder. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
@@ -1332,18 +1332,18 @@ pathname. This pathname is created if it does not exist."
 (defun start-dev-server (&key (port 8080) (host "localhost"))
   "Start the web server at HOST and PORT. Generate static CSS and Javascript
 files used by homepage. Optional HOST and PORT"
-  (unless (equalp *app-dev* nil) ; only true upon first loading
-    (when (ws:started-p *app-dev*)
-    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port))))
-  (generate-index-css "assets/index.css") ; path name is relative
-  (generate-global-css "assets/global.css")
-  (generate-index-js :input "index.lisp" :output "assets/index.js")
+  (generate-index-css "../assets/index.css") ; path name is relative
+  (generate-global-css "../assets/global.css")
+  (generate-index-js :input "../src/index.lisp" :output "../assets/index.js")
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ;; http://HOST:PORT/example.jpg will dispatched to
           ;; /project-isidore/assets/example.jpg
           ,(ws:create-folder-dispatcher-and-handler
-            "/" "assets/")))
+            "/" "/home/hanshen/project-isidore/assets/")))
+  (unless (equalp *app-dev* nil) ; only true upon first loading
+    (when (ws:started-p *app-dev*)
+    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port))))
   (setf *app-dev*
         (ws:start (make-instance 'ws:easy-acceptor
                                  :port port
