@@ -59,8 +59,8 @@
 (defvar *root* "/app")			;this is always the app root on Heroku now?
 
 ;;; Run the app's own build.
-(format t "~&* Load application's heroku-compile.lisp ")
-(load (make-pathname :directory *build-dir* :defaults "heroku-compile.lisp"))
+(ql:quickload :project-isidore)
+
 ;;; App can redefine this to do runtime initialization
 ;;; application entry point
 (defvar *acceptor* nil)

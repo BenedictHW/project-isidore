@@ -20,10 +20,11 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
-#
-# this pack is valid for apps with a heroku-compile.lisp in the root
-if [ -f "$1/heroku-compile.lisp" ]; then
-  echo "CLFramework"
+
+# This pack is valid for ONLY for apps with an 'project-isidore.asd' in the
+# root, replace with appropriate system-definition file.
+if [ -f "$1/project-isidore.asd" ]; then
+  echo "COMMON LISP"
   exit 0
 else
   exit 1
