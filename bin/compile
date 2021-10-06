@@ -62,36 +62,44 @@ BUILDPACK_DIR=$(cd $(dirname "$0"); cd ..; pwd) # absolute path of buildpack
 BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
+CL_DIR="$CACHE_DIR/sbcl"
 CL_IMPL="sbcl-bin"
+CL_IMPL_VER="$(getenv CL_IMPL_VER '2.1.9')" # safe to update this manually
 
 ####################
 # 2. Run Buildpack #
 ####################
 info "====== Common Lisp Buildpack $BUILDPACK_VERSION ======"
+info "BUILDPACK_DIR: $BUILDPACK_DIR"
 info "BUILD_DIR: $BUILD_DIR"
 info "CACHE_DIR: $CACHE_DIR"
+info "CL_DIR: $CL_DIR"
 info "CL_IMPL: $CL_IMPL"
+info "CL_IMPL_VER: $CL_IMPL_VER"
 
 if [ "$RESET_CACHE" ]; then
     log "Flushing Cache..."
     rm -rf "${CACHEDIR:?}/"*
 fi
 
-git clone -b release https://github.com/roswell/roswell.git
-pushd roswell || exit
-sh bootstrap
-./configure --prefix ~/.local/
-make
-make install
-export PATH=$PATH:~/.local/bin/
-ros setup
-ros install "$CL_IMPL"
-ros use "$CL_IMPL"
-popd || exit
+##########################################
+log "I. Installing STEEL BANK COMMON LISP"
+##########################################
 
+CL_PACKAGE="http://prdownloads.sourceforge.net/sbcl/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2"
+DECOMPRESS="tar jxf - -C $CL_DIR"
 
-ros run --asdf --load "$BUILDPACK_DIR/bin/compile.lisp" --quit
-log "compilation complete"
+rm -rf $CL_DIR # delete old leftover directory
+
+if [ ! -d $CL_DIR ]; then
+    info "Fetching STEEL BANK COMMON LISP..."
+    mkdir -p $CL_DIR && curl -L $CL_PACKAGE -o - | $DECOMPRESS
+fi
+
+# Add to slug
+cp -r $CL_DIR $BUILD_DIR
+info "STEEL BANK COMMON LISP Version $CL_IMPL_VER Successfully Installed"
+
 ####################################
 log "III. Compiling Lisp Executable"
 ####################################
@@ -99,5 +107,11 @@ log "III. Compiling Lisp Executable"
 export BUILDPACK_DIR
 export BUILD_DIR
 export CACHE_DIR
+info "Starting Build..."
+info "Loading $BUILDPACK_DIR/bin/compile.lisp..."
+# As per /sbcl-$CL_IMPL_VER-x86-64-linux/INSTALL, we run SBCL without installing
+# it, from the top of binary distribution directory: $ sh run-sbcl.sh
+sh $CL_DIR/sbcl-$CL_IMPL_VER-x86-64-linux/run-sbcl.sh --load "$BUILDPACK_DIR/bin/compile.lisp"
 chmod a+x "$BUILD_DIR/lispapp" # grant permissions for application
+log "Successfully Loaded $BUILDPACK_DIR/bin/compile.lisp"
 info "====== Build Finished | Deo Gratias ======"
