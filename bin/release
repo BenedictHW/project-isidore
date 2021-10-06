@@ -1,6 +1,7 @@
-#!/bin/sh
-#
-# release shell script
+#!/usr/bin/env bash
+# bin/release <build-dir>
+
+# release bash script
 #
 # Copyright (c) 2021 Hanshen Wang.
 #

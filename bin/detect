@@ -1,5 +1,7 @@
-#!/bin/sh
-# detect shell script
+#!/usr/bin/env sh
+# bin/detect <build-dir>
+
+# detect bash script
 #
 # Copyright (c) 2021 Hanshen Wang.
 #

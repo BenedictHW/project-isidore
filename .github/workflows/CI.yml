@@ -1,4 +1,4 @@
-# CI.yml
+# Continous Integration.yml
 #
 # Copyright (c) 2021 Hanshen Wang.
 #
@@ -55,18 +55,18 @@ jobs:
           ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-
           ${{ runner.os }}-dot-roswell-
 
-    - name: Install roswell
+    - name: Install Roswell
       # always run install, since it does some global installs and setup that isn't cached
       env:
        LISP: ${{ matrix.lisp }}
       run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
 
-    - name: Install parachute
+    - name: Install Parachute
       run: |
         ros install parachute
         echo "$HOME/.roswell/bin" >> $GITHUB_PATH
 
-    - name: Run lisp
+    - name: Run Lisp
       continue-on-error: true
       shell: bash
       run: |
