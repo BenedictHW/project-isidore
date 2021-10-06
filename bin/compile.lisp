@@ -61,6 +61,25 @@
 ;;; Run the app's own build.
 (format t "~&* Load application's heroku-compile.lisp ")
 (load (make-pathname :directory *build-dir* :defaults "heroku-compile.lisp"))
+;;; App can redefine this to do runtime initialization
+;;; application entry point
+(defvar *acceptor* nil)
+
+(defvar *root* "/app") ; this is always the app root on Heroku.
+
+;; Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment
+(defun initialize-application (&key port)
+  (project-isidore:generate-index-css "assets/index.css")
+  (project-isidore:generate-global-css "assets/global.css")
+  (project-isidore:generate-index-js :input "src/index.lisp" :output "assets/index.js")
+  (setf hunchentoot:*dispatch-table*
+        `(hunchentoot:dispatch-easy-handlers
+          ,(hunchentoot:create-folder-dispatcher-and-handler ; Requires full system path
+            "/" "assets/"))) ; /app is the root on a heroku filesystem
+  (when *acceptor*
+    (hunchentoot:stop *acceptor*))
+  (setf *acceptor*
+        (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port port))))
 
 ;;; Save the application as an image
 (let ((app-file (make-pathname :directory *build-dir* :defaults "lispapp")))

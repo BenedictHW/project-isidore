@@ -31,8 +31,8 @@
                #:cl-who
                #:cl-css
                #:parenscript)
-  :components ((:file "application")
-               (:file "heroku"))
+  :components ((:module "src"
+                :components ((:file "application"))))
   :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
 
 (asdf:defsystem #:project-isidore/test

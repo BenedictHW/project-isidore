@@ -58,6 +58,7 @@ inferred system"))
   ;; =C-o= to call =evil-jump-backward=
   ;; https://stackoverflow.com/questions/30150186/what-does-backtick-mean-in-lisp
   ;; http://www.lispworks.com/documentation/HyperSpec/Body/02_df.htm
+  ;; https://stackoverflow.com/questions/60378335/quote-comma-in-common-lisp
   `(ht:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
      (:html :lang "en"
             (:head
