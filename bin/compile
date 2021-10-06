@@ -100,6 +100,16 @@ fi
 cp -r $CL_DIR $BUILD_DIR
 info "STEEL BANK COMMON LISP Version $CL_IMPL_VER Successfully Installed"
 
+##############################
+log "II. Installing Quicklisp"
+##############################
+
+if [ ! -d $BUILDPACK_DIR/lib/ ] ; then
+    info "Fetching Quicklisp..."
+    mkdir $BUILDPACK_DIR/lib  && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
+    info "Quicklisp Successfully Installed"
+fi
+
 ####################################
 log "III. Compiling Lisp Executable"
 ####################################

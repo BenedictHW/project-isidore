@@ -27,6 +27,7 @@
 ;;; Identify if this build is local/production (remote)
 ;;; Change to nil if building locally
 (defconstant +productionp+ t)
+(defconstant +quicklisp-dist-version+ "2021-08-07")
 (format t "~&        ====== COMPILE.LISP ======")
 
 ;;; Setup Production Environment
@@ -52,6 +53,17 @@
                                      (:tree ,(make-pathname :directory *cache-dir*))
                                      :inherit-configuration))
 
+  ;; Install Quicklisp
+  (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp")) :defaults "setup.lisp")))
+    (if (probe-file ql-setup)
+        (load ql-setup)
+        (progn
+          (load (make-pathname :directory (append *buildpack-dir* '("lib")) :defaults "quicklisp.lisp"))
+          (funcall (symbol-function (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
+                   :path (make-pathname :directory (pathname-directory ql-setup)))
+          (funcall (symbol-function (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
+                   (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" +quicklisp-dist-version+)
+                   :replace t :prompt nil)))))
 
 ;;; Run the app's own build.
 (ql:quickload :project-isidore)
