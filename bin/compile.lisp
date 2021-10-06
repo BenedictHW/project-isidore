@@ -20,13 +20,14 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-(in-package :cl-user)
+(in-package #:cl-user) ; buildpack requires cl-user package space
 (require :sb-posix)
 (require 'asdf)
 
 ;;; Identify if this build is local/production (remote)
 ;;; Change to nil if building locally
 (defconstant +productionp+ t)
+(format t "~&        ====== COMPILE.LISP ======")
 
 ;;; Setup Production Environment
 (when (equalp +productionp+ t)
@@ -36,6 +37,7 @@
     (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
     (defvar *cache-dir* (env-to-dirs "CACHE_DIR")))
 
+  ;; Whitespace to enhance readability in Heroku logs
   (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
   (format t "~&        *cache-dir* = ~a" (make-pathname :directory *cache-dir*))
   (format t "~&        *buildpack-dir* = ~a~%" (make-pathname :directory *buildpack-dir*))
@@ -82,6 +84,7 @@
   (loop (sleep 600))) ; sleep forever
 
 ;;; Save the application as an image
+;; buildpack's bin/release refers to ./lispapp as the application name.
 (when (equalp +productionp+ nil)
   (setf *build-dir* "bin/")) ; local binary stored under
 

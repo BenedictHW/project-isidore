@@ -24,7 +24,16 @@
 # along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
 BUILDPACK_VERSION="0.1.0"
+#######################
+# 0. Helper Functions #
+#######################
 
+set -o errexit    # always exit on error
+set -o pipefail   # don't ignore exit codes when piping output
+unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
+
+# Allows us to retrieve ENV variables modified by end user
+# In Heroku CLI, see heroku:config set EXAMPLE_ENV_VAR=foobar
 function getenv() {
     ENV_NAME="$1"
     DEFAULT="$2"
@@ -45,6 +54,9 @@ function info {
   echo "        $1"
 }
 
+################################
+# 1. Get Environment Variables #
+################################
 
 BUILDPACK_DIR=$(cd $(dirname "$0"); cd ..; pwd) # absolute path of buildpack
 BUILD_DIR=$1
@@ -52,7 +64,10 @@ CACHE_DIR=$2
 ENV_DIR=$3
 CL_IMPL="sbcl-bin"
 
-log "-----> Common Lisp buildpack $BUILDPACK_VERSION"
+####################
+# 2. Run Buildpack #
+####################
+info "====== Common Lisp Buildpack $BUILDPACK_VERSION ======"
 info "BUILD_DIR: $BUILD_DIR"
 info "CACHE_DIR: $CACHE_DIR"
 info "CL_IMPL: $CL_IMPL"
@@ -74,12 +89,15 @@ ros install "$CL_IMPL"
 ros use "$CL_IMPL"
 popd || exit
 
-log "compiling application"
-export BUILDPACK_DIR
-export CACHE_DIR
-export BUILD_DIR
 
 ros run --asdf --load "$BUILDPACK_DIR/bin/compile.lisp" --quit
 log "compilation complete"
+####################################
+log "III. Compiling Lisp Executable"
+####################################
 
+export BUILDPACK_DIR
+export BUILD_DIR
+export CACHE_DIR
 chmod a+x "$BUILD_DIR/lispapp" # grant permissions for application
+info "====== Build Finished | Deo Gratias ======"
