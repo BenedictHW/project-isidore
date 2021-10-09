@@ -77,6 +77,7 @@
 
 ;; Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment
 (defun initialize-application (&key port)
+  (setf project-isidore:*database-url* (sb-ext:posix-getenv "DATABASE_URL"))
   (project-isidore:generate-index-css "assets/index.css")
   (project-isidore:generate-global-css "assets/global.css")
   (project-isidore:generate-index-js :input "src/index.lisp" :output "assets/index.js")

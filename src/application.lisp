@@ -31,12 +31,14 @@
   (:local-nicknames (#:ws #:hunchentoot) ; web server
                     (#:ht #:cl-who) ; hypertext markup generation
                     (#:css #:cl-css) ; CSS generation
-                    (#:js #:parenscript)) ; CL to JS transpiler
+                    (#:js #:parenscript) ; CL to JS transpiler
+                    (#:db #:postmodern))
   (:export #:start-dev-server
            #:stop-dev-server
            #:generate-index-css
            #:generate-global-css
-           #:generate-index-js)
+           #:generate-index-js
+           #:*database-url*)
   (:documentation
    "Project Isidore default package. When subsystems have enough form they are
 moved to project-isidore-name-of-subsystem. Project Isidore will use ASDF's package
@@ -167,13 +169,72 @@ inferred system"))
     (:h1 :class "title" "Contact")
     (:h1 "Ways to get in contact")
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
-            (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
-            (:p "My PGP Key Fingerprint:	06DD A936 90F7 75E3 715B 628C CA94 9A6D 46BC 2BBE")
-            (:p "My PGP Public Key is available" (:a :target "_blank" :href
-  "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a secondary
+    (:p "Questions, comments, death threats? Don't hesitate to reach out to me via email at:" (:a :class "cryptedmail" :data-name "hanshen" :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' + this.dataset.tld; return false;" :href "#"))
+    (:p "My PGP Key Fingerprint:	06DD A936 90F7 75E3 715B 628C CA94 9A6D 46BC 2BBE")
+    (:p "My PGP Public Key is available" (:a :target "_blank" :href
+                                             "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a secondary
   source, at" (:a :target "_blank" :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
+    (:p "To receive blog article updates please use" (:a :target "_blank" :href
+  "https://hanshenwang.com/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
+  "_blank" :href "https://hanshenwang.com/subscribe" "Subscribe to the Mailing List."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
     (:p "All edits made to an article after the initial publication date can be found" (:a :target "_blank" :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in the version-controlled Github repository ."))))
+
+(ws:define-easy-handler (subscribe :uri "/subscribe") ()
+  (app-page (:title "HanshenWang.com")
+    (:h1 :class "title" "Subscribe to Mailing List")
+    (:p "The Real Simple Syndication (RSS) protocol best represents the World
+  Wide Web as originally visualized: as an information highway. It does so while
+  respecting your privacy, and maintains a high signal-to-noise ratio. \"Walled
+  gardens\" have a vested interest beyond delivering news, but rather primarily
+  are businesses in advertising and data harvesting.")
+    (:a :target "_blank"
+        :href "https://www.wired.com/story/rss-readers-feedly-inoreader-old-reader/"
+  "Further information on getting started with RSS can be found here.")
+    (:p "I highly recommend the use of RSS for newsgroups and news reading.
+  Still, an option exists to receive new blog articles by E-mail. This mailing
+  list exists for that sole purpose and nothing else.")
+    (:h1 "Sign up")
+    (:form :action "/create-subscriber" :method "post"
+           (:label "Title: ")
+           (:input :name "friend-title" :size "50" :type "text" :required "required")
+           (:br)
+           (:label "Name: ")
+           (:input :name "friend-name" :size "50" :type "text" :required "required")
+           (:br)
+           (:label "E-mail: ")
+           (:input :name "friend-email" :size "50" :type "email" :required "required")
+           (:input :name "commit" :type "submit" :value "Submit"))))
+
+(ws:define-easy-handler (create-subscriber :uri "/create-subscriber") ()
+  (let ((title (ws:parameter "friend-title"))
+        (name (ws:parameter "friend-name"))
+        (email (ws:parameter "friend-email")))
+        (db:with-connection (db-params)
+          (db:make-dao 'mailinglist :title title :name name :email email))
+    (app-page (:title "HanshenWang.com")
+      (:h1 :class "title" "Subscribe to Mailing List")
+      (ht:htm (:p "Thank you. The E-mail Address: " (:code (ht:str email)) " has been
+  successfully subscribed."))
+      (:a :target "_blank" :href "/" "Return to homepage." ))))
+
+(ws:define-easy-handler (unsubscribe :uri "/unsubscribe") ()
+  (app-page (:title "HanshenWang.com")
+    (:h1 :class "title" "Unsubscribe from Mailing List")
+    (:form :action "/delete-subscriber" :method "post"
+           (:label "E-mail: ")
+           (:input :name "friend-email" :size "50" :type "email" :required "required")
+           (:input :name "commit" :type "submit" :value "Submit"))))
+
+(ws:define-easy-handler (delete-subscriber :uri "/delete-subscriber") ()
+  (let* ((email (ws:parameter "friend-email"))
+         (emailobj (car (db:with-connection (db-params) (db:select-dao 'mailinglist (:= 'email email))))))
+    (db:with-connection (db-params) (db:delete-dao emailobj))
+    (app-page (:title "HanshenWang.com")
+      (:h1 :class "title" "Unsubscribe from Mailing List")
+      (ht:htm (:p "The E-mail Address: " (:code (ht:str email)) " has been
+  successfully unsubscribed. Have a good one."))
+      (:a :target "_blank" :href "/" "Return to homepage." ))))
 
 ;;; Generate global.css, index.css and index.js static assets
 (defun generate-index-css (output-location)
@@ -1358,3 +1419,38 @@ files used by homepage. Optional HOST and PORT"
           (ws:stop *app-dev*)
           (return-from stop-dev-server (format t "Server successfully stopped")))))
   (format t "No server running. Start server with start-dev-server"))
+
+;;; Database functions
+(defparameter *database-url* nil
+  "Production Database URL. To be retrieved from production
+environment variables and parsed by DB-PARAMS. This URL is NOT constant and will
+be changed periodically by Heroku")
+(defparameter *local-db-params* (list "test" "user1" "user1" "localhost"))
+
+(defun db-params ()
+  "Heroku database url format is
+postgres://username:password@host:port/database_name. If we are testing on localhost,
+use the db-parameters from *LOCAL-DB-PARAMS*."
+  (setf db:*default-use-ssl* :try) ; Heroku PostgreSQL requires SSL to connect
+  (if *database-url*
+      (let* ((url (second (cl-ppcre:split "//" *database-url*))) ; remove postgres://
+             (user (first (cl-ppcre:split ":" (first (cl-ppcre:split "@" url)))))
+             (password (second (cl-ppcre:split ":" (first (cl-ppcre:split "@" url)))))
+             (host (first (cl-ppcre:split ":" (second (cl-ppcre:split "@" url)))))
+             ;; PORT parameter not needed.
+             ;; (port (first (cl-ppcre:split "/" (third (cl-ppcre:split ":" url)))))
+             (database (second (cl-ppcre:split "/" (second (cl-ppcre:split "@" url))))))
+        (list database user password host))
+      *local-db-params*))
+
+(defclass mailinglist ()
+  ((id :col-type integer :col-identity t :accessor id :documentation "Unique ID
+  number for each subscriber")
+   (title :col-type string :initarg :title :reader friend-title :documentation
+          "For usage in E-mail greetings: TITLE NAME")
+   (name :col-type string :initarg :name :reader friend-name :documentation "For
+  usage in E-mail greetings: TITLE NAME")
+   (email :col-type string :col-unique t :initarg :email :reader friend-email
+          :documentation "Subscriber E-mail. Must be unique."))
+  (:metaclass db:dao-class)
+  (:table-name mailinglist))
