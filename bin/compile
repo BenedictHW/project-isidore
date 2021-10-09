@@ -66,6 +66,7 @@ ENV_DIR=$3
 CL_DIR="$CACHE_DIR/sbcl"
 CL_IMPL="sbcl-bin"
 CL_IMPL_VER="$(getenv CL_IMPL_VER '2.1.9')" # safe to update this manually
+QL_DIST_VER="$(getenv QL_DIST_VER '2021-08-07')" # safe to update this manually
 
 ####################
 # 2. Run Buildpack #
@@ -77,6 +78,7 @@ info "CACHE_DIR: $CACHE_DIR"
 info "CL_DIR: $CL_DIR"
 info "CL_IMPL: $CL_IMPL"
 info "CL_IMPL_VER: $CL_IMPL_VER"
+info "QL_DIST_VER: $QL_DIST_VER"
 
 if [ "$RESET_CACHE" ]; then
     log "Flushing Cache..."

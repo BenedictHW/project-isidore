@@ -27,7 +27,7 @@
 ;;; Identify if this build is local/production (remote)
 ;;; Change to nil if building locally
 (defconstant +productionp+ t)
-(defconstant +quicklisp-dist-version+ "2021-08-07")
+
 (format t "~&        ====== COMPILE.LISP ======")
 
 ;;; Setup Production Environment
@@ -36,7 +36,8 @@
            (pathname-directory (pathname (concatenate 'string (sb-posix:getenv x) "/")))))
     (defvar *buildpack-dir* (env-to-dirs "BUILDPACK_DIR"))
     (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
-    (defvar *cache-dir* (env-to-dirs "CACHE_DIR")))
+    (defvar *cache-dir* (env-to-dirs "CACHE_DIR"))
+    (defvar *quicklisp-dist-version* (sb-posix:getenv "QL_DIST_VER")))
 
   ;; Whitespace to enhance readability in Heroku logs
   (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
@@ -62,7 +63,7 @@
           (funcall (symbol-function (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
                    :path (make-pathname :directory (pathname-directory ql-setup)))
           (funcall (symbol-function (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
-                   (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" +quicklisp-dist-version+)
+                   (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)
                    :replace t :prompt nil)))))
 
 ;;; Run the app's own build.
