@@ -33,7 +33,8 @@
 ;;; Setup Production Environment
 (when (equalp +productionp+ t)
   (flet ((env-to-dirs (x)
-           (pathname-directory (pathname (concatenate 'string (sb-posix:getenv x) "/")))))
+           (pathname-directory (pathname (concatenate 'string (sb-posix:getenv
+           x) "/")))))
     (defvar *buildpack-dir* (env-to-dirs "BUILDPACK_DIR"))
     (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
     (defvar *cache-dir* (env-to-dirs "CACHE_DIR"))
@@ -42,28 +43,39 @@
   ;; Whitespace to enhance readability in Heroku logs
   (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
   (format t "~&        *cache-dir* = ~a" (make-pathname :directory *cache-dir*))
-  (format t "~&        *buildpack-dir* = ~a~%" (make-pathname :directory *buildpack-dir*))
+  (format t "~& *buildpack-dir* = ~a~%" (make-pathname :directory
+  *buildpack-dir*))
 
   ;; Tell ASDF to store binaries in the cache dir.
-  (sb-posix:setenv "XDG_CACHE_HOME" (concatenate 'string (sb-posix:getenv "CACHE_DIR")
-                                                 "/.asdf/") 1)
+  (sb-posix:setenv "XDG_CACHE_HOME" (concatenate
+  'string (sb-posix:getenv "CACHE_DIR") "/.asdf/") 1)
 
-  ;; Notify ASDF that our build and cache dir is an awesome place to find '.asd' files.
+  ;; Notify ASDF that our build and cache dir is an awesome place to find '.asd'
+  ;; files.
   (asdf:initialize-source-registry `(:source-registry
-                                     (:tree ,(make-pathname :directory *build-dir*))
-                                     (:tree ,(make-pathname :directory *cache-dir*))
+                                     (:tree ,(make-pathname :directory
+                                     *build-dir*))
+                                     (:tree ,(make-pathname :directory
+                                     *cache-dir*))
                                      :inherit-configuration))
 
   ;; Install Quicklisp
-  (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp")) :defaults "setup.lisp")))
+  (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp"))
+  :defaults "setup.lisp")))
     (if (probe-file ql-setup)
         (load ql-setup)
         (progn
-          (load (make-pathname :directory (append *buildpack-dir* '("lib")) :defaults "quicklisp.lisp"))
-          (funcall (symbol-function (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
-                   :path (make-pathname :directory (pathname-directory ql-setup)))
-          (funcall (symbol-function (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
-                   (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)
+          (load (make-pathname :directory (append *buildpack-dir* '("lib"))
+          :defaults "quicklisp.lisp"))
+          (funcall (symbol-function
+                    (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
+                   :path (make-pathname :directory (pathname-directory
+                   ql-setup)))
+          (funcall (symbol-function
+                    (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
+                   (format
+                   nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt"
+                   *quicklisp-dist-version*)
                    :replace t :prompt nil)))))
 
 ;;; Run the app's own build.
