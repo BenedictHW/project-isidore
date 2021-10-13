@@ -377,40 +377,21 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
       :padding" 15px 0px")
      ( "p.portfolio-button a"
       :display" inline-block"
-      :border" 1px solid #425de6"
+      :border" 1px solid #FFF"
       :padding" 4px 10px 3px"
       :font-family" 'Cinzel', 'Times New Roman', serif"
       :font-size" 13px"
       :line-height" 18px"
       :margin" 2px 3px"
       :font-weight" 500"
-      :-webkit-box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
-      :-moz-box-shadow"0px 1px 1px rgba(0,0,0,0.1)"
       :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)"
       :color"#fff"
-      :-webkit-border-radius" 5px"
-      :-moz-border-radius" 5px"
       :border-radius" 5px"
-      :background" #6295e3"
-      :background" -moz-linear-gradient(top, #6295e3 0%, #6286e3 44%, #425de6 100%)"
-      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6295e3), color-stop(44%,#6286e3), color-stop(100%,#425de6))"
-      :background" -webkit-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" -o-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" -ms-linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)"
-      :background" linear-gradient(top, #6295e3 0%,#6286e3 44%,#425de6 100%)")
+      :background"rgba(0,0,0,0)")
      ("p.portfolio-button a:hover"
-      :background" #425de6")
+      :background"rgba(0,0,0,0.5)")
      ("p.portfolio-button a:active"
-      :background" #425de6"
-      :background" -moz-linear-gradient(top, #425de6 0%, #6286e3 56%, #6295e3 100%)"
-      :background" -webkit-gradient(linear, left top, left bottom, color-stop(0%,#425de6), color-stop(56%,#6286e3), color-stop(100%,#6295e3))"
-      :background" -webkit-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" -o-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" -ms-linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :background" linear-gradient(top, #425de6 0%,#6286e3 56%,#6295e3 100%)"
-      :-webkit-box-shadow" 0px 1px 1px rgba(255,255,255,0.9)"
-      :-moz-box-shadow"0px 1px 1px rgba(255,255,255,0.9)"
-      :box-shadow" 0px 1px 1px rgba(255,255,255,0.9)")
+      :background"rgba(0,0,0,0.5)")
      ;; Media Queries
      ("@media screen and (max-width: 767px)"
       (".container > header"
