@@ -32,7 +32,8 @@
                     (#:ht #:cl-who) ; hypertext markup generation
                     (#:css #:cl-css) ; CSS generation
                     (#:js #:parenscript) ; CL to JS transpiler
-                    (#:db #:postmodern))
+                    (#:db #:postmodern) ; PostgreSQL interaction
+                    (#:log #:log4cl))
   (:export #:start-dev-server
            #:stop-dev-server
            #:generate-index-css
@@ -210,8 +211,9 @@ inferred system"))
   (let ((title (ws:parameter "friend-title"))
         (name (ws:parameter "friend-name"))
         (email (ws:parameter "friend-email")))
-        (db:with-connection (db-params)
-          (db:make-dao 'mailinglist :title title :name name :email email))
+    (log:log-info "~A successfully added to mailing list." email)
+    (db:with-connection (db-params)
+      (db:make-dao 'mailinglist :title title :name name :email email))
     (app-page (:title "HanshenWang.com")
       (:h1 :class "title" "Subscribe to Mailing List")
       (ht:htm (:p "Thank you. The E-mail Address: " (:code (ht:str email)) " has been
@@ -229,6 +231,7 @@ inferred system"))
 (ws:define-easy-handler (delete-subscriber :uri "/delete-subscriber") ()
   (let* ((email (ws:parameter "friend-email"))
          (emailobj (car (db:with-connection (db-params) (db:select-dao 'mailinglist (:= 'email email))))))
+    (log:log-info "~A removed from mailing list." email)
     (db:with-connection (db-params) (db:delete-dao emailobj))
     (app-page (:title "HanshenWang.com")
       (:h1 :class "title" "Unsubscribe from Mailing List")

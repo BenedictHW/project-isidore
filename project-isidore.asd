@@ -31,7 +31,8 @@
                #:cl-who
                #:cl-css
                #:parenscript
-               #:postmodern)
+               #:postmodern
+               #:log4cl)
   :components ((:module "src"
                 :components ((:file "application"))))
   :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
