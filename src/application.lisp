@@ -20,9 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-;;; initialize-application is the function launched by the heroku buildpack.
-;;; This has been initially defined in heroku.lisp as the function must be under
-;;; the CL-USER namespace and not project-isidore with the current build process.
+;;; INITIALIZE-APPLICATION is the function launched by compile.lisp
 (defpackage #:project-isidore
   ;; :use means there is no need to prefix hunchentoot:define-easy-handler and instead use just define-easy-handler
   ;; As per https://lispcookbook.github.io/cl-cookbook/packages.html#about-use-ing-packages-being-a-bad-practice,
@@ -50,8 +48,6 @@ inferred system"))
 ;;; This must match the defpackage above, remember repl upon startup defaults to cl-user package.
 (in-package #:project-isidore)
 
-;;; The double colons are to access unexported functions & symbols
-;;; single colon if it is exported. Be careful with unexported/internal symbols
 (defmacro app-page ((&key title) &body body)
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html') and the static blog post .html files, all other web app pages uses this boilerplate."
@@ -1265,17 +1261,16 @@ pathname. This pathname is created if it does not exist."
   (with-open-file (stream output :direction :output :if-exists :supersede :if-does-not-exist :create)
     (format stream (js:ps-compile-file input))))
 
-;;; For local application development
-;; The application ("main") entry point is heroku-toplevel and is defined in compile.lisp. The
-;; runtime initialize-application is re-defined also in heroku.lisp. That is the version
-;; run in production.
-(defvar *acceptor* nil)
+;;; For application development
+(defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
+instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 
-;; Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment
 (defun initialize-application (&key (productionp nil) (port 8080) (dispatch-folder "/home/hanshen/project-isidore/assets/"))
   "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
 files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
-and PRODUCTIONP"
+and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
+dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
+in compile.lisp."
   (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (generate-index-css productionp)
   (generate-global-css productionp)
@@ -1284,7 +1279,7 @@ and PRODUCTIONP"
       (generate-index-js))
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
-          ;; http://HOST:PORT/example.jpg will dispatched to
+          ;; http://localhost:PORT/example.jpg will dispatched to
           ;; /project-isidore/assets/example.jpg
           ;; Requires full system path
           ;; /app is the root on a heroku filesystem
@@ -1310,8 +1305,10 @@ PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
 (defparameter *database-url* nil
   "Production Database URL. To be retrieved from production
 environment variables and parsed by DB-PARAMS. This URL is NOT constant and will
-be changed periodically by Heroku")
-(defparameter *local-db-params* (list "test" "user1" "user1" "localhost"))
+be changed periodically by Heroku.")
+(defparameter *local-db-params* (list "test" "user1" "user1" "localhost") "Local
+Database Parameters. A local PostgreSQL installation with the creation of
+\"user1\" user and \"test\" database is needed")
 
 (defun db-params ()
   "Heroku database url format is
@@ -1331,7 +1328,7 @@ use the db-parameters from *LOCAL-DB-PARAMS*."
 
 (defclass mailinglist ()
   ((id :col-type integer :col-identity t :accessor id :documentation "Unique ID
-  number for each subscriber")
+  number for each subscriber. Note ID is unique and not reused upon deletion.")
    (title :col-type string :initarg :title :reader friend-title :documentation
           "For usage in E-mail greetings: TITLE NAME")
    (name :col-type string :initarg :name :reader friend-name :documentation "For
@@ -1339,4 +1336,6 @@ use the db-parameters from *LOCAL-DB-PARAMS*."
    (email :col-type string :col-unique t :initarg :email :reader friend-email
           :documentation "Subscriber E-mail. Must be unique."))
   (:metaclass db:dao-class)
-  (:table-name mailinglist))
+  (:table-name mailinglist)
+  (:documentation "MAILINGLIST table schema contains all E-mails that are to
+  receive notifications on PROJECT-ISIDORE blog article updates."))

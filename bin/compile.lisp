@@ -19,7 +19,7 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
-
+
 (in-package #:cl-user) ; buildpack requires cl-user package space
 (require :sb-posix)
 (require 'asdf)
@@ -29,7 +29,7 @@
 (defconstant +productionp+ t)
 
 (format t "~&        ====== COMPILE.LISP ======")
-
+
 ;;; Setup Production Environment
 (when (equalp +productionp+ t)
   (flet ((env-to-dirs (x)
@@ -65,24 +65,24 @@
           (funcall (symbol-function (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
                    (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)
                    :replace t :prompt nil)))))
-
+
 ;;; Run the app's own build.
 (ql:quickload :project-isidore)
 
-;;; App can redefine this to do runtime initialization
-;;; application entry point
 (defvar *acceptor* nil)
 
-(defvar *root* "/app") ; this is always the app root on Heroku.
+(defvar *root* "/app" "This is always the app root on Heroku.")
 
-;;; Default toplevel, app can redefine.
 (defun application-toplevel ()
   (when (equalp +productionp+ nil)
     (sb-posix:setenv "PORT" "8080" 0)) ; or PORT will return NIL
+  "Application entry point. Emulate a \"main\" function. Used in
+  SAVE-LISP-AND-DIE to save Application as an Lisp image."
   (project-isidore:initialize-application :productionp t
   :port (parse-integer (sb-posix:getenv "PORT")) :dispatch-folder "assets/")
   (loop (sleep 600))) ; sleep forever
 
+
 ;;; Save the application as an image
 ;; buildpack's bin/release refers to ./lispapp as the application name.
 (when (equalp +productionp+ nil)
