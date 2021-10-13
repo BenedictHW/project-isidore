@@ -240,12 +240,20 @@ inferred system"))
       (:a :target "_blank" :href "/" "Return to homepage." ))))
 
 ;;; Generate global.css, index.css and index.js static assets
+(defun bg-slideshow-span (image delay)
+  "Boilerplate function to specify background IMAGE and duration DELAY in seconds"
+  `(:background-image ,(format nil "url(pic~a.webp)" image) :animation-delay ,(format nil "~a" delay)))
+
+(defun bg-slideshow-div (delay)
+  "Boilerplate function to specify duration DELAY in seconds"
+  `(:animation-delay ,(format nil "~a" delay)))
+
 (defun generate-index-css (output-location)
   "Generated index.css file for index.html use. Takes OUTPUT-LOCATION as a
 pathname. This pathname is created if it does not exist. When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an error will be thrown"
   (css:compile-css
    output-location
-   '(
+   `(
      ;; CSS Background Slideshow
      (".cb-slideshow,.cb-slideshow:after"
       :position" fixed"
@@ -268,151 +276,39 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
       :background-repeat" none"
       :opacity" 0"
       :z-index" 0"
-      :-webkit-backface-visibility" hidden"
-      :-webkit-animation" imageAnimation 36s linear infinite 0s"
-      :-moz-animation" imageAnimation 36s linear infinite 0s"
-      :-o-animation" imageAnimation 36s linear infinite 0s"
-      :-ms-animation" imageAnimation 36s linear infinite 0s"
+      :backface-visibility" hidden"
       :animation" imageAnimation 36s linear infinite 0s")
      (".cb-slideshow li:nth-child(1) span"
       :background-image "url(pic1.webp)")
      (".cb-slideshow li:nth-child(2) span"
-      :background-image "url(pic2.webp)"
-      :-webkit-animation-delay" 6s"
-      :-moz-animation-delay" 6s"
-      :-o-animation-delay" 6s"
-      :-ms-animation-delay" 6s"
-      :animation-delay" 6s")
+      ,@(bg-slideshow-span 2 "6s"))
      (".cb-slideshow li:nth-child(3) span"
-      :background-image" url(pic3.webp)"
-      :-webkit-animation-delay" 12s"
-      :-moz-animation-delay" 12s"
-      :-o-animation-delay" 12s"
-      :-ms-animation-delay" 12s"
-      :animation-delay" 12s")
+      ,@(bg-slideshow-span 3 "12s"))
      (".cb-slideshow li:nth-child(4) span"
-      :background-image" url(pic4.webp)"
-      :-webkit-animation-delay" 18s"
-      :-moz-animation-delay" 18s"
-      :-o-animation-delay" 18s"
-      :-ms-animation-delay" 18s"
-      :animation-delay" 18s")
+      ,@(bg-slideshow-span 4 "18s"))
      (".cb-slideshow li:nth-child(5) span"
-      :background-image" url(pic5.webp)"
-      :-webkit-animation-delay" 24s"
-      :-moz-animation-delay" 24s"
-      :-o-animation-delay" 24s"
-      :-ms-animation-delay" 24s"
-      :animation-delay" 24s")
+      ,@(bg-slideshow-span 5 "24s"))
      (".cb-slideshow li:nth-child(6) span"
-      :background-image" url(pic6.webp)"
-      :-webkit-animation-delay" 30s"
-      :-moz-animation-delay" 30s"
-      :-o-animation-delay" 30s"
-      :-ms-animation-delay" 30s"
-      :animation-delay" 30s")
+      ,@(bg-slideshow-span 6 "30s"))
      (".cb-slideshow li:nth-child(2) div"
-      :-webkit-animation-delay" 6s"
-      :-moz-animation-delay" 6s"
-      :-o-animation-delay" 6s"
-      :-ms-animation-delay" 6s"
-      :animation-delay" 6s")
+      ,@(bg-slideshow-div "6s"))
      (".cb-slideshow li:nth-child(3) div"
-      :-webkit-animation-delay" 12s"
-      :-moz-animation-delay" 12s"
-      :-o-animation-delay" 12s"
-      :-ms-animation-delay" 12s"
-      :animation-delay" 12s")
+      ,@(bg-slideshow-div "12s"))
      (".cb-slideshow li:nth-child(4) div"
-      :-webkit-animation-delay" 18s"
-      :-moz-animation-delay" 18s"
-      :-o-animation-delay" 18s"
-      :-ms-animation-delay" 18s"
-      :animation-delay" 18s")
+      ,@(bg-slideshow-div "18s"))
      (".cb-slideshow li:nth-child(5) div"
-      :-webkit-animation-delay" 24s"
-      :-moz-animation-delay" 24s"
-      :-o-animation-delay" 24s"
-      :-ms-animation-delay" 24s"
-      :animation-delay" 24s")
+      ,@(bg-slideshow-div "24s"))
      (".cb-slideshow li:nth-child(6) div"
-      :-webkit-animation-delay" 30s"
-      :-moz-animation-delay" 30s"
-      :-o-animation-delay" 30s"
-      :-ms-animation-delay" 30s"
-      :animation-delay" 30s")
+      ,@(bg-slideshow-div "30s"))
+     (".cb-slideshow li:nth-child(2) div"
+      ,@(bg-slideshow-div "6s"))
      ;; Animation for the slideshow images
-     ("@-webkit-keyframes imageAnimation"
-      ("0%"
-       :opacity" 0"
-       :-webkit-animation-timing-function" ease-in")
-      ("8%"
-       :opacity" 1"
-       :-webkit-animation-timing-function" ease-out")
-      ("17%"
-       :opacity" 1")
-      ("25%"
-       :opacity" 0")
-      ("100%"
-       :opacity" 0"))
-
-     ("@-moz-keyframes imageAnimation"
-      ("0%"
-       :opacity" 0"
-       :-moz-animation-timing-function" ease-in")
-      ("8%"
-       :opacity" 1"
-       :-moz-animation-timing-function" ease-out")
-      ("17%"
-       :opacity" 1")
-      ("25%"
-       :opacity" 0")
-      ("100%"
-       :opacity" 0"))
-     ("@-o-keyframes imageAnimation"
-      ("0%"
-       :opacity" 0"
-       :-o-animation-timing-function" ease-in")
-      ("8%"
-       :opacity" 1"
-       :-o-animation-timing-function" ease-out")
-      ("17%"
-       :opacity" 1")
-      ("25%"
-       :opacity" 0")
-      ("100%"
-       :opacity" 0"))
-     ("@-ms-keyframes imageAnimation"
-      ("0%"
-       :opacity" 0"
-       :-ms-animation-timing-function" ease-in")
-      ("8%"
-       :opacity" 1"
-       :-ms-animation-timing-function" ease-out")
-      ("17%"
-       :opacity" 1")
-      ("25%"
-       :opacity" 0")
-      ("100%"
-       :opacity" 0"))
      ("@keyframes imageAnimation"
-      ("0%"
-       :opacity" 0"
-       :animation-timing-function" ease-in")
-      ("8%"
-       :opacity" 1"
-       :animation-timing-function" ease-out")
-      ("17%"
-       :opacity" 1")
-      ("25%"
-       :opacity" 0")
-      ("100%"
-       :opacity" 0")
-      )
+      ("0%" :opacity" 0" :animation-timing-function" ease-in")
+      ("8%" :opacity" 1" :animation-timing-function" ease-out")
+      ("17%" :opacity"1") ("25%" :opacity"0") ("100%" :opacity "0"))
      ;; Show at least something when animations not supported
-     (".no-cssanimations .cb-slideshow li span"
-      :opacity" 1"
-      )
+     (".no-cssanimations .cb-slideshow li span" :opacity" 1")
      ;; General Demo Style
      ("html,body,div,dl,dt,dd,ul,ol,li,h1,h2,pre,form,fieldset,input,textarea,p,blockquote,th,td" :margin 0 :padding 0)
      ("body"
