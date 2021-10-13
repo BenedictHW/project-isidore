@@ -105,7 +105,7 @@ inferred system"))
             (:link :type "text/css" :href "index.css" :rel "stylesheet")
             (:script :src "index.js"))
            (:body
-            (:ul :class "cb-slideshow" ; background CSS3 slideshow
+            (:ul :class "slideshow" ; background CSS3 slideshow
                  (:li (:span "pic1.webp"))
                  (:li (:span "pic2.webp"))
                  (:li (:span "pic3.webp"))
@@ -255,16 +255,16 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
    output-location
    `(
      ;; CSS Background Slideshow
-     (".cb-slideshow,.cb-slideshow:after"
+     (".slideshow,.slideshow:after"
       :position" fixed"
       :width" 100%"
       :height" 100%"
       :top" 0px"
       :left" 0px"
       :z-index" 0")
-     (".cb-slideshow:after"
+     (".slideshow:after"
       :content" ''")
-     (".cb-slideshow li span"
+     (".slideshow li span"
       :width" 100%"
       :height" 100%"
       :position" absolute"
@@ -278,29 +278,29 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
       :z-index" 0"
       :backface-visibility" hidden"
       :animation" imageAnimation 36s linear infinite 0s")
-     (".cb-slideshow li:nth-child(1) span"
+     (".slideshow li:nth-child(1) span"
       :background-image "url(pic1.webp)")
-     (".cb-slideshow li:nth-child(2) span"
+     (".slideshow li:nth-child(2) span"
       ,@(bg-slideshow-span 2 "6s"))
-     (".cb-slideshow li:nth-child(3) span"
+     (".slideshow li:nth-child(3) span"
       ,@(bg-slideshow-span 3 "12s"))
-     (".cb-slideshow li:nth-child(4) span"
+     (".slideshow li:nth-child(4) span"
       ,@(bg-slideshow-span 4 "18s"))
-     (".cb-slideshow li:nth-child(5) span"
+     (".slideshow li:nth-child(5) span"
       ,@(bg-slideshow-span 5 "24s"))
-     (".cb-slideshow li:nth-child(6) span"
+     (".slideshow li:nth-child(6) span"
       ,@(bg-slideshow-span 6 "30s"))
-     (".cb-slideshow li:nth-child(2) div"
+     (".slideshow li:nth-child(2) div"
       ,@(bg-slideshow-div "6s"))
-     (".cb-slideshow li:nth-child(3) div"
+     (".slideshow li:nth-child(3) div"
       ,@(bg-slideshow-div "12s"))
-     (".cb-slideshow li:nth-child(4) div"
+     (".slideshow li:nth-child(4) div"
       ,@(bg-slideshow-div "18s"))
-     (".cb-slideshow li:nth-child(5) div"
+     (".slideshow li:nth-child(5) div"
       ,@(bg-slideshow-div "24s"))
-     (".cb-slideshow li:nth-child(6) div"
+     (".slideshow li:nth-child(6) div"
       ,@(bg-slideshow-div "30s"))
-     (".cb-slideshow li:nth-child(2) div"
+     (".slideshow li:nth-child(2) div"
       ,@(bg-slideshow-div "6s"))
      ;; Animation for the slideshow images
      ("@keyframes imageAnimation"
@@ -308,7 +308,7 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
       ("8%" :opacity" 1" :animation-timing-function" ease-out")
       ("17%" :opacity"1") ("25%" :opacity"0") ("100%" :opacity "0"))
      ;; Show at least something when animations not supported
-     (".no-cssanimations .cb-slideshow li span" :opacity" 1")
+     (".no-cssanimations .slideshow li span" :opacity" 1")
      ;; General Demo Style
      ("html,body,div,dl,dt,dd,ul,ol,li,h1,h2,pre,form,fieldset,input,textarea,p,blockquote,th,td" :margin 0 :padding 0)
      ("body"
