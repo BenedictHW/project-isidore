@@ -75,26 +75,12 @@
 
 (defvar *root* "/app") ; this is always the app root on Heroku.
 
-;; Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment
-(defun initialize-application (&key port)
-  (setf project-isidore:*database-url* (sb-ext:posix-getenv "DATABASE_URL"))
-  (project-isidore:generate-index-css "assets/index.css")
-  (project-isidore:generate-global-css "assets/global.css")
-  (project-isidore:generate-index-js :input "src/index.lisp" :output "assets/index.js")
-  (setf hunchentoot:*dispatch-table*
-        `(hunchentoot:dispatch-easy-handlers
-          ,(hunchentoot:create-folder-dispatcher-and-handler ; Requires full system path
-            "/" "assets/"))) ; /app is the root on a heroku filesystem
-  (when *acceptor*
-    (hunchentoot:stop *acceptor*))
-  (setf *acceptor*
-        (hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port port))))
-
 ;;; Default toplevel, app can redefine.
 (defun application-toplevel ()
   (when (equalp +productionp+ nil)
     (sb-posix:setenv "PORT" "8080" 0)) ; or PORT will return NIL
-  (initialize-application :port (parse-integer (sb-posix:getenv "PORT")))
+  (project-isidore:initialize-application :productionp t
+  :port (parse-integer (sb-posix:getenv "PORT")) :dispatch-folder "assets/")
   (loop (sleep 600))) ; sleep forever
 
 ;;; Save the application as an image

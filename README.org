@@ -14,7 +14,7 @@ Prerequisites:
 
 #+begin_src lisp
 (ql:quickload :project-isidore)
-(project-isidore:start-dev-server) ; starts server at http://localhost:8080
+(project-isidore:initialize-application) ; starts server at http://localhost:8080
 #+end_src
 
 Full documentation available here: https://www.hanshenwang.com/blog/project-isidore-doc.html

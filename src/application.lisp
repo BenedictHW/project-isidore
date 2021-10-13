@@ -34,12 +34,11 @@
                     (#:js #:parenscript) ; CL to JS transpiler
                     (#:db #:postmodern) ; PostgreSQL interaction
                     (#:log #:log4cl))
-  (:export #:start-dev-server
-           #:stop-dev-server
-           #:generate-index-css
-           #:generate-global-css
-           #:generate-index-js
-           #:*database-url*)
+  ;; The double colons are to access unexported functions & symbols
+  ;; single colon is used if exported. Be careful with unexported/internal symbols.
+  ;; (project-isidore:initialize-application) vs (project-isidore::*database-url*)
+  (:export #:initialize-application
+           #:terminate-application)
   (:documentation
    "Project Isidore default package. When subsystems have enough form they are
 moved to project-isidore-name-of-subsystem. Project Isidore will use ASDF's package
@@ -250,11 +249,11 @@ inferred system"))
   "Boilerplate function to specify duration DELAY in seconds"
   `(:animation-delay ,(format nil "~a" delay)))
 
-(defun generate-index-css (output-location)
+(defun generate-index-css (productionp)
   "Generated index.css file for index.html use. Takes OUTPUT-LOCATION as a
 pathname. This pathname is created if it does not exist. When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an error will be thrown"
   (css:compile-css
-   output-location
+   (if productionp "assets/index.css" "../assets/index.css")
    `(
      ;; CSS Background Slideshow
      (".slideshow,.slideshow:after"
@@ -405,11 +404,11 @@ pathname. This pathname is created if it does not exist. When using cl-css, \"~~
       (".portfolio-container"
        :flex-direction" column")))))
 
-(defun generate-global-css (output-location)
+(defun generate-global-css (productionp)
   "Generate global.css file for site-wide use. Takes OUTPUT-LOCATION as a
 pathname. This pathname is created if it does not exist."
   (css:compile-css
-   output-location
+   (if productionp "assets/global.css" "../assets/global.css")
    '(
      ;; Navbar CSS
      (".header-fixed "
@@ -1270,37 +1269,42 @@ pathname. This pathname is created if it does not exist."
 ;; The application ("main") entry point is heroku-toplevel and is defined in compile.lisp. The
 ;; runtime initialize-application is re-defined also in heroku.lisp. That is the version
 ;; run in production.
-(defvar *app-dev* nil)
+(defvar *acceptor* nil)
 
-(defun start-dev-server (&key (port 8080) (host "localhost"))
-  "Start the web server at HOST and PORT. Generate static CSS and Javascript
-files used by homepage. Optional HOST and PORT"
-  (generate-index-css "../assets/index.css") ; path name is relative
-  (generate-global-css "../assets/global.css")
-  (generate-index-js :input "../src/index.lisp" :output "../assets/index.js")
+;; Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment
+(defun initialize-application (&key (productionp nil) (port 8080) (dispatch-folder "/home/hanshen/project-isidore/assets/"))
+  "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
+files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
+and PRODUCTIONP"
+  (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
+  (generate-index-css productionp)
+  (generate-global-css productionp)
+  (if productionp
+      (generate-index-js :input "src/index.lisp" :output "assets/index.js")
+      (generate-index-js))
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ;; http://HOST:PORT/example.jpg will dispatched to
           ;; /project-isidore/assets/example.jpg
-          ,(ws:create-folder-dispatcher-and-handler
-            "/" "/home/hanshen/project-isidore/assets/")))
-  (unless (equalp *app-dev* nil) ; only true upon first loading
-    (when (ws:started-p *app-dev*)
-    (return-from start-dev-server (format t "Server already running at http://~A:~A/~%" host port))))
-  (setf *app-dev*
-        (ws:start (make-instance 'ws:easy-acceptor
-                                 :port port
-                                 :address host)))
-  (format t "Server successfully started at http://~A:~A/~%" host port))
+          ;; Requires full system path
+          ;; /app is the root on a heroku filesystem
+          ,(ws:create-folder-dispatcher-and-handler "/" dispatch-folder)))
+  (unless (equalp *acceptor* nil) ; only true upon first loading
+    (when (ws:started-p *acceptor*)
+    (return-from initialize-application (format t "Server already running at
+PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
+  (setf *acceptor*
+        (ws:start (make-instance 'ws:easy-acceptor :port port)))
+  (format t "Server successfully started at PORT ~A" port))
 
-(defun stop-dev-server ()
-  "Stop the web server started by start-dev-server, if it exists"
-  (unless (equalp *app-dev* nil) ; only true upon first loading
-    (if (ws:started-p *app-dev*)
+(defun terminate-application ()
+  "Stop the web server started by initialize-application, if it exists"
+  (unless (equalp *acceptor* nil) ; only true upon first loading
+    (if (ws:started-p *acceptor*)
         (progn
-          (ws:stop *app-dev*)
-          (return-from stop-dev-server (format t "Server successfully stopped")))))
-  (format t "No server running. Start server with start-dev-server"))
+          (ws:stop *acceptor*)
+          (return-from terminate-application (format t "Server successfully stopped")))))
+  (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
 ;;; Database functions
 (defparameter *database-url* nil
