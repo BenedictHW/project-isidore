@@ -33,12 +33,12 @@
 ;;; Setup Production Environment
 (when (equalp +productionp+ t)
   (flet ((env-to-dirs (x)
-           (pathname-directory (pathname (concatenate 'string (sb-posix:getenv
+           (pathname-directory (pathname (concatenate 'string (uiop:getenv
            x) "/")))))
     (defvar *buildpack-dir* (env-to-dirs "BUILDPACK_DIR"))
     (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
     (defvar *cache-dir* (env-to-dirs "CACHE_DIR"))
-    (defvar *quicklisp-dist-version* (sb-posix:getenv "QL_DIST_VER")))
+    (defvar *quicklisp-dist-version* (uiop:getenv "QL_DIST_VER")))
 
   ;; Whitespace to enhance readability in Heroku logs
   (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
@@ -47,8 +47,8 @@
   *buildpack-dir*))
 
   ;; Tell ASDF to store binaries in the cache dir.
-  (sb-posix:setenv "XDG_CACHE_HOME" (concatenate
-  'string (sb-posix:getenv "CACHE_DIR") "/.asdf/") 1)
+  (setf (uiop:getenv "XDG_CACHE_HOME") (concatenate
+  'string (uiop:getenv "CACHE_DIR") "/.asdf/"))
 
   ;; Notify ASDF that our build and cache dir is an awesome place to find '.asd'
   ;; files.
@@ -91,7 +91,7 @@
   "Application entry point. Emulate a \"main\" function. Used in
   SAVE-LISP-AND-DIE to save Application as an Lisp image."
   (project-isidore:initialize-application :productionp t
-  :port (parse-integer (sb-posix:getenv "PORT")) :dispatch-folder "assets/")
+  :port (parse-integer (uiop:getenv "PORT")) :dispatch-folder "assets/")
   (loop (sleep 600))) ; sleep forever
 
 
