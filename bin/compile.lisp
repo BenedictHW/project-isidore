@@ -24,14 +24,12 @@
 (require :sb-posix)
 (require 'asdf)
 
-;;; Identify if this build is local/production (remote)
-;;; Change to nil if building locally
-(defconstant +productionp+ t)
+(defconstant +production-buildp+ t "Identify if this build is local/production (remote). Change to t if building locally")
 
 (format t "~&        ====== COMPILE.LISP ======")
 
 ;;; Setup Production Environment
-(when (equalp +productionp+ t)
+(when (equalp +production-buildp+)
   (flet ((env-to-dirs (x)
            (pathname-directory (pathname (concatenate 'string (uiop:getenv
            x) "/")))))
@@ -81,15 +79,11 @@
 ;;; Run the app's own build.
 (ql:quickload :project-isidore)
 
-(defvar *acceptor* nil)
-
-(defvar *root* "/app" "This is always the app root on Heroku.")
-
 (defun application-toplevel ()
-  (when (equalp +productionp+ nil)
-    (sb-posix:setenv "PORT" "8080" 0)) ; or PORT will return NIL
   "Application entry point. Emulate a \"main\" function. Used in
   SAVE-LISP-AND-DIE to save Application as an Lisp image."
+  ;; Set PORT for local builds or it will return NIL
+  (when (equalp +production-buildp+ nil) (setf (uiop:getenv "PORT") "8080"))
   (project-isidore:initialize-application :productionp t
   :port (parse-integer (uiop:getenv "PORT")) :dispatch-folder "assets/")
   (loop (sleep 600))) ; sleep forever
@@ -97,8 +91,8 @@
 
 ;;; Save the application as an image
 ;; buildpack's bin/release refers to ./lispapp as the application name.
-(when (equalp +productionp+ nil)
-  (setf *build-dir* "bin/")) ; local binary stored under
+;; store binary locally under /project-isidore/bin/
+(when (equalp +production-buildp+ nil) (setf *build-dir* "bin/"))
 
 (let ((app-file (make-pathname :directory *build-dir* :defaults "lispapp")))
   (save-lisp-and-die app-file :toplevel #'application-toplevel :executable t))
