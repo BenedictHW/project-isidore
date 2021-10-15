@@ -24,7 +24,7 @@
 (require :sb-posix)
 (require 'asdf)
 
-(defconstant +production-buildp+ t "Identify if this build is local/production (remote). Change to t if building locally")
+(defconstant +production-buildp+ nil "Identify if this build is local/production (remote). Change to t if building locally")
 
 (format t "~&        ====== COMPILE.LISP ======")
 

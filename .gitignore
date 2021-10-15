@@ -4,3 +4,8 @@
 /assets/global.css
 # Ignore all compiled files
 *.fasl
+# Electron generated
+lispapp.exe
+/node_modules/
+package-lock.json
+/project-isidore-linux-x64/
