@@ -785,6 +785,7 @@ and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
 dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
 in compile.lisp."
   (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
+  (setf (ht:html-mode) :HTML5)
   (generate-global-css productionp)
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
