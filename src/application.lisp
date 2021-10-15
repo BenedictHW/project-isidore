@@ -109,7 +109,102 @@ this boilerplate."
             (:link
             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
             :rel "stylesheet")
-            (:link :type "text/css" :href "index.css" :rel "stylesheet"))
+            (:style (ht:str
+;; When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an
+;; error will be thrown
+                     (css:css
+                      `(;; CSS Background Slideshow
+                        (".slideshow,.slideshow:after" :position" fixed" :width" 100%" :height"
+     100%" :top" 0px" :left" 0px" :z-index" 0")
+
+                        (".slideshow:after" :content" ''")
+
+                        (".slideshow li span" :width" 100%" :height" 100%" :position" absolute"
+                                              :top" 0px" :left" 0px" :color" transparent" :background-size" cover"
+                                              :background-position" 50% 50%" :background-repeat" none" :opacity" 0"
+                                              :z-index" 0" :backface-visibility" hidden" :animation" imageAnimation 36s
+     linear infinite 0s")
+
+                        (".slideshow li:nth-child(1) span" :background-image "url(pic1.webp)")
+                        (".slideshow li:nth-child(2) span" ,@(bg-slideshow-span 2 "6s"))
+                        (".slideshow li:nth-child(3) span" ,@(bg-slideshow-span 3 "12s"))
+                        (".slideshow li:nth-child(4) span" ,@(bg-slideshow-span 4 "18s"))
+                        (".slideshow li:nth-child(5) span" ,@(bg-slideshow-span 5 "24s"))
+                        (".slideshow li:nth-child(6) span" ,@(bg-slideshow-span 6 "30s"))
+                        (".slideshow li:nth-child(2) div" ,@(bg-slideshow-div "6s"))
+                        (".slideshow li:nth-child(3) div" ,@(bg-slideshow-div "12s"))
+                        (".slideshow li:nth-child(4) div" ,@(bg-slideshow-div "18s"))
+                        (".slideshow li:nth-child(5) div" ,@(bg-slideshow-div "24s"))
+                        (".slideshow li:nth-child(6) div" ,@(bg-slideshow-div "30s"))
+                        (".slideshow li:nth-child(2) div" ,@(bg-slideshow-div "6s"))
+
+                        ;; Animation for the slideshow images
+                        ("@keyframes imageAnimation" ("0%" :opacity" 0" :animation-timing-function"
+     ease-in") ("8%" :opacity" 1" :animation-timing-function" ease-out") ("17%"
+                                                                          :opacity"1") ("25%" :opacity"0") ("100%" :opacity "0"))
+
+                        ;; Show at least something when animations not supported
+                        (".no-cssanimations .slideshow li span" :opacity" 1")
+
+                        ;; General Demo Style
+                        ("html,body,div,dl,dt,dd,ul,ol,li,h1,h2,pre,form,fieldset,input,textarea,p
+,blockquote,th,td" :margin 0 :padding 0)
+
+                        ("body" :background" #000" :font-weight" 400" :font-size" 15px" :color"
+     #fff" :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)" :overflow-y" scroll"
+                                :overflow-x" hidden")
+
+                        ("h1,h2" :font-family" 'Cinzel', 'Times New Roman', serif" :font-size"100%"
+                                 :font-weight"normal")
+
+                        ("a" :color" #00d9ff" :text-decoration" none")
+
+                        ;; Black intro panel
+
+                        (".container" :position" relative" :text-align" center")
+
+                        (".container > header" :position" absolute" :left" 0" :right" 0" :top"
+     5rem" :margin" auto" :max-width" 30rem" :padding" 3rem 3rem"
+                                               :background-color" rgba(0, 0, 0, 0.3)" :border-radius" 80px" :box-shadow" 0
+     0 30px 20px rgba(0,0,0,0.3)" :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
+                                               :display" block" :text-align" center")
+
+                        (".portfolio-container" :display"flex" :flex-direction"row")
+
+                        (".portfolio-section" :flex" 50%")
+
+                        (".container > header img" :width" 150px" :height" 150px" :margin" 0rem
+     auto" :border-radius" 9999px")
+
+                        (".container > header h1" :font-family" 'Cinzel', 'Times New Roman', serif"
+                                                  :font-size" 35px" :line-height" 35px" :position" relative" :font-weight"
+     400" :color" #fff" :text-shadow" 1px 1px 1px rgba(0,0,0,0.3)" :padding" 0px
+     0px 5px 0px")
+
+                        (".container > header h2" :font-family" 'Cinzel', 'Times New Roman', serif"
+                                                  :font-size" 1.5em" :font-style" bold" :color" #f8f8f8" :text-shadow" 1px
+     1px 1px rgba(0,0,0,0.6)")
+
+                        (".container > header p" :font-family" 'EB Garamond', 'Times New Roman',
+     serif")
+
+                        ;; Button Style
+                        ("p.portfolio-button" :display" block" :padding" 15px 0px")
+
+                        ( "p.portfolio-button a" :display" inline-block" :border" 1px solid #FFF"
+                                                 :padding" 4px 10px 3px" :font-family" 'Cinzel', 'Times New Roman', serif"
+                                                 :font-size" 13px" :line-height" 18px" :margin" 2px 3px" :font-weight" 500"
+                                                 :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)" :color"#fff" :border-radius" 5px"
+                                                 :background"rgba(0,0,0,0)")
+
+                        ("p.portfolio-button a:hover" :background"rgba(0,0,0,0.5)")
+
+                        ("p.portfolio-button a:active" :background"rgba(0,0,0,0.5)")
+
+                        ;; Media Queries
+                        ("@media screen and (max-width: 767px)" (".container > header" :text-align"
+     center") ("p.portfolio-button" :position" relative" :top" auto" :left"
+     auto") (".portfolio-container" :flex-direction" column")))))))
            (:body
             (:ul :class "slideshow" ; background CSS3 slideshow
                  (:li (:span "pic1.webp"))
@@ -304,106 +399,6 @@ this boilerplate."
 (defun bg-slideshow-div (delay)
   "Boilerplate function to specify duration DELAY in seconds"
   `(:animation-delay ,(format nil "~a" delay)))
-
-(defun generate-index-css (productionp)
-  "Generated index.css file for index.html use. Takes OUTPUT-LOCATION as a
-  pathname. This pathname is created if it does not exist. When using cl-css,
-  \"~~\" is needed to output a single \"~\", otherwise an error will be thrown"
-  (css:compile-css
-   (if productionp "assets/index.css" "../assets/index.css")
-   `(
-     ;; CSS Background Slideshow
-     (".slideshow,.slideshow:after" :position" fixed" :width" 100%" :height"
-     100%" :top" 0px" :left" 0px" :z-index" 0")
-
-     (".slideshow:after" :content" ''")
-
-     (".slideshow li span" :width" 100%" :height" 100%" :position" absolute"
-     :top" 0px" :left" 0px" :color" transparent" :background-size" cover"
-     :background-position" 50% 50%" :background-repeat" none" :opacity" 0"
-     :z-index" 0" :backface-visibility" hidden" :animation" imageAnimation 36s
-     linear infinite 0s")
-
-     (".slideshow li:nth-child(1) span" :background-image "url(pic1.webp)")
-     (".slideshow li:nth-child(2) span" ,@(bg-slideshow-span 2 "6s"))
-     (".slideshow li:nth-child(3) span" ,@(bg-slideshow-span 3 "12s"))
-     (".slideshow li:nth-child(4) span" ,@(bg-slideshow-span 4 "18s"))
-     (".slideshow li:nth-child(5) span" ,@(bg-slideshow-span 5 "24s"))
-     (".slideshow li:nth-child(6) span" ,@(bg-slideshow-span 6 "30s"))
-     (".slideshow li:nth-child(2) div" ,@(bg-slideshow-div "6s"))
-     (".slideshow li:nth-child(3) div" ,@(bg-slideshow-div "12s"))
-     (".slideshow li:nth-child(4) div" ,@(bg-slideshow-div "18s"))
-     (".slideshow li:nth-child(5) div" ,@(bg-slideshow-div "24s"))
-     (".slideshow li:nth-child(6) div" ,@(bg-slideshow-div "30s"))
-     (".slideshow li:nth-child(2) div" ,@(bg-slideshow-div "6s"))
-
-     ;; Animation for the slideshow images
-     ("@keyframes imageAnimation" ("0%" :opacity" 0" :animation-timing-function"
-     ease-in") ("8%" :opacity" 1" :animation-timing-function" ease-out") ("17%"
-     :opacity"1") ("25%" :opacity"0") ("100%" :opacity "0"))
-
-     ;; Show at least something when animations not supported
-     (".no-cssanimations .slideshow li span" :opacity" 1")
-
-     ;; General Demo Style
-     ("html,body,div,dl,dt,dd,ul,ol,li,h1,h2,pre,form,fieldset,input,textarea,p
-,blockquote,th,td" :margin 0 :padding 0)
-
-     ("body" :background" #000" :font-weight" 400" :font-size" 15px" :color"
-     #fff" :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)" :overflow-y" scroll"
-     :overflow-x" hidden")
-
-     ("h1,h2" :font-family" 'Cinzel', 'Times New Roman', serif" :font-size"100%"
-     :font-weight"normal")
-
-     ("a" :color" #00d9ff" :text-decoration" none")
-
-     ;; Black intro panel
-
-     (".container" :position" relative" :text-align" center")
-
-     (".container > header" :position" absolute" :left" 0" :right" 0" :top"
-     5rem" :margin" auto" :max-width" 30rem" :padding" 3rem 3rem"
-     :background-color" rgba(0, 0, 0, 0.3)" :border-radius" 80px" :box-shadow" 0
-     0 30px 20px rgba(0,0,0,0.3)" :text-shadow" 1px 1px 1px rgba(0,0,0,0.2)"
-     :display" block" :text-align" center")
-
-     (".portfolio-container" :display"flex" :flex-direction"row")
-
-     (".portfolio-section" :flex" 50%")
-
-     (".container > header img" :width" 150px" :height" 150px" :margin" 0rem
-     auto" :border-radius" 9999px")
-
-     (".container > header h1" :font-family" 'Cinzel', 'Times New Roman', serif"
-     :font-size" 35px" :line-height" 35px" :position" relative" :font-weight"
-     400" :color" #fff" :text-shadow" 1px 1px 1px rgba(0,0,0,0.3)" :padding" 0px
-     0px 5px 0px")
-
-     (".container > header h2" :font-family" 'Cinzel', 'Times New Roman', serif"
-     :font-size" 1.5em" :font-style" bold" :color" #f8f8f8" :text-shadow" 1px
-     1px 1px rgba(0,0,0,0.6)")
-
-     (".container > header p" :font-family" 'EB Garamond', 'Times New Roman',
-     serif")
-
-     ;; Button Style
-     ("p.portfolio-button" :display" block" :padding" 15px 0px")
-
-     ( "p.portfolio-button a" :display" inline-block" :border" 1px solid #FFF"
-     :padding" 4px 10px 3px" :font-family" 'Cinzel', 'Times New Roman', serif"
-     :font-size" 13px" :line-height" 18px" :margin" 2px 3px" :font-weight" 500"
-     :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)" :color"#fff" :border-radius" 5px"
-     :background"rgba(0,0,0,0)")
-
-     ("p.portfolio-button a:hover" :background"rgba(0,0,0,0.5)")
-
-     ("p.portfolio-button a:active" :background"rgba(0,0,0,0.5)")
-
-     ;; Media Queries
-     ("@media screen and (max-width: 767px)" (".container > header" :text-align"
-     center") ("p.portfolio-button" :position" relative" :top" auto" :left"
-     auto") (".portfolio-container" :flex-direction" column")))))
 
 (defun generate-global-css (productionp)
   "Generate global.css file for site-wide use. Takes OUTPUT-LOCATION as a
@@ -790,7 +785,6 @@ and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
 dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
 in compile.lisp."
   (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
-  (generate-index-css productionp)
   (generate-global-css productionp)
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
