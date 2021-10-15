@@ -29,7 +29,7 @@
 (format t "~&        ====== COMPILE.LISP ======")
 
 ;;; Setup Production Environment
-(when (equalp +production-buildp+)
+(when (equalp +production-buildp+ t)
   (flet ((env-to-dirs (x)
            (pathname-directory (pathname (concatenate 'string (uiop:getenv
            x) "/")))))
@@ -92,9 +92,9 @@
 ;;; Save the application as an image
 ;; buildpack's bin/release refers to ./lispapp as the application name.
 ;; store binary locally under /project-isidore/bin/
-(when (equalp +production-buildp+ nil) (setf *build-dir* "bin/"))
+(when (equalp +production-buildp+ nil) (defvar *build-dir* "home/hanshen/project-isidore/"))
 
 (let ((app-file (make-pathname :directory *build-dir* :defaults "lispapp")))
-  (save-lisp-and-die app-file :toplevel #'application-toplevel :executable t))
+  (sb-ext:save-lisp-and-die app-file :toplevel #'cl-user::application-toplevel :executable t))
 
 (format t "~&        ====== END OF COMPILE.LISP ======")
