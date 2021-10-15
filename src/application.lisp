@@ -109,8 +109,7 @@ this boilerplate."
             (:link
             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
             :rel "stylesheet")
-            (:link :type "text/css" :href "index.css" :rel "stylesheet")
-            (:script :src "index.js"))
+            (:link :type "text/css" :href "index.css" :rel "stylesheet"))
            (:body
             (:ul :class "slideshow" ; background CSS3 slideshow
                  (:li (:span "pic1.webp"))
@@ -145,7 +144,27 @@ this boilerplate."
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
                        (:a :href "/blog/archive.html" "Blog")
-                       (:a :href "/contact" "Contact"))))))))
+                       (:a :href "/contact" "Contact")))))
+           (:script :type "text/javascript"
+                    (ht:str
+                     ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
+                     (js:ps-inline
+                         ((js:chain ps-dom2-symbols:document
+                                    (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
+                                                                        (lambda (event)
+                                                                          (js:var data-text (js:array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                                                                          (defun type-writer(text i fn-callback)
+                                                                            (cond ((< i (length text))
+                                                                                   (setf (js:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(js:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                                                                   (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                                                                  ((equal (js:typeof fn-callback) "function")
+                                                                                   (ps-window-wd-symbols:set-timeout fn-callback 700))))
+                                                                          (defun start-text-animation (i)
+                                                                            (when (equal (js:typeof (aref data-text i)) "undefined")
+                                                                              (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
+                                                                            (when (< i (length (aref data-text i)))
+                                                                              (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                                                                          (start-text-animation 0)))))))))))
 
 (ws:define-easy-handler (about :uri "/about") ()
   (app-page (:title "HanshenWang.com")
@@ -276,7 +295,7 @@ this boilerplate."
   successfully unsubscribed. Have a good one."))
       (:a :target "_blank" :href "/" "Return to homepage." ))))
 
-;;; Generate global.css, index.css and index.js static assets
+;;; Generate global.css static asset
 (defun bg-slideshow-span (image delay)
   "Boilerplate function to specify background IMAGE and duration DELAY in seconds"
   `(:background-image ,(format nil "url(pic~a.webp)" image) :animation-delay
@@ -756,16 +775,6 @@ pathname. This pathname is created if it does not exist."
      (".cryptedmail:after " :font-family" 'EB Garamond', 'Times New Roman',
      serif" :font-size"1.2 rem" :content" attr(data-name) \"@\"
      attr(data-domain) \".\" attr(data-tld)"))))
-
-(defun generate-index-js (&key (input #P"../src/index.lisp") (output
-#P"../assets/index.js"))
-  "Generate script.js file for index.html use. This script emulates a typewriter
-      effect. INPUT must be parenscript compatible. OUTPUT must be placed in the
-      assets folder. For a tutorial see: https://app.leby.org/post/fun-with-parenscript/"
-  (ensure-directories-exist output)
-  (with-open-file (stream output :direction :output :if-exists :supersede
-  :if-does-not-exist :create)
-    (format stream (js:ps-compile-file input))))
 
 ;;; For application development
 (defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
@@ -781,9 +790,6 @@ in compile.lisp."
   (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (generate-index-css productionp)
   (generate-global-css productionp)
-  (if productionp
-      (generate-index-js :input "src/index.lisp" :output "assets/index.js")
-      (generate-index-js))
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ;; http://localhost:PORT/example.jpg will dispatched to
