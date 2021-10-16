@@ -32,7 +32,8 @@
                #:cl-css
                #:parenscript
                #:postmodern
-               #:log4cl)
+               #:log4cl
+               #:ceramic)
   :components ((:module "src"
                 :components ((:file "application"))))
   :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))

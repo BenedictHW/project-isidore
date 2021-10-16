@@ -777,6 +777,8 @@ pathname. This pathname is created if it does not exist."
 (defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
 instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 
+(defvar *window* nil)
+
 (defun initialize-application (&key (productionp nil) (port
 8080) (dispatch-folder "/home/hanshen/project-isidore/assets/"))
   "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
@@ -800,7 +802,11 @@ in compile.lisp."
 PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
         (ws:start (make-instance 'ws:easy-acceptor :port port)))
+  (setf *window* (ceramic:make-window :url "http://localhost:8080/"))
+  (ceramic:show *window*)
   (format t "Server successfully started at PORT ~A" port))
+
+(ceramic:define-entry-point :project-isidore () (initialize-application))
 
 (defun terminate-application ()
   "Stop the web server started by INITIALIZE-APPLICATION, if it exists."
