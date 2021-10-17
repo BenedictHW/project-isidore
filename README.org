@@ -10,8 +10,7 @@ Blog content is available under [[https://creativecommons.org/licenses/by-sa/4.0
 ** Development Quick Start
 
 Prerequisites:
-- An ANSI Common Lisp implementation (Portability untested, developed using
-  [[http://www.sbcl.org/][Steel Bank Common Lisp]])
+- An ANSI Common Lisp implementation. Developed on x86_64 GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
 - [[https://www.quicklisp.org/beta/][Quicklisp]]
 
 #+begin_src lisp
