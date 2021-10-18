@@ -47,6 +47,6 @@
   :depends-on (#:project-isidore
                #:parachute)
   :components((:module "test"
-               :components ((:file "project-isidore-tests"))))
+               :components ((:file "tests"))))
   :perform (asdf:test-op (op c)
                     (uiop:symbol-call :parachute :test :project-isidore/test)))

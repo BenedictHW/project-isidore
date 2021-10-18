@@ -1,4 +1,4 @@
-;;;; project-isidore-tests.lisp
+;;;; tests.lisp
 ;;;
 ;;; Copyright (c) 2021 Hanshen Wang.
 ;;;
@@ -23,15 +23,17 @@
 (defpackage #:project-isidore/test
   (:use #:cl)
   (:local-nicknames (#:pi #:project-isidore)
-                    (#:fa #:parachute))
+                    (#:tf #:parachute)) ; testing framework
   (:export #:test
            #:master-suite))
 
 (in-package #:project-isidore/test)
 
-(fa:define-test master-suite :description "The master suite of all project isidore tests")
+(tf:define-test master-suite
+  :description "The master suite of all Project Isidore tests")
 
-(fa:define-test dummy-test
-  :description "placeholder test until compilation can be tested"
+(tf:define-test test-app-init-success
+  :description "Check that INITIALIZE-APPLICATION finishes"
   :parent master-suite
-  (fa:of-type integer 5))
+  (tf:finish (pi:initialize-application :port 8080
+                                        :dispatch-folder "assets/")))
