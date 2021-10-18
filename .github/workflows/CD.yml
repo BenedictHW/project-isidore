@@ -22,12 +22,13 @@
 
 name: CD
 
-# Controls when the action will run. Triggers the workflow on release creation.
+# Controls when the action will run. Triggers the workflow upon tags 'v*.*.*'
 # OR Trigger workflow manually through Github Actions repo website
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*.*.*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -39,6 +40,10 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
+
+    # Extract 'v*.*.*' from git refs
+    - name: Set Environment Variables
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - name: Cache .roswell
       id: cache-dot-roswell
@@ -72,14 +77,18 @@ jobs:
       shell: bash
       run: |
            echo ${{ github.workspace }} # Pathname varies amongst OS
-           sudo ros build bin/lispapp.ros
+           # Generates 'lispapp' in bin/ folder
+           sudo ros build ProjectIsidore.ros
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64
-        path: ${{ github.workspace }}/bin/lispapp
+        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        path: |
+          ${{ github.workspace }}/ProjectIsidore
+          ${{ github.workspace }}/assets/
+          ${{ github.workspace }}/LICENSE
 
   build_executable_macOS:
     name: Build on MacOS
@@ -89,6 +98,10 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
+
+    # Extract 'v*.*.*' from git refs
+    - name: Set Environment Variables
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - name: Cache .roswell
       id: cache-dot-roswell
@@ -122,16 +135,83 @@ jobs:
       shell: bash
       run: |
            echo ${{ github.workspace }} # Pathname varies amongst OS
-           sudo ros build bin/lispapp.ros
+           sudo ros build ProjectIsidore.ros
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: MacOS Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64
-        path: /Users/runner/work/project-isidore/project-isidore/bin/lispapp
+        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        path: |
+          ${{ github.workspace }}/ProjectIsidore
+          ${{ github.workspace }}/assets/
+          ${{ github.workspace }}/LICENSE
 
+  build_executable_windows:
+    name: Build on MSWindows
+    runs-on: [windows-latest]
+
+    steps:
+    # Tell git not to convert line endings. Change roswell install dir and add it to path.
+    - name: Setup Windows Environment
+      run: |
+        git config --global core.autocrlf false
+        echo "ROSWELL_INSTALL_DIR=$HOME/ros" >> $GITHUB_ENV
+        echo "$HOME/ros/bin" >> $GITHUB_PATH
+
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - uses: actions/checkout@v2
+
+    # Extract 'v*.*.*' from git refs
+    - name: Set Environment Variables
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: MINGW64
+        path-type: inherit
+        release: true
+        update: true
+        install: 'base-devel mingw-w64-x86_64-toolchain p7zip'
+
+    - name: Run MSYS2 once
+      shell: msys2 {0}
+      run: |
+        pwd
+        echo $MSYSTEM
+        echo $MSYS2_PATH_TYPE
+        echo $PATH
+
+    - name: Cache .roswell
+      id: cache-dot-roswell
+      uses: actions/cache@v1
+      with:
+        path: ~/.roswell
+        key: ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-${{ hashFiles('**/*.asd') }}
+        restore-keys: |
+          ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-
+          ${{ runner.os }}-dot-roswell-
+
+    - name: Install Roswell
+      # always run install, since it does some global installs and setup that isn't cached
+      shell: msys2 {0}
+      env:
+       LISP: ${{ matrix.lisp }}
+      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
+
+    - name: Build Project Isidore
+      shell: msys2 {0}
+      run: |
+           echo ${{ github.workspace }}
+           ros build ProjectIsidore.ros
+
+    - name: MSWindows Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64
-        path: /Users/runner/work/project-isidore/project-isidore/bin/lispapp
+        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        path: |
+          # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
+          ${{ github.workspace }}/ProjectIsidore.exe
+          ${{ github.workspace }}/assets/
+          ${{ github.workspace }}/LICENSE
