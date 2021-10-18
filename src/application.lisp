@@ -797,8 +797,10 @@ in compile.lisp."
     (return-from initialize-application (format t "Server already running at
 PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
-        (ws:start (make-instance 'ws:easy-acceptor :port port)))
   (format t "Server successfully started at PORT ~A" port))
+        (ws:start
+         (make-instance 'ws:easy-acceptor :port port
+                                          :access-log-destination nil)))
 
 (defun terminate-application ()
   "Stop the web server started by INITIALIZE-APPLICATION, if it exists."
