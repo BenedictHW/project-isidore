@@ -31,15 +31,9 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_release:
-    name: Build on ${{ matrix.os }}
-    strategy:
-      matrix:
-        lisp: [sbcl-bin]
-        os: [ubuntu-latest, macos-latest] # see project-isidore windows-binary branch WIP
-
-    # run the job on every combination of "lisp" and "os" above
-    runs-on: ${{ matrix.os }}
+  build_executable_linux:
+    name: Build on GNU/Linux
+    runs-on: [ubuntu-latest]
 
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -51,9 +45,59 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-${{ hashFiles('**/*.asd') }}
+        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
         restore-keys: |
-          ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-
+          ${{ runner.os }}-dot-roswell-sbcl-bin-
+          ${{ runner.os }}-dot-roswell-
+
+    - name: Install Roswell
+      # always run install, since it does some global installs and setup that isn't cached
+      env:
+       LISP: sbcl-bin
+      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
+
+    - name: Run Lisp
+      continue-on-error: true
+      shell: bash
+      run: |
+        ros -e '(format t "~a:~a on ~a~%...~%~%" (lisp-implementation-type) (lisp-implementation-version) (machine-type))'
+        ros -e '(format t " fixnum bits:~a~%" (integer-length most-positive-fixnum))'
+        ros -e "(ql:quickload 'trivial-features)" -e '(format t "features = ~s~%" *features*)'
+
+    - name: Update Quicklisp distribution if cached
+      shell: bash
+      run: ros -e "(ql:update-all-dists :prompt nil)"
+
+    - name: Build Project Isidore
+      shell: bash
+      run: |
+           echo ${{ github.workspace }} # Pathname varies amongst OS
+           sudo ros build bin/lispapp.ros
+
+    # Github current policy is to retain logs and artifacts for 90 days.
+    - name: GNU/Linux Upload Lisp Exectuable Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: project-isidore-${{ runner.os }}-x64
+        path: ${{ github.workspace }}/bin/lispapp
+
+  build_executable_macOS:
+    name: Build on MacOS
+    runs-on: [macos-latest]
+
+    steps:
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - uses: actions/checkout@v2
+
+    - name: Cache .roswell
+      id: cache-dot-roswell
+      uses: actions/cache@v1
+      with:
+        path: ~/.roswell
+        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
+        restore-keys: |
+          ${{ runner.os }}-dot-roswell-sbcl-bin-
           ${{ runner.os }}-dot-roswell-
 
     - name: Install Roswell
@@ -81,15 +125,12 @@ jobs:
            sudo ros build bin/lispapp.ros
 
     # Github current policy is to retain logs and artifacts for 90 days.
-    - name: Linux Upload Lisp Exectuable Artifact
-      if: matrix.os == 'ubuntu-latest'
+    - name: MacOS Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
         name: project-isidore-${{ runner.os }}-x64
-        path: /home/runner/work/project-isidore/project-isidore/bin/lispapp
+        path: /Users/runner/work/project-isidore/project-isidore/bin/lispapp
 
-    - name: MacOS Upload Lisp Exectuable Artifact
-      if: matrix.os == 'macos-latest'
       uses: actions/upload-artifact@v2
       with:
         name: project-isidore-${{ runner.os }}-x64
