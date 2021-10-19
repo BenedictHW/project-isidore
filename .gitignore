@@ -1,5 +1,2 @@
-# These static assets are generated upon app startup
-/assets/index.css
-/assets/index.js
 # Ignore all compiled files
 *.fasl
