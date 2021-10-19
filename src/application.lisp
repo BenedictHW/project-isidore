@@ -782,6 +782,21 @@ files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
 and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
 dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
 in compile.lisp."
+  (log:log-info "
+
+========================================
+Project Isidore v1.0.0 (A.D. 2021-10-10)
+========================================
+
+Copyright 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+
+Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO WARRANTY.
+This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+You are welcome to redistribute the program or any parts hereof under certain conditions.
+Please visit https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.
+
+Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
+")
   (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf (ht:html-mode) :HTML5)
   (generate-global-css productionp)
@@ -794,16 +809,23 @@ in compile.lisp."
           ,(ws:create-folder-dispatcher-and-handler "/" dispatch-folder)))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (when (ws:started-p *acceptor*)
-    (return-from initialize-application (format t "Server already running at
-PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
+    (return-from initialize-application (format t "Server already running at PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
-  (format t "Server successfully started at PORT ~A" port))
         (ws:start
          (make-instance 'ws:easy-acceptor :port port
                                           :access-log-destination nil)))
 
 (defun terminate-application ()
   "Stop the web server started by INITIALIZE-APPLICATION, if it exists."
+  (format t "Server successfully started at PORT ~A" port)
+  (log:log-info "
+
+Project Isidore initialization successful ...
+
+Navigate to https://localhost:~A to continue ...
+" port)
+
+
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (if (ws:started-p *acceptor*)
         (progn
