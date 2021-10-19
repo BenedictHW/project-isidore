@@ -400,11 +400,11 @@ this boilerplate."
   "Boilerplate function to specify duration DELAY in seconds"
   `(:animation-delay ,(format nil "~a" delay)))
 
-(defun generate-global-css (productionp)
-  "Generate global.css file for site-wide use. Takes OUTPUT-LOCATION as a
-pathname. This pathname is created if it does not exist."
+(defun generate-global-css ()
+  "Generates global.css file in the #P/project-isidore/assets/global.css"
   (css:compile-css
-   (if productionp "assets/global.css" "../assets/global.css")
+   (merge-pathnames #P"global.css"
+                    (asdf:system-relative-pathname :project-isidore "assets/"))
    '(;; Navbar CSS
      (".header-fixed " :position" relative" :left" 0" :top" 0" :z-index" 1"
      :width" 100%" :margin" 0" :background-color" #FDF6E3")
@@ -675,6 +675,7 @@ pathname. This pathname is created if it does not exist."
      80%")
 
      ;; /* from http://demo.thi.ng/org-spec/ */
+     ;; perhaps we can add some boilerplate here to reduce verbosity?
      (".org-src-container>pre.src-sh:before " :content" 'sh'")
      (".org-src-container>pre.src-bash:before " :content" 'bash'")
      (".org-src-container>pre.src-emacs-lisp:before " :content" 'Emacs Lisp'")
@@ -802,7 +803,7 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf (ht:html-mode) :HTML5)
-  (generate-global-css productionp)
+  (generate-global-css)
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ;; http://localhost:PORT/example.jpg will dispatched to
