@@ -7,5 +7,6 @@ exec ros -Q -- $0 "$@"
 
 (defun main (&rest argv)
   (declare (ignore argv))
-  (project-isidore:initialize-application :cmd-user-interface t)
+  (project-isidore:initialize-application :dispatch-folder "assets/"
+                                          :cmd-user-interface t)
   (loop (sleep 600)))
