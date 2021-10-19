@@ -799,7 +799,8 @@ Please visit https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.
 
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 ")
-  (when productionp (setf *database-url* (uiop:getenv "DATABASE_URL")))
+  (when (uiop:getenv "DATABASE_URL")
+    (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf (ht:html-mode) :HTML5)
   (generate-global-css productionp)
   (setf ws:*dispatch-table*
