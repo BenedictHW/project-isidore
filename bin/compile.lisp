@@ -31,7 +31,7 @@
   The matched directory is hardcoded to the author's personal working
   directory.")
 
-(format t "~&        ====== COMPILE.LISP ======")
+(format t "~&        ====== COMPILE.LISP ======~%")
 
 ;;; Setup Production Environment
 (when (equalp *production-buildp* t)
@@ -103,7 +103,10 @@
     (pathname-directory
      (pathname (asdf:system-relative-pathname :project-isidore "bin/")))))
 
-(let ((app-file (make-pathname :directory *build-dir* :defaults "lispapp")))
-  (sb-ext:save-lisp-and-die app-file :toplevel #'cl-user::application-toplevel :executable t))
+(let ((app-file (make-pathname :directory *build-dir*
+                               :defaults "lispapp")))
+  (sb-ext:save-lisp-and-die app-file
+                            :toplevel #'cl-user::application-toplevel
+                            :executable t))
 
-(format t "~&        ====== END OF COMPILE.LISP ======")
+(format t "~&        ====== END OF COMPILE.LISP ======~%")
