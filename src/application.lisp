@@ -803,7 +803,6 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf (ht:html-mode) :HTML5)
-  (generate-global-css)
   (setf ws:*dispatch-table*
         `(ws:dispatch-easy-handlers
           ;; http://localhost:PORT/example.jpg will dispatched to
