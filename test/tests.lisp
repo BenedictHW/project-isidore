@@ -35,5 +35,4 @@
 (tf:define-test test-app-init-success
   :description "Check that INITIALIZE-APPLICATION finishes"
   :parent master-suite
-  (tf:finish (pi:initialize-application :port 8080
-                                        :dispatch-folder "assets/")))
+  (tf:finish (pi:initialize-application)))

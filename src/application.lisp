@@ -776,9 +776,9 @@ this boilerplate."
 (defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
 instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 
-(defun initialize-application (&key (productionp nil) (port
-8080) (dispatch-folder "/home/hanshen/project-isidore/assets/") (cmd-user-interface
-nil))
+(defun initialize-application (&key (port 8080)
+(dispatch-folder (asdf:system-relative-pathname :project-isidore "assets/"))
+(cmd-user-interface nil))
   "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
 files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
 and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per

@@ -84,9 +84,9 @@
   SAVE-LISP-AND-DIE to save Application as an Lisp image."
   ;; Set PORT for local builds or it will return NIL
   (when (equalp +production-buildp+ nil) (setf (uiop:getenv "PORT") "8080"))
-  (project-isidore:initialize-application :productionp t
-  :port (parse-integer (uiop:getenv "PORT")) :dispatch-folder "assets/"
-  :cmd-user-interface nil)
+  (project-isidore:initialize-application
+   :port (parse-integer (uiop:getenv "PORT"))
+   :dispatch-folder "assets/")
   (loop (sleep 600))) ; sleep forever
 
 
