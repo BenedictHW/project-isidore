@@ -776,12 +776,14 @@ pathname. This pathname is created if it does not exist."
 instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 
 (defun initialize-application (&key (productionp nil) (port
-8080) (dispatch-folder "/home/hanshen/project-isidore/assets/"))
+8080) (dispatch-folder "/home/hanshen/project-isidore/assets/") (cmd-user-interface
+nil))
   "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
 files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
 and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
 dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
-in compile.lisp."
+in compile.lisp. CMD-USER-INTERFACE when set to true will determine if C-c will
+exit."
   (log:log-info "
 
 ========================================
@@ -814,9 +816,6 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
         (ws:start
          (make-instance 'ws:easy-acceptor :port port
                                           :access-log-destination nil)))
-
-(defun terminate-application ()
-  "Stop the web server started by INITIALIZE-APPLICATION, if it exists."
   (format t "Server successfully started at PORT ~A" port)
   (log:log-info "
 
@@ -824,14 +823,42 @@ Project Isidore initialization successful ...
 
 Navigate to https://localhost:~A to continue ...
 " port)
+  (when cmd-user-interface
+    (let ((do-sigint-poll t))
+      (log:log-info "
 
+Close this window or press Control+C to exit the program ...")
+      (terminate-application do-sigint-poll))))
 
+(defun terminate-application (&optional sigint-poll)
+  "Stop the web server started by INITIALIZE-APPLICATION, if it exists. When
+called with a non NIL value for SIGINT-POLL, it will listen for SIGINT and
+  gracefully shut down the web server and exit the lisp process."
+  (when sigint-poll
+    ;; warning: hardcoded "hunchentoot".
+    (handler-case (bordeaux-threads:join-thread
+                   (find-if (lambda (th)
+                              (search "hunchentoot"
+                                      (bordeaux-threads:thread-name th)))
+                            (bordeaux-threads:all-threads)))
+      ;; Catch a user's C-c
+      (#+sbcl sb-sys:interactive-interrupt
+       #+ccl  ccl:interrupt-signal-condition
+       #+clisp system::simple-interrupt-condition
+       #+ecl ext:interactive-interrupt
+       #+allegro excl:interrupt-signal
+       () (progn
+            (format *error-output* "Aborting.~&")
+            (ws:stop *acceptor*)
+            (uiop:quit)
+            (log:log-info "Server successfully stopped")))
+      (error (c) (format t "Whoops, an unknown error occured:~&~a~&" c))))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (if (ws:started-p *acceptor*)
         (progn
           (ws:stop *acceptor*)
-          (return-from terminate-application (format t "Server successfully
-          stopped")))))
+          (return-from terminate-application
+            (format t "Server successfully stopped")))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
 ;;; Database functions

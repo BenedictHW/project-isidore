@@ -9,5 +9,6 @@ exec ros -Q -- $0 "$@"
   (declare (ignore argv))
   (project-isidore:initialize-application :productionp nil
                                           :port 8080
-                                          :dispatch-folder "assets/")
+                                          :dispatch-folder "assets/"
+                                          :cmd-user-interface t)
   (loop (sleep 600)))

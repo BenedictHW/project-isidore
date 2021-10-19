@@ -85,7 +85,8 @@
   ;; Set PORT for local builds or it will return NIL
   (when (equalp +production-buildp+ nil) (setf (uiop:getenv "PORT") "8080"))
   (project-isidore:initialize-application :productionp t
-  :port (parse-integer (uiop:getenv "PORT")) :dispatch-folder "assets/")
+  :port (parse-integer (uiop:getenv "PORT")) :dispatch-folder "assets/"
+  :cmd-user-interface nil)
   (loop (sleep 600))) ; sleep forever
 
 
