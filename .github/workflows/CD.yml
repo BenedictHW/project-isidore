@@ -203,3 +203,81 @@ jobs:
           ${{ github.workspace }}/ProjectIsidore.exe
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/LICENSE
+
+  create_release:
+    name: Create Github Release
+    runs-on: [ubuntu-latest]
+    # Following jobs must succeed
+    needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
+    # Only run create_release if the tag starts with 'v'
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    # Extract 'v*.*.*' from git refs
+    - name: Set Environment Variables
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+    - name: Download Artifacts
+    # Downloads all executable artifacts in it's own folder to the current working directory
+      uses: actions/download-artifact@v2
+
+    - name: Write Release Notes
+      shell: bash
+      run: |
+        echo "Project Changelog Conventions:" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Feature - A new feature" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Fix - A bug fix" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Performance - A code change that improves performance" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Docs - Documentation only changes" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Tests - Adding missing tests or correcting existing tests" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Build - Changes that affect the build system or external dependencies" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "CI - Changes to our Continous Integration/Continous Delivery configuration files and scripts" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Chore - Other changes that don't modify src or test files" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Style - Changes that do not affect the meaning of the code (white-space formatting)" >> ${{ github.workspace }}/CHANGELOG.txt
+        echo "Revert - Reverts a previous commit" >> ${{ github.workspace }}/CHANGELOG.txt
+        declare -a arr=("Feat" "Fix" "Perf" "Docs" "Tests" "Build" "CI" "Refactor" "Chore" "Style" "Revert")
+        for i in "${arr[@]}"
+        do
+            export commitdata=$(git log $(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))..$(git describe --tags --abbrev=0) --pretty=format:"[%h] (%as) %s" -i -E --grep="^(${i}\:)*${i}\:")
+            # if $commitdata is empty
+            if [ -z "$commitdata" ]
+            then
+                echo "Commit type ${i} is empty"
+            else
+                echo "* ${i}" >> ${{ github.workspace }}/CHANGELOG.txt
+                echo "" >> ${{ github.workspace }}/CHANGELOG.txt
+                git log $(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))..$(git describe --tags --abbrev=0) --pretty=format:"[%h] (%as) %s" -i -E --grep="^(${i}\:)*${i}\:" >> ${{github.workspace }}/CHANGELOG.txt
+                echo "" >> ${{ github.workspace }}/CHANGELOG.txt
+            fi
+        done
+
+    - name: Stage for Release
+      run: |
+        pushd ${{ github.workspace }}/pi-build-Linux
+        zip -r project-isidore-Linux-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        popd
+        pushd ${{ github.workspace }}/pi-build-macOS
+        zip -r project-isidore-macOS-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        popd
+        pushd ${{ github.workspace }}/pi-build-Windows
+        # IMPORTANT Bash RELEASE_VERSION variable does not inherit properly when using msys2 during the 'build_exectuable_windows' job. Go figure.
+        zip -r project-isidore-Windows-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        popd
+
+    - name: Release Project Isidore
+      uses: softprops/action-gh-release@v1
+      with:
+        discussion_category_name: "Announcements"
+        name: "Project Isidore | New in ${{ env.RELEASE_VERSION }}"
+        body_path: ${{ github.workspace }}/CHANGELOG.txt
+        files: |
+          ${{ github.workspace }}/pi-build-Linux/project-isidore-Linux-x64-${{ env.RELEASE_VERSION }}.zip
+          ${{ github.workspace }}/pi-build-macOS/project-isidore-macOS-x64-${{ env.RELEASE_VERSION }}.zip
+          ${{ github.workspace }}/pi-build-Windows/project-isidore-Windows-x64-${{ env.RELEASE_VERSION }}.zip
