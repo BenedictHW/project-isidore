@@ -22,13 +22,17 @@
 
 name: CD
 
-# Controls when the action will run. Triggers the workflow upon tags 'v*.*.*'
-# OR Trigger workflow manually through Github Actions repo website
+# Controls when the action will run. Triggers the workflow upon push or pull
+# request to 'master branch' OR Trigger workflow manually through
+# Github Actions repo website
 on:
-  workflow_dispatch:
   push:
+    branches: [ master ]
     tags:
-      - 'v*.*.*'
+      - "v*"
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -206,11 +210,11 @@ jobs:
 
   create_release:
     name: Create Github Release
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
     # Following jobs must succeed
     needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
-    # Only run create_release if the tag starts with 'v'
-    if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
