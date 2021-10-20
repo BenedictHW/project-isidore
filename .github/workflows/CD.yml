@@ -41,10 +41,6 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    # Extract 'v*.*.*' from git refs
-    - name: Set Environment Variables
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
     - name: Cache .roswell
       id: cache-dot-roswell
       uses: actions/cache@v1
@@ -84,7 +80,7 @@ jobs:
     - name: GNU/Linux Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        name: pi-build-Linux
         path: |
           ${{ github.workspace }}/ProjectIsidore
           ${{ github.workspace }}/assets/
@@ -99,10 +95,6 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    # Extract 'v*.*.*' from git refs
-    - name: Set Environment Variables
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
     - name: Cache .roswell
       id: cache-dot-roswell
       uses: actions/cache@v1
@@ -116,7 +108,7 @@ jobs:
     - name: Install Roswell
       # always run install, since it does some global installs and setup that isn't cached
       env:
-       LISP: ${{ matrix.lisp }}
+       LISP: sbcl-bin
       run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
 
     - name: Run Lisp
@@ -141,7 +133,7 @@ jobs:
     - name: MacOS Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        name: pi-build-macOS
         path: |
           ${{ github.workspace }}/ProjectIsidore
           ${{ github.workspace }}/assets/
@@ -162,10 +154,6 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
-
-    # Extract 'v*.*.*' from git refs
-    - name: Set Environment Variables
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
     - uses: msys2/setup-msys2@v2
       with:
@@ -197,7 +185,7 @@ jobs:
       # always run install, since it does some global installs and setup that isn't cached
       shell: msys2 {0}
       env:
-       LISP: ${{ matrix.lisp }}
+       LISP: sbcl-bin
       run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
 
     - name: Build Project Isidore
@@ -209,7 +197,7 @@ jobs:
     - name: MSWindows Upload Lisp Exectuable Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: project-isidore-${{ runner.os }}-x64-${{ env.RELEASE_VERSION }}
+        name: pi-build-Windows
         path: |
           # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
           ${{ github.workspace }}/ProjectIsidore.exe
