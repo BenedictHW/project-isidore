@@ -37,7 +37,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_executable_linux:
-    name: Build on GNU/Linux
+    name: GNU/Linux Build
     runs-on: [ubuntu-latest]
 
     steps:
@@ -81,7 +81,7 @@ jobs:
            sudo ros build ProjectIsidore.ros
 
     # Github current policy is to retain logs and artifacts for 90 days.
-    - name: GNU/Linux Upload Lisp Exectuable Artifact
+    - name: GNU/Linux Upload Lisp Build
       uses: actions/upload-artifact@v2
       with:
         name: pi-build-Linux
@@ -91,7 +91,7 @@ jobs:
           ${{ github.workspace }}/LICENSE
 
   build_executable_macOS:
-    name: Build on MacOS
+    name: Darwin Build
     runs-on: [macos-latest]
 
     steps:
@@ -134,7 +134,7 @@ jobs:
            sudo ros build ProjectIsidore.ros
 
     # Github current policy is to retain logs and artifacts for 90 days.
-    - name: MacOS Upload Lisp Exectuable Artifact
+    - name: Darwin Upload Lisp Build
       uses: actions/upload-artifact@v2
       with:
         name: pi-build-macOS
@@ -144,7 +144,7 @@ jobs:
           ${{ github.workspace }}/LICENSE
 
   build_executable_windows:
-    name: Build on MSWindows
+    name: MSWindows Build
     runs-on: [windows-latest]
 
     steps:
@@ -198,7 +198,7 @@ jobs:
            echo ${{ github.workspace }}
            ros build ProjectIsidore.ros
 
-    - name: MSWindows Upload Lisp Exectuable Artifact
+    - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
       with:
         name: pi-build-Windows
@@ -231,7 +231,7 @@ jobs:
     # Downloads all executable artifacts in it's own folder to the current working directory
       uses: actions/download-artifact@v2
 
-    - name: Write Release Notes
+    - name: Format Release Notes
       shell: bash
       run: |
         echo "Project Changelog Conventions:" >> ${{ github.workspace }}/CHANGELOG.txt
