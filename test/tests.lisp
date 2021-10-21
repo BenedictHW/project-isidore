@@ -32,7 +32,13 @@
 (tf:define-test master-suite
   :description "The master suite of all Project Isidore tests")
 
-(tf:define-test test-app-init-success
+(tf:define-test test-app-init-finish
   :description "Check that INITIALIZE-APPLICATION finishes"
   :parent master-suite
   (tf:finish (pi:initialize-application)))
+
+(tf:define-test does-global-css-exist
+  :description "Global.css must exist in project-isidore/assets/global.css"
+  :parent master-suite
+  (tf:true (uiop:file-exists-p (asdf:system-relative-pathname
+                                :project-isidore "assets/global.css"))))
