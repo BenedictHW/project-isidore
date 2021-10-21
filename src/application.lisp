@@ -788,7 +788,7 @@ exit."
   (log:log-info "
 
 ========================================
-Project Isidore v1.0.0 (A.D. 2021-10-10)
+Project Isidore v1.1.0 (A.D. 2021-10-20)
 ========================================
 
 Copyright 2021 Hanshen Wang <Hanshen@HanshenWang.com>

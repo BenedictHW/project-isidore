@@ -25,7 +25,7 @@
   :author "Hanshen Wang <hanshen@hanshenwang.com>"
   :description "Personal Web Application"
   :license  "GNU Lesser Public License 3.0"
-  :version "1.0.0"
+  :version "1.1.0"
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
