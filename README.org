@@ -1,5 +1,7 @@
 * Project Isidore
-[[https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml/badge.svg]]
+[[https://github.com/HanshenWang/project-isidore/actions/workflows/CD.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CD.yml/badge.svg?branch=master]]
+[[https://pyheroku-badge.herokuapp.com/?app=project-isidore]]
+[[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
 
 The third iteration of my personal website. It was quite fun building this with
 CL. Happy Hacking!
@@ -10,8 +12,8 @@ Blog content is available under [[https://creativecommons.org/licenses/by-sa/4.0
 ** Development Quick Start
 
 Prerequisites:
-- An ANSI Common Lisp implementation. Developed on x86_64 GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
-- [[https://www.quicklisp.org/beta/][Quicklisp]]
+- An ANSI Common Lisp implementation. Software developed on x86_64 GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
+- [[https://www.quicklisp.org/beta/][The Quicklisp Library Manager]]
 
 #+begin_src lisp
 (ql:quickload :project-isidore)
