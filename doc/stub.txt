@@ -1,3 +1,11 @@
-Please visit https://hanshenwang.com/blog/project-isidore-doc.html for online
-documentation. The same document can be found locally at
-/project-isidore/assets/blog/project-isidore-doc.html. Thank you!
+Please visit
+
+https://hanshenwang.com/blog/project-isidore-doc.html
+
+for online documentation.
+
+The same document can be found locally at
+
+/project-isidore/assets/blog/project-isidore-doc.html.
+
+Thank you!

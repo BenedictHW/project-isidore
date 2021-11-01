@@ -1,5 +1,6 @@
 # Ignore all compiled files
 *.fasl
+
 # manual.texi is updated on every commit. Changes are already committed in
 # manual.html.
 /assets/reference/manual.texi
