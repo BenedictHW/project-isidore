@@ -25,6 +25,9 @@
   :author "Hanshen Wang <hanshen@hanshenwang.com>"
   :description "Personal Web Application"
   :license  "GNU Lesser Public License 3.0"
+  :homepage "https://www.hanshenwang.com/blog/project-isidore-doc.html"
+  :bug-tracker "https://github.com/HanshenWang/project-isidore/issues"
+  :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
   :version "1.1.0"
   :serial t
   :depends-on (#:hunchentoot

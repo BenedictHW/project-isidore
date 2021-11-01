@@ -779,12 +779,11 @@ instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 (defun initialize-application (&key (port 8080)
 (dispatch-folder (asdf:system-relative-pathname :project-isidore "assets/"))
 (cmd-user-interface nil))
-  "Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript
-files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT
-and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per
-dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point
-in compile.lisp. CMD-USER-INTERFACE when set to true will determine if C-c will
-exit."
+  "Start a web server at PORT. Set DATABASE_URL if it exists. Optional PORT,
+DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT parameter as Heroku assigns
+a different PORT per dyno/environment. See APPLICATION-TOPLEVEL for the main
+function or entry point in compile.lisp. CMD-USER-INTERFACE when set to true
+will determine if C-c will exit."
   (log:log-info "
 
 ========================================
@@ -872,7 +871,7 @@ Database Parameters. A local PostgreSQL installation with the creation of
 \"user1\" user and \"test\" database is needed")
 
 (defun db-params ()
-  "Heroku database URL format is
+  "Sets *DATABASE-URL* parameter. Heroku database URL format is
 postgres://username:password@host:port/database_name. If we are testing on
 localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   (setf db:*default-use-ssl* :try) ; Heroku PostgreSQL requires SSL to connect
