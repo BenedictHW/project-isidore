@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-10-20 Wed 22:14 -->
+<!-- 2021-11-01 Mon 02:06 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Isidore Design Notebook</title>
@@ -81,16 +81,16 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-10-20 Wed 22:13</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-11-01 Mon 02:06</p>
 </div>
 <div id="content">
-<div class="abstract" id="org820b44f">
+<div class="abstract" id="org4d77b74">
 <p>
 
 </p>
 
 <p>
-Project Isidore is a personal web application written in <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">LISP.</a> This article
+Project Isidore is a personal website written in <a href="https://en.wikipedia.org/wiki/Lisp_(programming_language)">LISP.</a> This article
 simultaneously serves as project documentation and enables literate programming
 via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </p>
@@ -117,7 +117,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <li><a href="#Blog-Article-Sorting-Search">5.2. <span class="todo TODO">TODO</span> Blog Article Sorting &amp; Search</a></li>
 </ul>
 </li>
-<li><a href="#orgcba248d">6. Development Operations</a>
+<li><a href="#Development-Operations">6. Development Operations</a>
 <ul>
 <li><a href="#Builds-Deployment">6.1. Builds and Deployment</a>
 <ul>
@@ -134,7 +134,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 <li><a href="#CD-with-Github-Actions-Roswell">6.1.2. CD with Github Actions &amp; Roswell</a>
 <ul>
-<li><a href="#org668e138">Roswell Build Script</a></li>
+<li><a href="#Roswell-Build-Script">Roswell Build Script</a></li>
 </ul>
 </li>
 </ul>
@@ -142,14 +142,20 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <li><a href="#Testing">6.2. Testing</a>
 <ul>
 <li><a href="#CI-with-Github-Actions">6.2.1. CI with Github Actions &amp; Roswell</a></li>
-<li><a href="#org5ecf7c1">6.2.2. Benchmarking &amp; Profiling</a></li>
+<li><a href="#Benchmarking-Profiling">6.2.2. Benchmarking &amp; Profiling</a></li>
 <li><a href="#Debugging">6.2.3. Debugging</a></li>
 <li><a href="#Logging">6.2.4. Logging</a></li>
+<li><a href="#Generate-Code-Coverage-Report">6.2.5. Generate Code Coverage Report</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Project-History-Credits">7. Project History &amp; Credits</a></li>
+<li><a href="#Reference-Manual">7. Reference Manual</a>
+<ul>
+<li><a href="#Generate-Reference-Manual">7.1. Generate Reference Manual</a></li>
+</ul>
+</li>
+<li><a href="#Project-History-Credits">8. Project History &amp; Credits</a></li>
 </ul>
 </div>
 </nav>
@@ -162,9 +168,10 @@ up.</a> If that's no issue jump to whatever is most useful to you.
 </p>
 
 <ul class="org-ul">
+<li><a href="#Reference-Manual">Project Isidore Reference Manual</a></li>
 <li><a href="#Org-Publish-Pipeline">Org Publish Pipeline Section - How I Blog from Org Mode</a></li>
 <li><a href="#Builds-Deployment">Heroku Deployment Section - How to Deploy Common Lisp on Heroku</a></li>
-<li><a href="#Project-Isidore-System-Definition">High level project overview - What goes where</a>.</li>
+<li><a href="#Project-Isidore-System-Definition">High level project overview - What goes where</a></li>
 </ul>
 
 <p>
@@ -255,6 +262,8 @@ Stop Development Server with
 <li><a href="https://github.com/255kb/stack-on-a-budget">GitHub - 255kb/stack-on-a-budget: A collection of services with great free ti&#x2026;</a></li>
 <li><a href="https://github.com/ripienaar/free-for-dev">GitHub - ripienaar/free-for-dev: A list of SaaS, PaaS and IaaS offerings that&#x2026;</a></li>
 <li><a href="https://zaries.wordpress.com/2010/11/09/lisp-web-server-from-scratch-using-hunchentoot-and-nginx/">Lisp Web Server From Scratch using Hunchentoot and Nginx | Zaries's Blog</a></li>
+<li><a href="https://github.com/rongarret/ergolib/tree/master/web">ergolib/web at master · rongarret/ergolib · GitHub</a></li>
+<li><a href="https://github.com/eigenhombre/weeds">GitHub - eigenhombre/weeds: Work in progress porting my blog software to Comm&#x2026;</a></li>
 </ul></li>
 </ol>
 </div>
@@ -264,6 +273,7 @@ Stop Development Server with
 <h2 id="Common-Lisp-Environment-Setup"><span class="section-number-2">2.</span> Common Lisp Environment Setup</h2>
 <div class="outline-text-2" id="text-Common-Lisp-Environment-Setup">
 <ul class="org-ul">
+<li><a href="0d5cd091-ec8a-420d-9585-8d6ed856a00c">&lt;&#x2013;Common Lisp Config</a></li>
 <li><a href="031a3b02-b36c-4875-b714-6ff8e9a3978c">&lt;&#x2013;Practical Common Lisp</a></li>
 <li><a href="6588253f-4a2e-4a8c-ac23-bcb073e47213">&lt;&#x2013;Linux Program Directory</a></li>
 </ul>
@@ -291,7 +301,7 @@ I've heard.
 <p>
 Practically speaking, a complete and recent tour of the LISP world for beginners
 has already been written: <a href="https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/">Steve Losh - Intro to Common lisp</a>. Steve Losh
-characterizes the infant field of web development &#x2013; at least in Anno Domini
+characterizes the field of web development &#x2013; at least in Anno Domini
 2021 &#x2013; not as a hamster wheel of backwards incompatibility, but a hamster
 centrifuge. A house of sand, indeed. In technical aspects, <a href="http://www.paulgraham.com/icad.html">Paul Graham's
 writings</a> convey any advantages better than I can.
@@ -301,9 +311,20 @@ writings</a> convey any advantages better than I can.
 Below are the steps I have taken to setup a Common Lisp environment inside Spacemacs.
 </p>
 
-<ol class="org-ol">
+<ul class="org-ul">
+<li>CL the Language = <a href="http://www.lispworks.com/documentation/common-lisp.html">ANSI INCITS 226-1994</a></li>
+<li>CL Implementation = <a href="http://www.sbcl.org/">Steel Bank Common Lisp</a></li>
+<li>CL Library/Package Manager = <a href="https://www.quicklisp.org/beta/#installation">Quicklisp</a></li>
+<li>CL System Manager/Build Tooling = <a href="https://common-lisp.net/project/asdf/">Another System Definition Facility (comes bundled with SBCL)</a></li>
+<li>CL IDE = <a href="https://www.spacemacs.org/">Spacemacs</a> with <a href="https://joaotavora.github.io/sly/">SLY</a></li>
+
 <li><p>
 Install Steel Bank Common Lisp, a Common Lisp implementation.
+</p>
+
+<p>
+<a href="https://www.cliki.net/Common+Lisp+implementation">Other implementations of Common Lisp the language exist,</a> but SBCL is the
+premier open-source implementation as of this writing.
 </p>
 
 <p>
@@ -317,10 +338,19 @@ straight forward way. On Debian/Ubuntu this is as simple as
 </div>
 
 <p>
-Downloading and unpacking a binary from <a href="http://www.sbcl.org">http://www.sbcl.org</a> or building from source
-are viable options for later should you need the latest and greatest. In
-Spacemacs install the <code>common-lisp</code> layer as the README indicates and
-start the REPL with <code>M-x RET slime</code>. You can exit the REPL with <code>(quit)</code>.
+Downloading and unpacking a binary from <a href="http://www.sbcl.org/getting.html">http://www.sbcl.org/getting.html</a> or
+building from source are options for later discretion. In the shell,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sbcl
+<span class="org-rainbow-delimiters-depth-1">(</span>+ <span class="org-highlight-numbers-number">2</span> <span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+will produce the startup SBCL banner and REPL, evaluate an expression, and quit.
 </p></li>
 
 <li><p>
@@ -328,14 +358,14 @@ Install Quicklisp - the Common Lisp Package Manager
 </p>
 
 <p>
-Download quicklisp.lisp from <a href="https://www.quicklisp.org/beta/#installation">Quicklisp</a> and then in your shell,
+In the shell,
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash"><span class="org-builtin">cd</span> ~/path-to-downloaded-quicklisp.lisp
+<pre class="src src-bash">curl -O https://beta.quicklisp.org/quicklisp.lisp
 sbcl --load quicklisp.lisp
 <span class="org-rainbow-delimiters-depth-1">(</span>quicklisp-quickstart:install<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>ql:add-to-init-file<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:add-to-init-file<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment-delimiter"># </span><span class="org-comment">autoload into sbcl initialization</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
@@ -352,15 +382,105 @@ stored locally. It will be in a directory similar to:
 
 <p>
 Also, <code>(ql:where-is-system 'system-name)</code> will return the system's location.
+<code>project-name</code> and <code>system-name</code> are interchangeable here.
 </p>
 
 <p>
 In order to <code>(ql:quickload :your-local-project)</code> Quicklisp looks in
-<code>/$HOME/quicklisp/local-projects/</code> for said project. You can symlink
+<code>/home/$USER/quicklisp/local-projects/</code> for said project. You can symlink
 your project if you desire to use some other folder.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">ln -s /home/$<span class="org-variable-name">USER</span>/quicklisp/local-projects/project-a/ /home/$<span class="org-variable-name">USER</span>/project-a/
+</pre>
+</div>
+
+<p>
+Not of primary importance yet is a definitions of what entails a lisp
+<code>package</code> or lisp <code>system</code>. It will explained in proper order during your
+introduction to the language, to be more specific it is covered in <a href="https://gigamonkeys.com/book/programming-in-the-large-packages-and-symbols.html">Peter
+Seibel's excellent pedagogical work, Practical Common Lisp</a> and another
+how-to is located on <a href="https://github.com/fare/asdf/blob/master/doc/best_practices.md#trivial-system-definition">ASDF's best practices page.</a> N.B. that <code>(ql:quickload
+   :your-local-project)</code> also calls <code>(asdf:load-system :your-local-project)</code>.
+The difference is <code>(ql:quickload)</code> will download any missing system
+dependencies.
 </p></li>
 
-<li>Install Spacemacs <code>common-lisp</code> layer - a Common Lisp IDE</li>
+<li><p>
+Install Spacemacs <code>common-lisp</code> layer - a Common Lisp IDE
+</p>
+
+<p>
+The below steps assume you are already familiar with Spacemacs. Inside
+Spacemacs, <code>SPC-h-SPC RET common-lisp RET</code> and follow the layer README.
+</p>
+
+<p>
+<a href="https://lispcookbook.github.io/cl-cookbook/editor-support.html">For those who are understandably wary of Emacs other IDE options exist.</a> Lisp
+is one of the oldest higher level languages (beaten by FORTRAN by a few
+years). With that rich tradition comes a time where the underlying hardware,
+operating system, and developer tooling were unified under lisp.
+Unfortunately, the closest one can reasonably come today is Emacs, a lisp
+interpreter running on C/UNIX/hardware. Emacs still offers the best-in-class
+experience amongst open-source offerings, but the notorious learning curve of
+Emacs can be tempered with a preset configuration: Spacemacs. <a href="https://www.hanshenwang.com/blog/installation-of-spacemacs.html">For those on a
+Microsoft Windows machine, I have written installation instructions.</a>
+</p></li>
+
+<li><p>
+<b>Optional:</b> Enable goto definition for SBCL primitives
+</p>
+
+<p>
+<a href="http://www.sbcl.org/platform-table.html">Download CL Implementation source files</a> and extract them to the location
+specified by <code>(sb-ext:set-sbcl-source-location)</code>, which is set in your user
+configuration dotfile: <code>/home/$USER/.sbclrc</code>. Add it if not already present,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>sb-ext:set-sbcl-source-location <span class="org-string">"/usr/share/sbcl-source/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Now you can use <code>g d</code> to call <code>jump-to-definition</code> to
+goto the raw documentation: the source code.
+</p></li>
+
+<li><p>
+<b>Optional:</b> Enable offline access to the CL HyperSpec language reference
+</p>
+
+<p>
+The full text of the ANSI Common Lisp Standard (1994) <a href="http://www.lispworks.com/documentation/common-lisp.html">is available online in
+HTML form.</a> To have the reference handy offline and to be able to browse it
+within Emacs, first download and extract <a href="https://archive.org/details/common-lisp-hyperspec">the HTML source for HyperSpec
+7.0.tar.gz from the great Internet Archive.</a>
+</p>
+
+<p>
+Then we can configure Emacs to open only HyperSpec links inside the Emacs web
+browser <a href="https://www.gnu.org/software/emacs/manual/html_mono/eww.html">EWW</a> and also inform our Common Lisp IDE of the HyperSpec location.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">setf</span> common-lisp-hyperspec-root <span class="org-string">"file:///home/$USER/HyperSpec/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Optionally, execute the HYPERSPEC-LOOKUP function with local variable</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">changes to view HyperSpec links exclusively in EWW.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>advice-add 'hyperspec-lookup
+            <span class="org-builtin">:around</span>
+            <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">lambda</span> <span class="org-rainbow-delimiters-depth-3">(</span>orig-fun <span class="org-type">&amp;rest</span> args<span class="org-rainbow-delimiters-depth-3">)</span>
+              <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">setq-local</span> browse-url-browser-function 'eww-browse-url<span class="org-rainbow-delimiters-depth-3">)</span>
+              <span class="org-rainbow-delimiters-depth-3">(</span>apply orig-fun args<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
+
+<p>
+Now <code>, h H</code> will call <code>sly-hyperspec-lookup</code> to peruse the symbol at point
+with the HyperSpec. Note the default behavior of <code>sly-hyperspec-lookup</code> is to
+open a web browser at the online HyperSpec.
+</p></li>
 
 <li><p>
 <b>Optional:</b> Enable org-babel literate programming with Lisp
@@ -439,46 +559,10 @@ file in sync. And it does that without any markings or artifacts on the tangled
 code, making collaboration easier. If a more elegant solution to
 de-tangle a file exists out in the wild, please do let me know.
 </p></li>
-
-<li><p>
-<b>Optional:</b> Enable goto definition for CL primitives
-</p>
-
-<p>
-<a href="http://www.sbcl.org/platform-table.html">Download CL Implementation source files</a> and extract them to the location
-specified by <code>(sb-ext:set-sbcl-source-location)</code>, which is set in your
-<code>/home/$USER/.sbclrc</code>. Add it if not already present,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>sb-ext:set-sbcl-source-location <span class="org-string">"/usr/share/sbcl-source/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
-Now you can use <code>g d</code> to call <code>jump-to-definition</code> to
-goto the best documentation: the source code.
-</p></li>
-</ol>
-
-<p>
-The above steps assume you are already familiar with Spacemacs. <a href="https://lispcookbook.github.io/cl-cookbook/editor-support.html">For those who
-are understandably wary of Emacs other IDE options exist.</a>
-</p>
-
-<p>
-To sum it all up:
-</p>
-<ul class="org-ul">
-<li>CL the Language = <a href="http://www.lispworks.com/documentation/common-lisp.html">ANSI Standard</a></li>
-<li>CL Implementation = Steel Bank Common Lisp</li>
-<li>CL Package Manager = Quicklisp</li>
-<li>CL Project Manager/Build Facility = <a href="https://www.common-lisp.net/project/asdf/asdf.html">ASDF (comes bundled with SBCL)</a></li>
-<li>CL IDE = <a href="https://common-lisp.net/project/slime/doc/html/">SLIME</a>/<a href="https://joaotavora.github.io/sly/">SLY</a></li>
 </ul>
 
 <p>
-Newcomers to the language are advised to dive right into the <a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/user/dst/www/LispBook/index.html">recommended
+Newcomers to the language are advised to dive right into the <a href="https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/#s13-a-gentle-introduction">recommended
 reading.</a> Now's a good chance to use org-babel for some note-taking. If you've
 forked the repo to play around with, <a href="#Project-Isidore-System-Definition">a high-level overview of the project</a> may be
 useful.
@@ -489,14 +573,12 @@ useful.
 <h2 id="Project-Isidore-System-Definition"><span class="section-number-2">3.</span> Project Isidore System Definition</h2>
 <div class="outline-text-2" id="text-Project-Isidore-System-Definition">
 <p>
-Running <code>org-babel-tangle</code> on this document only produces source code. In the
-directory tree below, such items are linked. <a href="#Org-Publish-Pipeline">Blog article generation</a>.
+Running <code>org-babel-tangle</code> on this document only produces source code. For a
+list of symbols, functions and definitions, see the <a href="#Reference-Manual">Reference Manual</a>.
 </p>
 
 <ol class="org-ol">
-<li><p>
-Project Isidore
-</p>
+<li>Project Isidore
 <ul class="org-ul">
 <li>/.github
 <ul class="org-ul">
@@ -506,11 +588,11 @@ Project Isidore
 <li><a href="#CD-with-Github-Actions-Roswell">CD.yml</a></li>
 </ul></li>
 </ul></li>
-<li>ProjectIsidore.ros</li>
+<li><a href="#Roswell-Build-Script">ProjectIsidore.ros</a></li>
 <li>/assets
 <ul class="org-ul">
-<li>/blog</li>
-<li>/code-coverage</li>
+<li><a href="#Org-Publish-Pipeline">/blog</a></li>
+<li><a href="#Generate-Code-Coverage-Report">/code-coverage</a></li>
 </ul></li>
 <li>/bin
 <ul class="org-ul">
@@ -529,10 +611,15 @@ Project Isidore
 <ul class="org-ul">
 <li><a href="#Testing">tests.lisp</a></li>
 </ul></li>
-</ul>
+</ul></li>
+</ol>
 
+<p>
+Bibliographies exist for a written corpus of works. The same sort of metadata is
+needed a code base. In Common Lisp, it is the <code>.asd</code> file.
+</p>
 <div class="org-src-container">
-<pre class="src src-lisp" id="orga17704e"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">project-isidore.asd</span>
+<pre class="src src-lisp" id="org7fdb448"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">project-isidore.asd</span>
 <span class="org-comment-delimiter">;;;</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
 <span class="org-comment-delimiter">;;;</span>
@@ -559,7 +646,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -580,7 +670,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -603,7 +696,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -624,7 +720,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -645,7 +744,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -666,7 +768,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -687,7 +792,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -709,7 +817,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -730,7 +841,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -751,7 +865,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -772,7 +889,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -794,7 +914,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -815,7 +938,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -836,7 +962,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -857,7 +986,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -878,7 +1010,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -900,7 +1035,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -921,7 +1059,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -942,7 +1083,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -963,7 +1107,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -985,7 +1132,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1006,7 +1156,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1027,7 +1180,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1048,7 +1204,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1070,7 +1229,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1084,14 +1246,17 @@ Project Isidore
 &#12;
 (asdf:defsystem #:project-isidore/test
   :name &quot;Project Isidore Tests&quot;
-  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:version</a></span><a href="https://www.gnu.org/licenses/&gt;.
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:homepage</a></span><a href="https://www.gnu.org/licenses/&gt;.
 
 (asdf:defsystem #:project-isidore
   :name &quot;Project Isidore&quot;
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1112,7 +1277,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1126,14 +1294,17 @@ Project Isidore
 &#12;
 (asdf:defsystem #:project-isidore/test
   :name &quot;Project Isidore Tests&quot;
-  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"1.0.0"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"https://www.hanshenwang.com/blog/project-isidore-doc.html"</a></span><a href="https://www.gnu.org/licenses/&gt;.
 
 (asdf:defsystem #:project-isidore
   :name &quot;Project Isidore&quot;
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1155,7 +1326,397 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:bug-tracker</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"https://github.com/HanshenWang/project-isidore/issues"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:source-control</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">(</a></span><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:git</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"https://github.com/HanshenWang/project-isidore.git"</a></span><span class="org-rainbow-delimiters-depth-2"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">)</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">:version</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com"> </a><span class="org-string"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">"1.1.0"</a></span><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
+  :serial t
+  :depends-on (#:hunchentoot
+               #:cl-who
+               #:cl-css
+               #:parenscript
+               #:postmodern
+               #:log4cl)
+  :components ((:module &quot;src&quot;
+                :components ((:file &quot;application&quot;))))
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
+&#12;
+(asdf:defsystem #:project-isidore/test
+  :name &quot;Project Isidore Tests&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com">
+  </a><span class="org-builtin"><a href="https://www.gnu.org/licenses/&gt;.
+
+(asdf:defsystem #:project-isidore
+  :name &quot;Project Isidore&quot;
+  :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
+  :description &quot;Personal Web Application&quot;
+  :license  &quot;GNU Lesser Public License 3.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1176,7 +1737,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1198,7 +1762,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1219,7 +1786,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1240,7 +1810,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1261,7 +1834,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1282,7 +1858,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1303,7 +1882,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1325,7 +1907,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1346,7 +1931,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1367,7 +1955,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1389,7 +1980,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1410,7 +2004,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1431,7 +2028,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1453,7 +2053,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1474,7 +2077,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1495,7 +2101,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1517,7 +2126,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1538,7 +2150,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1559,7 +2174,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1581,7 +2199,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1602,7 +2223,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1623,7 +2247,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1644,7 +2271,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1666,7 +2296,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1687,7 +2320,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1708,7 +2344,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1729,7 +2368,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1750,7 +2392,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1771,7 +2416,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1792,7 +2440,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1813,7 +2464,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1835,7 +2489,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1856,7 +2513,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1877,7 +2537,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1898,7 +2561,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1919,7 +2585,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1940,7 +2609,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1961,7 +2633,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -1982,7 +2657,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2003,7 +2681,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2024,7 +2705,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2045,7 +2729,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2066,7 +2753,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2088,7 +2778,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2109,7 +2802,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2130,7 +2826,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2151,7 +2850,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2172,7 +2874,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2193,7 +2898,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2214,7 +2922,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2235,7 +2946,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2256,7 +2970,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2277,7 +2994,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2298,7 +3018,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2319,7 +3042,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2340,7 +3066,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2363,7 +3092,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2384,7 +3116,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2405,7 +3140,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2426,7 +3164,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2447,7 +3188,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2469,7 +3213,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2490,7 +3237,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2511,7 +3261,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2532,7 +3285,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2554,7 +3310,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2575,7 +3334,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2596,7 +3358,10 @@ Project Isidore
   :author &quot;Hanshen Wang &lt;hanshen@hanshenwang.com&gt;&quot;
   :description &quot;Personal Web Application&quot;
   :license  &quot;GNU Lesser Public License 3.0&quot;
-  :version &quot;1.0.0&quot;
+  :homepage &quot;https://www.hanshenwang.com/blog/project-isidore-doc.html&quot;
+  :bug-tracker &quot;https://github.com/HanshenWang/project-isidore/issues&quot;
+  :source-control (:git &quot;https://github.com/HanshenWang/project-isidore.git&quot;)
+  :version &quot;1.1.0&quot;
   :serial t
   :depends-on (#:hunchentoot
                #:cl-who
@@ -2623,8 +3388,7 @@ Project Isidore
                     <span class="org-rainbow-delimiters-depth-3">(</span>uiop:symbol-call <span class="org-builtin">:parachute</span> <span class="org-builtin">:test</span> <span class="org-builtin">:project-isidore/test</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 </pre>
-</div></li>
-</ol>
+</div>
 </div>
 
 <div id="outline-container-System-dependencies" class="outline-3">
@@ -2658,10 +3422,14 @@ Beane,</a> who does the thankless job of maintaining Quicklisp.
 Quicklisp in one respect is less like Javascript's
 Node Package Manager and more like Debian's apt. Zach makes sure that ALL
 libraries on Quicklisp build together. He takes this burden upon himself so
-the end users might avoid <a href="https://en.wikipedia.org/wiki/Dependency_hell">Dependency Hell</a>. He will take the
+the end users might avoid <a href="https://en.wikipedia.org/wiki/Dependency_hell">dependency hell</a>. He will take the
 time to submit bug reports, and so his Github page lists all said bug
-reports. We can then roughly take the number of commits an author makes
+reports. We can then roughly eyeball the number of commits an author makes
 versus the number of bug reports Zach has to submit.
+</p>
+
+<p>
+<a href="https://gist.github.com/svetlyak40wt/03bc68c820bb3e45bc7871870379c42e">A helper to gather all lisp system's dependencies · GitHub</a>
 </p></li>
 
 <li>Common Lisp Dependencies</li>
@@ -2680,7 +3448,7 @@ versus the number of bug reports Zach has to submit.
 <thead>
 <tr>
 <th scope="col" class="org-left">Library</th>
-<th scope="col" class="org-left">Author</th>
+<th scope="col" class="org-left">Author(s)</th>
 <th scope="col" class="org-left">Function</th>
 </tr>
 </thead>
@@ -2749,7 +3517,7 @@ Upgrade via editing <code>:head</code> under <code>org-publish-project-alist</co
 <li>Mathjax 2.7.0
 See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-template</code>.</li>
 <li>Htmx
-Front end javascript framework</li>
+<a href="https://github.com/rajasegar/awesome-htmx">Front end javascript framework</a></li>
 </ul></li>
 </ol>
 </div>
@@ -2760,10 +3528,14 @@ Front end javascript framework</li>
 <h2 id="Org-Publish-Pipeline"><span class="section-number-2">4.</span> Org Publish Pipeline</h2>
 <div class="outline-text-2" id="text-Org-Publish-Pipeline">
 <p>
+In the <code>/assets/blog/</code> folder, all <code>HTML</code> files are generated by <code>org-publish</code>.
+<code>archive.html</code> lists all published articles.
+</p>
+
+<p>
 In Spacemacs you will need to enable the <code>org</code> layer. Org Mode comes with Org
 Publish built in. <a href="https://orgmode.org/manual/Publishing.html">Org Publish</a> takes advantage of Org's excellent export
-capabilities to generate not only the HTML but also the sitemap and RSS. In the
-/assets folder, archive.html lists all published articles.
+capabilities to generate not only the HTML but also the sitemap and RSS.
 </p>
 
 <p>
@@ -2788,7 +3560,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgf39aa28"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
+<pre class="src src-emacs-lisp" id="org4411c36"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">*** Org Ox Publish Config</span>
 <span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">ox-rss</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -3016,7 +3788,7 @@ The Application itself is still very barebones.
 </ol>
 
 <div class="org-src-container">
-<pre class="src src-lisp" id="org0f77df2"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">application.lisp</span>
+<pre class="src src-lisp" id="org7c2e90d"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">application.lisp</span>
 <span class="org-comment-delimiter">;;;</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
 <span class="org-comment-delimiter">;;;</span>
@@ -3806,7 +4578,7 @@ The Application itself is still very barebones.
   <span class="org-rainbow-delimiters-depth-2">(</span>log:log-info <span class="org-string">"</span>
 
 <span class="org-string">========================================</span>
-<span class="org-string">Project Isidore v1.0.0 (A.D. 2021-10-10)</span>
+<span class="org-string">Project Isidore v1.1.0 (A.D. 2021-10-20)</span>
 <span class="org-string">========================================</span>
 
 <span class="org-string">Copyright 2021 Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
@@ -3814,9 +4586,15 @@ The Application itself is still very barebones.
 <span class="org-string">Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO WARRANTY.</span>
 <span class="org-string">This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007</span>
 <span class="org-string">You are welcome to redistribute the program or any parts hereof under certain conditions.</span>
-<span class="org-string">Please visit https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.</span>
+<span class="org-string">Please visit <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
 
-<span class="org-string">Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html</span>
+Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">&lt;https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.</a></span><a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
+
+Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">
+
+</a><span class="org-string"><a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
+
+Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html&gt;</a></span>
 <span class="org-string">"</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenv <span class="org-string">"DATABASE_URL"</span><span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>setf *database-url* <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"DATABASE_URL"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
@@ -3840,13 +4618,13 @@ The Application itself is still very barebones.
 
 <span class="org-string">Project Isidore initialization successful ...</span>
 
-<span class="org-string">Navigate to https://localhost:~A to continue ...</span>
+<span class="org-string">Navigate to <a href="https://localhost:~A">&lt;https://localhost:~A&gt;</a> to continue ...</span>
 <span class="org-string">"</span> port<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> cmd-user-interface
     <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">do-sigint-poll</span> t<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
       <span class="org-rainbow-delimiters-depth-4">(</span>log:log-info <span class="org-string">"</span>
 
-<span class="org-string">Press Control+C to exit the program ..."</span><span class="org-rainbow-delimiters-depth-4">)</span>
+<span class="org-string">Close this window or press Control+C to exit the program ..."</span><span class="org-rainbow-delimiters-depth-4">)</span>
       <span class="org-rainbow-delimiters-depth-4">(</span>terminate-application do-sigint-poll<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">terminate-application</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;optional</span> sigint-poll<span class="org-rainbow-delimiters-depth-2">)</span>
@@ -3862,10 +4640,10 @@ The Application itself is still very barebones.
                             <span class="org-rainbow-delimiters-depth-6">(</span>bordeaux-threads:all-threads<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
       <span class="org-comment-delimiter">;; </span><span class="org-comment">Catch a user's C-c</span>
       <span class="org-rainbow-delimiters-depth-4">(</span>#+sbcl sb-sys:interactive-interrupt
-       <span class="org-sly-reader-conditional">#+ccl  ccl:interrupt-signal-condition</span>
-       <span class="org-sly-reader-conditional">#+clisp system::simple-interrupt-condition</span>
-       <span class="org-sly-reader-conditional">#+ecl ext:interactive-interrupt</span>
-       <span class="org-sly-reader-conditional">#+allegro excl:interrupt-signal</span>
+       #+ccl  ccl:interrupt-signal-condition
+       #+clisp system::simple-interrupt-condition
+       #+ecl ext:interactive-interrupt
+       #+allegro excl:interrupt-signal
        <span class="org-rainbow-delimiters-depth-5">()</span> <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">progn</span>
             <span class="org-rainbow-delimiters-depth-6">(</span>format *error-output* <span class="org-string">"Aborting.~&amp;"</span><span class="org-rainbow-delimiters-depth-6">)</span>
             <span class="org-rainbow-delimiters-depth-6">(</span>ws:stop *acceptor*<span class="org-rainbow-delimiters-depth-6">)</span>
@@ -3924,19 +4702,6 @@ The Application itself is still very barebones.
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:documentation</span> <span class="org-doc">"MAILINGLIST table schema contains all E-mails that are to</span>
 <span class="org-doc">  receive notifications on PROJECT-ISIDORE blog article updates."</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 &#12;
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">generate-code-coverage-report</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-doc">"Use SBCL contrib SB-COVER to determine percentage of codebase exercised under</span>
-<span class="org-doc">regression tests."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-cover</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Compiler knob: Turn on generation instrumentation</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-3">(</span>optimize sb-cover:store-coverage-data<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Load while ensuring that it's recompiled with the new optimization</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">policy.</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>asdf:oos 'asdf:load-op <span class="org-builtin">:project-isidore</span> <span class="org-builtin">:force</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML report output location</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>sb-cover:report <span class="org-string">"../assets/code-coverage-report/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-3">(</span>optimize <span class="org-rainbow-delimiters-depth-4">(</span>sb-cover:store-coverage-data <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 </pre>
 </div>
@@ -4005,9 +4770,13 @@ indexing it anyways.
 </div>
 </div>
 </div>
-<div id="outline-container-orgcba248d" class="outline-2">
-<h2 id="orgcba248d"><span class="section-number-2">6.</span> Development Operations</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-Development-Operations" class="outline-2">
+<h2 id="Development-Operations"><span class="section-number-2">6.</span> Development Operations</h2>
+<div class="outline-text-2" id="text-Development-Operations">
+<p>
+Notes on project infrastructure.
+</p>
+
 <p>
 Follow industry best practice in <a href="https://www.redhat.com/en/topics/devops/what-is-ci-cd">automating part of development operations.</a> In
 the context of this project, CI/CD is taken to mean the following.
@@ -4212,7 +4981,7 @@ CURL incantation for SBCL in the compile script.</li>
 <h5 id="Detect-Script">Detect Script</h5>
 <div class="outline-text-5" id="text-Detect-Script">
 <div class="org-src-container">
-<pre class="src src-sh" id="org85a468f"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> sh</span>
+<pre class="src src-sh" id="org91a69e7"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> sh</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">bin/detect &lt;build-dir&gt;</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">detect bash script</span>
@@ -4270,7 +5039,7 @@ script's purpose is to install a Common Lisp environment before loading <code>co
 where the real magic happens.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orga620a21"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
+<pre class="src src-bash" id="org9e7df74"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">bin/compile &lt;build-dir&gt; &lt;cache-dir&gt; &lt;env-dir&gt;</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">compile bash script</span>
@@ -4337,8 +5106,8 @@ where the real magic happens.
 <span class="org-variable-name">ENV_DIR</span>=$<span class="org-highlight-numbers-number">3</span>
 <span class="org-variable-name">CL_DIR</span>=<span class="org-string">"$CACHE_DIR/sbcl"</span>
 <span class="org-variable-name">CL_IMPL</span>=<span class="org-string">"sbcl-bin"</span>
-<span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL_VER '2.1.9')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
-<span class="org-variable-name">QL_DIST_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> QL_DIST_VER '2021-08-07')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
+<span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL_VER '2.1.10')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
+<span class="org-variable-name">QL_DIST_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> QL_DIST_VER '2021-10-21')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
 
 <span class="org-comment-delimiter">####################</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">2. Run Buildpack #</span>
@@ -4410,7 +5179,7 @@ info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span
 <h6 id="Compile-Lisp">Compile Lisp</h6>
 <div class="outline-text-6" id="text-Compile-Lisp">
 <div class="org-src-container">
-<pre class="src src-lisp" id="org9c8688a"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">compile.lisp</span>
+<pre class="src src-lisp" id="org07ee4eb"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">compile.lisp</span>
 <span class="org-comment-delimiter">;;;</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
 <span class="org-comment-delimiter">;;;</span>
@@ -4533,7 +5302,7 @@ info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span
 <h5 id="Release-Script">Release Script</h5>
 <div class="outline-text-5" id="text-Release-Script">
 <div class="org-src-container">
-<pre class="src src-sh" id="org7b2d933"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
+<pre class="src src-sh" id="org4dc7839"><span class="org-comment-delimiter">#</span><span class="org-comment">!/usr/bin/</span><span class="org-keyword">env</span><span class="org-comment"> bash</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">bin/release &lt;build-dir&gt;</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">release bash script</span>
@@ -4591,7 +5360,7 @@ operating systems. Comes with Quicklisp included. <a href="https://github.com/ro
 </ol>
 
 <div class="org-src-container">
-<pre class="src src-yaml" id="org3ad3ad2"># Continous Delivery.yml
+<pre class="src src-yaml" id="org11ea038"># Continous Delivery.yml
 #
 # Copyright (c) 2021 Hanshen Wang.
 #
@@ -4621,6 +5390,8 @@ name: CD
 on:
   push:
     branches: [ master ]
+    tags:
+      - "v*"
   pull_request:
     branches: [ master ]
   workflow_dispatch:
@@ -4801,11 +5572,11 @@ jobs:
 
   create_release:
     name: Create Github Release
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
     # Following jobs must succeed
     needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
-    # Only run create_release if the tag starts with 'v'
-    if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -4880,9 +5651,9 @@ jobs:
 </pre>
 </div>
 </div>
-<div id="outline-container-org668e138" class="outline-5">
-<h5 id="org668e138">Roswell Build Script</h5>
-<div class="outline-text-5" id="text-org668e138">
+<div id="outline-container-Roswell-Build-Script" class="outline-5">
+<h5 id="Roswell-Build-Script">Roswell Build Script</h5>
+<div class="outline-text-5" id="text-Roswell-Build-Script">
 <p>
 Similar to how the <a href="#Compile-Script">compile bash script</a> calls <a href="#Compile-Lisp">compile.lisp</a>, so too does the
 <a href="#CD-with-Github-Actions-Roswell">Continuous Deployment</a> script call ProjectIsidore.ros. Note the filename of
@@ -4891,7 +5662,7 @@ default behavior of <code>ros build</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp" id="org730ae49">#!/bin/sh
+<pre class="src src-lisp" id="org2be4a03">#!/bin/sh
 <span class="org-comment-delimiter">#|</span><span class="org-comment">-*- mode:lisp -*-|#</span>
 <span class="org-comment-delimiter">#|</span>
 <span class="org-comment">exec ros -Q -- $0 "$@"</span>
@@ -4917,36 +5688,13 @@ default behavior of <code>ros build</code>.
 </p>
 
 <p>
-To generate the code coverage report, see the function below. It cannot be
-included in the project as it contains SBCL specific contrib modules.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">generate-code-coverage-report</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-doc">"Use SBCL contrib SB-COVER to determine percentage of codebase exercised under</span>
-<span class="org-doc">regression tests."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>#+sbcl
-   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-cover</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">Compiler knob: Turn on generation instrumentation</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-4">(</span>optimize sb-cover:store-coverage-data<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">Load while ensuring that it's recompiled with the new optimization</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">policy.</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span>asdf:oos 'asdf:load-op <span class="org-builtin">:project-isidore</span> <span class="org-builtin">:force</span> t<span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML report output location</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:report <span class="org-string">"../assets/code-coverage-report/"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-4">(</span>optimize <span class="org-rainbow-delimiters-depth-5">(</span>sb-cover:store-coverage-data <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
 There does exist a detailed evaluation of the many existing Common Lisp testing
 frameworks, the most recent iteration by <a href="https://sabracrolleton.github.io/testing-framework">Sabracrolleton</a>. From this we select <code>parachute</code>
 as our testing framework of choice.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp" id="orga9088d0"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">tests.lisp</span>
+<pre class="src src-lisp" id="org3edee53"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">tests.lisp</span>
 <span class="org-comment-delimiter">;;;</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
 <span class="org-comment-delimiter">;;;</span>
@@ -5009,7 +5757,7 @@ Common Lisp implementation portability  <a href="https://portability.cl/">Common
 </p>
 
 <div class="org-src-container">
-<pre class="src src-yaml" id="orgd1ba27d"># Continous Integration.yml
+<pre class="src src-yaml" id="orgc5ec2db"># Continous Integration.yml
 #
 # Copyright (c) 2021 Hanshen Wang.
 #
@@ -5102,9 +5850,9 @@ jobs:
 </div>
 </div>
 </div>
-<div id="outline-container-org5ecf7c1" class="outline-4">
-<h4 id="org5ecf7c1"><span class="section-number-4">6.2.2.</span> Benchmarking &amp; Profiling</h4>
-<div class="outline-text-4" id="text-6-2-2">
+<div id="outline-container-Benchmarking-Profiling" class="outline-4">
+<h4 id="Benchmarking-Profiling"><span class="section-number-4">6.2.2.</span> Benchmarking &amp; Profiling</h4>
+<div class="outline-text-4" id="text-Benchmarking-Profiling">
 <p>
 We use loader.io to benchmark our website. 250 clients per second over a
 period of 1 minute. Benchmarked with commit 124e59d.
@@ -5185,10 +5933,181 @@ stains.
 </p>
 </div>
 </div>
+<div id="outline-container-Generate-Code-Coverage-Report" class="outline-4">
+<h4 id="Generate-Code-Coverage-Report"><span class="section-number-4">6.2.5.</span> Generate Code Coverage Report</h4>
+<div class="outline-text-4" id="text-Generate-Code-Coverage-Report">
+<p>
+<a href="https://www.hanshenwang.com/code-coverage-report/cover-index.html">Project Isidore code coverage report.</a>
+</p>
+
+<p>
+It cannot be included in the project as it contains SBCL specific contrib
+modules.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">generate-code-coverage-report</span> <span class="org-rainbow-delimiters-depth-2">()</span>
+  <span class="org-doc">"Use SBCL contrib SB-COVER to determine percentage of codebase exercised under</span>
+<span class="org-doc">regression tests."</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>#+sbcl
+   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-cover</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Compiler knob: Turn on generation instrumentation</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-4">(</span>optimize sb-cover:store-coverage-data<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">Load while ensuring that it's recompiled with the new optimization</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">policy.</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span>asdf:oos 'asdf:load-op <span class="org-builtin">:project-isidore</span> <span class="org-builtin">:force</span> t<span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML report output location</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:report <span class="org-string">"../assets/code-coverage/"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-4">(</span>optimize <span class="org-rainbow-delimiters-depth-5">(</span>sb-cover:store-coverage-data <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div id="outline-container-Reference-Manual" class="outline-2">
+<h2 id="Reference-Manual"><span class="section-number-2">7.</span> Reference Manual</h2>
+<div class="outline-text-2" id="text-Reference-Manual">
+<p>
+<a href="https://www.hanshenwang.com/reference/manual.html">The Project Isidore Reference Manual</a>
+</p>
+
+<p>
+Comprehensive reference on system components (modules and files), packages and
+definitions. <a href="http://www.lispworks.com/documentation/HyperSpec/Body/11_aaba.htm">Exported and internal definitions</a> are listed separately.
+Definitions include constants, special variables, symbol macros, macros, setf
+expanders, compiler macros, functions, generic functions and methods, method
+combinations, conditions, structures, classes and types. Includes
+cross-references to ASDF component dependencies, parents and children, classes
+direct methods, super and subclasses, slot readers and writers, setf expanders
+access and update functions etc. The reference manual also includes exhaustive
+and multiple-entry indexes for every documented item.
+</p>
+</div>
+
+<div id="outline-container-Generate-Reference-Manual" class="outline-3">
+<h3 id="Generate-Reference-Manual"><span class="section-number-3">7.1.</span> Generate Reference Manual</h3>
+<div class="outline-text-3" id="text-Generate-Reference-Manual">
+<p>
+The <a href="https://github.com/didierverna/declt">Declt Common Lisp library</a> is used generate the reference manual in <code>.texi</code>
+texinfo format. <a href="https://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html">GNU Texinfo</a> is able to convert a single <code>.texi</code> source file into
+online HTML format, PDF documentation as well as others. On a high level, Declt
+uses ASDF and SBCL contrib <code>sb-introspect</code> to query and extract documentation
+strings, lambda lists, slot type, allocation and initialization arguments, and
+definition source files. It requires no special architecture choices in a
+system, other than to conform to ASDF conventions. Beyond that, writing clear
+docstrings where the opportunity arises will yield great results.
+</p>
+
+<p>
+<code>generate-doc.lisp</code> script is run by a git pre-commit hook. Upon every commit,
+it will regenerate the reference manual and include changes into the commit.
+<code>pre-commit</code> is originally located at
+<code>/project-isidore/.git/hooks/pre-commit.sample</code>.
+</p>
+
+<p>
+Is this workflow overkill for the size of the codebase currently? Probably. It
+is nice to have an auto-generated manual though.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org09cb960"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">An example hook script to verify what is about to be committed.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Called by "git commit" with no arguments.  The hook should</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">exit with non-zero status after issuing an appropriate message if</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">it wants to stop the commit.</span>
+<span class="org-comment-delimiter">#</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">To enable this hook, rename this file to "pre-commit".</span>
+
+<span class="org-keyword">if</span> git rev-parse --verify HEAD &gt;/dev/null <span class="org-highlight-numbers-number">2</span>&gt;&amp;<span class="org-highlight-numbers-number">1</span>
+<span class="org-keyword">then</span>
+    <span class="org-variable-name">against</span>=HEAD
+<span class="org-keyword">else</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Initial commit: diff against an empty tree object</span>
+    <span class="org-variable-name">against</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">git</span> hash-object -t tree /dev/null<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-keyword">fi</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Redirect output to stderr.</span>
+<span class="org-keyword">exec</span> <span class="org-highlight-numbers-number">1</span>&gt;&amp;<span class="org-highlight-numbers-number">2</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Generate updated manual. SBCL must be installed. See documentation for</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">environment setup</span>
+sbcl --script doc/generate-doc.lisp
+<span class="org-comment-delimiter"># </span><span class="org-comment">Add updated manual.html to commit</span>
+git add assets/reference/manual.html
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp" id="org367887f"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">generate-doc.lisp</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Author: Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">URL: https://github.com/HanshenWang/project-isidore</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">This file is part of Project Isidore.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify it</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">under the terms of the GNU General Public License as published by the Free</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Software Foundation, either version 3 of the License, or (at your option)</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">any later version.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful, but</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">more details.</span>
+<span class="org-comment-delimiter">;;;</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU General Public License along with</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore. If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
+
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">See subheading 'Generate Reference Manual' at</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.hanshenwang.com/blog/project-isidore-doc.html/</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>load <span class="org-string">"~/quicklisp/setup.lisp"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; Quicklisp is installed in default location</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; If you need to download dependencies</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:net.didierverna.declt</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Generate 'project-isidore.texi' in TEXI-DIRECTORY</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>net.didierverna.declt:declt <span class="org-builtin">:project-isidore</span>
+                             <span class="org-builtin">:texi-name</span> <span class="org-string">"manual"</span>
+                             <span class="org-builtin">:texi-directory</span>
+                             <span class="org-rainbow-delimiters-depth-2">(</span>asdf:system-relative-pathname
+                              <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/reference/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+                             <span class="org-builtin">:library-name</span> <span class="org-string">"Project Isidore"</span>
+                             <span class="org-comment-delimiter">;; </span><span class="org-comment">links are machine specific</span>
+                             <span class="org-builtin">:hyperlinks</span> nil
+                             <span class="org-comment-delimiter">;; </span><span class="org-comment">:long will print generation time. This will be</span>
+                             <span class="org-comment-delimiter">;; </span><span class="org-comment">picked up by git. Otherwise I would pick :long</span>
+                             <span class="org-builtin">:declt-notice</span> <span class="org-builtin">:short</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">https://lispcookbook.github.io/cl-cookbook/os.html#input-and-output-from-subprocess</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*shell*</span> <span class="org-rainbow-delimiters-depth-2">(</span>uiop:launch-program <span class="org-string">"bash"</span> <span class="org-builtin">:input</span> <span class="org-builtin">:stream</span> <span class="org-builtin">:output</span>
+                                                         <span class="org-builtin">:stream</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Change to proper directory</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*manual-path*</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate
+                             'string <span class="org-string">"cd "</span>
+                             <span class="org-rainbow-delimiters-depth-3">(</span>namestring
+                              <span class="org-rainbow-delimiters-depth-4">(</span>asdf:system-relative-pathname
+                               <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/reference/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>write-line *manual-path* <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Convert .texi to .html</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>write-line
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">For makeinfo flags, see</span>
+   <span class="org-comment-delimiter">;; </span><span class="org-comment">https://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html#HTML-CSS</span>
+ <span class="org-string">"makeinfo --html 'manual.texi' --no-split --css-include='../global.css'"</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>force-output <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
 <div id="outline-container-Project-History-Credits" class="outline-2">
-<h2 id="Project-History-Credits"><span class="section-number-2">7.</span> Project History &amp; Credits</h2>
+<h2 id="Project-History-Credits"><span class="section-number-2">8.</span> Project History &amp; Credits</h2>
 <div class="outline-text-2" id="text-Project-History-Credits">
 <p>
 For previous project iterations/experience, see project-isidore-java repository
