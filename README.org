@@ -1,7 +1,7 @@
 * Project Isidore
-[[https://github.com/HanshenWang/project-isidore/actions/workflows/CD.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CD.yml/badge.svg?branch=master]]
-[[https://pyheroku-badge.herokuapp.com/?app=project-isidore]]
-[[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
+#+html: <a href="https://github.com/HanshenWang/project-isidore/releases/"><img src="https://img.shields.io/github/v/release/HanshenWang/project-isidore"/></a></br>
+#+html: <a href="https://project-isidore.herokuapp.com/"><img src="https://pyheroku-badge.herokuapp.com/?app=project-isidore"/></a>
+[[https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml/badge.svg?branch=master]]
 
 The third iteration of my personal website. It was quite fun building this with
 CL. Happy Hacking!
@@ -22,3 +22,5 @@ Prerequisites:
 
 Full documentation available here:
 https://www.hanshenwang.com/blog/project-isidore-doc.html
+
+[[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
