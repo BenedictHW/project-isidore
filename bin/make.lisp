@@ -1,4 +1,4 @@
-;;;; compile.lisp
+;;;; make.lisp
 ;;;
 ;;; Copyright (c) 2021 Hanshen Wang.
 ;;;
@@ -22,16 +22,20 @@
 
 (in-package #:cl-user) ; buildpack requires cl-user package space
 (require :sb-posix)
-(require 'asdf)
+(require "asdf") ; recommended way from manual to load ASDF
 
-(defvar *production-buildp*
-  (if (probe-file "/home/hanshen/project-isidore/bin/compile.lisp")
-      (setf *production-buildp* nil) (setf *production-buildp* t))
-  "Identify build as local/production (remote) based off of pathname comparison.
-  The matched directory is hardcoded to the author's personal working
-  directory.")
+;; HARDCODED PATHNAME
+(defvar *production-buildp* nil
+  "Identify build as local or production based off of pathname comparison.
+  The matched directory is hardcoded to the author's personal working directory.
+  MAKE.LISP is intended to be called from the shell via 'sbcl --load
+  make.lisp'")
 
-(format t "~&        ====== COMPILE.LISP ======~%")
+(format t "~&        ====== MAKE.LISP ======~%")
+(if (probe-file "/home/hanshen/project-isidore/bin/make.lisp")
+    (setf *production-buildp* nil)
+    (setf *production-buildp* t))
+(format t "~&        Is this a production build? ~a ~%" *production-buildp*)
 
 ;;; Setup Production Environment
 (when (equalp *production-buildp* t)
@@ -44,9 +48,9 @@
     (defvar *quicklisp-dist-version* (uiop:getenv "QL_DIST_VER")))
 
   ;; Whitespace to enhance readability in Heroku logs
-  (format t "~&        *build-dir* = ~a" (make-pathname :directory *build-dir*))
-  (format t "~&        *cache-dir* = ~a" (make-pathname :directory *cache-dir*))
-  (format t "~& *buildpack-dir* = ~a~%" (make-pathname :directory
+  (format t "~&        *BUILD-DIR* = ~a" (make-pathname :directory *build-dir*))
+  (format t "~&        *CACHE-DIR* = ~a" (make-pathname :directory *cache-dir*))
+  (format t "~&        *BUILDPACK-DIR* = ~a~%" (make-pathname :directory
   *buildpack-dir*))
 
   ;; Tell ASDF to store binaries in the cache dir.
@@ -96,17 +100,18 @@
 
 
 ;;; Save the application as an image
-;; buildpack's bin/release refers to ./lispapp as the application name.
-;; store binary locally under /project-isidore/bin/
+;; Heroku buildpack's bin/release refers to ./ProjectIsidore as the application
+;; name. Store binary locally under /project-isidore/bin/ for local builds.
 (when (equalp *production-buildp* nil)
   (defvar *build-dir*
     (pathname-directory
      (pathname (asdf:system-relative-pathname :project-isidore "bin/")))))
 
 (let ((app-file (make-pathname :directory *build-dir*
-                               :defaults "lispapp")))
+                               :defaults "ProjectIsidore")))
   (sb-ext:save-lisp-and-die app-file
                             :toplevel #'cl-user::application-toplevel
                             :executable t))
 
-(format t "~&        ====== END OF COMPILE.LISP ======~%")
+(format t "~&        ====== END OF MAKE.LISP ======~%")
+(uiop:quit)

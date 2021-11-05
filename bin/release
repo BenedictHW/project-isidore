@@ -29,5 +29,5 @@ addons:
 config_vars:
   PATH: /usr/bin:/bin
 default_process_types:
-  web: ./lispapp
+  web: ./ProjectIsidore
 EOF

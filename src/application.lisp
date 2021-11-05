@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-;;; INITIALIZE-APPLICATION is the function launched by compile.lisp
+;;; INITIALIZE-APPLICATION is the function launched by make.lisp
 (defpackage #:project-isidore
   ;; :use means there is no need to prefix hunchentoot:define-easy-handler and
   ;; instead use just define-easy-handler As per
@@ -782,7 +782,7 @@ instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
   "Start a web server at PORT. Set DATABASE_URL if it exists. Optional PORT,
 DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT parameter as Heroku assigns
 a different PORT per dyno/environment. See APPLICATION-TOPLEVEL for the main
-function or entry point in compile.lisp. CMD-USER-INTERFACE when set to true
+function or entry point in make.lisp. CMD-USER-INTERFACE when set to true
 will determine if C-c will exit."
   (log:log-info "
 
