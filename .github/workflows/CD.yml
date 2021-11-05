@@ -45,40 +45,21 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    - name: Cache .roswell
-      id: cache-dot-roswell
-      uses: actions/cache@v1
-      with:
-        path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
-        restore-keys: |
-          ${{ runner.os }}-dot-roswell-sbcl-bin-
-          ${{ runner.os }}-dot-roswell-
-
-    - name: Install Roswell
-      # always run install, since it does some global installs and setup that isn't cached
-      env:
-       LISP: sbcl-bin
-      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
-
-    - name: Run Lisp
-      continue-on-error: true
-      shell: bash
+    - name: Setup GNU/Linux Environment
       run: |
-        ros -e '(format t "~a:~a on ~a~%...~%~%" (lisp-implementation-type) (lisp-implementation-version) (machine-type))'
-        ros -e '(format t " fixnum bits:~a~%" (integer-length most-positive-fixnum))'
-        ros -e "(ql:quickload 'trivial-features)" -e '(format t "features = ~s~%" *features*)'
+        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2021-10-21" >> $GITHUB_ENV
+        echo "PORT=8080" >> $GITHUB_ENV
 
-    - name: Update Quicklisp distribution if cached
-      shell: bash
-      run: ros -e "(ql:update-all-dists :prompt nil)"
+    - name: Install SBCL & Quicklisp
+      run: |
+        sudo apt install sbcl
+        sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
     - name: Build Project Isidore
-      shell: bash
-      run: |
-           echo ${{ github.workspace }} # Pathname varies amongst OS
-           # Generates 'lispapp' in bin/ folder
-           sudo ros build ProjectIsidore.ros
+      run: sbcl --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
@@ -99,13 +80,21 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
+    - name: Setup MacOS Environment
+      run: |
+        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2021-10-21" >> $GITHUB_ENV
+        echo "PORT=8080" >> $GITHUB_ENV
+
     - name: Install SBCL & Quicklisp
       run: |
         brew install sbcl
-        curl https://beta.quicklisp.org/quicklisp.lisp -o ${{ github.workspace }}/quicklisp.lisp
+        sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
     - name: Build Project Isidore
-      run: sbcl --load bin/build-macos.lisp
+      run: sbcl --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -205,6 +194,7 @@ jobs:
     # Downloads all executable artifacts in it's own folder to the current working directory
       uses: actions/download-artifact@v2
 
+    # Convert Declt generated .texi to .pdf and .info and upload as well?
     - name: Format Release Notes
       shell: bash
       run: |

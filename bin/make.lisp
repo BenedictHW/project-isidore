@@ -95,7 +95,8 @@
   (when (equalp *production-buildp* nil) (setf (uiop:getenv "PORT") "8080"))
   (project-isidore:initialize-application
    :port (parse-integer (uiop:getenv "PORT"))
-   :dispatch-folder "assets/")
+   :dispatch-folder "assets/"
+   :cmd-user-interface t)
   (loop (sleep 600))) ; sleep forever
 
 
