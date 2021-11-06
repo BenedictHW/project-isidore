@@ -4,21 +4,31 @@
 [[https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml/badge.svg?branch=master]]
 
 The third iteration of my personal website. It was quite fun building this with
-CL. Happy Hacking!
+Common Lisp. Happy Hacking!
 
 Copyright (c) 2021 Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/lgpl-3.0.en.html][GNU-LGPL-3.0 License]].
 Blog content is available under [[https://creativecommons.org/licenses/by-sa/4.0/legalcode][CC-BY-SA 4.0 License]] unless otherwise noted.
 
 ** Development Quick Start
 
-Prerequisites:
-- An ANSI Common Lisp implementation. Software developed on x86_64 GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
-- [[https://www.quicklisp.org/beta/][The Quicklisp Library Manager]]
+Prerequisite(s):
 
-#+begin_src lisp
-(ql:quickload :project-isidore)
-(project-isidore:initialize-application) ; starts server at http://localhost:8080
-#+end_src
+An ANSI Common Lisp implementation. Development platform is x86_64 GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
+
+The [[https://www.quicklisp.org/beta/][Quicklisp]] library manager to download system dependencies.
+
+*Optionally,* a local installation of [[https://www.postgresql.org/][PostgreSQL.]]
+
+1. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) buffer with =M-x sly=. Depending
+   on the current working directory, =M-x sly-mrepl-set-directory= to Project
+   Isidore root directory may be needed. [[https://lispcookbook.github.io/cl-cookbook/editor-support.html#vscode][Non-Emacs Common Lisp IDE options.]]
+2. Load Project Isidore & start local development server.
+   #+begin_src lisp
+     (ql:quickload :project-isidore)
+     (in-package :project-isidore) ; switch to package namespace
+     (initialize-application) ; starts server at http://localhost:8080
+     (terminate-application) ; stop server
+   #+end_src
 
 Full documentation available here:
 https://www.hanshenwang.com/blog/project-isidore-doc.html
