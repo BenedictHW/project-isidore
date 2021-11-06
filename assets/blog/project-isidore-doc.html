@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-11-01 Mon 02:06 -->
+<!-- 2021-11-06 Sat 03:17 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Isidore Design Notebook</title>
@@ -81,10 +81,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-11-01 Mon 02:06</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-11-06 Sat 03:16</p>
 </div>
 <div id="content">
-<div class="abstract" id="org4d77b74">
+<div class="abstract" id="orgc9d162c">
 <p>
 
 </p>
@@ -104,10 +104,14 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#Introduction">1. Introduction</a></li>
-<li><a href="#Common-Lisp-Environment-Setup">2. Common Lisp Environment Setup</a></li>
+<li><a href="#Common-Lisp-Environment-Setup">2. Common Lisp Environment Setup</a>
+<ul>
+<li><a href="#Literate-Programming">2.1. Literate Programming</a></li>
+</ul>
+</li>
 <li><a href="#Project-Isidore-System-Definition">3. Project Isidore System Definition</a>
 <ul>
-<li><a href="#System-dependencies">3.1. System dependencies</a></li>
+<li><a href="#Libraries-System-dependencies">3.1. Libraries &amp; System dependencies</a></li>
 </ul>
 </li>
 <li><a href="#Org-Publish-Pipeline">4. Org Publish Pipeline</a></li>
@@ -126,7 +130,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <li><a href="#Detect-Script">Detect Script</a></li>
 <li><a href="#Compile-Script">Compile Script</a>
 <ul>
-<li><a href="#Compile-Lisp">Compile Lisp</a></li>
+<li><a href="#Make-Lisp">Make Lisp</a></li>
 </ul>
 </li>
 <li><a href="#Release-Script">Release Script</a></li>
@@ -150,12 +154,20 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 </ul>
 </li>
-<li><a href="#Reference-Manual">7. Reference Manual</a>
+<li><a href="#User-Manual">7. User Manual</a>
 <ul>
-<li><a href="#Generate-Reference-Manual">7.1. Generate Reference Manual</a></li>
+<li><a href="#org3c54778">7.1. How do I find past versions of a blog article?</a></li>
+<li><a href="#org299216f">7.2. How do I unsubscribe from the mailing list?</a></li>
+<li><a href="#orgfc42c26">7.3. Can I visit this website offline?</a></li>
+<li><a href="#org5d75318">7.4. I can't find what I'm looking for. How is the documentation organized?</a></li>
 </ul>
 </li>
-<li><a href="#Project-History-Credits">8. Project History &amp; Credits</a></li>
+<li><a href="#Reference-Manual">8. Reference Manual</a>
+<ul>
+<li><a href="#Generate-Reference-Manual">8.1. Generate Reference Manual</a></li>
+</ul>
+</li>
+<li><a href="#Project-History-Credits">9. Project History &amp; Credits</a></li>
 </ul>
 </div>
 </nav>
@@ -163,109 +175,24 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
-Welcome! Make sure that your Common Lisp development environment is <a href="#Common-Lisp-Environment-Setup">properly set
-up.</a> If that's no issue jump to whatever is most useful to you.
+Welcome! This is the documentation webpage of my personal website. The canonical
+source code is located at <a href="https://github.com/HanshenWang/project-isidore">GitHub - HanshenWang/project-isidore: Personal Web
+Application.</a>
 </p>
 
 <ul class="org-ul">
-<li><a href="#Reference-Manual">Project Isidore Reference Manual</a></li>
+<li><a href="#Common-Lisp-Environment-Setup">Common Lisp Environment Setup - How to get started with Lisp</a></li>
 <li><a href="#Org-Publish-Pipeline">Org Publish Pipeline Section - How I Blog from Org Mode</a></li>
 <li><a href="#Builds-Deployment">Heroku Deployment Section - How to Deploy Common Lisp on Heroku</a></li>
-<li><a href="#Project-Isidore-System-Definition">High level project overview - What goes where</a></li>
+<li><a href="#Project-Isidore-System-Definition">High Level Project Overview - How to navigate the source tree?</a></li>
+<li><a href="#User-Manual">Project Isidore User Manual - Tutorial &amp; Guides</a></li>
+<li><a href="#Reference-Manual">Project Isidore Reference Manual - For Developers</a></li>
 </ul>
 
 <p>
-Due to article length navigation buttons are inserted next to each header to
-take one back to the table of contents.
+Navigation buttons are inserted next to each header to take one back to the
+table of contents.
 </p>
-
-<p>
-The canonical source code is located at <a href="https://github.com/HanshenWang/project-isidore">GitHub - HanshenWang/project-isidore:
-Personal Web Application.</a>
-</p>
-
-<p>
-To access the website offline, download the appropriate executable from the
-project release page. <a href="https://github.com/HanshenWang/project-isidore/releases">Releases · HanshenWang/project-isidore · GitHub</a>
-</p>
-
-<ol class="org-ol">
-<li><p>
-Start Development Server
-</p>
-
-<p>
-Quickstart:
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>project-isidore:start-dev-server<span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; starts server at localhost:8080</span>
-</pre>
-</div>
-
-<p>
-Full Steps only work when run inside <code>project-isidore-doc.org</code> buffer:
-</p>
-<ol class="org-ol">
-<li><a href="(org-babel-tangle)">Tangle project-isidore-doc.org</a> using <code>org-babel-tangle</code> to ensure updated code</li>
-<li>Ensure all source code files have a corresponding source block in this file</li>
-<li><a href="(sly)">Start SLY</a> with <code>M-x RET Sly</code></li>
-<li><code>, cd</code> inside the <code>*sly-repl sbcl*</code> buffer to project isidore root</li>
-<li><p>
-Load project isidore system file in buffer <code>*sly-repl sbcl*</code>.
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">If the dependencies in project-isidore.asd are downloaded locally</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>asdf:load-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">If you need to download the dependencies from online</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div></li>
-
-<li><p>
-Switch to project-isidore package namespace
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div></li>
-
-<li>(Optional) Launch PostgreSQL Server</li>
-<li><p>
-Launch Development Server with
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>start-dev-server<span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div></li>
-
-<li><p>
-Stop Development Server with
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-comment-delimiter">; </span><span class="org-comment">if in CL-USER package, :: to access unexported variables</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>project-isidore::stop-dev-server<span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div></li>
-</ol></li>
-
-<li>Lisp Web Example Projects &amp; Misc. Resources
-<ul class="org-ul">
-<li><a href="https://gitlab.com/bendersteed/bread-and-roses">bendersteed / bread and roses · GitLab</a></li>
-<li><a href="https://github.com/vindarel/lisp-web-template-productlist">GitHub - vindarel/lisp-web-template-productlist: A web template with Hunchent&#x2026;</a></li>
-<li><a href="https://github.com/40ants/lisp-project-of-the-day">GitHub - 40ants/lisp-project-of-the-day: Here I'll post notes about Quicklisp&#x2026;</a></li>
-<li><a href="https://github.com/rajasegar/cl-bootstrap/tree/master/demo">cl-bootstrap/demo at master · rajasegar/cl-bootstrap · GitHub</a></li>
-<li><a href="https://github.com/mtravers/wuwei/#examples">GitHub - mtravers/wuwei: WuWei &#x2013; effortless Ajax web UIs from Common Lisp</a></li>
-<li><a href="https://common-lisp.net/">https://common-lisp.net/</a></li>
-<li><a href="https://google.github.io/styleguide/lispguide.xml">https://google.github.io/styleguide/lispguide.xml</a></li>
-<li><a href="https://github.com/cjbarber/ToolsOfTheTrade">Tools of the Trade, from Hacker News. List of SaaS services</a></li>
-<li><a href="https://github.com/255kb/stack-on-a-budget">GitHub - 255kb/stack-on-a-budget: A collection of services with great free ti&#x2026;</a></li>
-<li><a href="https://github.com/ripienaar/free-for-dev">GitHub - ripienaar/free-for-dev: A list of SaaS, PaaS and IaaS offerings that&#x2026;</a></li>
-<li><a href="https://zaries.wordpress.com/2010/11/09/lisp-web-server-from-scratch-using-hunchentoot-and-nginx/">Lisp Web Server From Scratch using Hunchentoot and Nginx | Zaries's Blog</a></li>
-<li><a href="https://github.com/rongarret/ergolib/tree/master/web">ergolib/web at master · rongarret/ergolib · GitHub</a></li>
-<li><a href="https://github.com/eigenhombre/weeds">GitHub - eigenhombre/weeds: Work in progress porting my blog software to Comm&#x2026;</a></li>
-</ul></li>
-</ol>
 </div>
 </div>
 
@@ -481,7 +408,29 @@ Now <code>, h H</code> will call <code>sly-hyperspec-lookup</code> to peruse the
 with the HyperSpec. Note the default behavior of <code>sly-hyperspec-lookup</code> is to
 open a web browser at the online HyperSpec.
 </p></li>
+</ul>
 
+<p>
+Newcomers to the language are advised to dive right into the <a href="https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/#s13-a-gentle-introduction">recommended
+reading.</a> Now's a good chance to use org-babel for some note-taking. If you've
+forked the repo to play around with, <a href="#Project-Isidore-System-Definition">a high-level overview of the project</a> may be
+useful.
+</p>
+</div>
+
+<div id="outline-container-Literate-Programming" class="outline-3">
+<h3 id="Literate-Programming"><span class="section-number-3">2.1.</span> Literate Programming</h3>
+<div class="outline-text-3" id="text-Literate-Programming">
+<p>
+Lisp was the language for research into artificial intelligence before the AI
+winter. Now the field calls itself machine intelligence. The aim remains much
+like the story of Icarus: to ape the most noble aspect of man, his rational
+nature. Until that is realized, humans will be first and foremost the most
+important audience for any computer language or software. Here is how I setup
+literate programming with lisp.
+</p>
+
+<ol class="org-ol">
 <li><p>
 <b>Optional:</b> Enable org-babel literate programming with Lisp
 </p>
@@ -559,16 +508,11 @@ file in sync. And it does that without any markings or artifacts on the tangled
 code, making collaboration easier. If a more elegant solution to
 de-tangle a file exists out in the wild, please do let me know.
 </p></li>
-</ul>
+</ol>
+</div>
+</div>
+</div>
 
-<p>
-Newcomers to the language are advised to dive right into the <a href="https://stevelosh.com/blog/2018/08/a-road-to-common-lisp/#s13-a-gentle-introduction">recommended
-reading.</a> Now's a good chance to use org-babel for some note-taking. If you've
-forked the repo to play around with, <a href="#Project-Isidore-System-Definition">a high-level overview of the project</a> may be
-useful.
-</p>
-</div>
-</div>
 <div id="outline-container-Project-Isidore-System-Definition" class="outline-2">
 <h2 id="Project-Isidore-System-Definition"><span class="section-number-2">3.</span> Project Isidore System Definition</h2>
 <div class="outline-text-2" id="text-Project-Isidore-System-Definition">
@@ -598,7 +542,7 @@ list of symbols, functions and definitions, see the <a href="#Reference-Manual">
 <ul class="org-ul">
 <li><a href="#Detect-Script">detect</a></li>
 <li><a href="#Compile-Script">compile</a></li>
-<li><a href="#Compile-Lisp">compile.lisp</a></li>
+<li><a href="#Make-Lisp">make.lisp</a></li>
 <li><a href="#Release-Script">release</a></li>
 </ul></li>
 <li>/doc</li>
@@ -3391,12 +3335,12 @@ needed a code base. In Common Lisp, it is the <code>.asd</code> file.
 </div>
 </div>
 
-<div id="outline-container-System-dependencies" class="outline-3">
-<h3 id="System-dependencies"><span class="section-number-3">3.1.</span> System dependencies</h3>
-<div class="outline-text-3" id="text-System-dependencies">
+<div id="outline-container-Libraries-System-dependencies" class="outline-3">
+<h3 id="Libraries-System-dependencies"><span class="section-number-3">3.1.</span> Libraries &amp; System dependencies</h3>
+<div class="outline-text-3" id="text-Libraries-System-dependencies">
 <ol class="org-ol">
 <li><p>
-Libraries &amp; Ecosystem
+Finding new Libraries &amp; Surveying the Ecosystem
 </p>
 
 <p>
@@ -3430,10 +3374,22 @@ versus the number of bug reports Zach has to submit.
 
 <p>
 <a href="https://gist.github.com/svetlyak40wt/03bc68c820bb3e45bc7871870379c42e">A helper to gather all lisp system's dependencies · GitHub</a>
-</p></li>
+</p>
 
-<li>Common Lisp Dependencies</li>
-</ol>
+<ul class="org-ul">
+<li><a href="https://www.quicklisp.org/beta/releases.html">Quicklisp beta releases</a></li>
+<li><a href="https://quickref.common-lisp.net/index-per-library.html">Quickref</a></li>
+<li><a href="https://github.com/CodyReichert/awesome-cl">GitHub - CodyReichert/awesome-cl: A curated list of awesome Common Lisp frame&#x2026;</a></li>
+<li><a href="https://www.cliki.net/">CLiki: the common lisp wiki</a></li>
+<li><a href="https://github.com/40ants/lisp-project-of-the-day">GitHub - 40ants/lisp-project-of-the-day: Here I'll post notes about Quicklisp&#x2026;</a></li>
+</ul></li>
+<li><p>
+Common Lisp Dependencies
+</p>
+
+<p>
+Direct dependencies from ASDF:DEPENDS-ON
+</p>
 
 <table>
 
@@ -3454,45 +3410,51 @@ versus the number of bug reports Zach has to submit.
 </thead>
 <tbody>
 <tr>
-<td class="org-left">Hunchentoot</td>
+<td class="org-left"><a href="https://github.com/edicl/hunchentoot">Hunchentoot</a></td>
 <td class="org-left">Edmund Weitz</td>
-<td class="org-left">HTTP Server</td>
+<td class="org-left">Web Server</td>
 </tr>
 
 <tr>
-<td class="org-left">CL-WHO</td>
+<td class="org-left"><a href="https://github.com/edicl/cl-who">CL-WHO</a></td>
 <td class="org-left">Edmund Weitz</td>
-<td class="org-left">HTML Generation</td>
+<td class="org-left">Generate (X)HTML</td>
 </tr>
 
 <tr>
-<td class="org-left">CL-CSS</td>
+<td class="org-left"><a href="https://github.com/inaimathi/cl-css">CL-CSS</a></td>
 <td class="org-left">Leo Zovic</td>
-<td class="org-left">CSS Generation</td>
+<td class="org-left">Generate CSS</td>
 </tr>
 
 <tr>
-<td class="org-left">Parenscript</td>
-<td class="org-left">Manuel Odendahl &amp; Edward Marco Baringer</td>
-<td class="org-left">Lisp to Javascript Transpiler</td>
+<td class="org-left"><a href="https://gitlab.common-lisp.net/parenscript/parenscript">Parenscript</a></td>
+<td class="org-left">Manuel Odendahl</td>
+<td class="org-left">CL to ES5 (JS)</td>
 </tr>
 
 <tr>
-<td class="org-left">Parachute</td>
+<td class="org-left"><a href="https://github.com/Shinmera/parachute">Parachute</a></td>
 <td class="org-left">Nicolas Hafner</td>
 <td class="org-left">Testing Framework</td>
 </tr>
 
 <tr>
-<td class="org-left">Postmodern</td>
+<td class="org-left"><a href="https://github.com/marijnh/Postmodern">Postmodern</a></td>
 <td class="org-left">Marijn Haverbeke</td>
-<td class="org-left">PostgreSQL Wrapper</td>
+<td class="org-left">Postgres Wrapper</td>
 </tr>
 
 <tr>
-<td class="org-left">Log4CL</td>
+<td class="org-left"><a href="https://github.com/sharplispers/log4cl">Log4CL</a></td>
 <td class="org-left">Max Mikhanosha</td>
-<td class="org-left">Application Logging</td>
+<td class="org-left">Logging</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://github.com/didierverna/declt">Declt</a></td>
+<td class="org-left">Didier Verna</td>
+<td class="org-left">Documentation</td>
 </tr>
 
 <tr>
@@ -3504,12 +3466,50 @@ versus the number of bug reports Zach has to submit.
 <tr>
 <td class="org-left">CL-CSV</td>
 <td class="org-left">Edward Marco Baringer</td>
-<td class="org-left">Spreadsheet Tools</td>
+<td class="org-left">Spreadsheet</td>
 </tr>
 </tbody>
 </table>
 
-<ol class="org-ol">
+<p>
+Transitive dependencies &amp; Lines of Code from running,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-builtin">cd</span> ~/quicklisp/dists/quicklisp/software/
+find . -name <span class="org-string">'*.lisp'</span> | xargs wc -l
+</pre>
+</div>
+
+<table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Date</th>
+<th scope="col" class="org-left">Version (Commit)</th>
+<th scope="col" class="org-right"># of Libraries</th>
+<th scope="col" class="org-right">LOC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">2021-11-05</td>
+<td class="org-left">v1.1.0 (7cc0598)</td>
+<td class="org-right">35</td>
+<td class="org-right">251532</td>
+</tr>
+</tbody>
+</table></li>
 <li>Javascript Dependencies
 <ul class="org-ul">
 <li>Highlight.js 11.2.0
@@ -3519,11 +3519,31 @@ See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-templ
 <li>Htmx
 <a href="https://github.com/rajasegar/awesome-htmx">Front end javascript framework</a></li>
 </ul></li>
+<li>Foreign Dependencies
+<ul class="org-ul">
+<li>PostgreSQL
+See <a href="#Data-Persistence">Data Persistence</a></li>
+</ul></li>
+<li>Lisp Web Example Projects &amp; Misc. Resources
+<ul class="org-ul">
+<li><a href="https://gitlab.com/bendersteed/bread-and-roses">bendersteed / bread and roses · GitLab</a></li>
+<li><a href="https://github.com/vindarel/lisp-web-template-productlist">GitHub - vindarel/lisp-web-template-productlist: A web template with Hunchent&#x2026;</a></li>
+<li><a href="https://github.com/rajasegar/cl-bootstrap/tree/master/demo">cl-bootstrap/demo at master · rajasegar/cl-bootstrap · GitHub</a></li>
+<li><a href="https://github.com/mtravers/wuwei/#examples">GitHub - mtravers/wuwei: WuWei &#x2013; effortless Ajax web UIs from Common Lisp</a></li>
+<li><a href="https://common-lisp.net/">https://common-lisp.net/</a></li>
+<li><a href="https://google.github.io/styleguide/lispguide.xml">https://google.github.io/styleguide/lispguide.xml</a></li>
+<li><a href="https://github.com/cjbarber/ToolsOfTheTrade">Tools of the Trade, from Hacker News. List of SaaS services</a></li>
+<li><a href="https://github.com/255kb/stack-on-a-budget">GitHub - 255kb/stack-on-a-budget: A collection of services with great free ti&#x2026;</a></li>
+<li><a href="https://github.com/ripienaar/free-for-dev">GitHub - ripienaar/free-for-dev: A list of SaaS, PaaS and IaaS offerings that&#x2026;</a></li>
+<li><a href="https://zaries.wordpress.com/2010/11/09/lisp-web-server-from-scratch-using-hunchentoot-and-nginx/">Lisp Web Server From Scratch using Hunchentoot and Nginx | Zaries's Blog</a></li>
+<li><a href="https://github.com/rongarret/ergolib/tree/master/web">ergolib/web at master · rongarret/ergolib · GitHub</a></li>
+<li><a href="https://github.com/eigenhombre/weeds">GitHub - eigenhombre/weeds: Work in progress porting my blog software to Comm&#x2026;</a></li>
+<li><a href="https://github.com/mmontone/cl-forms/">GitHub - mmontone/cl-forms: Web forms handling library for Common lisp</a></li>
+</ul></li>
 </ol>
 </div>
 </div>
 </div>
-
 <div id="outline-container-Org-Publish-Pipeline" class="outline-2">
 <h2 id="Org-Publish-Pipeline"><span class="section-number-2">4.</span> Org Publish Pipeline</h2>
 <div class="outline-text-2" id="text-Org-Publish-Pipeline">
@@ -3810,7 +3830,7 @@ The Application itself is still very barebones.
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU General Public License along with</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore. If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
 &#12;
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">INITIALIZE-APPLICATION is the function launched by compile.lisp</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">INITIALIZE-APPLICATION is the function launched by make.lisp</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defpackage</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">project-isidore</span>
   <span class="org-comment-delimiter">;; </span><span class="org-comment">:use means there is no need to prefix hunchentoot:define-easy-handler and</span>
   <span class="org-comment-delimiter">;; </span><span class="org-comment">instead use just define-easy-handler As per</span>
@@ -4569,12 +4589,11 @@ The Application itself is still very barebones.
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">initialize-application</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;key</span> <span class="org-rainbow-delimiters-depth-3">(</span>port <span class="org-highlight-numbers-number">8080</span><span class="org-rainbow-delimiters-depth-3">)</span>
 <span class="org-rainbow-delimiters-depth-3">(</span>dispatch-folder <span class="org-rainbow-delimiters-depth-4">(</span>asdf:system-relative-pathname <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
 <span class="org-rainbow-delimiters-depth-3">(</span>cmd-user-interface nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-doc">"Start the PRODUCTIONP web server at PORT. Generate static CSS and Javascript</span>
-<span class="org-doc">files used by homepage. If PRODUCTIONP = true, get DATABASE_URL. Optional PORT</span>
-<span class="org-doc">and PRODUCTIONP. Takes a PORT parameter as Heroku assigns a different PORT per</span>
-<span class="org-doc">dyno/environment. See APPLICATION-TOPLEVEL for the main function or entry point</span>
-<span class="org-doc">in compile.lisp. CMD-USER-INTERFACE when set to true will determine if C-c will</span>
-<span class="org-doc">exit."</span>
+  <span class="org-doc">"Start a web server at PORT. Set DATABASE_URL if it exists. Optional PORT,</span>
+<span class="org-doc">DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT parameter as Heroku assigns</span>
+<span class="org-doc">a different PORT per dyno/environment. See APPLICATION-TOPLEVEL for the main</span>
+<span class="org-doc">function or entry point in make.lisp. CMD-USER-INTERFACE when set to true</span>
+<span class="org-doc">will determine if C-c will exit."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>log:log-info <span class="org-string">"</span>
 
 <span class="org-string">========================================</span>
@@ -4586,15 +4605,9 @@ The Application itself is still very barebones.
 <span class="org-string">Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO WARRANTY.</span>
 <span class="org-string">This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007</span>
 <span class="org-string">You are welcome to redistribute the program or any parts hereof under certain conditions.</span>
-<span class="org-string">Please visit <a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
+<span class="org-string">Please visit https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.</span>
 
-Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">&lt;https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.</a></span><a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
-
-Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">
-
-</a><span class="org-string"><a href="https://www.gnu.org/licenses/lgpl-3.0.en.html&gt; for License details.
-
-Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html&gt;</a></span>
+<span class="org-string">Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html</span>
 <span class="org-string">"</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenv <span class="org-string">"DATABASE_URL"</span><span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>setf *database-url* <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"DATABASE_URL"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
@@ -4618,7 +4631,7 @@ Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">Homepag
 
 <span class="org-string">Project Isidore initialization successful ...</span>
 
-<span class="org-string">Navigate to <a href="https://localhost:~A">&lt;https://localhost:~A&gt;</a> to continue ...</span>
+<span class="org-string">Navigate to https://localhost:~A to continue ...</span>
 <span class="org-string">"</span> port<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> cmd-user-interface
     <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">do-sigint-poll</span> t<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
@@ -4640,10 +4653,10 @@ Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">Homepag
                             <span class="org-rainbow-delimiters-depth-6">(</span>bordeaux-threads:all-threads<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
       <span class="org-comment-delimiter">;; </span><span class="org-comment">Catch a user's C-c</span>
       <span class="org-rainbow-delimiters-depth-4">(</span>#+sbcl sb-sys:interactive-interrupt
-       #+ccl  ccl:interrupt-signal-condition
-       #+clisp system::simple-interrupt-condition
-       #+ecl ext:interactive-interrupt
-       #+allegro excl:interrupt-signal
+       <span class="org-sly-reader-conditional">#+ccl  ccl:interrupt-signal-condition</span>
+       <span class="org-sly-reader-conditional">#+clisp system::simple-interrupt-condition</span>
+       <span class="org-sly-reader-conditional">#+ecl ext:interactive-interrupt</span>
+       <span class="org-sly-reader-conditional">#+allegro excl:interrupt-signal</span>
        <span class="org-rainbow-delimiters-depth-5">()</span> <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">progn</span>
             <span class="org-rainbow-delimiters-depth-6">(</span>format *error-output* <span class="org-string">"Aborting.~&amp;"</span><span class="org-rainbow-delimiters-depth-6">)</span>
             <span class="org-rainbow-delimiters-depth-6">(</span>ws:stop *acceptor*<span class="org-rainbow-delimiters-depth-6">)</span>
@@ -4668,7 +4681,7 @@ Homepage: &lt;https://www.hanshenwang.com/blog/project-isidore-doc.html">Homepag
 <span class="org-doc">\"user1\" user and \"test\" database is needed"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">db-params</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-doc">"Heroku database URL format is</span>
+  <span class="org-doc">"Sets *DATABASE-URL* parameter. Heroku database URL format is</span>
 <span class="org-doc">postgres://username:password@host:port/database_name. If we are testing on</span>
 <span class="org-doc">localhost, use the db-parameters from *LOCAL-DB-PARAMS*."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>setf db:*default-use-ssl* <span class="org-builtin">:try</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-comment">; Heroku PostgreSQL requires SSL to connect</span>
@@ -4925,7 +4938,7 @@ will have to use their own custom build pack.
 
 <p>
 Setting up your own custom built pack is as simple as three
-separate shell scripts and one compile.lisp file. The <a href="https://devcenter.heroku.com/articles/buildpack-api">build pack API</a> explains
+separate shell scripts and one make.lisp file. The <a href="https://devcenter.heroku.com/articles/buildpack-api">build pack API</a> explains
 each of these shell scripts in greater depth. They are run in the following order:
 </p>
 
@@ -4972,7 +4985,7 @@ An evolutionary variant of the original that &#x2013; and I quote from the READM
 Checkout the forks from this branch.</li>
 
 <li><a href="https://github.com/hackeryarn/heroku-buildpack-cl">GitHub - hackeryarn/heroku-buildpack-cl</a> &amp; <a href="https://github.com/own-pt/heroku-buildpack-cl">GitHub - own-pt/heroku-buildpack-cl</a> are the
-most direct descendants of the original. The former has a better compile.lisp
+most direct descendants of the original. The former has a better make.lisp
 (especially for Quicklisp loading) while the latter has the correct current
 CURL incantation for SBCL in the compile script.</li>
 </ul>
@@ -5035,7 +5048,7 @@ CURL incantation for SBCL in the compile script.</li>
 <div class="outline-text-5" id="text-Compile-Script">
 <p>
 To call this script <code>compile</code> is a bit of a misnomer in this use case. This
-script's purpose is to install a Common Lisp environment before loading <code>compile.lisp</code>,
+script's purpose is to install a Common Lisp environment before loading <code>make.lisp</code>,
 where the real magic happens.
 </p>
 <div class="org-src-container">
@@ -5163,23 +5176,23 @@ log <span class="org-string">"III. Compiling Lisp Executable"</span>
 <span class="org-builtin">export</span> BUILD_DIR
 <span class="org-builtin">export</span> CACHE_DIR
 info <span class="org-string">"Starting Build..."</span>
-info <span class="org-string">"Loading $BUILDPACK_DIR/bin/compile.lisp..."</span>
+info <span class="org-string">"Loading $BUILDPACK_DIR/bin/make.lisp..."</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">As per /sbcl-$CL_IMPL_VER-x86-64-linux/INSTALL, we run SBCL without installing</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">it, from the top of binary distribution directory: $ sh run-sbcl.sh</span>
-sh $<span class="org-variable-name">CL_DIR</span>/sbcl-$<span class="org-variable-name">CL_IMPL_VER</span>-x86-64-linux/run-sbcl.sh --load <span class="org-string">"$BUILDPACK_DIR/bin/compile.lisp"</span>
-chmod a+x <span class="org-string">"$BUILD_DIR/lispapp"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">grant permissions for application</span>
-log <span class="org-string">"Successfully Loaded $BUILDPACK_DIR/bin/compile.lisp"</span>
+sh $<span class="org-variable-name">CL_DIR</span>/sbcl-$<span class="org-variable-name">CL_IMPL_VER</span>-x86-64-linux/run-sbcl.sh --load <span class="org-string">"$BUILDPACK_DIR/bin/make.lisp"</span>
+chmod a+x <span class="org-string">"$BUILD_DIR/ProjectIsidore"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">grant permissions for application</span>
+log <span class="org-string">"Successfully Loaded $BUILDPACK_DIR/bin/make.lisp"</span>
 info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span>
 
 </pre>
 </div>
 </div>
 
-<div id="outline-container-Compile-Lisp" class="outline-6">
-<h6 id="Compile-Lisp">Compile Lisp</h6>
-<div class="outline-text-6" id="text-Compile-Lisp">
+<div id="outline-container-Make-Lisp" class="outline-6">
+<h6 id="Make-Lisp">Make Lisp</h6>
+<div class="outline-text-6" id="text-Make-Lisp">
 <div class="org-src-container">
-<pre class="src src-lisp" id="org07ee4eb"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">compile.lisp</span>
+<pre class="src src-lisp" id="org2ad8b3c"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">make.lisp</span>
 <span class="org-comment-delimiter">;;;</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang.</span>
 <span class="org-comment-delimiter">;;;</span>
@@ -5203,16 +5216,20 @@ info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span
 &#12;
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; buildpack requires cl-user package space</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-posix</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">asdf</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-string">"asdf"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; recommended way from manual to load ASDF</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*production-buildp*</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>probe-file <span class="org-string">"/home/hanshen/project-isidore/bin/compile.lisp"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-      <span class="org-rainbow-delimiters-depth-3">(</span>setf *production-buildp* nil<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">(</span>setf *production-buildp* t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-doc">"Identify build as local/production (remote) based off of pathname comparison.</span>
-<span class="org-doc">  The matched directory is hardcoded to the author's personal working</span>
-<span class="org-doc">  directory."</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">HARDCODED PATHNAME</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*production-buildp*</span> nil
+  <span class="org-doc">"Identify build as local or production based off of pathname comparison.</span>
+<span class="org-doc">  The matched directory is hardcoded to the author's personal working directory.</span>
+<span class="org-doc">  MAKE.LISP is intended to be called from the shell via 'sbcl --load</span>
+<span class="org-doc">  make.lisp'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== COMPILE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== MAKE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-2">(</span>probe-file <span class="org-string">"/home/hanshen/project-isidore/bin/make.lisp"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>setf *production-buildp* nil<span class="org-rainbow-delimiters-depth-2">)</span>
+    <span class="org-rainbow-delimiters-depth-2">(</span>setf *production-buildp* t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        Is this a production build? ~a ~%"</span> *production-buildp*<span class="org-rainbow-delimiters-depth-1">)</span>
 &#12;
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Setup Production Environment</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp *production-buildp* t<span class="org-rainbow-delimiters-depth-2">)</span>
@@ -5225,9 +5242,9 @@ info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span
     <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*quicklisp-dist-version*</span> <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"QL_DIST_VER"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
   <span class="org-comment-delimiter">;; </span><span class="org-comment">Whitespace to enhance readability in Heroku logs</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *build-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *cache-dir* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp; *buildpack-dir* = ~a~%"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *BUILD-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *CACHE-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *BUILDPACK-DIR* = ~a~%"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span>
   *buildpack-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
 
   <span class="org-comment-delimiter">;; </span><span class="org-comment">Tell ASDF to store binaries in the cache dir.</span>
@@ -5272,25 +5289,27 @@ info <span class="org-string">"====== Build Finished | Deo Gratias ======"</span
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-3">(</span>equalp *production-buildp* nil<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">(</span>setf <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"8080"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:initialize-application
    <span class="org-builtin">:port</span> <span class="org-rainbow-delimiters-depth-3">(</span>parse-integer <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-builtin">:dispatch-folder</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+   <span class="org-builtin">:dispatch-folder</span> <span class="org-string">"assets/"</span>
+   <span class="org-builtin">:cmd-user-inteface</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> <span class="org-rainbow-delimiters-depth-3">(</span>sleep <span class="org-highlight-numbers-number">600</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; sleep forever</span>
 
 &#12;
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">Save the application as an image</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">buildpack's bin/release refers to ./lispapp as the application name.</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">store binary locally under /project-isidore/bin/</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Heroku buildpack's bin/release refers to ./ProjectIsidore as the application</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">name. Store binary locally under /project-isidore/bin/ for local builds.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp *production-buildp* nil<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory
      <span class="org-rainbow-delimiters-depth-4">(</span>pathname <span class="org-rainbow-delimiters-depth-5">(</span>asdf:system-relative-pathname <span class="org-builtin">:project-isidore</span> <span class="org-string">"bin/"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>app-file <span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*
-                               <span class="org-builtin">:defaults</span> <span class="org-string">"lispapp"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+                               <span class="org-builtin">:defaults</span> <span class="org-string">"ProjectIsidore"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>sb-ext:save-lisp-and-die app-file
                             <span class="org-builtin">:toplevel</span> #'cl-user::application-toplevel
                             <span class="org-builtin">:executable</span> t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== END OF COMPILE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== END OF MAKE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>uiop:quit<span class="org-rainbow-delimiters-depth-1">)</span>
 
 </pre>
 </div>
@@ -5333,7 +5352,7 @@ cat &lt;&lt; EOF
 <span class="org-sh-heredoc">config_vars:</span>
 <span class="org-sh-heredoc">  PATH: /usr/bin:/bin</span>
 <span class="org-sh-heredoc">default_process_types:</span>
-<span class="org-sh-heredoc">  web: ./lispapp</span>
+<span class="org-sh-heredoc">  web: ./ProjectIsidore</span>
 <span class="org-sh-heredoc">EOF</span>
 
 </pre>
@@ -5407,40 +5426,21 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    - name: Cache .roswell
-      id: cache-dot-roswell
-      uses: actions/cache@v1
-      with:
-        path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
-        restore-keys: |
-          ${{ runner.os }}-dot-roswell-sbcl-bin-
-          ${{ runner.os }}-dot-roswell-
-
-    - name: Install Roswell
-      # always run install, since it does some global installs and setup that isn't cached
-      env:
-       LISP: sbcl-bin
-      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
-
-    - name: Run Lisp
-      continue-on-error: true
-      shell: bash
+    - name: Setup GNU/Linux Environment
       run: |
-        ros -e '(format t "~a:~a on ~a~%...~%~%" (lisp-implementation-type) (lisp-implementation-version) (machine-type))'
-        ros -e '(format t " fixnum bits:~a~%" (integer-length most-positive-fixnum))'
-        ros -e "(ql:quickload 'trivial-features)" -e '(format t "features = ~s~%" *features*)'
+        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" &gt;&gt; $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" &gt;&gt; $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/" &gt;&gt; $GITHUB_ENV
+        echo "QL_DIST_VER=2021-10-21" &gt;&gt; $GITHUB_ENV
+        echo "PORT=8080" &gt;&gt; $GITHUB_ENV
 
-    - name: Update Quicklisp distribution if cached
-      shell: bash
-      run: ros -e "(ql:update-all-dists :prompt nil)"
+    - name: Install SBCL &amp; Quicklisp
+      run: |
+        sudo apt install sbcl
+        sudo mkdir $BUILDPACK_DIR/lib/ &amp;&amp; sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
     - name: Build Project Isidore
-      shell: bash
-      run: |
-           echo ${{ github.workspace }} # Pathname varies amongst OS
-           # Generates 'lispapp' in bin/ folder
-           sudo ros build ProjectIsidore.ros
+      run: sbcl --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
@@ -5461,39 +5461,21 @@ jobs:
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    - name: Cache .roswell
-      id: cache-dot-roswell
-      uses: actions/cache@v1
-      with:
-        path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
-        restore-keys: |
-          ${{ runner.os }}-dot-roswell-sbcl-bin-
-          ${{ runner.os }}-dot-roswell-
-
-    - name: Install Roswell
-      # always run install, since it does some global installs and setup that isn't cached
-      env:
-       LISP: sbcl-bin
-      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
-
-    - name: Run Lisp
-      continue-on-error: true
-      shell: bash
+    - name: Setup MacOS Environment
       run: |
-        ros -e '(format t "~a:~a on ~a~%...~%~%" (lisp-implementation-type) (lisp-implementation-version) (machine-type))'
-        ros -e '(format t " fixnum bits:~a~%" (integer-length most-positive-fixnum))'
-        ros -e "(ql:quickload 'trivial-features)" -e '(format t "features = ~s~%" *features*)'
+        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" &gt;&gt; $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" &gt;&gt; $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/" &gt;&gt; $GITHUB_ENV
+        echo "QL_DIST_VER=2021-10-21" &gt;&gt; $GITHUB_ENV
+        echo "PORT=8080" &gt;&gt; $GITHUB_ENV
 
-    - name: Update Quicklisp distribution if cached
-      shell: bash
-      run: ros -e "(ql:update-all-dists :prompt nil)"
+    - name: Install SBCL &amp; Quicklisp
+      run: |
+        brew install sbcl
+        sudo mkdir $BUILDPACK_DIR/lib/ &amp;&amp; sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
     - name: Build Project Isidore
-      shell: bash
-      run: |
-           echo ${{ github.workspace }} # Pathname varies amongst OS
-           sudo ros build ProjectIsidore.ros
+      run: sbcl --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -5542,9 +5524,9 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-${{ hashFiles('**/*.asd') }}
+        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
         restore-keys: |
-          ${{ runner.os }}-dot-roswell-${{ matrix.lisp }}-
+          ${{ runner.os }}-dot-roswell-sbcl-bin-
           ${{ runner.os }}-dot-roswell-
 
     - name: Install Roswell
@@ -5593,6 +5575,7 @@ jobs:
     # Downloads all executable artifacts in it's own folder to the current working directory
       uses: actions/download-artifact@v2
 
+    # Convert Declt generated .texi to .pdf and .info and upload as well?
     - name: Format Release Notes
       shell: bash
       run: |
@@ -5655,7 +5638,7 @@ jobs:
 <h5 id="Roswell-Build-Script">Roswell Build Script</h5>
 <div class="outline-text-5" id="text-Roswell-Build-Script">
 <p>
-Similar to how the <a href="#Compile-Script">compile bash script</a> calls <a href="#Compile-Lisp">compile.lisp</a>, so too does the
+Similar to how the <a href="#Compile-Script">compile bash script</a> calls <a href="#Make-Lisp">make.lisp</a>, so too does the
 <a href="#CD-with-Github-Actions-Roswell">Continuous Deployment</a> script call ProjectIsidore.ros. Note the filename of
 ProjectIsidore.ros will be passed onto ProjectIsidore.exe with the current
 default behavior of <code>ros build</code>.
@@ -5692,6 +5675,16 @@ There does exist a detailed evaluation of the many existing Common Lisp testing
 frameworks, the most recent iteration by <a href="https://sabracrolleton.github.io/testing-framework">Sabracrolleton</a>. From this we select <code>parachute</code>
 as our testing framework of choice.
 </p>
+
+<p>
+To run the test suite locally,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore/test</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; if not locally cached</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div>
 
 <div class="org-src-container">
 <pre class="src src-lisp" id="org3edee53"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">tests.lisp</span>
@@ -5921,6 +5914,7 @@ convenience.
 </div>
 </div>
 </div>
+
 <div id="outline-container-Logging" class="outline-4">
 <h4 id="Logging"><span class="section-number-4">6.2.4.</span> Logging</h4>
 <div class="outline-text-4" id="text-Logging">
@@ -5966,28 +5960,105 @@ modules.
 </div>
 </div>
 </div>
-<div id="outline-container-Reference-Manual" class="outline-2">
-<h2 id="Reference-Manual"><span class="section-number-2">7.</span> Reference Manual</h2>
-<div class="outline-text-2" id="text-Reference-Manual">
+<div id="outline-container-User-Manual" class="outline-2">
+<h2 id="User-Manual"><span class="section-number-2">7.</span> User Manual</h2>
+<div class="outline-text-2" id="text-User-Manual">
+</div>
+<div id="outline-container-org3c54778" class="outline-3">
+<h3 id="org3c54778"><span class="section-number-3">7.1.</span> How do I find past versions of a blog article?</h3>
+<div class="outline-text-3" id="text-7-1">
 <p>
-<a href="https://www.hanshenwang.com/reference/manual.html">The Project Isidore Reference Manual</a>
+To view the entire revision history of an article, find and click the article
+title on <a href="https://github.com/HanshenWang/project-isidore/tree/master/assets/blog">the repository's blog subfolder.</a> Then click on the <code>History</code> button
+to view specific, atomic changes. <a href="https://github.com/HanshenWang/project-isidore/releases/">Project release notes</a> are available for a
+general overview and inputting the article URL into <a href="https://archive.org/web/">the Internet Wayback
+Machine</a> is also an option.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org299216f" class="outline-3">
+<h3 id="org299216f"><span class="section-number-3">7.2.</span> How do I unsubscribe from the mailing list?</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+To remove an email address from the mailing list, fill out and submit the form
+on the <a href="https://www.hanshenwang.com/unsubscribe">unsubscribe page.</a> To resubscribe, visit <a href="https://www.hanshenwang.com/subscribe">https://www.hanshenwang.com/subscribe.</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfc42c26" class="outline-3">
+<h3 id="orgfc42c26"><span class="section-number-3">7.3.</span> Can I visit this website offline?</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+To access the website offline, download the appropriate executable
+from the project release page. <a href="https://github.com/HanshenWang/project-isidore/releases">Releases · HanshenWang/project-isidore · GitHub</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5d75318" class="outline-3">
+<h3 id="org5d75318"><span class="section-number-3">7.4.</span> I can't find what I'm looking for. How is the documentation organized?</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+The documentation is organized according to the best practices outlined here:
+<a href="https://documentation.divio.com/">The documentation system — divio.</a>
 </p>
 
 <p>
-Comprehensive reference on system components (modules and files), packages and
-definitions. <a href="http://www.lispworks.com/documentation/HyperSpec/Body/11_aaba.htm">Exported and internal definitions</a> are listed separately.
-Definitions include constants, special variables, symbol macros, macros, setf
-expanders, compiler macros, functions, generic functions and methods, method
-combinations, conditions, structures, classes and types. Includes
-cross-references to ASDF component dependencies, parents and children, classes
-direct methods, super and subclasses, slot readers and writers, setf expanders
-access and update functions etc. The reference manual also includes exhaustive
-and multiple-entry indexes for every documented item.
+The closest thing to a tutorial as understood by the divio documentation system
+ought to be the development quickstart <a href="https://github.com/HanshenWang/project-isidore/blob/master/README.org">(present in the README.org)</a> or embedded
+as close as possible to the end-user interface. How-to guides are meant to be
+placed here in the user manual. The Reference is auto-generated with the help of
+<a href="#Generate-Reference-Manual">the Declt system</a>. The Explanation is this Design Notebook blog article and git
+commit messages.
 </p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-Reference-Manual" class="outline-2">
+<h2 id="Reference-Manual"><span class="section-number-2">8.</span> Reference Manual</h2>
+<div class="outline-text-2" id="text-Reference-Manual">
+<p>
+Reference manuals are technical descriptions of Project Isidore's internal
+artifact architecture and how to operate it. For end users, please see the <a href="#User-Manual">User
+Manual</a>.
+</p>
+
+<p>
+<a href="https://www.hanshenwang.com/reference/manual.html">The Project Isidore Reference Manual</a> is complete with cross-references to ASDF
+component dependencies, parents and children, classes' direct methods, super and
+subclasses, slot readers and writers, setf expanders access and update functions
+etc. The reference manual also includes exhaustive and multiple-entry indexes
+for every documented item.
+</p>
+
+<ul class="org-ul">
+<li>System components (modules and files)</li>
+<li>Packages</li>
+<li><a href="http://www.lispworks.com/documentation/HyperSpec/Body/11_aaba.htm">Exported and internal definitions of</a>
+<ul class="org-ul">
+<li>Constants</li>
+<li>Special variables</li>
+<li>Symbol macros</li>
+<li>Macros</li>
+<li>Setf expanders</li>
+<li>Compiler macros</li>
+<li>Functions</li>
+<li>Generic functions</li>
+<li>Generic methods,</li>
+<li>Method combinations,</li>
+<li>Conditions</li>
+<li>Structures</li>
+<li>Classes</li>
+<li>Types</li>
+</ul></li>
+</ul>
 </div>
 
 <div id="outline-container-Generate-Reference-Manual" class="outline-3">
-<h3 id="Generate-Reference-Manual"><span class="section-number-3">7.1.</span> Generate Reference Manual</h3>
+<h3 id="Generate-Reference-Manual"><span class="section-number-3">8.1.</span> Generate Reference Manual</h3>
 <div class="outline-text-3" id="text-Generate-Reference-Manual">
 <p>
 The <a href="https://github.com/didierverna/declt">Declt Common Lisp library</a> is used generate the reference manual in <code>.texi</code>
@@ -6105,9 +6176,8 @@ git add assets/reference/manual.html
 </div>
 </div>
 </div>
-
 <div id="outline-container-Project-History-Credits" class="outline-2">
-<h2 id="Project-History-Credits"><span class="section-number-2">8.</span> Project History &amp; Credits</h2>
+<h2 id="Project-History-Credits"><span class="section-number-2">9.</span> Project History &amp; Credits</h2>
 <div class="outline-text-2" id="text-Project-History-Credits">
 <p>
 For previous project iterations/experience, see project-isidore-java repository
@@ -6129,7 +6199,7 @@ Used as a base template. Hence the LGPL License on my own derived work.</li>
 Customize to your hearts content.</li>
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
-<li>Common Lisp Community <a href="#System-dependencies">(see library authors)</a></li>
+<li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
 <li>Github, Heroku, Cloudflare, Sourceforge</li>
 </ul>
 </div>
