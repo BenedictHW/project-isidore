@@ -23,6 +23,7 @@
 (defpackage #:project-isidore/src/styles
   (:use #:common-lisp)
   (:import-from #:cl-css)
+  ;; No package local nicknames. See commit 1962a26.
   (:export #:index-css
            #:generate-global-css)
   (:documentation

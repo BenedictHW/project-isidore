@@ -25,6 +25,7 @@
         #:project-isidore/src/styles)
   (:import-from #:cl-who)
   (:import-from #:parenscript)
+  ;; No package local nicknames. See commit 1962a26.
   (:export
    #:index-page
    #:about-page

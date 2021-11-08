@@ -24,6 +24,7 @@
   (:use #:common-lisp)
   (:import-from #:postmodern)
   (:import-from #:log4cl)
+  ;; No package local nicknames. See commit 1962a26.
   (:export
    #:db-params
    :*database-url*

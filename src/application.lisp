@@ -26,6 +26,7 @@
         #:project-isidore/src/views)
   (:import-from #:hunchentoot)
   (:import-from #:log4cl)
+  ;; No package local nicknames. See commit 1962a26.
   (:export #:initialize-application
            #:terminate-application)
   (:documentation
