@@ -1,4 +1,4 @@
-;;;; tests.lisp
+;;;; packages.lisp
 ;;;
 ;;; Copyright (c) 2021 Hanshen Wang.
 ;;;
@@ -20,26 +20,19 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/test/tests
-  (:use #:common-lisp
-        #:project-isidore)
-  (:import-from #:parachute)
-  (:export #:master-suite)
+(uiop/package:define-package #:project-isidore/src/packages
+    (:nicknames #:project-isidore)
+  ;; No package local nicknames. See commit 1962a26.
+  (:use-reexport #:project-isidore/src/application
+                 #:project-isidore/src/model
+                 #:project-isidore/src/styles
+                 #:project-isidore/src/views)
   (:documentation
-   "Project Isidore regression tests."))
+   "Project Isidore meta package. Export a single package PROJECT-ISIDORE with
+    all the external symbols from all inferred packages. Inferred here is taken
+    to signify the ASDF Package Inferred System.
 
-(in-package #:project-isidore/test/tests)
+    For the web application entry point, see INITIALIZE-APPLICATION. For a
+    comprehensive index of exported symbols and definitions, see the Reference
+    Manual at /project-isidore/assets/reference/manual.html "))
 
-(parachute:define-test master-suite
-  :description "The master suite of all Project Isidore tests")
-
-(parachute:define-test test-app-init-finish
-  :description "Check that INITIALIZE-APPLICATION finishes"
-  :parent master-suite
-  (parachute:finish (project-isidore:initialize-application)))
-
-(parachute:define-test does-global-css-exist
-  :description "Global.css must exist in project-isidore/assets/global.css"
-  :parent master-suite
-  (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
-                                :project-isidore "assets/global.css"))))

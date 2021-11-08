@@ -64,12 +64,6 @@ jobs:
        LISP: ${{ matrix.lisp }}
       run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
 
-    - name: Install Parachute
-      shell: bash
-      run: |
-        ros install parachute
-        echo "$HOME/.roswell/bin" >> $GITHUB_PATH
-
     - name: Run Lisp
       continue-on-error: true
       shell: bash
@@ -85,4 +79,5 @@ jobs:
     - name: Load code and run tests
       shell: bash
       run: |
-        run-parachute -l "project-isidore/test" "project-isidore/test"
+        ros -e '(ql:quickload :project-isidore/test)'
+        ros -e '(parachute:test-toplevel :project-isidore)'

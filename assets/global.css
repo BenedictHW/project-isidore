@@ -41,7 +41,7 @@ body  { width:  95%; margin:  2% auto; font-size:  14px; line-height:
 @media screen and (min-width: 910px)  { body  { width:  900px; } }
 #content  { width:  100%; }
 ::selection  { background:  #D6EDFF; }
-p  { line-height: 2em; margin:  1em auto; }
+p  { line-height: 1.5em; margin:  1em auto; }
 ol,ul  { margin:  0 auto; }
 dl  { margin:  0 auto; }
 .title  { text-align:  center; margin:  0.8em auto; color:  black; font-family: 'Cinzel'; font-weight:  500; }

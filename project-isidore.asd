@@ -20,36 +20,22 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
+#-asdf3.1 (error "Project Isidore requires ASDF 3.1 or later. Please upgrade your ASDF.")
+
 (asdf:defsystem #:project-isidore
   :name "Project Isidore"
+  :version "1.1.0"
   :author "Hanshen Wang <hanshen@hanshenwang.com>"
   :description "Personal Web Application"
   :license  "GNU Lesser Public License 3.0"
   :homepage "https://www.hanshenwang.com/blog/project-isidore-doc.html"
   :bug-tracker "https://github.com/HanshenWang/project-isidore/issues"
   :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
-  :version "1.1.0"
-  :serial t
-  :depends-on (#:hunchentoot
-               #:cl-who
-               #:cl-css
-               #:parenscript
-               #:postmodern
-               #:log4cl)
-  :components ((:module "src"
-                :components ((:file "application"))))
+  :class :package-inferred-system
+  :depends-on (:project-isidore/src/packages)
   :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
-
+
 (asdf:defsystem #:project-isidore/test
-  :name "Project Isidore Tests"
-  :author "Hanshen Wang <hanshen@hanshenwang.com>"
-  :description "Personal Web Application Test Suite"
-  :license "GNU Lesser Public License 3.0"
-  :version "0.0.1"
-  :serial t
-  :depends-on (#:project-isidore
-               #:parachute)
-  :components((:module "test"
-               :components ((:file "tests"))))
+  :depends-on (:project-isidore/test/tests)
   :perform (asdf:test-op (op c)
-                    (uiop:symbol-call :parachute :test :project-isidore/test)))
+                    (uiop:symbol-call :parachute :test :project-isidore/test/tests)))
