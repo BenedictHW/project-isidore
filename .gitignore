@@ -1,4 +1,4 @@
-# Ignore all compiled .lisp files ('fasl' stands for fast loading)
+# Ignore all compiled .lisp files ('fasl' stands for fast loading).
 *.fasl
 
 # manual.texi is updated on every commit. Changes are already committed in

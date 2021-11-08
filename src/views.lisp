@@ -210,7 +210,7 @@ all other web app pages uses this boilerplate."
     found" (:a :target "_blank"
     :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
     the version-controlled Github repository ."))))
-
+
 (defun subscribe-page ()
   (web-page-template (:title "HanshenWang.com")
     (:h1 :class "title" "Subscribe to Mailing List")

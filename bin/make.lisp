@@ -90,7 +90,7 @@
 
 (defun application-toplevel ()
   "Application entry point. Emulate a \"main\" function. Used in
-  SAVE-LISP-AND-DIE to save Application as an Lisp image."
+  SAVE-LISP-AND-DIE to save Application as a Lisp image."
   ;; Set PORT for local builds or it will return NIL
   (when (equalp *production-buildp* nil) (setf (uiop:getenv "PORT") "8080"))
   (project-isidore:initialize-application
