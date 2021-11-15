@@ -100,8 +100,9 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 ")
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
-  (setf (cl-who:html-mode) :HTML5)
-  (setf hunchentoot:*dispatch-table*
+  (setf (cl-who:html-mode) :HTML5
+        hunchentoot:*show-lisp-errors-p* t
+        hunchentoot:*dispatch-table*
         `(hunchentoot:dispatch-easy-handlers
           ;; http://localhost:PORT/example.jpg will dispatched to
           ;; /project-isidore/assets/example.jpg
