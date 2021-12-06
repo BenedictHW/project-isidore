@@ -106,7 +106,7 @@
 (when (equalp *production-buildp* nil)
   (defvar *build-dir*
     (pathname-directory
-     (pathname (asdf:system-relative-pathname :project-isidore "bin/")))))
+     (pathname (asdf:system-relative-pathname :project-isidore "../bin/")))))
 
 (let ((app-file (make-pathname :directory *build-dir*
                                :defaults "ProjectIsidore")))

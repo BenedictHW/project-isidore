@@ -25,7 +25,7 @@
 
 # This pack is valid for ONLY for apps with an 'project-isidore.asd' in the
 # root, replace with appropriate system-definition file.
-if [ -f "$1/project-isidore.asd" ]; then
+if [ -f "$1/src/project-isidore.asd" ]; then
   echo "COMMON LISP"
   # exiting with 0 status is UNIX convention meaning everything ran alright
   exit 0

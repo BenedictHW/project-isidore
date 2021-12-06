@@ -1,4 +1,4 @@
-;;;; project-isidore.asd
+;;;; project-isidore-test.asd
 ;;;
 ;;; Copyright (c) 2021 Hanshen Wang.
 ;;;
@@ -22,20 +22,9 @@
 
 #-asdf3.1 (error "Project Isidore requires ASDF 3.1 or later. Please upgrade your ASDF.")
 
-(asdf:defsystem #:project-isidore
-  :name "Project Isidore"
-  :version "1.1.0"
-  :author "Hanshen Wang <hanshen@hanshenwang.com>"
-  :description "Personal Web Application"
-  :license  "GNU Lesser Public License 3.0"
-  :homepage "https://www.hanshenwang.com/blog/project-isidore-doc.html"
-  :bug-tracker "https://github.com/HanshenWang/project-isidore/issues"
-  :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
+(asdf:defsystem #:project-isidore-test
+  :depends-on (:project-isidore
+               :project-isidore-test/tests)
   :class :package-inferred-system
-  :depends-on (:project-isidore/src/packages)
-  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore/test))))
-
-(asdf:defsystem #:project-isidore/test
-  :depends-on (:project-isidore/test/tests)
   :perform (asdf:test-op (op c)
-                    (uiop:symbol-call :parachute :test :project-isidore/test/tests)))
+                    (uiop:symbol-call :parachute :test :project-isidore-test/tests)))

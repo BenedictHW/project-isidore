@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/src/styles
+(defpackage #:project-isidore/styles
   (:use #:common-lisp)
   (:import-from #:cl-css)
   ;; No package local nicknames. See commit 1962a26.
@@ -29,7 +29,7 @@
   (:documentation
    "Generate GLOBAL.CSS from sexp notation. Provide static styling."))
 
-(in-package #:project-isidore/src/styles)
+(in-package #:project-isidore/styles)
 
 ;;; Generate global.css static asset
 (defun bg-slideshow-span (image delay)
@@ -143,7 +143,7 @@
   "Generates global.css file in the #P/project-isidore/assets/global.css"
   (cl-css:compile-css
    (merge-pathnames #P"global.css"
-                    (asdf:system-relative-pathname :project-isidore "assets/"))
+                    (asdf:system-relative-pathname :project-isidore "../assets/"))
    '(;; Navbar CSS
      (".header-fixed " :position" relative" :left" 0" :top" 0" :z-index" 1"
                        :width" 100%" :margin" 0" :background-color" #FDF6E3")

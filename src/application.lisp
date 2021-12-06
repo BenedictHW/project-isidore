@@ -20,10 +20,10 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/src/application
+(defpackage #:project-isidore/application
   (:use #:common-lisp
-        #:project-isidore/src/model
-        #:project-isidore/src/views)
+        #:project-isidore/model
+        #:project-isidore/views)
   (:import-from #:hunchentoot)
   (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
@@ -34,7 +34,7 @@
   This package also contains URI handler and logic. A rough mapping onto the
   Model View Controller (MVC) design pattern."))
 
-(in-package #:project-isidore/src/application)
+(in-package #:project-isidore/application)
 
 ;;; Project Isidore web routing. The :uri keyword of define-easy-handler
 ;;; maps to DOMAINNAME/HOST as such: /about maps to http://localhost:8080/about
@@ -75,7 +75,7 @@
 instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
 
 (defun initialize-application (&key (port 8080)
-(dispatch-folder (asdf:system-relative-pathname :project-isidore "assets/"))
+(dispatch-folder (asdf:system-relative-pathname :project-isidore "../assets/"))
 (cmd-user-interface nil))
   "Start a web server at PORT. Set DATABASE_URL to connect to PostgreSQL
 database. Optional PORT,DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT

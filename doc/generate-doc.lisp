@@ -31,7 +31,7 @@
                              :texi-name "manual"
                              :texi-directory
                              (asdf:system-relative-pathname
-                              :project-isidore "assets/reference/")
+                              :project-isidore "../assets/reference/")
                              :library-name "Project Isidore"
                              ;; links are machine specific
                              :hyperlinks nil
@@ -46,7 +46,7 @@
                              'string "cd "
                              (namestring
                               (asdf:system-relative-pathname
-                               :project-isidore "assets/reference/"))))
+                               :project-isidore "../assets/reference/"))))
 (write-line *manual-path* (uiop:process-info-input *shell*))
 ;; Convert .texi to .html
 (write-line

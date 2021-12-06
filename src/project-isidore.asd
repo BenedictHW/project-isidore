@@ -1,4 +1,4 @@
-;;;; packages.lisp
+;;;; project-isidore.asd
 ;;;
 ;;; Copyright (c) 2021 Hanshen Wang.
 ;;;
@@ -19,20 +19,18 @@
 ;;;
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
-
-(uiop/package:define-package #:project-isidore/packages
-    (:nicknames #:project-isidore)
-  ;; No package local nicknames. See commit 1962a26.
-  (:use-reexport #:project-isidore/application
-                 #:project-isidore/model
-                 #:project-isidore/styles
-                 #:project-isidore/views
-  (:documentation
-   "Project Isidore meta package. Export a single package PROJECT-ISIDORE with
-    all the external symbols from all inferred packages. Inferred here is taken
-    to signify the ASDF Package Inferred System.
 
-    For the web application entry point, see INITIALIZE-APPLICATION. For a
-    comprehensive index of exported symbols and definitions, see the Reference
-    Manual at /project-isidore/assets/reference/manual.html "))
-
+#-asdf3.1 (error "Project Isidore requires ASDF 3.1 or later. Please upgrade your ASDF.")
+
+(asdf:defsystem #:project-isidore
+  :name "Project Isidore"
+  :version "1.1.0"
+  :author "Hanshen Wang <hanshen@hanshenwang.com>"
+  :description "Personal Web Application"
+  :license  "GNU Lesser Public License 3.0"
+  :homepage "https://www.hanshenwang.com/blog/project-isidore-doc.html"
+  :bug-tracker "https://github.com/HanshenWang/project-isidore/issues"
+  :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
+  :class :package-inferred-system
+  :depends-on (:project-isidore/packages)
+  :in-order-to ((asdf:test-op (asdf:test-op :project-isidore-test))))

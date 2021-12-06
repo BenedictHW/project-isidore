@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/test/tests
+(defpackage #:project-isidore-test/tests
   (:use #:common-lisp
         #:project-isidore)
   (:import-from #:parachute)
@@ -28,7 +28,7 @@
   (:documentation
    "Project Isidore regression tests."))
 
-(in-package #:project-isidore/test/tests)
+(in-package #:project-isidore-test/tests)
 
 (parachute:define-test master-suite
   :description "The master suite of all Project Isidore tests")
@@ -42,4 +42,4 @@
   :description "Global.css must exist in project-isidore/assets/global.css"
   :parent master-suite
   (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
-                                :project-isidore "assets/global.css"))))
+                                :project-isidore "../assets/global.css"))))

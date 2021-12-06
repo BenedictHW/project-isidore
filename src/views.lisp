@@ -20,9 +20,9 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/src/views
+(defpackage #:project-isidore/views
   (:use #:common-lisp
-        #:project-isidore/src/styles)
+        #:project-isidore/styles
   (:import-from #:cl-who)
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
@@ -38,7 +38,7 @@
   (:documentation
    "Web page views. CSS is generated in STYLES.LISP."))
 
-(in-package #:project-isidore/src/views)
+(in-package #:project-isidore/views)
 
 (defmacro web-page-template ((&key title) &body body)
   "Template HTML for application webpages. Other than the landing page (aka

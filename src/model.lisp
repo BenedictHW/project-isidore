@@ -20,8 +20,8 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/src/model
   (:use #:common-lisp)
+(defpackage #:project-isidore/model
   (:import-from #:postmodern)
   (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
@@ -35,7 +35,7 @@
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
-(in-package #:project-isidore/src/model)
+(in-package #:project-isidore/model)
 
 ;;; Database functions
 (defparameter *database-url* nil
