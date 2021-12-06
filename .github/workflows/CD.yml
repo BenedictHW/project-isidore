@@ -111,55 +111,52 @@ jobs:
     runs-on: [windows-latest]
 
     steps:
-    # Tell git not to convert line endings. Change roswell install dir and add it to path.
+    # Microsoft Windows has evolved in parallel with UNIX systems to have different pathnames and newline characters.
+    # Note well the %HOMEPATH% variable is not set in [windows-latest] runner environments.
+    # See also https://github.com/actions/virtual-environments/issues/1301.
+    # Also note conversion of UNIX style line endings (LF)
+    # to Windows style lines endings (CRLF) must be disabled when
+    # checking out the git repository.
+    # SBCL does not support CRLF. For more information see
+    # https://sourceforge.net/p/sbcl/mailman/message/27045870/
+    # https://stackoverflow.com/questions/17926556/on-windows-cr-still-here-after-read-line-in-common-lisp
     - name: Setup Windows Environment
-      run: |
-        git config --global core.autocrlf false
-        echo "ROSWELL_INSTALL_DIR=$HOME/ros" >> $GITHUB_ENV
-        echo "$HOME/ros/bin" >> $GITHUB_PATH
+      shell: pwsh
+      run:
+        git config --global core.autocrlf false;
+        echo "BUILDPACK_DIR=${{ github.workspace }}\bin\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2021-10-21" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CL_IMPL_VER=2.1.11" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "PORT=8080" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - uses: actions/checkout@v2
 
-    - uses: msys2/setup-msys2@v2
-      with:
-        msystem: MINGW64
-        path-type: inherit
-        release: true
-        update: true
-        install: 'base-devel mingw-w64-x86_64-toolchain p7zip'
-
-    - name: Run MSYS2 once
-      shell: msys2 {0}
-      run: |
-        pwd
-        echo $MSYSTEM
-        echo $MSYS2_PATH_TYPE
-        echo $PATH
-
-    - name: Cache .roswell
-      id: cache-dot-roswell
-      uses: actions/cache@v1
-      with:
-        path: ~/.roswell
-        key: ${{ runner.os }}-dot-roswell-sbcl-bin-${{ hashFiles('**/*.asd') }}
-        restore-keys: |
-          ${{ runner.os }}-dot-roswell-sbcl-bin-
-          ${{ runner.os }}-dot-roswell-
-
-    - name: Install Roswell
-      # always run install, since it does some global installs and setup that isn't cached
-      shell: msys2 {0}
-      env:
-       LISP: sbcl-bin
-      run: curl -L https://raw.githubusercontent.com/roswell/roswell/master/scripts/install-for-ci.sh | sh -x
+    # No convenient apt or brew package managers.
+    # Download and unzip binary from official SBCL repository.
+    - name: Install SBCL & Quicklisp
+      shell: pwsh
+      run:
+        mkdir "${{ Env.CACHE_DIR }}";
+        Invoke-WebRequest -UserAgent "Wget" -uri " https://sourceforge.net/projects/sbcl/files/sbcl/${{ Env.CL_IMPL_VER }}/sbcl-${{ Env.CL_IMPL_VER }}-x86-64-windows-binary.msi/download " -Method "GET" -OutFile "${{ Env.CACHE_DIR }}sbcl-bin.msi";
+        mkdir "${{ Env.CACHE_DIR }}sbcl\";
+        Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
+        mkdir "${{ Env.BUILDPACK_DIR }}lib\";
+        Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILDPACK_DIR }}lib\quicklisp.lisp";
 
     - name: Build Project Isidore
-      shell: msys2 {0}
-      run: |
-           echo ${{ github.workspace }}
-           ros build ProjectIsidore.ros
+      shell: pwsh
+      run:
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --load "${{ Env.BUILDPACK_DIR }}make.lisp"
+
+    # ProjectIsidore renamed to ProjectIsidore.exe
+    # Powershell command is seperate as it needs to be exectued sequentially.
+    - name: MSWindows Rename Executable
+      shell: pwsh
+      run: Rename-Item -Path "${{ Env.BUILD_DIR }}ProjectIsidore" -NewName "ProjectIsidore.exe"
 
     - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
