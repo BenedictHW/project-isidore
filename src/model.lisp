@@ -35,7 +35,9 @@
    #:mailinglist-delete
    #:create-datastore
    :bible
-   #:get-bible-uid)
+   #:get-bible-uid
+   #:get-bible-text
+   #:get-heading-text)
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
@@ -193,4 +195,21 @@ ID. BOOK can either be a string or an integer. If the instance does not exist, N
   (if (stringp bible-book)
       (cdr (assoc bible-book bible-book-numbers :test #'string-equal))
       (car (rassoc bible-book bible-book-numbers)))))
+
+(defun get-bible-text (bible-uid)
+  "Returns a string if bible-uid is valid else return NIL.
+The bible-uid can be found by calling `get-bible-uid' with valid arguments."
+  (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
+      (slot-value (bknr.datastore:store-object-with-id bible-uid) 'text)
+      (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid)))
+
+(defun get-heading-text (bible-uid)
+  "Returns a string if bible-uid is valid else return NIL.
+The bible-uid can be found by calling `get-bible-uid' with valid arguments."
+  (let ((book-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'book))
+        (chapter-string (write-to-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'chapter)))
+        (verse-string (write-to-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'verse))))
+  (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
+      (concatenate 'string book-string " " chapter-string ":" verse-string)
+      (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid))))
 
