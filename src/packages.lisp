@@ -23,7 +23,8 @@
 (uiop/package:define-package #:project-isidore/packages
     (:nicknames #:project-isidore)
   ;; No package local nicknames. See commit 1962a26.
-  (:use-reexport #:project-isidore/application
+  (:use-reexport #:common-lisp
+                 #:project-isidore/application
                  #:project-isidore/model
                  #:project-isidore/styles
                  #:project-isidore/views
