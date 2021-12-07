@@ -822,6 +822,7 @@ Previous: <a href="#The-project_002disidore_002fmigration_002flisp_2024lisp-file
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"><tt>bible</tt></a> (class)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dDATASTORE-function"><tt>create-datastore</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236DB_002dPARAMS-function"><tt>db-params</tt></a> (function)
@@ -838,7 +839,6 @@ Previous: <a href="#The-project_002disidore_002fmigration_002flisp_2024lisp-file
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>book</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CHAPTER-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>chapter</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dBOOK-function"><tt>filter-list-by-book</tt></a> (function)
@@ -1113,6 +1113,7 @@ Previous: <a href="#The-project_002disidore_002fmigration-package" accesskey="p"
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"><tt>bible</tt></a> (class)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dDATASTORE-function"><tt>create-datastore</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236DB_002dPARAMS-function"><tt>db-params</tt></a> (function)
@@ -1129,7 +1130,6 @@ Previous: <a href="#The-project_002disidore_002fmigration-package" accesskey="p"
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK-generic-function"><tt>book</tt></a> (generic function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>book</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CHAPTER-generic-function"><tt>chapter</tt></a> (generic function)
@@ -1254,6 +1254,23 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fviews_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-bible_002dbook_002dconvert_002ddwim">Function: <strong>bible-book-convert-dwim</strong> <em>BIBLE-BOOK</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"></span><span id="index-Function_002c-bible_002dbook_002dconvert_002ddwim"></span>
+<p>Given a Bible book string name or integer, convert to the opposite format.
+</p>
+<p>Example:<br>
+   (bible-book-convert-dwim &quot;Matthew&quot;) =&gt; 47<br>
+   (bible-book-convert-dwim 47) =&gt; &quot;Matthew&quot; 
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1879,23 +1896,6 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dbook_002dconvert_002ddwim">Function: <strong>bible-book-convert-dwim</strong> <em>BIBLE-BOOK</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"></span><span id="index-Function_002c-bible_002dbook_002dconvert_002ddwim"></span>
-<p>Given a Bible book string name or integer, convert to the opposite format.
-</p>
-<p>Example:<br>
-   (bible-book-convert-dwim &quot;Matthew&quot;) =&gt; 47<br>
-   (bible-book-convert-dwim 47) =&gt; &quot;Matthew&quot; 
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-contact">Function: <strong>contact</strong> <em>&amp;key</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"></span><span id="index-Function_002c-contact"></span>
 <dl compact="compact">
@@ -2485,7 +2485,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><th id="Function-index_fn_letter-B">B</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bg_002dslideshow_002ddiv"><code>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bg_002dslideshow_002dspan"><code>bg-slideshow-span</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bible_002dbook_002dconvert_002ddwim"><code>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bible_002dbook_002dconvert_002ddwim"><code>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dpage"><code>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002durl_002dto_002duid"><code>bible-url-to-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-book"><code>book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
@@ -2522,7 +2522,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-about_002dpage"><code><span class="roman">Function, </span>about-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002ddiv"><code><span class="roman">Function, </span>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002dspan"><code><span class="roman">Function, </span>bg-slideshow-span</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dbook_002dconvert_002ddwim"><code><span class="roman">Function, </span>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dbook_002dconvert_002ddwim"><code><span class="roman">Function, </span>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dpage"><code><span class="roman">Function, </span>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002durl_002dto_002duid"><code><span class="roman">Function, </span>bible-url-to-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-contact"><code><span class="roman">Function, </span>contact</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>

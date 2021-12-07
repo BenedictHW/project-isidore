@@ -39,6 +39,7 @@
    #:get-bible-text
    #:get-heading-text
    #:get-haydock-text
+   #:bible-book-convert-dwim
    #:bible-url-to-uid
    :*bible-chapter-url-alist*
    :*bible-book-url-alist*
@@ -240,7 +241,7 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
            (get-bible-uid end-book end-chapter end-verse))
         (list
          (get-bible-uid end-book end-chapter end-verse)
-         (get-bible-uid start-book start-chapter blstart-verse))
+         (get-bible-uid start-book start-chapter start-verse))
         (list
          (get-bible-uid start-book start-chapter start-verse)
          (get-bible-uid end-book end-chapter end-verse)))))

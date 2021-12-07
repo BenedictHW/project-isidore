@@ -159,7 +159,7 @@ who art her Centre, her God, her All.
            (setf result-list (append result-list (list (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'book)) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'chapter) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'verse))))
            (incf chapter-counter)
            (setf verse-counter 1)))
-        ((< book-counter (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id i) 'book)))
+        ((< book-counter (project-isidore/model:bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id i) 'book)))
          (progn
            (setf result-list (append result-list (list (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'book)) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'chapter) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'verse))))
            (incf book-counter)

@@ -26,7 +26,7 @@
   (:import-from #:parachute)
   (:export #:master-suite)
   (:documentation
-   "Project Isidore regression tests."))
+   "Project Isidore regression tests. Run locally with (asdf:test-system :project-isidore)"))
 
 (in-package #:project-isidore-test/tests)
 
@@ -43,3 +43,10 @@
   :parent master-suite
   (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
                                 :project-isidore "../assets/global.css"))))
+
+(parachute:define-test generate-bible-html-finish
+  :description "Check that BIBLE-PAGE finishes"
+  :parent master-suite
+  (parachute:finish (progn
+                       (project-isidore:create-datastore)
+                       (project-isidore:bible-page "1-1-1-73-22-21"))))

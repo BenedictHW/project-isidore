@@ -79,5 +79,6 @@ jobs:
     - name: Load code and run tests
       shell: bash
       run: |
-        ros -e '(ql:quickload :project-isidore/test)'
+        ros -e '(ql:quickload :project-isidore)'
+        ros -e '(ql:quickload :project-isidore-test)'
         ros -e '(parachute:test-toplevel :project-isidore)'
