@@ -38,7 +38,8 @@
    #:get-bible-uid
    #:get-bible-text
    #:get-heading-text
-   #:get-haydock-text)
+   #:get-haydock-text
+   #:bible-url-to-uid)
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
@@ -219,4 +220,25 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
   (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)
     (slot-value (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)))
+
+(defun bible-url-to-uid (bible-url)
+  "Accepts a string of six integers and returns a list of 2 integers. The list includes the beginning bible-uid and the ending bible-uid.
+
+   Example:
+   (bible-url-to-uid \"24-1-1-26-1-1\") => (18352 18907) "
+  (let ((start-book (parse-integer(first (cl-ppcre:split "-" bible-url))))
+        (start-chapter (parse-integer (second (cl-ppcre:split "-" bible-url))))
+        (start-verse (parse-integer (third (cl-ppcre:split "-" bible-url))))
+        (end-book (parse-integer(fourth (cl-ppcre:split "-" bible-url))))
+        (end-chapter (parse-integer (fifth (cl-ppcre:split "-" bible-url))))
+        (end-verse (parse-integer (sixth (cl-ppcre:split "-" bible-url)))))
+    ;; If the ending uid is smaller than the beginning uid.
+    (if (> (get-bible-uid start-book start-chapter start-verse)
+           (get-bible-uid end-book end-chapter end-verse))
+        (list
+         (get-bible-uid end-book end-chapter end-verse)
+         (get-bible-uid start-book start-chapter start-verse))
+        (list
+         (get-bible-uid start-book start-chapter start-verse)
+         (get-bible-uid end-book end-chapter end-verse)))))
 

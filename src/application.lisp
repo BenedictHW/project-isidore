@@ -71,6 +71,12 @@
   (let ((email (hunchentoot:parameter "friend-email")))
     (mailinglist-delete email)
     (unsubscribe-success-page email)))
+
+(hunchentoot:define-easy-handler (view-bible :uri "/bible") (verses)
+  ;; HTTP response header is needed.
+  (setf (hunchentoot:content-type*) "text/html")
+  ;; localhost:8080/bible?verses=1-2-3-4-5-6
+  (bible-page verses))
 
 (defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
 instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")

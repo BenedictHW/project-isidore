@@ -23,6 +23,7 @@
 (defpackage #:project-isidore/views
   (:use #:common-lisp
         #:project-isidore/styles
+        #:project-isidore/model)
   (:import-from #:cl-who)
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
@@ -34,7 +35,8 @@
    #:subscribe-page
    #:subscribe-success-page
    #:unsubscribe-page
-   #:unsubscribe-success-page)
+   #:unsubscribe-success-page
+   #:bible-page)
   (:documentation
    "Web page views. CSS is generated in STYLES.LISP."))
 
@@ -263,4 +265,19 @@ all other web app pages uses this boilerplate."
     (cl-who:htm (:p "The E-mail Address: " (:code (cl-who:str email)) " has been
   successfully unsubscribed. Have a good one."))
     (:a :target "_blank" :href "/" "Return to homepage." )))
+
+(defun bible-page (bible-url)
+  "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
+  (web-page-template (:title "Tabular Douay Rheims Bible")
+    (:h1 :class "title" "Tabular Douay Rheims Bible")
+    (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")
+    (:table
+     ;; Present tabular view of bible text.
+     (loop for bible-uid from (car (bible-url-to-uid bible-url))
+             to (cadr (bible-url-to-uid bible-url))
+           do (cl-who:htm
+               (:tr
+                (:td (cl-who:htm (cl-who:esc (get-heading-text bible-uid))))
+                (:td (cl-who:htm (cl-who:esc (get-bible-text bible-uid))))
+                (:td :width "50%" (cl-who:htm (cl-who:esc (get-haydock-text bible-uid))))))))))
 
