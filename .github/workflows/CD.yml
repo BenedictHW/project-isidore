@@ -243,6 +243,6 @@ jobs:
         name: "Project Isidore | New in ${{ env.RELEASE_VERSION }}"
         body_path: ${{ github.workspace }}/CHANGELOG.txt
         files: |
-          ${{ github.workspace }}/pi-build-Linux/project-isidore-Linux-x64-${{ env.RELEASE_VERSION }}.zip
-          ${{ github.workspace }}/pi-build-macOS/project-isidore-macOS-x64-${{ env.RELEASE_VERSION }}.zip
-          ${{ github.workspace }}/pi-build-Windows/project-isidore-Windows-x64-${{ env.RELEASE_VERSION }}.zip
+          ${{ github.workspace }}/pi-build-Linux/project-isidore-Linux-x86-64-${{ env.RELEASE_VERSION }}.zip
+          ${{ github.workspace }}/pi-build-macOS/project-isidore-macOS-x86-64-${{ env.RELEASE_VERSION }}.zip
+          ${{ github.workspace }}/pi-build-Windows/project-isidore-Windows-x86-64-${{ env.RELEASE_VERSION }}.zip
