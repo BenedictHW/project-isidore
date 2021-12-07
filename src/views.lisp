@@ -23,7 +23,8 @@
 (defpackage #:project-isidore/views
   (:use #:common-lisp
         #:project-isidore/styles
-        #:project-isidore/model)
+        #:project-isidore/model
+        #:project-isidore/migration)
   (:import-from #:cl-who)
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
@@ -271,6 +272,12 @@ all other web app pages uses this boilerplate."
   (web-page-template (:title "Tabular Douay Rheims Bible")
     (:h1 :class "title" "Tabular Douay Rheims Bible")
     (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")
+    (:div :style "overflow:auto"
+          ;; Present links to all books of the bible.
+          (loop for (link . title) in *bible-book-url-alist*
+                do (cl-who:htm
+                    (:div :style "width:200px;float:left"
+                          (:a :href link (:b (cl-who:esc title)))))))
     (:table
      ;; Present tabular view of bible text.
      (loop for bible-uid from (car (bible-url-to-uid bible-url))
