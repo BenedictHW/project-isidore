@@ -91,3 +91,53 @@ backreference."
     ;; to keep conformity with the rest of the verses.
     (create-bible "Revelation of John" 22 21 "The grace of our Lord Jesus Christ be with you all. Amen.
     ")))))
+
+;; Anytime objects from the datastore are modified, they ought to be wrapped
+;; in a transaction so they can be 'replayed'.
+(bknr.datastore:deftransaction
+    create-haydock-commentary (input-bible-uid input-text)
+    (setf
+     (slot-value
+      (bknr.datastore:store-object-with-id input-bible-uid) 'project-isidore/model::haydock-text) input-text))
+
+(defvar *line-counter* 0 "Counter used to find out i variable for dotimes loop")
+
+(defun parse-org-haydock-commentary ()
+  "Convert from org-mode syntax text bible to CLOS objects. Make sure
+  haydock.txt can be found at '../data/haydock.txt' Run this function after
+  `parse-org-bible'."
+  (let* ((org-content (cl-org-mode::read-org-file "../data/haydock.txt"))
+         (current-node (cl-org-mode::node.next-node org-content))
+         (next-node (cl-org-mode::node.next-node current-node))
+         (current-book nil)
+         (current-chapter nil)
+         (current-verse nil)
+         (current-text nil))
+  (dotimes (i 43099)
+    (if (slot-exists-p current-node 'cl-org-mode::heading)
+        (progn
+          (when (= 1 (count #\* (slot-value current-node 'cl-org-mode::heading-level-indicator)))
+            (setf current-book (slot-value current-node 'cl-org-mode::heading)))
+          (when (= 2 (count #\* (slot-value current-node 'cl-org-mode::heading-level-indicator)))
+            (setf current-chapter (parse-integer (first (last (cl-ppcre:split " " (slot-value current-node 'cl-org-mode::heading)))):junk-allowed t)))
+          (when (= 3 (count #\* (slot-value current-node 'cl-org-mode::heading-level-indicator)))
+            (setf current-verse (parse-integer (first (last (cl-ppcre:split " " (slot-value current-node 'cl-org-mode::heading)))):junk-allowed t)))))
+    (if (slot-exists-p current-node 'cl-org-mode::text)
+        (progn
+          (setf current-text (slot-value current-node 'cl-org-mode::text))
+          (create-haydock-commentary (get-bible-uid current-book current-chapter current-verse) current-text)))
+    ;; (setf *line-counter* (incf *line-counter*))
+    (setf current-node next-node)
+    (setf next-node (cl-org-mode::node.next-node current-node))
+    (when (= i 43098)
+      (create-haydock-commentary (get-bible-uid 73 22 20) " 21. He that giveth testimony of these things, i.e. God, and Jesus Christ by an Angel, saith, surely, (or even
+so, or truly, these are certain truths) I come quickly, to reward the good and punish the evil. To which words S.
+John himself replieth with a zealous prayer and earnest desire, saying, Amen, let it be so. — Come, Lord Jesus:
+come, and remain always in my soul by thy grace, and make me partaker of thy glory for ever and ever. Amen.
+Wi. — Conclusion. The Church in sighs and groans, and by the mouth of her children, solicits the coming of
+Jesus Christ, her divine Spouse. The fruit to be drawn from the perusal of this sacred book, is ardently to desire
+the kingdom of God, to sigh after the day of eternity, to feel the weight of the yoke of the present life, and the
+disgrace of our exile, and to live here below as strangers. Enkindle in me, O Lord, this desire; enable my poor
+soul to join with the beloved disciple in this prayer: Come, Lord Jesus; that she may go and lose herself in Thee,
+who art her Centre, her God, her All.
+")))))

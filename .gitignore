@@ -9,3 +9,6 @@
 # duplicates of the source code.
 /assets/reference/manual.html
 /assets/blog/project-isidore-doc.html
+
+# Ignore past snapshots of datastore.
+/data/20*

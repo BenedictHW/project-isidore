@@ -37,7 +37,8 @@
    :bible
    #:get-bible-uid
    #:get-bible-text
-   #:get-heading-text)
+   #:get-heading-text
+   #:get-haydock-text)
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
@@ -212,4 +213,10 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
   (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
       (concatenate 'string book-string " " chapter-string ":" verse-string)
       (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid))))
+
+(defun get-haydock-text (bible-uid)
+  "Returns a string if bible-uid is valid else return NIL.
+The bible-uid can be found by calling `get-bible-uid' with valid arguments."
+  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)
+    (slot-value (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)))
 
