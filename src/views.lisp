@@ -23,8 +23,7 @@
 (defpackage #:project-isidore/views
   (:use #:common-lisp
         #:project-isidore/styles
-        #:project-isidore/model
-        #:project-isidore/migration)
+        #:project-isidore/model)
   (:import-from #:cl-who)
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
@@ -275,6 +274,13 @@ all other web app pages uses this boilerplate."
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
           (loop for (link . title) in *bible-book-url-alist*
+                do (cl-who:htm
+                    (:div :style "width:200px;float:left"
+                          (:a :href link (:b (cl-who:esc title)))))))
+    (:br)
+    (:div :style "overflow:auto"
+          ;; Present links to all chapters of currently selected book.
+          (loop for (link . title) in (make-bible-chapter-url-list bible-url)
                 do (cl-who:htm
                     (:div :style "width:200px;float:left"
                           (:a :href link (:b (cl-who:esc title)))))))

@@ -784,13 +784,19 @@ Next: <a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file" access
 <dt><strong>Packages</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
 </p></dd>
-<dt><strong>Internal Definitions</strong></dt>
+<dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"><tt>*bible-book-url-alist*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aLINE_002dCOUNTER_002a-special-variable"><tt>*line-counter*</tt></a> (special variable)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aLINE_002dCOUNTER_002a-special-variable"><tt>*line-counter*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236CREATE_002dBIBLE-function"><tt>create-bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236CREATE_002dHAYDOCK_002dCOMMENTARY-function"><tt>create-haydock-commentary</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236ENCODE_002dLIST_002dTO_002dHTML-function"><tt>encode-list-to-html</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236GET_002dBIBLE_002dINDIVIDUAL_002dCHAPTER_002dLIST-function"><tt>get-bible-individual-chapter-list</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dBIBLE-function"><tt>parse-org-bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dHAYDOCK_002dCOMMENTARY-function"><tt>parse-org-haydock-commentary</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236TX_002dCREATE_002dHAYDOCK_002dCOMMENTARY-function"><tt>tx-create-haydock-commentary</tt></a> (function)
@@ -831,6 +837,7 @@ Previous: <a href="#The-project_002disidore_002fmigration_002flisp_2024lisp-file
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-class"><tt>mailinglist</tt></a> (class)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dADD-function"><tt>mailinglist-add</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dDELETE-function"><tt>mailinglist-delete</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"><tt>make-bible-chapter-url-list</tt></a> (function)
 </li></ul>
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
@@ -1069,13 +1076,19 @@ Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="ne
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
 </li></ul>
 </dd>
-<dt><strong>Internal Definitions</strong></dt>
+<dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"><tt>*bible-book-url-alist*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aLINE_002dCOUNTER_002a-special-variable"><tt>*line-counter*</tt></a> (special variable)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aLINE_002dCOUNTER_002a-special-variable"><tt>*line-counter*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236CREATE_002dBIBLE-function"><tt>create-bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236CREATE_002dHAYDOCK_002dCOMMENTARY-function"><tt>create-haydock-commentary</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236ENCODE_002dLIST_002dTO_002dHTML-function"><tt>encode-list-to-html</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236GET_002dBIBLE_002dINDIVIDUAL_002dCHAPTER_002dLIST-function"><tt>get-bible-individual-chapter-list</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dBIBLE-function"><tt>parse-org-bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dHAYDOCK_002dCOMMENTARY-function"><tt>parse-org-haydock-commentary</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236TX_002dCREATE_002dHAYDOCK_002dCOMMENTARY-function"><tt>tx-create-haydock-commentary</tt></a> (function)
@@ -1122,6 +1135,7 @@ Previous: <a href="#The-project_002disidore_002fmigration-package" accesskey="p"
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-class"><tt>mailinglist</tt></a> (class)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dADD-function"><tt>mailinglist-add</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dDELETE-function"><tt>mailinglist-delete</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"><tt>make-bible-chapter-url-list</tt></a> (function)
 </li></ul>
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
@@ -1195,6 +1209,32 @@ Next: <a href="#Internal-definitions" accesskey="n" rel="next">Internal definiti
 Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions</a>, Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported definitions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Special-variables"></span><h4 class="subsection">4.1.1 Special variables</h4>
+<dl>
+<dt id="index-_002abible_002dbook_002durl_002dalist_002a">Special Variable: <strong>*bible-book-url-alist*</strong></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"></span>
+<p>Associative list of bible books with their respective links for easy conversion into HTML links.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-_002abible_002dchapter_002durl_002dalist_002a">Special Variable: <strong>*bible-chapter-url-alist*</strong></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"></span>
+<p>Associative list of bible chapters with their respective links for easy conversion into HTML links.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
 <dl>
 <dt id="index-_002adatabase_002durl_002a">Special Variable: <strong>*database-url*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"></span><span id="index-Special-Variable_002c-_002adatabase_002durl_002a"></span>
@@ -1444,6 +1484,18 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-mailinglist_002ddelete">Function: <strong>mailinglist-delete</strong> <em>EMAIL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dDELETE-function"></span><span id="index-Function_002c-mailinglist_002ddelete"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-make_002dbible_002dchapter_002durl_002dlist">Function: <strong>make-bible-chapter-url-list</strong> <em>BIBLE-URL</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"></span><span id="index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1744,32 +1796,6 @@ instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-_002abible_002dbook_002durl_002dalist_002a">Special Variable: <strong>*bible-book-url-alist*</strong></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"></span>
-<p>Associative list of bible books with their respective links for easy conversion into HTML links.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-_002abible_002dchapter_002durl_002dalist_002a">Special Variable: <strong>*bible-chapter-url-alist*</strong></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"></span>
-<p>Associative list of bible chapters with their respective links for easy conversion into HTML links.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-_002aline_002dcounter_002a">Special Variable: <strong>*line-counter*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236_002aLINE_002dCOUNTER_002a-special-variable"></span><span id="index-Special-Variable_002c-_002aline_002dcounter_002a"></span>
 <p>Counter used to find out i variable for dotimes loop
@@ -1943,6 +1969,19 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </dl>
 </dd></dl>
 <dl>
+<dt id="index-encode_002dlist_002dto_002dhtml">Function: <strong>encode-list-to-html</strong> <em>()</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236ENCODE_002dLIST_002dTO_002dHTML-function"></span><span id="index-Function_002c-encode_002dlist_002dto_002dhtml"></span>
+<p>This will take the list generated by &lsquo;bet-bible-invidiual-chapter-list&rsquo; and return an associative list similar to &lsquo;*bible-book-url-alist*&rsquo;.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
 <dt id="index-filter_002dlist_002dby_002dbook">Function: <strong>filter-list-by-book</strong> <em>LIST BOOK</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dBOOK-function"></span><span id="index-Function_002c-filter_002dlist_002dby_002dbook"></span>
 <p>Locates within a provided list of bible objects whose slot BOOK matches the argument BOOK. Argument BOOK must be of type string.
@@ -1987,6 +2026,19 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-get_002dbible_002dindividual_002dchapter_002dlist">Function: <strong>get-bible-individual-chapter-list</strong> <em>()</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236GET_002dBIBLE_002dINDIVIDUAL_002dCHAPTER_002dLIST-function"></span><span id="index-Function_002c-get_002dbible_002dindividual_002dchapter_002dlist"></span>
+<p>This iterates through the entire Bible and stores chapters in a list. For example if book 2 chapter 4 and verse 6 is the last verse of the chapter, 2 4 6 would be appended to the returned list.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -2402,6 +2454,8 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
  &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
+ &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
@@ -2463,6 +2517,9 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-db_002dparams"><code>db-params</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-delete_002dsubscriber"><code>delete-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Function-index_fn_letter-E">E</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-encode_002dlist_002dto_002dhtml"><code>encode-list-to-html</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-F">F</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-filter_002dlist_002dby_002dbook"><code>filter-list-by-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-filter_002dlist_002dby_002dchapter"><code>filter-list-by-chapter</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2488,10 +2545,12 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-create_002dsubscriber"><code><span class="roman">Function, </span>create-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-db_002dparams"><code><span class="roman">Function, </span>db-params</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-delete_002dsubscriber"><code><span class="roman">Function, </span>delete-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-encode_002dlist_002dto_002dhtml"><code><span class="roman">Function, </span>encode-list-to-html</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dbook"><code><span class="roman">Function, </span>filter-list-by-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dchapter"><code><span class="roman">Function, </span>filter-list-by-chapter</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dverse"><code><span class="roman">Function, </span>filter-list-by-verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-generate_002dglobal_002dcss"><code><span class="roman">Function, </span>generate-global-css</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-get_002dbible_002dindividual_002dchapter_002dlist"><code><span class="roman">Function, </span>get-bible-individual-chapter-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-get_002dbible_002dtext"><code><span class="roman">Function, </span>get-bible-text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-get_002dbible_002duid"><code><span class="roman">Function, </span>get-bible-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-get_002dhaydock_002dtext"><code><span class="roman">Function, </span>get-haydock-text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -2502,6 +2561,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-list_002dproject_002disidore_002ddependencies"><code><span class="roman">Function, </span>list-project-isidore-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-mailinglist_002dadd"><code><span class="roman">Function, </span>mailinglist-add</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-mailinglist_002ddelete"><code><span class="roman">Function, </span>mailinglist-delete</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"><code><span class="roman">Function, </span>make-bible-chapter-url-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-package_002ddependencies"><code><span class="roman">Function, </span>package-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-parse_002dorg_002dbible"><code><span class="roman">Function, </span>parse-org-bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-parse_002dorg_002dhaydock_002dcommentary"><code><span class="roman">Function, </span>parse-org-haydock-commentary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2530,6 +2590,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-id"><code><span class="roman">Generic Function, </span>id</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-text"><code><span class="roman">Generic Function, </span>text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Generic-Function_002c-verse"><code><span class="roman">Generic Function, </span>verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-get_002dbible_002dindividual_002dchapter_002dlist"><code>get-bible-individual-chapter-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-get_002dbible_002dtext"><code>get-bible-text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-get_002dbible_002duid"><code>get-bible-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-get_002dhaydock_002dtext"><code>get-haydock-text</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -2553,6 +2614,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Macro_002c-web_002dpage_002dtemplate"><code><span class="roman">Macro, </span>web-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-mailinglist_002dadd"><code>mailinglist-add</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-mailinglist_002ddelete"><code>mailinglist-delete</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-make_002dbible_002dchapter_002durl_002dlist"><code>make-bible-chapter-url-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-_0028setf-id_0029"><code><span class="roman">Method, </span>(setf id)</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-book"><code><span class="roman">Method, </span>book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Method_002c-chapter"><code><span class="roman">Method, </span>chapter</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
@@ -2609,6 +2671,8 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <a class="summary-letter" href="#Function-index_fn_letter-C"><b>C</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
+ &nbsp; 
+<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
  &nbsp; 
@@ -2673,8 +2737,8 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Variable-index_vr_symbol-1">*</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002aacceptor_002a"><code>*acceptor*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abible_002dbook_002durl_002dalist_002a"><code>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abible_002dchapter_002durl_002dalist_002a"><code>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002abible_002dbook_002durl_002dalist_002a"><code>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002abible_002dchapter_002durl_002dalist_002a"><code>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002adatabase_002durl_002a"><code>*database-url*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002aline_002dcounter_002a"><code>*line-counter*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002alocal_002ddb_002dparams_002a"><code>*local-db-params*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
@@ -2708,8 +2772,8 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-title"><code><span class="roman">Slot, </span>title</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-verse"><code><span class="roman">Slot, </span>verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002aacceptor_002a"><code><span class="roman">Special Variable, </span>*acceptor*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002adatabase_002durl_002a"><code><span class="roman">Special Variable, </span>*database-url*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002aline_002dcounter_002a"><code><span class="roman">Special Variable, </span>*line-counter*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002alocal_002ddb_002dparams_002a"><code><span class="roman">Special Variable, </span>*local-db-params*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>

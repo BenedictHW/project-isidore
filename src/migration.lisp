@@ -25,8 +25,6 @@
         #:project-isidore/model)
   (:import-from #:bknr.datastore)
   (:import-from #:cl-org-mode)
-  (:export
-   :*bible-book-url-alist*)
   ;; No package local nicknames. See commit 1962a26.
   (:documentation
    "Migrate data from .txt org-mode file syntax into instances of Common Lisp Object System objects. Email the maintainer of the project listed under PROJECT-ISIDORE.ASD for the .txt plaintext files in org-mode file syntax. The functions in this file should be run sequentially."))
@@ -143,78 +141,59 @@ disgrace of our exile, and to live here below as strangers. Enkindle in me, O Lo
 soul to join with the beloved disciple in this prayer: Come, Lord Jesus; that she may go and lose herself in Thee,
 who art her Centre, her God, her All.
 ")))))
-(defparameter *bible-book-url-alist*
-  (list (cons "/bible?verses=1-1-1-1-50-25" "Genesis")
-        (cons "/bible?verses=2-1-1-2-40-36" "Exodus")
-        (cons "/bible?verses=3-1-1-3-27-34" "Leviticus")
-        (cons "/bible?verses=4-1-1-4-36-13" "Numbers")
-        (cons "/bible?verses=5-1-1-5-34-12" "Deuteronomy")
-        (cons "/bible?verses=6-1-1-6-24-33" "Joshua")
-        (cons "/bible?verses=7-1-1-7-21-24" "Judges")
-        (cons "/bible?verses=8-1-1-8-4-22" "Ruth")
-        (cons "/bible?verses=9-1-1-9-31-13" "I Samuel")
-        (cons "/bible?verses=10-1-1-10-24-25" "II Samuel")
-        (cons "/bible?verses=11-1-1-11-22-54" "I Kings")
-        (cons "/bible?verses=12-1-1-12-25-30" "II Kings")
-        (cons "/bible?verses=13-1-1-13-29-30" "I Chronicles")
-        (cons "/bible?verses=14-1-1-14-36-23" "II Chronicles")
-        (cons "/bible?verses=15-1-1-15-10-44" "Ezra")
-        (cons "/bible?verses=16-1-1-16-13-31" "Nehemiah")
-        (cons "/bible?verses=17-1-1-17-14-17" "Tobit")
-        (cons "/bible?verses=18-1-1-18-16-31" "Judith")
-        (cons "/bible?verses=19-1-1-19-16-24" "Esther")
-        (cons "/bible?verses=20-1-1-20-42-16" "Job")
-        (cons "/bible?verses=21-1-1-21-150-6" "Psalms")
-        (cons "/bible?verses=22-1-1-22-31-31" "Proverbs")
-        (cons "/bible?verses=23-1-1-23-12-14" "Ecclesiastes")
-        (cons "/bible?verses=24-1-1-24-8-14" "Song of Solomon")
-        (cons "/bible?verses=25-1-1-25-19-20" "Wisdom")
-        (cons "/bible?verses=26-1-1-26-51-38" "Sirach")
-        (cons "/bible?verses=27-1-1-27-66-24" "Isaiah")
-        (cons "/bible?verses=28-1-1-28-52-34" "Jeremiah")
-        (cons "/bible?verses=29-1-1-29-5-22" "Lamentations")
-        (cons "/bible?verses=30-1-1-30-6-72" "Baruch")
-        (cons "/bible?verses=31-1-1-31-48-35" "Ezekiel")
-        (cons "/bible?verses=32-1-1-32-14-42" "Daniel")
-        (cons "/bible?verses=33-1-1-33-14-10" "Hosea")
-        (cons "/bible?verses=34-1-1-34-3-21" "Joel")
-        (cons "/bible?verses=35-1-1-35-9-15" "Amos")
-        (cons "/bible?verses=36-1-1-36-1-21" "Obadiah")
-        (cons "/bible?verses=37-1-1-37-4-11" "Jonah")
-        (cons "/bible?verses=38-1-1-38-7-20" "Micah")
-        (cons "/bible?verses=39-1-1-39-3-19" "Nahum")
-        (cons "/bible?verses=40-1-1-40-3-19" "Habakkuk")
-        (cons "/bible?verses=41-1-1-41-3-20" "Zephaniah")
-        (cons "/bible?verses=42-1-1-42-2-24" "Haggai")
-        (cons "/bible?verses=43-1-1-43-14-21" "Zechariah")
-        (cons "/bible?verses=44-1-1-44-4-6" "Malachi")
-        (cons "/bible?verses=45-1-1-45-16-24" "I Maccabees")
-        (cons "/bible?verses=46-1-1-46-15-40" "II Maccabees")
-        (cons "/bible?verses=47-1-1-47-28-20" "Matthew")
-        (cons "/bible?verses=48-1-1-48-16-20" "Mark")
-        (cons "/bible?verses=49-1-1-49-24-53" "Luke")
-        (cons "/bible?verses=50-1-1-50-21-25" "John")
-        (cons "/bible?verses=51-1-1-51-28-31" "Acts")
-        (cons "/bible?verses=52-1-1-52-16-27" "Romans")
-        (cons "/bible?verses=53-1-1-53-16-24" "I Corinthians")
-        (cons "/bible?verses=54-1-1-54-13-13" "II Corinthians")
-        (cons "/bible?verses=55-1-1-55-6-18" "Galatians")
-        (cons "/bible?verses=56-1-1-56-6-24" "Ephesians")
-        (cons "/bible?verses=57-1-1-57-4-23" "Philippians")
-        (cons "/bible?verses=58-1-1-58-4-18" "Colossians")
-        (cons "/bible?verses=59-1-1-59-5-28" "I Thessalonians")
-        (cons "/bible?verses=60-1-1-60-3-18" "II Thessalonians")
-        (cons "/bible?verses=61-1-1-61-6-21" "I Timothy")
-        (cons "/bible?verses=62-1-1-62-4-22" "II Timothy")
-        (cons "/bible?verses=63-1-1-63-3-15" "Titus")
-        (cons "/bible?verses=64-1-1-64-1-25" "Philemon")
-        (cons "/bible?verses=65-1-1-65-13-25" "Hebrews")
-        (cons "/bible?verses=66-1-1-66-5-20" "James")
-        (cons "/bible?verses=67-1-1-67-5-14" "I Peter")
-        (cons "/bible?verses=68-1-1-68-3-18" "II Peter")
-        (cons "/bible?verses=69-1-1-69-5-21" "I John")
-        (cons "/bible?verses=70-1-1-70-1-13" "II John")
-        (cons "/bible?verses=71-1-1-71-1-15" "III John")
-        (cons "/bible?verses=72-1-1-72-1-25" "Jude")
-        (cons "/bible?verses=73-1-1-73-22-21" "Revelation of John"))
-  "Associative list of bible books with their respective links for easy conversion into HTML links.")
+
+;;; These functions below were used to generate *bible-chapter-url-alist*
+
+(defun get-bible-individual-chapter-list ()
+  "This iterates through the entire Bible and stores chapters in a list. For example if book 2 chapter 4 and verse 6 is the last verse of the chapter, 2 4 6 would be appended to the returned list."
+  (let ((book-counter 1)
+        (chapter-counter 1)
+        (verse-counter 1)
+        (result-list nil))
+    (dotimes (i 35816 result-list)
+      (cond
+        ((< verse-counter (slot-value (bknr.datastore:store-object-with-id i) 'verse))
+         (progn (incf verse-counter)))
+        ((< chapter-counter (slot-value (bknr.datastore:store-object-with-id i) 'chapter))
+         (progn
+           (setf result-list (append result-list (list (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'book)) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'chapter) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'verse))))
+           (incf chapter-counter)
+           (setf verse-counter 1)))
+        ((< book-counter (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id i) 'book)))
+         (progn
+           (setf result-list (append result-list (list (bible-book-convert-dwim (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'book)) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'chapter) (slot-value (bknr.datastore:store-object-with-id (- i 1)) 'verse))))
+           (incf book-counter)
+           (setf chapter-counter 1)))))))
+
+;;; FIXME this will miss the very last chapter.
+(defun encode-list-to-html ()
+  "This will take the list generated by `bet-bible-invidiual-chapter-list' and return an associative list similar to `*bible-book-url-alist*'."
+  (let ((counter 1)
+        (book nil)
+        (chapter nil)
+        (verse nil)
+        (result-list nil))
+    (dolist (x (get-bible-individual-chapter-list) result-list)
+      (cond
+        ((= 1 counter)
+         (setf book x
+               counter (incf counter)))
+        ((= 2 counter)
+         (setf chapter x
+               counter (incf counter)))
+        ((= 3 counter)
+         (progn
+           (setf verse x)
+           (setf result-list
+                 (append result-list
+                         (list
+                          (concatenate
+                           'string "/bible?verses="
+                           (write-to-string book) "-"
+                           (write-to-string chapter) "-"
+                           "1-"
+                           (write-to-string book) "-"
+                           (write-to-string chapter) "-"
+                           (write-to-string verse)))))
+           (setf result-list (append result-list (list (first (cl-ppcre:split ":" (get-heading-text (get-bible-uid book chapter verse)))))))
+           (setf counter 1)))))))
