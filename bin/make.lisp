@@ -110,9 +110,11 @@
 
 (let ((app-file (make-pathname :directory *build-dir*
                                :defaults "ProjectIsidore")))
-  (sb-ext:save-lisp-and-die app-file
-                            :toplevel #'cl-user::application-toplevel
-                            :executable t))
+  (progn
+    (project-isidore:create-datastore)
+    (sb-ext:save-lisp-and-die app-file
+                              :toplevel #'cl-user::application-toplevel
+                              :executable t)))
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 (uiop:quit)
