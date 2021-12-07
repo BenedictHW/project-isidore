@@ -1,4 +1,4 @@
-# Continous Delivery.yml
+# Continous Integration and Delivery.yml
 #
 # Copyright (c) 2021 Hanshen Wang.
 #
@@ -20,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-name: CD
+name: CICD
 
 # Controls when the action will run. Triggers the workflow upon push or pull
 # request to 'master branch' OR Trigger workflow manually through

@@ -1,7 +1,7 @@
 * Project Isidore
 #+html: <a href="https://github.com/HanshenWang/project-isidore/releases/"><img src="https://img.shields.io/github/v/release/HanshenWang/project-isidore"/></a></br>
 #+html: <a href="https://project-isidore.herokuapp.com/"><img src="https://pyheroku-badge.herokuapp.com/?app=project-isidore"/></a>
-[[https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CI.yml/badge.svg?branch=master]]
+[[https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml/badge.svg?branch=master]]
 
 The third iteration of my personal website. It was quite fun building this with
 Common Lisp. Happy Hacking!

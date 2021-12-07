@@ -34,9 +34,11 @@
   :description "The master suite of all Project Isidore tests")
 
 (parachute:define-test test-app-init-finish
-  :description "Check that INITIALIZE-APPLICATION finishes"
+  :description "Check that application starts and exits gracefully."
   :parent master-suite
-  (parachute:finish (project-isidore:initialize-application)))
+  (parachute:finish (progn
+                      (project-isidore:initialize-application)
+                      (project-isidore:terminate-application))))
 
 (parachute:define-test does-global-css-exist
   :description "Global.css must exist in project-isidore/assets/global.css"
@@ -45,8 +47,9 @@
                                 :project-isidore "../assets/global.css"))))
 
 (parachute:define-test generate-bible-html-finish
-  :description "Check that BIBLE-PAGE finishes"
+  :description "Check that BIBLE-PAGE finishes."
   :parent master-suite
   (parachute:finish (progn
                        (project-isidore:create-datastore)
-                       (project-isidore:bible-page "1-1-1-73-22-21"))))
+                       (project-isidore:bible-page "1-1-1-73-22-21")
+                       (bknr.datastore:close-store))))

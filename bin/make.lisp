@@ -88,6 +88,9 @@
 ;;; Run the app's own build.
 (ql:quickload :project-isidore)
 
+(ql:quickload :project-isidore-test)
+(asdf:test-system :project-isidore)
+
 (defun application-toplevel ()
   "Application entry point. Emulate a \"main\" function. Used in
   SAVE-LISP-AND-DIE to save Application as a Lisp image."
@@ -102,19 +105,18 @@
 
 ;;; Save the application as an image
 ;; Heroku buildpack's bin/release refers to ./ProjectIsidore as the application
-;; name. Store binary locally under /project-isidore/bin/ for local builds.
+;; name. Store binary locally under /project-isidore/ for local builds.
 (when (equalp *production-buildp* nil)
   (defvar *build-dir*
     (pathname-directory
-     (pathname (asdf:system-relative-pathname :project-isidore "../bin/")))))
+     (pathname (asdf:system-relative-pathname :project-isidore "../")))))
 
 (let ((app-file (make-pathname :directory *build-dir*
                                :defaults "ProjectIsidore")))
-  (progn
-    (project-isidore:create-datastore)
-    (sb-ext:save-lisp-and-die app-file
-                              :toplevel #'cl-user::application-toplevel
-                              :executable t)))
+  (progn (project-isidore:create-datastore)
+         (sb-ext:save-lisp-and-die app-file
+                                   :toplevel #'cl-user::application-toplevel
+                                   :executable t)))
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 (uiop:quit)
