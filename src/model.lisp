@@ -34,7 +34,8 @@
    #:mailinglist-add
    #:mailinglist-delete
    #:create-datastore
-   :bible)
+   :bible
+   #:get-bible-uid)
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
@@ -120,4 +121,76 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
                  :initarg :haydock-text))
   (:metaclass bknr.datastore:persistent-class)
   (:documentation "Each verse of the Bible is created as an instance of class `bible', each with appropriate text in it's slot. HAYDOCK-TEXT however, may be unbound."))
+
+(defun filter-list-by-book (list book)
+  "Locates within a provided list of bible objects whose slot BOOK matches the argument BOOK. Argument BOOK must be of type string.
+
+  Example:
+  (filter-list-by-book (bknr.datastore:store-objects-with-class 'bible) \"Ruth\")"
+
+  (remove-if-not (lambda (x) (and x (string-equal book (slot-value x 'book)))) list))
+
+(defun filter-list-by-chapter (list chapter)
+  "Locates within a provided list of bible objects whose slot CHAPTER matches the argument CHAPTER. Argument CHAPTER must be of type integer.
+
+  Example:
+  (filter-list-by-chapter (bknr.datastore:store-objects-with-class 'bible) 50)"
+
+  (remove-if-not (lambda (x) (and x (equalp chapter (slot-value x 'chapter)))) list))
+
+(defun filter-list-by-verse (list verse)
+  "Locates within a provided list of bible objects whose slot VERSE matches the argument VERSE. Argument VERSE must be of type integer.
+
+  Example:
+  (filter-list-by-verse (bknr.datastore:store-objects-with-class 'bible) 50)"
+
+  (remove-if-not (lambda (x) (and x (equalp verse (slot-value x 'verse)))) list))
+
+(defun get-bible-uid (book chapter verse)
+  "Return a unique identifier assigned to each instance of class `bible'.
+ As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
+returns the aforementioned unique identifier as an integer value bound to slot
+ID. BOOK can either be a string or an integer. If the instance does not exist, NIL is returned.
+
+   Example:
+   (get-bible-uid \"Matthew\" 3 6) => 27916
+   (get-bible-uid 47 3 6) => 27916
+   (get-bible-uid 12983 29394 2938498) => NIL"
+  (when (slot-exists-p (car
+                     (filter-list-by-verse
+                      (filter-list-by-chapter
+                       (filter-list-by-book
+                        (bknr.datastore:store-objects-with-class 'bible)
+                        (if (integerp book)
+                            (bible-book-convert-dwim book)
+                            book))
+                       chapter) verse)) 'bknr.datastore::id)
+    (slot-value
+     (car
+      (filter-list-by-verse
+       (filter-list-by-chapter
+        (filter-list-by-book
+         (bknr.datastore:store-objects-with-class 'bible)
+         (if (integerp book)
+             (bible-book-convert-dwim book)
+             book))
+        chapter) verse)) 'bknr.datastore::id)))
+
+(defun bible-book-convert-dwim (bible-book)
+  "Given a Bible book string name or integer, convert to the opposite format.
+
+   Example:
+   (bible-book-convert-dwim \"Matthew\") => 47
+   (bible-book-convert-dwim 47) => \"Matthew\" "
+  ;; Has to be one line otherwise splitting (cons "II \n Chronicles") will mean (bible-book-convert-dwim "II Chronicles") returns NIL but (bible-book-convert-dwim "II \n Chronicles") will return 14.
+  (let ((bible-book-numbers (list (cons "Genesis" 1) (cons "Exodus" 2) (cons "Leviticus" 3) (cons "Numbers" 4) (cons "Deuteronomy" 5) (cons "Joshua" 6) (cons "Judges" 7) (cons "Ruth" 8) (cons "I Samuel" 9) (cons "II Samuel" 10) (cons "I Kings" 11) (cons "II Kings" 12) (cons "I Chronicles" 13) (cons "II Chronicles" 14) (cons "Ezra" 15) (cons "Nehemiah" 16) (cons "Tobit" 17) (cons "Judith" 18) (cons "Esther" 19) (cons "Job" 20) (cons "Psalms" 21) (cons "Proverbs" 22) (cons "Ecclesiastes" 23) (cons "Song of Solomon" 24) (cons "Wisdom" 25) (cons "Sirach" 26) (cons "Isaiah" 27) (cons "Jeremiah" 28) (cons "Lamentations" 29) (cons "Baruch" 30) (cons "Ezekiel" 31) (cons "Daniel" 32) (cons "Hosea" 33) (cons "Joel" 34) (cons "Amos" 35) (cons "Obadiah" 36) (cons "Jonah" 37) (cons "Micah" 38) (cons "Nahum" 39) (cons "Habakkuk" 40) (cons "Zephaniah" 41) (cons "Haggai" 42) (cons "Zechariah" 43) (cons "Malachi" 44) (cons "I Maccabees" 45) (cons "II Maccabees" 46) (cons "Matthew" 47) (cons "Mark" 48) (cons "Luke" 49) (cons "John" 50) (cons "Acts" 51) (cons "Romans" 52) (cons "I Corinthians" 53) (cons "II Corinthians" 54) (cons "Galatians" 55) (cons "Ephesians" 56) (cons "Philippians" 57) (cons "Colossians" 58) (cons "I Thessalonians" 59) (cons "II Thessalonians" 60) (cons "I Timothy" 61) (cons "II Timothy" 62) (cons "Titus" 63) (cons "Philemon" 64) (cons "Hebrews" 65) (cons "James" 66) (cons "I Peter" 67) (cons "II Peter" 68) (cons "I John" 69) (cons "II John" 70) (cons "III John" 71) (cons "Jude" 72) (cons "Revelation of John" 73))))
+  ;; Explicitly declare valid types.
+  (unless (or (stringp bible-book)
+              (integerp bible-book))
+    (format t "bible-book-convert-dwim called with invalid argument, ~a"
+    bible-book))
+  ;; string-equal is case insensitive. string= is case sensitive.
+  (if (stringp bible-book)
+      (cdr (assoc bible-book bible-book-numbers :test #'string-equal))
+      (car (rassoc bible-book bible-book-numbers)))))
 
