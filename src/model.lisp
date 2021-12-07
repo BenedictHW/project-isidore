@@ -20,10 +20,11 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-  (:use #:common-lisp)
 (defpackage #:project-isidore/model
+  (:use #:common-lisp)
   (:import-from #:postmodern)
   (:import-from #:log4cl)
+  (:import-from #:bknr.datastore)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:db-params
@@ -31,7 +32,9 @@
    :*localdb-params*
    :mailinglist
    #:mailinglist-add
-   #:mailinglist-delete)
+   #:mailinglist-delete
+   #:create-datastore
+   :bible)
   (:documentation
    "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
 
@@ -91,3 +94,30 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   (postmodern:with-connection (db-params) (postmodern:delete-dao emailobj))
   (log4cl:log-info "~A removed from mailing list." email)))
 
+(defun create-datastore ()
+  "Initialize Datastore."
+  (let ((object-subsystem
+          (make-instance
+           'bknr.datastore:store-object-subsystem)))
+    (make-instance 'bknr.datastore:mp-store
+                   :directory
+                   (asdf:system-relative-pathname :project-isidore "../data/")
+                   :subsystems
+                   (list object-subsystem))))
+
+(defclass bible (bknr.datastore:store-object)
+  ((book :reader book
+         :initarg :book)
+   ;; Relative to book.
+   (chapter :reader chapter
+            :initarg :chapter)
+   ;; Relative to chapter.
+   (verse :reader verse
+          :initarg :verse)
+   (text :reader text
+         :initarg :text)
+   (haydock-text :reader haydock-text
+                 :initarg :haydock-text))
+  (:metaclass bknr.datastore:persistent-class)
+  (:documentation "Each verse of the Bible is created as an instance of class `bible', each with appropriate text in it's slot. HAYDOCK-TEXT however, may be unbound."))
+

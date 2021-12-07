@@ -27,6 +27,7 @@
                  #:project-isidore/model
                  #:project-isidore/styles
                  #:project-isidore/views
+                 #:project-isidore/migration)
   (:documentation
    "Project Isidore meta package. Export a single package PROJECT-ISIDORE with
     all the external symbols from all inferred packages. Inferred here is taken
