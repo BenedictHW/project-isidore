@@ -21,10 +21,15 @@
 # along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
 name: CICD
+# Continous Integration and Continous Delivery are combined. This is done
+# in the file project-root/bin/make.lisp where the seperate system
+# 'project-isidore-test' is loaded and 'asdf:test-system' is ran prior
+# to building the application as a standalone binary.
 
 # Controls when the action will run. Triggers the workflow upon push or pull
 # request to 'master branch' OR Trigger workflow manually through
-# Github Actions repo website
+# Github Actions repo website. Upon tag starting with 'v', job named
+# 'create_release' is run.
 on:
   push:
     branches: [ master ]
@@ -226,14 +231,14 @@ jobs:
     - name: Stage for Release
       run: |
         pushd ${{ github.workspace }}/pi-build-Linux
-        zip -r project-isidore-Linux-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        zip -r project-isidore-Linux-x86-64-${{ env.RELEASE_VERSION }}.zip ./*
         popd
         pushd ${{ github.workspace }}/pi-build-macOS
-        zip -r project-isidore-macOS-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        zip -r project-isidore-macOS-x86-64-${{ env.RELEASE_VERSION }}.zip ./*
         popd
         pushd ${{ github.workspace }}/pi-build-Windows
         # IMPORTANT Bash RELEASE_VERSION variable does not inherit properly when using msys2 during the 'build_exectuable_windows' job. Go figure.
-        zip -r project-isidore-Windows-x64-${{ env.RELEASE_VERSION }}.zip ./*
+        zip -r project-isidore-Windows-x86-64-${{ env.RELEASE_VERSION }}.zip ./*
         popd
 
     - name: Release Project Isidore

@@ -67,6 +67,7 @@
                                      :inherit-configuration))
 
   ;; Install Quicklisp
+  ;; If `*cache-dir*'exists, load SETUP.LISP.
   (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp"))
   :defaults "setup.lisp")))
     (if (probe-file ql-setup)
