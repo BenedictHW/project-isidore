@@ -22,9 +22,11 @@
 
 (defpackage #:project-isidore/model
   (:use #:common-lisp)
+  ;; PostgreSQL wrapper library.
   (:import-from #:postmodern)
-  (:import-from #:log4cl)
+  ;; In-memory Datastore library.
   (:import-from #:bknr.datastore)
+  (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:db-params
@@ -45,7 +47,26 @@
    :*bible-book-url-alist*
    #:make-bible-chapter-url-list)
   (:documentation
-   "Database Access Object Schema & basic Create, Read, Update and Delete operations"))
+   "Project Isidore Object Schema.
+
+Contains two unrelated schemas, the class `mailinglist' and the class `bible'
+with their respective operations.
+
+Note `mailinglist' is used in the traditional relational database fashion.
+Currently only PostgreSQL client-server architecture is supported by the
+deployment platform Heroku.
+
+Note `bible' is NOT a database, but an in-memory datastore. It is comparable to
+Redis and Memcache, but most similar to Object Prevalance libraries like the
+Java Prevayler library.
+
+For an indepth explanation on in-memory datastores, see:
+
+Memory-Centric Data Management A Monash Information Services White Paper by Curt
+A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
+
+See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
+"))
 
 (in-package #:project-isidore/model)
 
@@ -247,6 +268,16 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
          (get-bible-uid end-book end-chapter end-verse)))))
 
 (defun make-bible-chapter-url-list (bible-url)
+  "Selects the right links from `*bible-chapter-url-alist*' based on the
+BIBLE-URL
+
+Example:
+
+(project-isidore/model:make-bible-chapter-url-list \"1-1-1-1-3-1\") =>
+
+((\"/bible?verses=1-1-1-1-1-31\" . \"Genesis 1\")
+ (\"/bible?verses=1-2-1-1-2-25\" . \"Genesis 2\")
+ (\"/bible?verses=1-3-1-1-3-24\" . \"Genesis 3\"))"
   (let* ((beginning-uid
           (position (rassoc (concatenate 'string
                                          (slot-value (bknr.datastore:store-object-with-id (car (bible-url-to-uid bible-url))) 'book)
