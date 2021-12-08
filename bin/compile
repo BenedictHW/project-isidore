@@ -128,4 +128,3 @@ info "Loading $BUILDPACK_DIR/bin/make.lisp..."
 sh $CL_DIR/sbcl-$CL_IMPL_VER-x86-64-linux/run-sbcl.sh --load "$BUILDPACK_DIR/bin/make.lisp"
 chmod a+x "$BUILD_DIR/ProjectIsidore" # grant permissions for application
 log "Successfully Loaded $BUILDPACK_DIR/bin/make.lisp"
-info "====== Build Finished | Deo Gratias ======"

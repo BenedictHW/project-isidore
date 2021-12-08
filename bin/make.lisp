@@ -86,9 +86,10 @@
                    *quicklisp-dist-version*)
                    :replace t :prompt nil)))))
 
-;;; Run the app's own build.
+;;; Load Application into Lisp image.
 (ql:quickload :project-isidore)
 
+;;; Run Application tests.
 (ql:quickload :project-isidore-test)
 (asdf:test-system :project-isidore)
 
@@ -102,7 +103,6 @@
    :dispatch-folder "assets/"
    :cmd-user-interface t)
   (loop (sleep 600))) ; sleep forever
-
 
 ;;; Save the application as an image
 ;; Heroku buildpack's bin/release refers to ./ProjectIsidore as the application
@@ -112,12 +112,15 @@
     (pathname-directory
      (pathname (asdf:system-relative-pathname :project-isidore "../")))))
 
+
+(format t "~&        ====== Build Successful | Deo Gratias ======~%")
+
+(format t "~&        ====== END OF MAKE.LISP ======~%")
+
 (let ((app-file (make-pathname :directory *build-dir*
                                :defaults "ProjectIsidore")))
   (progn (project-isidore:create-datastore)
          (sb-ext:save-lisp-and-die app-file
                                    :toplevel #'cl-user::application-toplevel
                                    :executable t)))
-
-(format t "~&        ====== END OF MAKE.LISP ======~%")
 (uiop:quit)

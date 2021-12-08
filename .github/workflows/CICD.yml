@@ -116,7 +116,8 @@ jobs:
     runs-on: [windows-latest]
 
     steps:
-    # Microsoft Windows has evolved in parallel with UNIX systems to have different pathnames and newline characters.
+    # Microsoft Windows has evolved in parallel with UNIX systems to
+    # have different pathnames and newline characters.
     # Note well the %HOMEPATH% variable is not set in [windows-latest] runner environments.
     # See also https://github.com/actions/virtual-environments/issues/1301.
     # Also note conversion of UNIX style line endings (LF)

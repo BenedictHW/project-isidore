@@ -37,7 +37,7 @@ To run locally evaluate in the listener,
 
 (asdf:test-system :project-isidore)
 
-The test suite is run prior to the build process. See make.lisp."))
+The test suite is run prior to the build process. See MAKE.LISP."))
 
 (in-package #:project-isidore-test/tests)
 

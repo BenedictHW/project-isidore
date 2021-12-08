@@ -83,20 +83,23 @@ Database Parameters. A local PostgreSQL installation with the creation of
   "Sets *DATABASE-URL* parameter. Heroku database URL format is
 postgres://username:password@host:port/database_name. If we are testing on
 localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
-  (setf postmodern:*default-use-ssl* :try) ; Heroku PostgreSQL requires SSL to connect
+  ;; Heroku PostgreSQL requires SSL to connect
+  (setf postmodern:*default-use-ssl* :try)
   (if *database-url*
       (let* ((url (second (cl-ppcre:split "//" *database-url*))) ; remove
                                         ; postgres://
-             (user (first (cl-ppcre:split ":" (first (cl-ppcre:split "@"
-                                                                     url)))))
-             (password (second (cl-ppcre:split ":" (first (cl-ppcre:split "@"
-                                                                          url)))))
-             (host (first (cl-ppcre:split ":" (second (cl-ppcre:split "@"
-                                                                      url)))))
+             (user (first (cl-ppcre:split ":" (first
+                                               (cl-ppcre:split "@" url)))))
+             (password (second (cl-ppcre:split ":" (first
+                                                    (cl-ppcre:split "@" url)))))
+             (host (first (cl-ppcre:split ":" (second
+                                               (cl-ppcre:split "@" url)))))
              ;; PORT parameter not needed. (port (first (cl-ppcre:split "/"
              ;; (third (cl-ppcre:split ":" url)))))
-             (database (second (cl-ppcre:split "/" (second (cl-ppcre:split "@"
-                                                                           url))))))
+             (database (second (cl-ppcre:split "/"
+                                               (second (cl-ppcre:split
+                                                        "@"
+                                                        url))))))
         (list database user password host))
       *local-db-params*))
 
@@ -115,12 +118,16 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   receive notifications on PROJECT-ISIDORE blog article updates."))
 
 (defun mailinglist-add (title name email)
+  "Creates new entry in the `mailinglist' table."
   (postmodern:with-connection (db-params)
     (postmodern:make-dao 'mailinglist :title title :name name :email email))
   (log4cl:log-info "~A successfully added to mailing list." email))
 
 (defun mailinglist-delete (email)
-  (let ((emailobj (car (postmodern:with-connection (db-params) (postmodern:select-dao 'mailinglist (:= 'email email))))))
+  "Removes entry from the `mailinglist' table."
+  (let ((emailobj (car (postmodern:with-connection (db-params)
+                         (postmodern:select-dao 'mailinglist
+                             (:= 'email email))))))
   (postmodern:with-connection (db-params) (postmodern:delete-dao emailobj))
   (log4cl:log-info "~A removed from mailing list." email)))
 
@@ -149,29 +156,36 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
    (haydock-text :reader haydock-text
                  :initarg :haydock-text))
   (:metaclass bknr.datastore:persistent-class)
-  (:documentation "Each verse of the Bible is created as an instance of class `bible', each with appropriate text in it's slot. HAYDOCK-TEXT however, may be unbound."))
+  (:documentation "Each verse of the Bible is created as an instance of class
+  `bible', each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
+  unbound."))
 
 (defun filter-list-by-book (list book)
-  "Locates within a provided list of bible objects whose slot BOOK matches the argument BOOK. Argument BOOK must be of type string.
+  "Locates within a provided list of bible objects whose slot BOOK matches the
+argument BOOK. Argument BOOK must be of type string.
 
-  Example:
-  (filter-list-by-book (bknr.datastore:store-objects-with-class 'bible) \"Ruth\")"
+Example:
+(filter-list-by-book (bknr.datastore:store-objects-with-class 'bible) \"Ruth\")"
 
-  (remove-if-not (lambda (x) (and x (string-equal book (slot-value x 'book)))) list))
+  (remove-if-not (lambda (x) (and x (string-equal book
+                                                  (slot-value x 'book)))) list))
 
 (defun filter-list-by-chapter (list chapter)
-  "Locates within a provided list of bible objects whose slot CHAPTER matches the argument CHAPTER. Argument CHAPTER must be of type integer.
+  "Locates within a provided list of bible objects whose slot CHAPTER matches
+the argument CHAPTER. Argument CHAPTER must be of type integer.
 
-  Example:
-  (filter-list-by-chapter (bknr.datastore:store-objects-with-class 'bible) 50)"
+Example:
+(filter-list-by-chapter (bknr.datastore:store-objects-with-class 'bible) 50)"
 
-  (remove-if-not (lambda (x) (and x (equalp chapter (slot-value x 'chapter)))) list))
+  (remove-if-not (lambda (x) (and x (equalp chapter
+                                            (slot-value x 'chapter)))) list))
 
 (defun filter-list-by-verse (list verse)
-  "Locates within a provided list of bible objects whose slot VERSE matches the argument VERSE. Argument VERSE must be of type integer.
+  "Locates within a provided list of bible objects whose slot VERSE matches
+the argument VERSE. Argument VERSE must be of type integer.
 
-  Example:
-  (filter-list-by-verse (bknr.datastore:store-objects-with-class 'bible) 50)"
+Example:
+(filter-list-by-verse (bknr.datastore:store-objects-with-class 'bible) 50)"
 
   (remove-if-not (lambda (x) (and x (equalp verse (slot-value x 'verse)))) list))
 
@@ -179,12 +193,13 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   "Return a unique identifier assigned to each instance of class `bible'.
  As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
 returns the aforementioned unique identifier as an integer value bound to slot
-ID. BOOK can either be a string or an integer. If the instance does not exist, NIL is returned.
+ID. BOOK can either be a string or an integer. If the instance does not exist,
+NIL is returned.
 
-   Example:
-   (get-bible-uid \"Matthew\" 3 6) => 27916
-   (get-bible-uid 47 3 6) => 27916
-   (get-bible-uid 12983 29394 2938498) => NIL"
+Example:
+(get-bible-uid \"Matthew\" 3 6) => 27916
+(get-bible-uid 47 3 6) => 27916
+(get-bible-uid 12983 29394 2938498) => NIL "
   (when (slot-exists-p (car
                      (filter-list-by-verse
                       (filter-list-by-chapter
@@ -211,7 +226,9 @@ ID. BOOK can either be a string or an integer. If the instance does not exist, N
    Example:
    (bible-book-convert-dwim \"Matthew\") => 47
    (bible-book-convert-dwim 47) => \"Matthew\" "
-  ;; Has to be one line otherwise splitting (cons "II \n Chronicles") will mean (bible-book-convert-dwim "II Chronicles") returns NIL but (bible-book-convert-dwim "II \n Chronicles") will return 14.
+  ;; Has to be one line otherwise splitting (cons "II \n Chronicles") will mean
+  ;; (bible-book-convert-dwim "II Chronicles") returns NIL but
+  ;; (bible-book-convert-dwim "II \n Chronicles") will return 14.
   (let ((bible-book-numbers (list (cons "Genesis" 1) (cons "Exodus" 2) (cons "Leviticus" 3) (cons "Numbers" 4) (cons "Deuteronomy" 5) (cons "Joshua" 6) (cons "Judges" 7) (cons "Ruth" 8) (cons "I Samuel" 9) (cons "II Samuel" 10) (cons "I Kings" 11) (cons "II Kings" 12) (cons "I Chronicles" 13) (cons "II Chronicles" 14) (cons "Ezra" 15) (cons "Nehemiah" 16) (cons "Tobit" 17) (cons "Judith" 18) (cons "Esther" 19) (cons "Job" 20) (cons "Psalms" 21) (cons "Proverbs" 22) (cons "Ecclesiastes" 23) (cons "Song of Solomon" 24) (cons "Wisdom" 25) (cons "Sirach" 26) (cons "Isaiah" 27) (cons "Jeremiah" 28) (cons "Lamentations" 29) (cons "Baruch" 30) (cons "Ezekiel" 31) (cons "Daniel" 32) (cons "Hosea" 33) (cons "Joel" 34) (cons "Amos" 35) (cons "Obadiah" 36) (cons "Jonah" 37) (cons "Micah" 38) (cons "Nahum" 39) (cons "Habakkuk" 40) (cons "Zephaniah" 41) (cons "Haggai" 42) (cons "Zechariah" 43) (cons "Malachi" 44) (cons "I Maccabees" 45) (cons "II Maccabees" 46) (cons "Matthew" 47) (cons "Mark" 48) (cons "Luke" 49) (cons "John" 50) (cons "Acts" 51) (cons "Romans" 52) (cons "I Corinthians" 53) (cons "II Corinthians" 54) (cons "Galatians" 55) (cons "Ephesians" 56) (cons "Philippians" 57) (cons "Colossians" 58) (cons "I Thessalonians" 59) (cons "II Thessalonians" 60) (cons "I Timothy" 61) (cons "II Timothy" 62) (cons "Titus" 63) (cons "Philemon" 64) (cons "Hebrews" 65) (cons "James" 66) (cons "I Peter" 67) (cons "II Peter" 68) (cons "I John" 69) (cons "II John" 70) (cons "III John" 71) (cons "Jude" 72) (cons "Revelation of John" 73))))
   ;; Explicitly declare valid types.
   (unless (or (stringp bible-book)
@@ -233,9 +250,14 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
 (defun get-heading-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (let ((book-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'book))
-        (chapter-string (write-to-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'chapter)))
-        (verse-string (write-to-string (slot-value (bknr.datastore:store-object-with-id bible-uid) 'verse))))
+  (let ((book-string (slot-value (bknr.datastore:store-object-with-id bible-uid)
+                                 'book))
+        (chapter-string (write-to-string (slot-value
+                                          (bknr.datastore:store-object-with-id
+                                           bible-uid) 'chapter)))
+        (verse-string (write-to-string (slot-value
+                                        (bknr.datastore:store-object-with-id
+                                         bible-uid) 'verse))))
   (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
       (concatenate 'string book-string " " chapter-string ":" verse-string)
       (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid))))
@@ -243,14 +265,17 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
 (defun get-haydock-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)
-    (slot-value (bknr.datastore:store-object-with-id bible-uid) 'haydock-text)))
+  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
+                     'haydock-text)
+    (slot-value (bknr.datastore:store-object-with-id bible-uid)
+                'haydock-text)))
 
 (defun bible-url-to-uid (bible-url)
-  "Accepts a string of six integers and returns a list of 2 integers. The list includes the beginning bible-uid and the ending bible-uid.
+  "Accepts a string of six integers and returns a list of 2 integers.
+The list includes the beginning bible-uid and the ending bible-uid.
 
-   Example:
-   (bible-url-to-uid \"24-1-1-26-1-1\") => (18352 18907) "
+Example:
+(bible-url-to-uid \"24-1-1-26-1-1\") => (18352 18907) "
   (let ((start-book (parse-integer(first (cl-ppcre:split "-" bible-url))))
         (start-chapter (parse-integer (second (cl-ppcre:split "-" bible-url))))
         (start-verse (parse-integer (third (cl-ppcre:split "-" bible-url))))
@@ -280,16 +305,36 @@ Example:
  (\"/bible?verses=1-3-1-1-3-24\" . \"Genesis 3\"))"
   (let* ((beginning-uid
           (position (rassoc (concatenate 'string
-                                         (slot-value (bknr.datastore:store-object-with-id (car (bible-url-to-uid bible-url))) 'book)
+                                         (slot-value
+                                          (bknr.datastore:store-object-with-id
+                                           (car (bible-url-to-uid bible-url)))
+                                          'book)
                                          " "
-                                         (write-to-string (slot-value (bknr.datastore:store-object-with-id (car (bible-url-to-uid bible-url))) 'chapter)))
-                            *bible-chapter-url-alist* :test #'string-equal) *bible-chapter-url-alist*))
+                                         (write-to-string
+                                          (slot-value
+                                           (bknr.datastore:store-object-with-id
+                                            (car (bible-url-to-uid bible-url)))
+                                           'chapter)))
+                            *bible-chapter-url-alist* :test #'string-equal)
+                    *bible-chapter-url-alist*))
         (ending-uid
           (position (rassoc (concatenate 'string
-                                         (slot-value (bknr.datastore:store-object-with-id (car (cdr (bible-url-to-uid bible-url)))) 'book)
+                                         (slot-value
+                                          (bknr.datastore:store-object-with-id
+                                           (car (cdr
+                                                 (bible-url-to-uid bible-url))))
+                                          'book)
                                          " "
-                                         (write-to-string (slot-value (bknr.datastore:store-object-with-id (car (cdr (bible-url-to-uid bible-url)))) 'chapter))) *bible-chapter-url-alist* :test #'string-equal) *bible-chapter-url-alist*)))
-    ;; If in chapter view, resubmit book url to this function to generate persistent chapter links.
+                                         (write-to-string
+                                          (slot-value
+                                           (bknr.datastore:store-object-with-id
+                                            (car (cdr
+                                                  (bible-url-to-uid bible-url))))
+                                           'chapter)))
+                            *bible-chapter-url-alist* :test #'string-equal)
+                    *bible-chapter-url-alist*)))
+    ;; If in chapter view, resubmit book url to this function
+    ;; to generate persistent chapter links.
     ;; Special case: last book of the bible.
     (cond ((equalp 73 (parse-integer (first (cl-ppcre:split "-" bible-url))))
            (set-difference
@@ -298,11 +343,16 @@ Example:
             ;; HACK KLUDGE FIXME
             (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*)))
           ;; Special case: books with one chapter.
-          ((or (equalp 36 (parse-integer (first (cl-ppcre:split "-" bible-url))))
-               (equalp 64 (parse-integer (first (cl-ppcre:split "-" bible-url))))
-               (equalp 70 (parse-integer (first (cl-ppcre:split "-" bible-url))))
-               (equalp 71 (parse-integer (first (cl-ppcre:split "-" bible-url))))
-               (equalp 72 (parse-integer (first (cl-ppcre:split "-" bible-url)))))
+          ((or (equalp 36 (parse-integer
+                           (first (cl-ppcre:split "-" bible-url))))
+               (equalp 64 (parse-integer
+                           (first (cl-ppcre:split "-" bible-url))))
+               (equalp 70 (parse-integer
+                           (first (cl-ppcre:split "-" bible-url))))
+               (equalp 71 (parse-integer
+                           (first (cl-ppcre:split "-" bible-url))))
+               (equalp 72 (parse-integer
+                           (first (cl-ppcre:split "-" bible-url)))))
            (reverse
             (set-difference
              (nthcdr beginning-uid
@@ -313,8 +363,16 @@ Example:
              ;; verse/chapter of the bible is inputted.
              ;; (+ 1 ending-uid)
              (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*))))
-          ((equalp (parse-integer (second (ppcre:split "-" bible-url))) (parse-integer (fifth (ppcre:split "-" bible-url))))
-           (make-bible-chapter-url-list (cadr (cl-ppcre:split "=" (car (rassoc (bible-book-convert-dwim (parse-integer (first (cl-ppcre:split "-" bible-url)))) *bible-book-url-alist* :test #'string-equal))))))
+          ((equalp (parse-integer (second (ppcre:split "-" bible-url)))
+                   (parse-integer (fifth (ppcre:split "-" bible-url))))
+           (make-bible-chapter-url-list
+            (cadr (cl-ppcre:split
+                   "=" (car (rassoc (bible-book-convert-dwim
+                                     (parse-integer (first
+                                                     (cl-ppcre:split
+                                                      "-" bible-url))))
+                                    *bible-book-url-alist*
+                                    :test #'string-equal))))))
           (t
            (reverse
             (set-difference
@@ -325,8 +383,7 @@ Example:
              ;; this will give a nil error if the last
              ;; verse/chapter of the bible is inputted.
              ;; (+ 1 ending-uid)
-             (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*)))))
-    ))
+             (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*)))))))
 
 (defparameter *bible-chapter-url-alist*
 (list (cons "/bible?verses=1-1-1-1-1-31" "Genesis 1")
@@ -1663,7 +1720,8 @@ Example:
 (cons "/bible?verses=73-20-1-73-20-15" "Revelation of John 20")
 (cons "/bible?verses=73-21-1-73-21-27" "Revelation of John 21")
 (cons "/bible?verses=73-22-1-73-22-21" "Revelation of John 22"))
-  "Associative list of bible chapters with their respective links for easy conversion into HTML links.")
+  "Associative list of bible chapters with their respective links for easy
+  conversion into HTML links.")
 
 (defparameter *bible-book-url-alist*
   (list (cons "/bible?verses=1-1-1-1-50-25" "Genesis")
@@ -1739,4 +1797,5 @@ Example:
         (cons "/bible?verses=71-1-1-71-1-15" "III John")
         (cons "/bible?verses=72-1-1-72-1-25" "Jude")
         (cons "/bible?verses=73-1-1-73-22-21" "Revelation of John"))
-  "Associative list of bible books with their respective links for easy conversion into HTML links.")
+  "Associative list of bible books with their respective links for easy
+  conversion into HTML links.")

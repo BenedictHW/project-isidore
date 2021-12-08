@@ -60,8 +60,11 @@ Controller (MVC) design pattern.
 (hunchentoot:define-easy-handler (subscribe :uri "/subscribe") ()
   (subscribe-page))
 
-(hunchentoot:define-easy-handler (create-subscriber :uri "/create-subscriber") ()
-  (unless (hunchentoot:parameter "friend-email") (hunchentoot:redirect "/subscribe"))
+(hunchentoot:define-easy-handler
+    (create-subscriber :uri "/create-subscriber") ()
+  (unless
+      (hunchentoot:parameter "friend-email")
+    (hunchentoot:redirect "/subscribe"))
   (let ((title (hunchentoot:parameter "friend-title"))
         (name (hunchentoot:parameter "friend-name"))
         (email (hunchentoot:parameter "friend-email")))
@@ -71,8 +74,11 @@ Controller (MVC) design pattern.
 (hunchentoot:define-easy-handler (unsubscribe :uri "/unsubscribe") ()
   (unsubscribe-page))
 
-(hunchentoot:define-easy-handler (delete-subscriber :uri "/delete-subscriber") ()
-  (unless (hunchentoot:parameter "friend-email") (hunchentoot:redirect "/unsubscribe"))
+(hunchentoot:define-easy-handler
+    (delete-subscriber :uri "/delete-subscriber") ()
+  (unless
+      (hunchentoot:parameter "friend-email")
+    (hunchentoot:redirect "/unsubscribe"))
   (let ((email (hunchentoot:parameter "friend-email")))
     (mailinglist-delete email)
     (unsubscribe-success-page email)))
@@ -83,16 +89,22 @@ Controller (MVC) design pattern.
   ;; localhost:8080/bible?verses=1-2-3-4-5-6
   (bible-page verses))
 
-(defvar *acceptor* nil "To be used in INITIALIZE-APPLICATION to create an
-instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT")
+(defvar *acceptor* nil "To be used in `initialize-application' to create an
+instance of class `hunchentoot:acceptor' to listen to a PORT")
 
 (defun initialize-application (&key (port 8080)
 (dispatch-folder (asdf:system-relative-pathname :project-isidore "../assets/"))
 (cmd-user-interface nil))
-  "Start a web server at PORT. Set DATABASE_URL to connect to PostgreSQL
-database. Optional PORT,DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT
-parameter as Heroku assigns a different PORT per dyno/environment.
+  "Start a web server at PORT.
+
+Set DATABASE_URL to connect to PostgreSQL database.
+
+Optional PORT,DISPATCH-FOLDER and CMD-USER-INTERFACE.
+
+Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment.
+
 DISPATCH-FOLDER determines from which URL static assets will be served.
+
 CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
 APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
   (log4cl:log-info "
@@ -103,16 +115,19 @@ Project Isidore v1.1.0 (A.D. 2021-10-20)
 
 Copyright 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 
-Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO WARRANTY.
-This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE Version 3, 29 June 2007
-You are welcome to redistribute the program or any parts hereof under certain conditions.
-Please visit https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.
+Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO
+WARRANTY. This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE
+Version 3, 29 June 2007 You are welcome to redistribute the program or any parts
+hereof under certain conditions. Please visit
+https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.
 
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 ")
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
+  ;; Chose HTML5 encoding over default XHTML.
   (setf (cl-who:html-mode) :HTML5
+        ;; Will show backtrace on status code 500 pages.
         hunchentoot:*show-lisp-errors-p* t
         hunchentoot:*dispatch-table*
         `(hunchentoot:dispatch-easy-handlers
@@ -123,7 +138,8 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
           ,(hunchentoot:create-folder-dispatcher-and-handler "/" dispatch-folder)))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (when (hunchentoot:started-p *acceptor*)
-    (return-from initialize-application (format t "Server already running at PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
+      (return-from initialize-application
+        (format t "Server already running at PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
         (hunchentoot:start
          (make-instance 'hunchentoot:easy-acceptor :port port
@@ -143,11 +159,11 @@ Close this window or press Control+C to exit the program ...")
       (terminate-application do-sigint-poll))))
 
 (defun terminate-application (&optional sigint-poll)
-  "Stop the web server started by INITIALIZE-APPLICATION, if it exists. When
+  "Stop the web server started by `initialize-application', if it exists. When
 called with a non NIL value for SIGINT-POLL, it will listen for SIGINT and
-  gracefully shut down the web server and exit the lisp process."
+gracefully shut down the web server and exit the lisp process."
   (when sigint-poll
-    ;; warning: hardcoded "hunchentoot".
+    ;; Warning: hardcoded "hunchentoot".
     (handler-case (bordeaux-threads:join-thread
                    (find-if (lambda (th)
                               (search "hunchentoot"
