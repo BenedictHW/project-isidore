@@ -27,7 +27,11 @@
   (:export #:index-css
            #:generate-global-css)
   (:documentation
-   "Generate GLOBAL.CSS from sexp notation. Provide static styling."))
+   "Project Isidore Cascading Styles Sheets.
+
+Generate GLOBAL.CSS from sexp notation. Provide static styling.
+
+See VIEWS.LISP for HTML generation. "))
 
 (in-package #:project-isidore/styles)
 

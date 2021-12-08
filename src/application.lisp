@@ -31,9 +31,15 @@
            #:terminate-application
            #:list-project-isidore-dependencies)
   (:documentation
-   "Starting the Web server for the application is defined by INITIALIZE-APPLICATION.
-  This package also contains URI handler and logic. A rough mapping onto the
-  Model View Controller (MVC) design pattern."))
+   "Project Isidore Web Server and Controller.
+
+Starting the Web server for the application is defined by
+`initialize-application'. This package also contains URI handler and routing
+logic. The Project Isidore application has a rough mapping onto the Model View
+Controller (MVC) design pattern.
+
+`hunchentoot:define-easy-handler' links an uri with a function postfixed with
+'-page'. It is said function which will generate the output HTML. "))
 
 (in-package #:project-isidore/application)
 

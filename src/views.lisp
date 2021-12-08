@@ -38,7 +38,12 @@
    #:unsubscribe-success-page
    #:bible-page)
   (:documentation
-   "Web page views. CSS is generated in STYLES.LISP."))
+   "Project Isidore Web Page View Generation.
+
+Uses the CL-WHO and PARENSCRIPT libraries to generate both HTML and Javascript
+respectively.
+
+CSS is generated in STYLES.LISP."))
 
 (in-package #:project-isidore/views)
 

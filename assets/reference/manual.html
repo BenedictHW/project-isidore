@@ -566,8 +566,8 @@ Previous: <a href="#The-project_002disidore_002fmigration-system" accesskey="p" 
 <dt><strong>Dependencies</strong></dt>
 <dd><ul>
 <li> <tt>postmodern</tt>
-</li><li> <tt>log4cl</tt>
 </li><li> <tt>bknr.datastore</tt>
+</li><li> <tt>log4cl</tt>
 </li></ul>
 </dd>
 <dt><strong>Component</strong></dt>
@@ -673,7 +673,6 @@ Next: <a href="#The-project_002disidore_002fviews_002flisp_2024lisp-file" access
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
 </li></ul>
 </dd>
@@ -684,7 +683,6 @@ Next: <a href="#The-project_002disidore_002fviews_002flisp_2024lisp-file" access
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236DELETE_002dSUBSCRIBER-function"><tt>delete-subscriber</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ROOT-function"><tt>root</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236SUBSCRIBE-function"><tt>subscribe</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236UNSUBSCRIBE-function"><tt>unsubscribe</tt></a> (function)
@@ -890,13 +888,15 @@ Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" r
 <span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.1 <tt>project-isidore/packages</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
 <span id="index-Package_002c-project_002disidore_002fpackages"></span>
-<p>Project Isidore meta package. Export a single package PROJECT-ISIDORE with
-    all the external symbols from all inferred packages. Inferred here is taken
-    to signify the ASDF Package Inferred System.<br>
+<p>Project Isidore Meta Package.<br>
+</p>
+<p>Export a single package PROJECT-ISIDORE with all the external symbols from all
+inferred packages. Inferred here is taken to signify the ASDF Package Inferred
+System.<br>
 </p>
 <p>For the web application entry point, see INITIALIZE-APPLICATION. For a
-    comprehensive index of exported symbols and definitions, see the Reference
-    Manual at /project-isidore/assets/reference/manual.html 
+comprehensive index of exported symbols and definitions, see the Reference
+Manual at /project-isidore/assets/reference/manual.html 
 </p><dl compact="compact">
 <dt><strong>Nickname</strong></dt>
 <dd><p><tt>project-isidore</tt>
@@ -922,9 +922,15 @@ Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="ne
 <span id="project_002disidore_002fapplication-1"></span><h3 class="section">3.2 <tt>project-isidore/application</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"></span><span id="index-project_002disidore_002fapplication-1"></span>
 <span id="index-Package_002c-project_002disidore_002fapplication"></span>
-<p>Starting the Web server for the application is defined by INITIALIZE-APPLICATION.
-  This package also contains URI handler and logic. A rough mapping onto the
-  Model View Controller (MVC) design pattern.
+<p>Project Isidore Web Server and Controller.<br>
+</p>
+<p>Starting the Web server for the application is defined by
+&lsquo;initialize-application&rsquo;. This package also contains URI handler and routing
+logic. The Project Isidore application has a rough mapping onto the Model View
+Controller (MVC) design pattern.<br>
+</p>
+<p>&lsquo;hunchentoot:define-easy-handler&rsquo; links an uri with a function postfixed with
+&rsquo;-page&rsquo;. It is said function which will generate the output HTML. 
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -942,7 +948,6 @@ Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="ne
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
 </li></ul>
 </dd>
@@ -953,7 +958,6 @@ Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="ne
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236DELETE_002dSUBSCRIBER-function"><tt>delete-subscriber</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ROOT-function"><tt>root</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236SUBSCRIBE-function"><tt>subscribe</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236UNSUBSCRIBE-function"><tt>unsubscribe</tt></a> (function)
@@ -972,7 +976,12 @@ Next: <a href="#The-project_002disidore_002fstyles-package" accesskey="n" rel="n
 <span id="project_002disidore_002fviews-1"></span><h3 class="section">3.3 <tt>project-isidore/views</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"></span><span id="index-project_002disidore_002fviews-1"></span>
 <span id="index-Package_002c-project_002disidore_002fviews"></span>
-<p>Web page views. CSS is generated in STYLES.LISP.
+<p>Project Isidore Web Page View Generation.<br>
+</p>
+<p>Uses the CL-WHO and PARENSCRIPT libraries to generate both HTML and Javascript
+respectively.<br>
+</p>
+<p>CSS is generated in STYLES.LISP.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fviews_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -1017,7 +1026,11 @@ Next: <a href="#The-project_002disidore_002fmigration-package" accesskey="n" rel
 <span id="project_002disidore_002fstyles-1"></span><h3 class="section">3.4 <tt>project-isidore/styles</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fSTYLES-package"></span><span id="index-project_002disidore_002fstyles-1"></span>
 <span id="index-Package_002c-project_002disidore_002fstyles"></span>
+<p>Project Isidore Cascading Styles Sheets.<br>
+</p>
 <p>Generate GLOBAL.CSS from sexp notation. Provide static styling.
+</p>
+<p>See VIEWS.LISP for HTML generation. 
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fstyles_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -1054,7 +1067,26 @@ Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="ne
 <span id="project_002disidore_002fmigration-1"></span><h3 class="section">3.5 <tt>project-isidore/migration</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"></span><span id="index-project_002disidore_002fmigration-1"></span>
 <span id="index-Package_002c-project_002disidore_002fmigration"></span>
-<p>Migrate data from .txt org-mode file syntax into instances of Common Lisp Object System objects. Email the maintainer of the project listed under PROJECT-ISIDORE.ASD for the .txt plaintext files in org-mode file syntax. The functions in this file should be run sequentially.
+<p>Data import: Org mode to CLOS objects.<br>
+</p>
+<p>Migrate data from .txt org-mode file syntax into instances of Common Lisp Object
+System objects. The functions in this file should be run sequentially.<br>
+</p>
+<p>Make sure bible.txt can be found at &rsquo;../data/bible.txt&rsquo;.<br>
+Make sure haydock.txt can be found at &rsquo;../data/haydock.txt&rsquo;.<br>
+</p>
+<p>Email the maintainer of the project listed under file PROJECT-ISIDORE.ASD for
+the .txt plaintext files in org-mode file syntax.<br>
+</p>
+<p>Example:<br>
+</p>
+<p>(ql:quickload :project-isidore)<br>
+(in-package :project-isidore/migration)<br>
+(parse-org-bible)<br>
+(parse-org-haydock-commentary)<br>
+</p>
+<p>The links seen on the page https://www.hanshenwang.com/bible?verses=1-1-1-3-3-3
+are generated by &lsquo;encode-list-to-html&rsquo;. 
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmigration_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -1091,7 +1123,25 @@ Previous: <a href="#The-project_002disidore_002fmigration-package" accesskey="p"
 <span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.6 <tt>project-isidore/model</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fMODEL-package"></span><span id="index-project_002disidore_002fmodel-1"></span>
 <span id="index-Package_002c-project_002disidore_002fmodel"></span>
-<p>Database Access Object Schema &amp; basic Create, Read, Update and Delete operations
+<p>Project Isidore Object Schema.<br>
+</p>
+<p>Contains two unrelated schemas, the class &lsquo;mailinglist&rsquo; and the class &lsquo;bible&rsquo;
+with their respective operations.<br>
+</p>
+<p>Note &lsquo;mailinglist&rsquo; is used in the traditional relational database fashion.
+Currently only PostgreSQL client-server architecture is supported by the
+deployment platform Heroku.<br>
+</p>
+<p>Note &lsquo;bible&rsquo; is NOT a database, but an in-memory datastore. It is comparable to
+Redis and Memcache, but most similar to Object Prevalance libraries like the
+Java Prevayler library.<br>
+</p>
+<p>For an indepth explanation on in-memory datastores, see:<br>
+</p>
+<p>Memory-Centric Data Management A Monash Information Services White Paper by Curt
+A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
+</p>
+<p>See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -1200,7 +1250,8 @@ Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions<
 <dl>
 <dt id="index-_002abible_002dbook_002durl_002dalist_002a">Special Variable: <strong>*bible-book-url-alist*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"></span>
-<p>Associative list of bible books with their respective links for easy conversion into HTML links.
+<p>Associative list of bible books with their respective links for easy
+  conversion into HTML links.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1213,7 +1264,8 @@ Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions<
 <dl>
 <dt id="index-_002abible_002dchapter_002durl_002dalist_002a">Special Variable: <strong>*bible-chapter-url-alist*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"></span>
-<p>Associative list of bible chapters with their respective links for easy conversion into HTML links.
+<p>Associative list of bible chapters with their respective links for easy
+  conversion into HTML links.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1290,10 +1342,11 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 <dl>
 <dt id="index-bible_002durl_002dto_002duid">Function: <strong>bible-url-to-uid</strong> <em>BIBLE-URL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"></span><span id="index-Function_002c-bible_002durl_002dto_002duid"></span>
-<p>Accepts a string of six integers and returns a list of 2 integers. The list includes the beginning bible-uid and the ending bible-uid.
+<p>Accepts a string of six integers and returns a list of 2 integers.
+The list includes the beginning bible-uid and the ending bible-uid.
 </p>
 <p>Example:<br>
-   (bible-url-to-uid &quot;24-1-1-26-1-1&quot;) =&gt; (18352 18907) 
+(bible-url-to-uid &quot;24-1-1-26-1-1&quot;) =&gt; (18352 18907) 
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1374,17 +1427,15 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 <dt id="index-get_002dbible_002duid">Function: <strong>get-bible-uid</strong> <em>BOOK CHAPTER VERSE</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dUID-function"></span><span id="index-Function_002c-get_002dbible_002duid"></span>
 <p>Return a unique identifier assigned to each instance of class &lsquo;bible&rsquo;.<br>
- As class &lsquo;bible&rsquo; is of CLOS metaclass &lsquo;bknr.datastore:persistent-class&rsquo;, this<br>
-returns the aforementioned unique identifier as an integer value bound to slot<br>
-ID. BOOK can either be a string or an integer. If the instance does not exist, NIL is returned.
+ As class &lsquo;bible&rsquo; is of CLOS metaclass &lsquo;bknr.datastore:persistent-class&rsquo;, this
+returns the aforementioned unique identifier as an integer value bound to slot
+ID. BOOK can either be a string or an integer. If the instance does not exist,
+NIL is returned.<br>
 </p>
 <p>Example:<br>
 (get-bible-uid &quot;Matthew&quot; 3 6) =&gt; 27916<br>
 (get-bible-uid 47 3 6) =&gt; 27916<br>
-(get-bible-uid 12983 29394 2938498) =&gt; NIL<br>
-</p>
-<p>See also:<br>
-&lsquo;filter-list-by-book&rsquo;
+(get-bible-uid 12983 29394 2938498) =&gt; NIL 
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1449,25 +1500,18 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 <dl>
 <dt id="index-initialize_002dapplication">Function: <strong>initialize-application</strong> <em>&amp;key PORT DISPATCH-FOLDER CMD-USER-INTERFACE</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"></span><span id="index-Function_002c-initialize_002dapplication"></span>
-<p>Start a web server at PORT. Set DATABASE_URL to connect to PostgreSQL
-database. Optional PORT,DISPATCH-FOLDER and CMD-USER-INTERFACE. Takes a PORT
-parameter as Heroku assigns a different PORT per dyno/environment.
-DISPATCH-FOLDER determines from which URL static assets will be served.
-CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
+<p>Start a web server at PORT.<br>
+</p>
+<p>Set DATABASE_URL to connect to PostgreSQL database.<br>
+</p>
+<p>Optional PORT,DISPATCH-FOLDER and CMD-USER-INTERFACE.<br>
+</p>
+<p>Takes a PORT parameter as Heroku assigns a different PORT per dyno/environment.
+</p>
+<p>DISPATCH-FOLDER determines from which URL static assets will be served.<br>
+</p>
+<p>CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
 APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. 
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-list_002dproject_002disidore_002ddependencies">Function: <strong>list-project-isidore-dependencies</strong> <em>()</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"></span><span id="index-Function_002c-list_002dproject_002disidore_002ddependencies"></span>
-<p>Returns a list of all third party libraries needed to load Project Isidore.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
@@ -1480,7 +1524,8 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-mailinglist_002dadd">Function: <strong>mailinglist-add</strong> <em>TITLE NAME EMAIL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dADD-function"></span><span id="index-Function_002c-mailinglist_002dadd"></span>
-<dl compact="compact">
+<p>Creates new entry in the &lsquo;mailinglist&rsquo; table.
+</p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
 </p></dd>
@@ -1492,7 +1537,8 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-mailinglist_002ddelete">Function: <strong>mailinglist-delete</strong> <em>EMAIL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dDELETE-function"></span><span id="index-Function_002c-mailinglist_002ddelete"></span>
-<dl compact="compact">
+<p>Removes entry from the &lsquo;mailinglist&rsquo; table.
+</p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
 </p></dd>
@@ -1504,7 +1550,17 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-make_002dbible_002dchapter_002durl_002dlist">Function: <strong>make-bible-chapter-url-list</strong> <em>BIBLE-URL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"></span><span id="index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"></span>
-<dl compact="compact">
+<p>Selects the right links from &lsquo;*bible-chapter-url-alist*&rsquo; based on the
+BIBLE-URL<br>
+</p>
+<p>Example:<br>
+</p>
+<p>(project-isidore/model:make-bible-chapter-url-list &quot;1-1-1-1-3-1&quot;) =&gt;
+</p>
+<p>((&quot;/bible?verses=1-1-1-1-1-31&quot; . &quot;Genesis 1&quot;)
+ (&quot;/bible?verses=1-2-1-1-2-25&quot; . &quot;Genesis 2&quot;)
+ (&quot;/bible?verses=1-3-1-1-3-24&quot; . &quot;Genesis 3&quot;))
+</p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
 </p></dd>
@@ -1540,9 +1596,9 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-terminate_002dapplication">Function: <strong>terminate-application</strong> <em>&amp;optional SIGINT-POLL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"></span><span id="index-Function_002c-terminate_002dapplication"></span>
-<p>Stop the web server started by INITIALIZE-APPLICATION, if it exists. When
+<p>Stop the web server started by &lsquo;initialize-application&rsquo;, if it exists. When
 called with a non NIL value for SIGINT-POLL, it will listen for SIGINT and
-  gracefully shut down the web server and exit the lisp process.
+gracefully shut down the web server and exit the lisp process.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
@@ -1598,7 +1654,9 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dl>
 <dt id="index-bible">Class: <strong>bible</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"></span><span id="index-Class_002c-bible"></span>
-<p>Each verse of the Bible is created as an instance of class &lsquo;bible&rsquo;, each with appropriate text in it&rsquo;s slot. HAYDOCK-TEXT however, may be unbound.
+<p>Each verse of the Bible is created as an instance of class<br>
+  &lsquo;bible&rsquo;, each with appropriate text in it&rsquo;s slot. HAYDOCK-TEXT however, may be
+  unbound.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1792,8 +1850,8 @@ Next: <a href="#Internal-macros" accesskey="n" rel="next">Internal macros</a>, P
 <dl>
 <dt id="index-_002aacceptor_002a">Special Variable: <strong>*acceptor*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"></span><span id="index-Special-Variable_002c-_002aacceptor_002a"></span>
-<p>To be used in INITIALIZE-APPLICATION to create an
-instance of class HUNCHENTOOT:ACCEPTOR to listen to a PORT
+<p>To be used in &lsquo;initialize-application&rsquo; to create an
+instance of class &lsquo;hunchentoot:acceptor&rsquo; to listen to a PORT
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
@@ -1913,7 +1971,8 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-create_002dbible">Function: <strong>create-bible</strong> <em>INPUT-BOOK INPUT-CHAPTER INPUT-VERSE INPUT-TEXT</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236CREATE_002dBIBLE-function"></span><span id="index-Function_002c-create_002dbible"></span>
-<p>Helper function for class &lsquo;bible&rsquo;. Creates an instance of object &lsquo;bible&rsquo; with the four required parameters. See &lsquo;parse-org-bible&rsquo; for usage.
+<p>Helper function for class &lsquo;bible&rsquo;. Creates an instance of object &lsquo;bible&rsquo; with
+the four required parameters. See &lsquo;parse-org-bible&rsquo; for usage.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
@@ -1962,7 +2021,8 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-encode_002dlist_002dto_002dhtml">Function: <strong>encode-list-to-html</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236ENCODE_002dLIST_002dTO_002dHTML-function"></span><span id="index-Function_002c-encode_002dlist_002dto_002dhtml"></span>
-<p>This will take the list generated by &lsquo;bet-bible-invidiual-chapter-list&rsquo; and return an associative list similar to &lsquo;*bible-book-url-alist*&rsquo;.
+<p>This will take the list generated by &lsquo;bet-bible-invidiual-chapter-list&rsquo; and
+return an associative list similar to &lsquo;*bible-book-url-alist*&rsquo;.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
@@ -1975,10 +2035,11 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-filter_002dlist_002dby_002dbook">Function: <strong>filter-list-by-book</strong> <em>LIST BOOK</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dBOOK-function"></span><span id="index-Function_002c-filter_002dlist_002dby_002dbook"></span>
-<p>Locates within a provided list of bible objects whose slot BOOK matches the argument BOOK. Argument BOOK must be of type string.
+<p>Locates within a provided list of bible objects whose slot BOOK matches the
+argument BOOK. Argument BOOK must be of type string.<br>
 </p>
 <p>Example:<br>
-  (filter-list-by-book (bknr.datastore:store-objects-with-class &rsquo;bible) &quot;Ruth&quot;)
+(filter-list-by-book (bknr.datastore:store-objects-with-class &rsquo;bible) &quot;Ruth&quot;)
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1991,10 +2052,11 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-filter_002dlist_002dby_002dchapter">Function: <strong>filter-list-by-chapter</strong> <em>LIST CHAPTER</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dCHAPTER-function"></span><span id="index-Function_002c-filter_002dlist_002dby_002dchapter"></span>
-<p>Locates within a provided list of bible objects whose slot CHAPTER matches the argument CHAPTER. Argument CHAPTER must be of type integer.
+<p>Locates within a provided list of bible objects whose slot CHAPTER matches
+the argument CHAPTER. Argument CHAPTER must be of type integer.<br>
 </p>
 <p>Example:<br>
-  (filter-list-by-chapter (bknr.datastore:store-objects-with-class &rsquo;bible) 50)
+(filter-list-by-chapter (bknr.datastore:store-objects-with-class &rsquo;bible) 50)
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -2007,10 +2069,11 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-filter_002dlist_002dby_002dverse">Function: <strong>filter-list-by-verse</strong> <em>LIST VERSE</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dVERSE-function"></span><span id="index-Function_002c-filter_002dlist_002dby_002dverse"></span>
-<p>Locates within a provided list of bible objects whose slot VERSE matches the argument VERSE. Argument VERSE must be of type integer.
+<p>Locates within a provided list of bible objects whose slot VERSE matches
+the argument VERSE. Argument VERSE must be of type integer.<br>
 </p>
 <p>Example:<br>
-  (filter-list-by-verse (bknr.datastore:store-objects-with-class &rsquo;bible) 50)
+(filter-list-by-verse (bknr.datastore:store-objects-with-class &rsquo;bible) 50)
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -2023,7 +2086,9 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 <dl>
 <dt id="index-get_002dbible_002dindividual_002dchapter_002dlist">Function: <strong>get-bible-individual-chapter-list</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236GET_002dBIBLE_002dINDIVIDUAL_002dCHAPTER_002dLIST-function"></span><span id="index-Function_002c-get_002dbible_002dindividual_002dchapter_002dlist"></span>
-<p>This iterates through the entire Bible and stores chapters in a list. For example if book 2 chapter 4 and verse 6 is the last verse of the chapter, 2 4 6 would be appended to the returned list.
+<p>This iterates through the entire Bible and stores chapters in a list. For
+example if book 2 chapter 4 and verse 6 is the last verse of the chapter, 2 4 6
+would be appended to the returned list.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
@@ -2034,25 +2099,12 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-package_002ddependencies">Function: <strong>package-dependencies</strong> <em>PKG-NAME</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236PACKAGE_002dDEPENDENCIES-function"></span><span id="index-Function_002c-package_002ddependencies"></span>
-<p>Collect explicit dependencies of an ASDF system.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-parse_002dorg_002dbible">Function: <strong>parse-org-bible</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dBIBLE-function"></span><span id="index-Function_002c-parse_002dorg_002dbible"></span>
-<p>Convert from org-mode syntax text bible to CLOS objects. Make sure bible.txt
-can be found at &rsquo;../data/bible.txt&rsquo;. After import of bible.txt, there should be
-35817 objects (verses) in total. They are indexed by BKNR.Datastore from 0 to
-35816. Verify with (bknr.datastore:store-objects-with-id &rsquo;35816). Or verify
+<p>Convert from org-mode syntax text bible to CLOS objects. After import of
+bible.txt, there should be 35817 objects (verses) in total. They are indexed by
+BKNR.Datastore from 0 to 35816. Verify<br>
+with (bknr.datastore:store-objects-with-id &rsquo;35816). Or verify<br>
 with, (describe (first (nthcdr 35000 #v2:0))) where #v2:0 is a sly
 backreference.
 </p><dl compact="compact">
@@ -2067,9 +2119,8 @@ backreference.
 <dl>
 <dt id="index-parse_002dorg_002dhaydock_002dcommentary">Function: <strong>parse-org-haydock-commentary</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMIGRATION_2236_2236PARSE_002dORG_002dHAYDOCK_002dCOMMENTARY-function"></span><span id="index-Function_002c-parse_002dorg_002dhaydock_002dcommentary"></span>
-<p>Convert from org-mode syntax text bible to CLOS objects. Make sure
-  haydock.txt can be found at &rsquo;../data/haydock.txt&rsquo; Run this function after
-  &lsquo;parse-org-bible&rsquo;.
+<p>Convert from org-mode syntax text bible to CLOS objects.
+Run this function after &lsquo;parse-org-bible&rsquo;.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMIGRATION-package"><tt>project-isidore/migration</tt></a>
@@ -2455,8 +2506,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-I"><b>I</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Function-index_fn_letter-L"><b>L</b></a>
- &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-P"><b>P</b></a>
@@ -2549,11 +2598,9 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-index_002dcss"><code><span class="roman">Function, </span>index-css</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-index_002dpage"><code><span class="roman">Function, </span>index-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-initialize_002dapplication"><code><span class="roman">Function, </span>initialize-application</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-list_002dproject_002disidore_002ddependencies"><code><span class="roman">Function, </span>list-project-isidore-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-mailinglist_002dadd"><code><span class="roman">Function, </span>mailinglist-add</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-mailinglist_002ddelete"><code><span class="roman">Function, </span>mailinglist-delete</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"><code><span class="roman">Function, </span>make-bible-chapter-url-list</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-package_002ddependencies"><code><span class="roman">Function, </span>package-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-parse_002dorg_002dbible"><code><span class="roman">Function, </span>parse-org-bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-parse_002dorg_002dhaydock_002dcommentary"><code><span class="roman">Function, </span>parse-org-haydock-commentary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-root"><code><span class="roman">Function, </span>root</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2598,9 +2645,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-index_002dpage"><code>index-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-initialize_002dapplication"><code>initialize-application</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Function-index_fn_letter-L">L</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-list_002dproject_002disidore_002ddependencies"><code>list-project-isidore-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-M">M</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Macro_002c-web_002dpage_002dtemplate"><code><span class="roman">Macro, </span>web-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-mailinglist_002dadd"><code>mailinglist-add</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -2618,7 +2662,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Method_002c-verse"><code><span class="roman">Method, </span>verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-P">P</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-package_002ddependencies"><code>package-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-parse_002dorg_002dbible"><code>parse-org-bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-parse_002dorg_002dhaydock_002dcommentary"><code>parse-org-haydock-commentary</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -2672,8 +2715,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <a class="summary-letter" href="#Function-index_fn_letter-H"><b>H</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-I"><b>I</b></a>
- &nbsp; 
-<a class="summary-letter" href="#Function-index_fn_letter-L"><b>L</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-M"><b>M</b></a>
  &nbsp; 

@@ -30,11 +30,13 @@
                  #:project-isidore/views
                  #:project-isidore/migration)
   (:documentation
-   "Project Isidore meta package. Export a single package PROJECT-ISIDORE with
-    all the external symbols from all inferred packages. Inferred here is taken
-    to signify the ASDF Package Inferred System.
+   "Project Isidore Meta Package.
 
-    For the web application entry point, see INITIALIZE-APPLICATION. For a
-    comprehensive index of exported symbols and definitions, see the Reference
-    Manual at /project-isidore/assets/reference/manual.html "))
+Export a single package PROJECT-ISIDORE with all the external symbols from all
+inferred packages. Inferred here is taken to signify the ASDF Package Inferred
+System.
+
+For the web application entry point, see INITIALIZE-APPLICATION. For a
+comprehensive index of exported symbols and definitions, see the Reference
+Manual at /project-isidore/assets/reference/manual.html "))
 
