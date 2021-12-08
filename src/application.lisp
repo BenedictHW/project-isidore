@@ -28,8 +28,7 @@
   (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
   (:export #:initialize-application
-           #:terminate-application
-           #:list-project-isidore-dependencies)
+           #:terminate-application)
   (:documentation
    "Project Isidore Web Server and Controller.
 
@@ -174,24 +173,3 @@ called with a non NIL value for SIGINT-POLL, it will listen for SIGINT and
             (format t "Server successfully stopped")))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
-;;; From https://ambrevar.xyz/modern-common-lisp/index.html
-(declaim (ftype (function (string) list) package-dependencies))
-
-(defun package-dependencies (pkg-name)
-  "Collect explicit dependencies of an ASDF system."
-  (let (depends)
-    (labels ((iter (openlist)
-               (if (null openlist) depends
-                   ;; is this a subsystem of foo?
-                   (let ((find (search  pkg-name (first openlist))))
-                     (if (and find (zerop find))
-                         (iter (append (asdf:system-depends-on (asdf:find-system (first openlist))) (rest openlist)))
-                         ;; if not, it's a direct dependency: collect it
-                         (progn
-                           (pushnew (first openlist) depends :test 'equalp)
-                           (iter (rest openlist))))))))
-      (iter (list pkg-name)))))
-
-(defun list-project-isidore-dependencies ()
-  "Returns a list of all third party libraries needed to load Project Isidore."
-  (package-dependencies "project-isidore"))
