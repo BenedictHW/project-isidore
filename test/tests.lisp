@@ -36,9 +36,10 @@
 (parachute:define-test test-app-init-finish
   :description "Check that application starts and exits gracefully."
   :parent master-suite
-  (parachute:finish (progn
-                      (project-isidore:initialize-application)
-                      (project-isidore:terminate-application))))
+  (parachute:skip-on (win32)
+      (parachute:finish (progn
+                          (project-isidore:initialize-application)
+                          (project-isidore:terminate-application)))))
 
 (parachute:define-test does-global-css-exist
   :description "Global.css must exist in project-isidore/assets/global.css"
