@@ -1376,12 +1376,16 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 <p>Return a unique identifier assigned to each instance of class &lsquo;bible&rsquo;.<br>
  As class &lsquo;bible&rsquo; is of CLOS metaclass &lsquo;bknr.datastore:persistent-class&rsquo;, this<br>
 returns the aforementioned unique identifier as an integer value bound to slot<br>
-ID. BOOK can either be a string or an integer. If the instance does not exist, NIL is returned.
+ID. BOOK can either be a string or an integer. If the instance does not exist, NIL is returned.<br>
 </p>
 <p>Example:<br>
-   (get-bible-uid &quot;Matthew&quot; 3 6) =&gt; 27916<br>
-   (get-bible-uid 47 3 6) =&gt; 27916<br>
-   (get-bible-uid 12983 29394 2938498) =&gt; NIL
+(get-bible-uid &quot;Matthew&quot; 3 6) =&gt; 27916<br>
+(get-bible-uid 47 3 6) =&gt; 27916<br>
+(get-bible-uid 12983 29394 2938498) =&gt; NIL<br>
+</p>
+<p>See also:<br>
+FILTER-LIST-BY-BOOK<br>
+&lsquo;filter-list-by-book&rsquo; https://www.hanshenwang.com/reference/manual.html#index-filter_002dlist_002dby_002dbook
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
