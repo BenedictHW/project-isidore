@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/model
+(uiop:define-package #:project-isidore/model
   (:use #:common-lisp)
   ;; PostgreSQL wrapper library.
   (:import-from #:postmodern)

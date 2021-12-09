@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/views
+(uiop:define-package #:project-isidore/views
   (:use #:common-lisp
         #:project-isidore/styles
         #:project-isidore/model)

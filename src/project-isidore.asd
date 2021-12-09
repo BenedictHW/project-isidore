@@ -34,3 +34,5 @@
   :class :package-inferred-system
   :depends-on (:project-isidore/packages)
   :in-order-to ((asdf:test-op (asdf:test-op :project-isidore-test))))
+
+(register-system-packages "project-isidore/packages" '(:project-isidore))

@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/styles
+(uiop:define-package #:project-isidore/styles
   (:use #:common-lisp)
   (:import-from #:cl-css)
   ;; No package local nicknames. See commit 1962a26.

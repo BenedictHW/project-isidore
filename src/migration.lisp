@@ -20,7 +20,7 @@
 ;;; You should have received a copy of the GNU General Public License along with
 ;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
-(defpackage #:project-isidore/migration
+(uiop:define-package #:project-isidore/migration
   (:use #:common-lisp
         #:project-isidore/model)
   (:import-from #:bknr.datastore)

@@ -20,11 +20,11 @@
 ;;; You should have received a copy of the GNU General Public License
 ;;; along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
 
-(uiop/package:define-package #:project-isidore/packages
-    (:nicknames #:project-isidore)
+(uiop:define-package #:project-isidore/packages
+  (:nicknames #:project-isidore)
+  (:use #:common-lisp)
   ;; No package local nicknames. See commit 1962a26.
-  (:use-reexport #:common-lisp
-                 #:project-isidore/application
+  (:use-reexport #:project-isidore/application
                  #:project-isidore/model
                  #:project-isidore/styles
                  #:project-isidore/views
@@ -40,6 +40,8 @@ System.
 For the web application entry point, see INITIALIZE-APPLICATION. For a
 comprehensive index of exported symbols and definitions, see the Reference
 Manual at /project-isidore/assets/reference/manual.html "))
+
+(in-package #:project-isidore/packages)
 
 ;;; It is idiomatic lisp to specify loading order and dependencies manually in
 ;;; package(s).lisp. Project Isidore system eschews this idiom in favour of
@@ -57,10 +59,10 @@ Manual at /project-isidore/assets/reference/manual.html "))
                    (let ((find (search  pkg-name (first openlist))))
                      (if (and find (zerop find))
                          (iter
-                          (append
-                           (asdf:system-depends-on
-                            (asdf:find-system
-                             (first openlist))) (rest openlist)))
+                           (append
+                            (asdf:system-depends-on
+                             (asdf:find-system
+                              (first openlist))) (rest openlist)))
                          ;; if not, it's a direct dependency: collect it
                          (progn
                            (pushnew (first openlist) depends :test 'equalp)
