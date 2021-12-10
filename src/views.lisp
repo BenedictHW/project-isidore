@@ -43,7 +43,17 @@
 Uses the CL-WHO and PARENSCRIPT libraries to generate both HTML and Javascript
 respectively.
 
-CSS is generated in STYLES.LISP."))
+CSS is generated in STYLES.LISP.
+
+When developing with both the =view= and =style= files, it is useful to view the
+generated HTML, CSS or JS. However SLIME or SLY will cut off long streams in the
+REPL and insert =[sly-elided string of length x]=. To disable this behavior,
+
+#+begin_src lisp
+  ;; https://github.com/joaotavora/sly/issues/334
+  ;; Consider putting this in your .sbclrc or lisp configuration file.
+  (setf (cdr (assoc 'slynk:*string-elision-length* slynk:*slynk-pprint-bindings*)) nil)
+#+end_src "))
 
 (in-package #:project-isidore/views)
 

@@ -34,11 +34,28 @@
 
 Starting the Web server for the application is defined by
 `initialize-application'. This package also contains URI handler and routing
-logic. The Project Isidore application has a rough mapping onto the Model View
+logic. The Project Isidore web interface has a rough mapping onto the Model View
 Controller (MVC) design pattern.
 
 `hunchentoot:define-easy-handler' links an uri with a function postfixed with
-'-page'. It is said function which will generate the output HTML. "))
+'-page'. It is said function which will generate the output HTML.
+
+In increasing order of complexity:
+
+1. Serve static assets.
+
+See the `hunchentoot:create-folder-dispatcher-and-handler' form in
+`initialize-application'.
+
+2. Serve dynamically generated HTML
+
+See `index-page' (inline CSS + JS example), `about-page', `work-page' and
+`contact-page'.
+
+3. Serve dynamically generated HTML from persistent CLOS object state.
+
+Persistent CLOS object state equals our datastore in this use case. Start with
+`bible-page'. "))
 
 (in-package #:project-isidore/application)
 
