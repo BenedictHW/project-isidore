@@ -337,11 +337,7 @@ Example:
     ;; to generate persistent chapter links.
     ;; Special case: last book of the bible.
     (cond ((equalp 73 (parse-integer (first (cl-ppcre:split "-" bible-url))))
-           (set-difference
-            (nthcdr beginning-uid
-                    *bible-chapter-url-alist*)
-            ;; HACK KLUDGE FIXME
-            (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*)))
+           (nthcdr 1312 *bible-chapter-url-alist*))
           ;; Special case: books with one chapter.
           ((or (equalp 36 (parse-integer
                            (first (cl-ppcre:split "-" bible-url))))
