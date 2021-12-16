@@ -24,11 +24,11 @@
   (:nicknames #:project-isidore)
   (:use #:common-lisp)
   ;; No package local nicknames. See commit 1962a26.
+  ;; migration.lisp is excluded to remove runtime dependency on cl-org-mode.
   (:use-reexport #:project-isidore/application
                  #:project-isidore/model
                  #:project-isidore/styles
-                 #:project-isidore/views
-                 #:project-isidore/migration)
+                 #:project-isidore/views)
   (:export #:list-project-isidore-dependencies)
   (:documentation
    "Project Isidore Meta Package.
