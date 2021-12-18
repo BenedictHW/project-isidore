@@ -19,10 +19,19 @@ The [[https://www.quicklisp.org/beta/][Quicklisp]] library manager to download s
 
 *Optionally,* a local installation of [[https://www.postgresql.org/][PostgreSQL.]]
 
-1. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) buffer with =M-x sly=. Depending
+1. Clone the repository
+
+   #+begin_src bash
+   cd ~/quicklisp/local-projects
+   git clone https://github.com/HanshenWang/project-isidore.git
+   #+end_src
+
+2. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) buffer with =M-x sly=. Depending
    on the current working directory, =M-x sly-mrepl-set-directory= to Project
    Isidore root directory may be needed. [[https://lispcookbook.github.io/cl-cookbook/editor-support.html#vscode][Non-Emacs Common Lisp IDE options.]]
-2. Load Project Isidore & start local development server.
+
+3. Load Project Isidore & start local development server.
+
    #+begin_src lisp
      (ql:quickload :project-isidore)
      (in-package :project-isidore) ; switch to package namespace
