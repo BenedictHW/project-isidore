@@ -63,6 +63,14 @@ jobs:
         sudo apt install sbcl
         sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
+    # If Packages.lisp changes, the cache will be invalidated.
+    # Github policy also invalidates caches not accessed in 7 days.
+    - name: Cache Quicklisp Libraries
+      uses: actions/cache@v2
+      with:
+        path: ${{ Env.CACHE_DIR }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
+
     - name: Build Project Isidore
       run: sbcl --load $BUILDPACK_DIR/make.lisp
 
@@ -97,6 +105,14 @@ jobs:
       run: |
         brew install sbcl
         sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
+
+    # If Packages.lisp changes, the cache will be invalidated.
+    # Github policy also invalidates caches not accessed in 7 days.
+    - name: Cache Quicklisp Libraries
+      uses: actions/cache@v2
+      with:
+        path: ${{ Env.CACHE_DIR }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
       run: sbcl --load $BUILDPACK_DIR/make.lisp
@@ -152,6 +168,14 @@ jobs:
         Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
         mkdir "${{ Env.BUILDPACK_DIR }}lib\";
         Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILDPACK_DIR }}lib\quicklisp.lisp";
+
+    # If Packages.lisp changes, the cache will be invalidated.
+    # Github policy also invalidates caches not accessed in 7 days.
+    - name: Cache Quicklisp Libraries
+      uses: actions/cache@v2
+      with:
+        path: ${{ Env.CACHE_DIR }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
       shell: pwsh
