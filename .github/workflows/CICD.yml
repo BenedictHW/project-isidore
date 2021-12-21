@@ -48,7 +48,8 @@ jobs:
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-    - uses: actions/checkout@v2
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
 
     - name: Setup GNU/Linux Environment
       run: |
@@ -91,7 +92,8 @@ jobs:
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-    - uses: actions/checkout@v2
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
 
     - name: Setup MacOS Environment
       run: |
@@ -155,7 +157,8 @@ jobs:
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-    - uses: actions/checkout@v2
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
 
     # No convenient apt or brew package managers.
     # Download and unzip binary from official SBCL repository.
@@ -209,7 +212,8 @@ jobs:
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-    - uses: actions/checkout@v2
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
       with:
         fetch-depth: '0'
 
