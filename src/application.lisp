@@ -1,24 +1,21 @@
 ;;;; application.lisp
 ;;;
-;;; Copyright (c) 2021 Hanshen Wang.
-;;;
-;;; Author: Hanshen Wang <Hanshen@HanshenWang.com>
-;;; URL: https://github.com/HanshenWang/project-isidore
+;;; Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 ;;;
 ;;; This file is part of Project Isidore.
 ;;;
 ;;; Project Isidore is free software: you can redistribute it and/or modify it
-;;; under the terms of the GNU Lesser General Public License as published by the Free
-;;; Software Foundation, either version 3 of the License, or (at your option)
-;;; any later version.
+;;; under the terms of the GNU Affero General Public License as published by the
+;;; Free Software Foundation, either version 3 of the License, or (at your
+;;; option) any later version.
 ;;;
 ;;; Project Isidore is distributed in the hope that it will be useful, but
 ;;; WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
-;;; more details.
+;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+;;; License for more details.
 ;;;
-;;; You should have received a copy of the GNU Lesser General Public License along with
-;;; Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+;;; You should have received a copy of the GNU Affero General Public License
+;;; along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
 
 (defpackage #:project-isidore/application
   (:use #:common-lisp
@@ -134,10 +131,10 @@ Project Isidore v1.1.0 (A.D. 2021-10-20)
 Copyright 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 
 Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO
-WARRANTY. This program is licensed under the GNU LESSER GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007 You are welcome to redistribute the program or any parts
-hereof under certain conditions. Please visit
-https://www.gnu.org/licenses/lgpl-3.0.en.html for License details.
+WARRANTY. This program is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
+Version 3, 19 November 2007 You are welcome to redistribute the program or any
+parts hereof under certain conditions. Please visit
+https://www.gnu.org/licenses/agpl-3.0.html for License details.
 
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 ")

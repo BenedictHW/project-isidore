@@ -6,8 +6,8 @@
 The third iteration of my personal website. It was quite fun building this with
 Common Lisp. Happy Hacking!
 
-Copyright (c) 2021 Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/lgpl-3.0.en.html][GNU-LGPL-3.0 License]].
-Blog content is available under [[https://creativecommons.org/licenses/by-sa/4.0/legalcode][CC-BY-SA 4.0 License]] unless otherwise noted.
+Copyright (c) 2021 Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/agpl-3.0-standalone.html][GNU-AGPL-3.0 License]].
+Blog content is available under the [[https://creativecommons.org/licenses/by-sa/4.0/legalcode][CC-BY-SA 4.0 License]] unless otherwise noted.
 
 ** Development Quick Start
 
