@@ -1,30 +1,14 @@
-# Continous Integration and Delivery.yml
-#
-# Copyright (c) 2021 Hanshen Wang.
-#
-# Author: Hanshen Wang <Hanshen@HanshenWang.com>
-# URL: https://github.com/HanshenWang/project-isidore
-#
-# This file is part of Project Isidore.
-#
-# Project Isidore is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Project Isidore is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Project Isidore.  If not, see <https://www.gnu.org/licenses/>.
+##########################################
+# Continous Integration and Delivery.yml #
+##########################################
+
+# Continous Integration and Continous Delivery are combined. This is done in the
+# file ../../bin/make.lisp where the seperate system 'project-isidore-test' is
+# loaded and 'asdf:test-system' is ran prior to building the application as a
+# standalone binary. This does mean both 'project-isidore' and
+# 'project-isidore-test' are loaded into the lisp image.
 
 name: CICD
-# Continous Integration and Continous Delivery are combined. This is done
-# in the file project-root/bin/make.lisp where the seperate system
-# 'project-isidore-test' is loaded and 'asdf:test-system' is ran prior
-# to building the application as a standalone binary.
 
 # Controls when the action will run. Triggers the workflow upon push or pull
 # request to 'master branch' OR Trigger workflow manually through
@@ -225,7 +209,7 @@ jobs:
     # Downloads all executable artifacts in it's own folder to the current working directory
       uses: actions/download-artifact@v2
 
-    # Convert Declt generated .texi to .pdf and .info and upload as well?
+    # TODO: Convert Declt generated .texi to .pdf and .info and upload as well?
     - name: Format Release Notes
       shell: bash
       run: |
