@@ -92,11 +92,13 @@
 
 (defun application-toplevel ()
   "Application entry point. Emulate a \"main\" function. Used in
-  SAVE-LISP-AND-DIE to save Application as a Lisp image."
-  ;; Set PORT for local builds or it will return NIL
-  (when (equalp *production-buildp* nil) (setf (uiop:getenv "PORT") "8080"))
+  SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
+  argument that defaults to 8080. Heroku dynamically sets the PORT variable to
+  be binded."
   (project-isidore:initialize-application
-   :port (parse-integer (uiop:getenv "PORT"))
+   :port (if (equalp NIL (uiop:getenv "PORT"))
+             8080
+             (parse-integer (uiop:getenv "PORT")))
    :dispatch-folder "assets/"
    :cmd-user-interface t)
   (loop (sleep 600))) ; sleep forever
