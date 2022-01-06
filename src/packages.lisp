@@ -26,6 +26,7 @@ along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
                  #:project-isidore/model
                  #:project-isidore/views
                  #:project-isidore/styles
+                 #:project-isidore/migration
                  #:project-isidore/views)
   (:export #:list-project-isidore-dependencies)
   (:documentation

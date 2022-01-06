@@ -133,20 +133,15 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
                    (list object-subsystem))))
 
 (defclass bible (bknr.datastore:store-object)
-  ((book :initarg :book :reader book-of
-         :type string
-         :documentation
-         "Title of the object instance. Ex. \"Genesis\" ")
-
-   (chapter :initarg :chapter :reader chapter-of
-            :type integer
-            :documentation
-            "Chapter of the object instance relative to `book-of'.")
-
-   (verse :initarg :verse :reader verse-of
-          :type string
+  ((verse :initarg :verse :reader verse-of
+          :type cons
+          :index-type bknr.datastore::unique-index
+          :index-initargs (:test #'equal)
+          :index-reader bible-with-verse
+          :index-values whole-bible-list
           :documentation
-          "Verse of the object instance relative to `chapter-of'")
+          "The reference verse includes the book, chapter and line number.
+Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
 
    (text :initarg :text :reader text-of
          :type string
@@ -163,69 +158,34 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
   unbound."))
 
-(defun filter-list-by-book (list book)
-  "Locates within a provided list of bible objects whose slot BOOK matches the
-argument BOOK. Argument BOOK must be of type string.
-
-Example:
-(filter-list-by-book (bknr.datastore:store-objects-with-class 'bible) \"Ruth\")"
-
-  (remove-if-not (lambda (x)
-                   (string-equal book (book-of x)))
-                 list))
-
-(defun filter-list-by-chapter (list chapter)
-  "Locates within a provided list of bible objects whose slot CHAPTER matches
-the argument CHAPTER. Argument CHAPTER must be of type integer.
-
-Example:
-(filter-list-by-chapter (bknr.datastore:store-objects-with-class 'bible) 50)"
-
-  (remove-if-not (lambda (x)
-                   (= chapter (chapter-of x)))
-                 list))
-
-(defun filter-list-by-verse (list verse)
-  "Locates within a provided list of bible objects whose slot VERSE matches
-the argument VERSE. Argument VERSE must be of type integer.
-
-Example:
-(filter-list-by-verse (bknr.datastore:store-objects-with-class 'bible) 50)"
-
-  (remove-if-not (lambda (x)
-                   (= verse (verse-of x)))
-                 list))
-
 (defun get-bible-uid (book chapter verse)
-  "Return a unique identifier assigned to each instance of class `bible'.
- As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
-returns the aforementioned unique identifier as an integer value bound to slot
-ID. BOOK can either be a string or an integer. If the instance does not exist,
-NIL is returned.
+    "Return a unique identifier assigned to each instance of class `bible'.
+   As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
+  returns the aforementioned unique identifier as an integer value bound to slot
+  ID. BOOK can either be a string or an integer. If the instance does not exist,
+  NIL is returned.
 
-Example:
-(get-bible-uid \"Matthew\" 3 6) => 27916
-(get-bible-uid 47 3 6) => 27916
-(get-bible-uid 12983 29394 2938498) => NIL "
-  (when (slot-exists-p (car
-                     (filter-list-by-verse
-                      (filter-list-by-chapter
-                       (filter-list-by-book
-                        (bknr.datastore:store-objects-with-class 'bible)
-                        (if (integerp book)
-                            (bible-book-convert-dwim book)
-                            book))
-                       chapter) verse)) 'bknr.datastore::id)
-    (slot-value
-     (car
-      (filter-list-by-verse
-       (filter-list-by-chapter
-        (filter-list-by-book
-         (bknr.datastore:store-objects-with-class 'bible)
-         (if (integerp book)
-             (bible-book-convert-dwim book)
-             book))
-        chapter) verse)) 'bknr.datastore::id)))
+  Example:
+  (get-bible-uid \"Matthew\" 3 6) => 27916
+  (get-bible-uid 47 3 6) => 27916
+  (get-bible-uid 12983 29394 2938498) => NIL
+
+  Side Effects:
+  BOOK will be converted from a string to an integer, if applicable. "
+  (unless (integerp book)
+    (setf book (bible-book-convert-dwim book)))
+  ;; KLUDGE I assume there is an out of bounds/off by one error in
+  ;; BKNR.DATASTORE's :index-reader function. Hence a special case for the last ID.
+  (if (and (= book 73)
+           (= chapter 22)
+           (= verse 21))
+      35816
+      (slot-value (bible-with-verse
+                   (list
+                    (cons 'PROJECT-ISIDORE/MODEL::BOOK book)
+                    (cons 'PROJECT-ISIDORE/MODEL::CHAPTER chapter)
+                    (cons 'PROJECT-ISIDORE/MODEL::VERSE verse)))
+                  'bknr.datastore::id)))
 
 (defun bible-book-convert-dwim (bible-book)
   "Given a Bible book string name or integer, convert to the opposite format.
@@ -257,9 +217,9 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
   (concatenate
    'string
-   (book-of (bknr.datastore:store-object-with-id bible-uid)) " "
-   (write-to-string (chapter-of (bknr.datastore:store-object-with-id bible-uid))) ":"
-   (write-to-string (verse-of (bknr.datastore:store-object-with-id bible-uid)))))
+   (bible-book-convert-dwim(cdar (verse-of (bknr.datastore:store-object-with-id bible-uid)))) " "
+   (write-to-string (cdadr (verse-of (bknr.datastore:store-object-with-id bible-uid)))) ":"
+   (write-to-string (cdaddr (verse-of (bknr.datastore:store-object-with-id bible-uid))))))
 
 (defun get-haydock-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
@@ -303,32 +263,28 @@ Example:
  (\"/bible?verses=1-3-1-1-3-24\" . \"Genesis 3\"))"
   (let* ((beginning-uid
           (position (rassoc (concatenate 'string
-                                         (slot-value
-                                          (bknr.datastore:store-object-with-id
-                                           (car (bible-url-to-uid bible-url)))
-                                          'book)
+                                         (bible-book-convert-dwim
+                                          (cdar
+                                           (verse-of (bknr.datastore:store-object-with-id
+                                                      (car (bible-url-to-uid bible-url))))))
                                          " "
                                          (write-to-string
-                                          (slot-value
-                                           (bknr.datastore:store-object-with-id
-                                            (car (bible-url-to-uid bible-url)))
-                                           'chapter)))
+                                          (cdadr
+                                           (verse-of (bknr.datastore:store-object-with-id
+                                                      (car (bible-url-to-uid bible-url)))))))
                             *bible-chapter-url-alist* :test #'string-equal)
                     *bible-chapter-url-alist*))
         (ending-uid
           (position (rassoc (concatenate 'string
-                                         (slot-value
-                                          (bknr.datastore:store-object-with-id
-                                           (car (cdr
-                                                 (bible-url-to-uid bible-url))))
-                                          'book)
+                                         (bible-book-convert-dwim
+                                          (cdar
+                                           (verse-of (bknr.datastore:store-object-with-id
+                                                      (cadr (bible-url-to-uid bible-url))))))
                                          " "
                                          (write-to-string
-                                          (slot-value
-                                           (bknr.datastore:store-object-with-id
-                                            (car (cdr
-                                                  (bible-url-to-uid bible-url))))
-                                           'chapter)))
+                                          (cdadr
+                                           (verse-of (bknr.datastore:store-object-with-id
+                                                      (cadr (bible-url-to-uid bible-url)))))))
                             *bible-chapter-url-alist* :test #'string-equal)
                     *bible-chapter-url-alist*)))
     ;; If in chapter view, resubmit book url to this function

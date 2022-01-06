@@ -52,13 +52,11 @@ https://github.com/deepfire/cl-org-mode/pull/4 "))
 
 (in-package #:project-isidore/migration)
 
-(defun create-bible (input-book input-chapter input-verse input-text)
+(defun create-bible (verse text)
   "Helper function for class `bible'. Creates an instance of object `bible' with
-the four required parameters. See `parse-org-bible' for usage."
-  (make-instance 'bible :book input-book
-                        :chapter input-chapter
-                        :verse input-verse
-                        :text input-text))
+the required parameters. See `parse-org-bible' for usage."
+  (make-instance 'bible :verse verse
+                        :text text))
 
 (defun parse-org-bible ()
   "Convert from org-mode syntax text bible to CLOS objects. After import of
@@ -75,7 +73,8 @@ backreference."
          (current-book nil)
          (current-chapter nil)
          (current-verse nil)
-         (current-text nil))
+         (current-text nil)
+         (current-verse-alist nil))
   (dotimes (i 73039) ; Equal to the number of lines in org file.
     ;; If a heading slot exists in the current-node.
     (if (slot-exists-p current-node 'cl-org-mode::heading)
@@ -121,8 +120,14 @@ backreference."
     (if (slot-exists-p current-node 'cl-org-mode::text)
         (progn
           (setf current-text (slot-value current-node 'cl-org-mode::text))
+          (setf current-verse-alist (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK
+                                                         PROJECT-ISIDORE/MODEL::CHAPTER
+                                                         PROJECT-ISIDORE/MODEL::VERSE)
+                                                       (list (bible-book-convert-dwim current-book)
+                                                             current-chapter
+                                                             current-verse))))
           (create-bible
-           current-book current-chapter current-verse current-text)))
+           current-verse-alist current-text)))
     ;; Increment the current-node and the next node.
     (setf current-node next-node)
     (setf next-node (cl-org-mode::node.next-node current-node))
@@ -132,7 +137,9 @@ backreference."
     (when (= 73038 i)
     ;; The newline is there intentionally,
     ;; to keep conformity with the rest of the verses.
-    (create-bible "Revelation of John" 22 21 "The grace of our Lord Jesus Christ be with you all. Amen.
+      (create-bible
+       (nreverse (pairlis '(book chapter verse) (list (bible-book-convert-dwim "Revelation of John") 22 21)))
+       "The grace of our Lord Jesus Christ be with you all. Amen.
     ")))))
 
 ;; Anytime objects from the datastore are modified, they ought to be wrapped
@@ -187,7 +194,7 @@ Run this function after `parse-org-bible'."
         (progn
           (setf current-text (slot-value current-node 'cl-org-mode::text))
           (create-haydock-commentary (get-bible-uid
-                                      current-book
+                                      (bible-book-convert-dwim current-book)
                                       current-chapter
                                       current-verse) current-text)))
     ;; (setf *line-counter* (incf *line-counter*))
