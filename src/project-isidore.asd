@@ -1,22 +1,5 @@
-#| project-isidore.asd
-
-Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
-
-This file is part of Project Isidore.
-
-Project Isidore is free software: you can redistribute it and/or modify it
-under the terms of the GNU Affero General Public License as published by the
-Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.
-
-Project Isidore is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
-License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
-|#
+;;;; SPDX-FileCopyrightText: 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 #-asdf3.1 (error "Project Isidore requires ASDF 3.1 or later. Please upgrade your ASDF.")
 
@@ -25,7 +8,7 @@ along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
   :version "1.1.0"
   :author "Hanshen Wang <hanshen@hanshenwang.com>"
   :description "Personal Web Application"
-  :license  "GNU Affero General Public License 3.0"
+  :license  "GNU Affero General Public License 3.0 or later"
   :homepage "https://www.hanshenwang.com/blog/project-isidore-doc.html"
   :bug-tracker "https://github.com/HanshenWang/project-isidore/issues"
   :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
