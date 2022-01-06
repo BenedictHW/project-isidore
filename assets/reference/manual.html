@@ -540,7 +540,6 @@ Previous: <a href="#The-project_002disidore_002fstyles-system" accesskey="p" rel
 <dd><ul>
 <li> <tt>postmodern</tt>
 </li><li> <tt>bknr.datastore</tt>
-</li><li> <tt>montezuma</tt>
 </li><li> <tt>log4cl</tt>
 </li></ul>
 </dd>
@@ -1105,12 +1104,10 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dWITH_002dBOOK-function"><tt>bible-with-book</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK_002dOF-generic-function"><tt>book-of</tt></a> (generic function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>book-of</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CHAPTER_002dOF-generic-function"><tt>chapter-of</tt></a> (generic function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CHAPTER_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>chapter-of</tt></a> (method)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ENTIRE_002dBIBLE-function"><tt>entire-bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dBOOK-function"><tt>filter-list-by-book</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dCHAPTER-function"><tt>filter-list-by-chapter</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FILTER_002dLIST_002dBY_002dVERSE-function"><tt>filter-list-by-verse</tt></a> (function)
@@ -1256,7 +1253,8 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 <dl>
 <dt id="index-bible_002dpage">Function: <strong>bible-page</strong> <em>BIBLE-URL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE-function"></span><span id="index-Function_002c-bible_002dpage"></span>
-<p>127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL &quot;1-2-3-4-5-6&quot; is a string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse.
+<p>127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL &quot;1-2-3-4-5-6&quot; is a
+  string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse.
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
@@ -1629,8 +1627,11 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dd><dl>
 <dt id="index-book">Slot: <strong>book</strong></dt>
 <dd><span id="index-Slot_002c-book"></span>
-<p>Title of the object instance. Type is equal to string. Ex. &quot;Genesis&quot; 
+<p>Title of the object instance. Ex. &quot;Genesis&quot; 
 </p><dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>string</tt>
+</p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:book</tt>
 </p></dd>
@@ -1642,8 +1643,11 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dl>
 <dt id="index-chapter">Slot: <strong>chapter</strong></dt>
 <dd><span id="index-Slot_002c-chapter"></span>
-<p>Chapter of the object instance relative to &lsquo;book-of&rsquo;. Type is equal to integer.
+<p>Chapter of the object instance relative to &lsquo;book-of&rsquo;.
 </p><dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>integer</tt>
+</p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:chapter</tt>
 </p></dd>
@@ -1655,8 +1659,11 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dl>
 <dt id="index-verse">Slot: <strong>verse</strong></dt>
 <dd><span id="index-Slot_002c-verse"></span>
-<p>Verse of the object instance relative to &lsquo;chapter-of&rsquo;. Type is equal to integer.
+<p>Verse of the object instance relative to &lsquo;chapter-of&rsquo;.
 </p><dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>integer</tt>
+</p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:verse</tt>
 </p></dd>
@@ -1668,8 +1675,11 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dl>
 <dt id="index-text">Slot: <strong>text</strong></dt>
 <dd><span id="index-Slot_002c-text"></span>
-<p>Text of the object instance. Type is equal to string.
+<p>Text of the object instance.
 </p><dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>string</tt>
+</p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:text</tt>
 </p></dd>
@@ -1681,8 +1691,11 @@ Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functi
 <dl>
 <dt id="index-haydock_002dtext">Slot: <strong>haydock-text</strong></dt>
 <dd><span id="index-Slot_002c-haydock_002dtext"></span>
-<p>Haydock text of the object instance. Type is equal to string.
+<p>Haydock text of the object instance.
 </p><dl compact="compact">
+<dt><strong>Type</strong></dt>
+<dd><p><tt>string</tt>
+</p></dd>
 <dt><strong>Initargs</strong></dt>
 <dd><p><tt>:haydock-text</tt>
 </p></dd>
@@ -1898,18 +1911,6 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dwith_002dbook">Function: <strong>bible-with-book</strong> <em>KEY</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dWITH_002dBOOK-function"></span><span id="index-Function_002c-bible_002dwith_002dbook"></span>
-<dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><tt>/home/hanshen/project-isidore/doc/generate-doc.lisp</tt>
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-contact">Function: <strong>contact</strong> <em>&amp;key</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"></span><span id="index-Function_002c-contact"></span>
 <dl compact="compact">
@@ -1942,18 +1943,6 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-entire_002dbible">Function: <strong>entire-bible</strong> <em>()</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ENTIRE_002dBIBLE-function"></span><span id="index-Function_002c-entire_002dbible"></span>
-<dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><tt>/home/hanshen/project-isidore/doc/generate-doc.lisp</tt>
 </p></dd>
 </dl>
 </dd></dl>
@@ -2099,7 +2088,7 @@ Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functi
 <dd><dl>
 <dt id="index-book_002dof-1">Method: <strong>book-of</strong> <em>(BIBLE <tt>bible</tt>)</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BOOK_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"></span><span id="index-Method_002c-book_002dof"></span>
-<p>Title of the object instance. Type is equal to string. Ex. &quot;Genesis&quot; 
+<p>Title of the object instance. Ex. &quot;Genesis&quot; 
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -2120,7 +2109,7 @@ Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functi
 <dd><dl>
 <dt id="index-chapter_002dof-1">Method: <strong>chapter-of</strong> <em>(BIBLE <tt>bible</tt>)</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CHAPTER_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"></span><span id="index-Method_002c-chapter_002dof"></span>
-<p>Chapter of the object instance relative to &lsquo;book-of&rsquo;. Type is equal to integer.
+<p>Chapter of the object instance relative to &lsquo;book-of&rsquo;.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -2205,7 +2194,7 @@ Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functi
 <dd><dl>
 <dt id="index-haydock_002dtext_002dof-1">Method: <strong>haydock-text-of</strong> <em>(BIBLE <tt>bible</tt>)</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236HAYDOCK_002dTEXT_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"></span><span id="index-Method_002c-haydock_002dtext_002dof"></span>
-<p>Haydock text of the object instance. Type is equal to string.
+<p>Haydock text of the object instance.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -2252,7 +2241,7 @@ Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functi
 <dd><dl>
 <dt id="index-text_002dof-1">Method: <strong>text-of</strong> <em>(BIBLE <tt>bible</tt>)</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236TEXT_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"></span><span id="index-Method_002c-text_002dof"></span>
-<p>Text of the object instance. Type is equal to string.
+<p>Text of the object instance.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -2273,7 +2262,7 @@ Previous: <a href="#Internal-functions" accesskey="p" rel="prev">Internal functi
 <dd><dl>
 <dt id="index-verse_002dof-1">Method: <strong>verse-of</strong> <em>(BIBLE <tt>bible</tt>)</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236VERSE_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"></span><span id="index-Method_002c-verse_002dof"></span>
-<p>Verse of the object instance relative to &lsquo;chapter-of&rsquo;. Type is equal to integer.
+<p>Verse of the object instance relative to &lsquo;chapter-of&rsquo;.
 </p><dl compact="compact">
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
@@ -2372,8 +2361,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
  &nbsp; 
-<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
- &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-G"><b>G</b></a>
@@ -2418,7 +2405,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-bible_002dbook_002dconvert_002ddwim"><code>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dpage"><code>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002durl_002dto_002duid"><code>bible-url-to-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bible_002dwith_002dbook"><code>bible-with-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-book_002dof"><code>book-of</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-book_002dof-1"><code>book-of</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -2433,9 +2419,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><th id="Function-index_fn_letter-D">D</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-db_002dparams"><code>db-params</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-delete_002dsubscriber"><code>delete-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td colspan="4"> <hr></td></tr>
-<tr><th id="Function-index_fn_letter-E">E</th><td></td><td></td></tr>
-<tr><td></td><td valign="top"><a href="#index-entire_002dbible"><code>entire-bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-F">F</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-filter_002dlist_002dby_002dbook"><code>filter-list-by-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2454,14 +2437,12 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dbook_002dconvert_002ddwim"><code><span class="roman">Function, </span>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dpage"><code><span class="roman">Function, </span>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002durl_002dto_002duid"><code><span class="roman">Function, </span>bible-url-to-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dwith_002dbook"><code><span class="roman">Function, </span>bible-with-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-contact"><code><span class="roman">Function, </span>contact</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-contact_002dpage"><code><span class="roman">Function, </span>contact-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-create_002ddatastore"><code><span class="roman">Function, </span>create-datastore</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-create_002dsubscriber"><code><span class="roman">Function, </span>create-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-db_002dparams"><code><span class="roman">Function, </span>db-params</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-delete_002dsubscriber"><code><span class="roman">Function, </span>delete-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-entire_002dbible"><code><span class="roman">Function, </span>entire-bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dbook"><code><span class="roman">Function, </span>filter-list-by-book</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dchapter"><code><span class="roman">Function, </span>filter-list-by-chapter</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-filter_002dlist_002dby_002dverse"><code><span class="roman">Function, </span>filter-list-by-verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2579,8 +2560,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <a class="summary-letter" href="#Function-index_fn_letter-C"><b>C</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-D"><b>D</b></a>
- &nbsp; 
-<a class="summary-letter" href="#Function-index_fn_letter-E"><b>E</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Function-index_fn_letter-F"><b>F</b></a>
  &nbsp; 

@@ -24,6 +24,7 @@ along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
   ;; No package local nicknames. See commit 1962a26.
   (:use-reexport #:project-isidore/application
                  #:project-isidore/model
+                 #:project-isidore/views
                  #:project-isidore/styles
                  #:project-isidore/views)
   (:export #:list-project-isidore-dependencies)
