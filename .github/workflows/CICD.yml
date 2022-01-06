@@ -40,7 +40,7 @@ jobs:
         echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
         echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2021-10-21" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -83,7 +83,7 @@ jobs:
         echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
         echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2021-10-21" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -133,8 +133,8 @@ jobs:
         echo "BUILDPACK_DIR=${{ github.workspace }}\bin\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "QL_DIST_VER=2021-10-21" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "CL_IMPL_VER=2.1.11" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2021-12-30" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CL_IMPL_VER=2.2.0" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS

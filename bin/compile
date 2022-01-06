@@ -43,8 +43,8 @@ CACHE_DIR=$2
 ENV_DIR=$3
 CL_DIR="$CACHE_DIR/sbcl"
 CL_IMPL="sbcl-bin"
-CL_IMPL_VER="$(getenv CL_IMPL_VER '2.1.11')" # safe to update this manually
-QL_DIST_VER="$(getenv QL_DIST_VER '2021-10-21')" # safe to update this manually
+CL_IMPL_VER="$(getenv CL_IMPL_VER '2.2.0')" # safe to update this manually
+QL_DIST_VER="$(getenv QL_DIST_VER '2021-12-30')" # safe to update this manually
 
 ####################
 # 2. Run Buildpack #
