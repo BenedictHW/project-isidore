@@ -176,19 +176,10 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
    Example:
    (bible-book-convert-dwim \"Matthew\") => 47
    (bible-book-convert-dwim 47) => \"Matthew\" "
-  ;; Has to be one line otherwise splitting (cons "II \n Chronicles") will mean
-  ;; (bible-book-convert-dwim "II Chronicles") returns NIL but
-  ;; (bible-book-convert-dwim "II \n Chronicles") will return 14.
-  (let ((bible-book-numbers (list (cons "Genesis" 1) (cons "Exodus" 2) (cons "Leviticus" 3) (cons "Numbers" 4) (cons "Deuteronomy" 5) (cons "Joshua" 6) (cons "Judges" 7) (cons "Ruth" 8) (cons "I Samuel" 9) (cons "II Samuel" 10) (cons "I Kings" 11) (cons "II Kings" 12) (cons "I Chronicles" 13) (cons "II Chronicles" 14) (cons "Ezra" 15) (cons "Nehemiah" 16) (cons "Tobit" 17) (cons "Judith" 18) (cons "Esther" 19) (cons "Job" 20) (cons "Psalms" 21) (cons "Proverbs" 22) (cons "Ecclesiastes" 23) (cons "Song of Solomon" 24) (cons "Wisdom" 25) (cons "Sirach" 26) (cons "Isaiah" 27) (cons "Jeremiah" 28) (cons "Lamentations" 29) (cons "Baruch" 30) (cons "Ezekiel" 31) (cons "Daniel" 32) (cons "Hosea" 33) (cons "Joel" 34) (cons "Amos" 35) (cons "Obadiah" 36) (cons "Jonah" 37) (cons "Micah" 38) (cons "Nahum" 39) (cons "Habakkuk" 40) (cons "Zephaniah" 41) (cons "Haggai" 42) (cons "Zechariah" 43) (cons "Malachi" 44) (cons "I Maccabees" 45) (cons "II Maccabees" 46) (cons "Matthew" 47) (cons "Mark" 48) (cons "Luke" 49) (cons "John" 50) (cons "Acts" 51) (cons "Romans" 52) (cons "I Corinthians" 53) (cons "II Corinthians" 54) (cons "Galatians" 55) (cons "Ephesians" 56) (cons "Philippians" 57) (cons "Colossians" 58) (cons "I Thessalonians" 59) (cons "II Thessalonians" 60) (cons "I Timothy" 61) (cons "II Timothy" 62) (cons "Titus" 63) (cons "Philemon" 64) (cons "Hebrews" 65) (cons "James" 66) (cons "I Peter" 67) (cons "II Peter" 68) (cons "I John" 69) (cons "II John" 70) (cons "III John" 71) (cons "Jude" 72) (cons "Revelation of John" 73))))
-  ;; Explicitly declare valid types.
-  (unless (or (stringp bible-book)
-              (integerp bible-book))
-    (format t "bible-book-convert-dwim called with invalid argument, ~a"
-    bible-book))
-  ;; string-equal is case insensitive. string= is case sensitive.
   (if (stringp bible-book)
-      (cdr (assoc bible-book bible-book-numbers :test #'string-equal))
-      (car (rassoc bible-book bible-book-numbers)))))
+      ;; string-equal is case insensitive. string= is case sensitive.
+      (cdr (assoc bible-book *bible-book-numbers* :test #'string-equal))
+      (car (rassoc bible-book *bible-book-numbers*))))
 
 (defun get-bible-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
@@ -317,6 +308,84 @@ Example:
              ;; verse/chapter of the bible is inputted.
              ;; (+ 1 ending-uid)
              (nthcdr (+ 1 ending-uid) *bible-chapter-url-alist*)))))))
+
+(defparameter *bible-book-numbers*
+  ;; Has to be one line otherwise splitting (cons "II \n Chronicles") will mean
+  ;; (bible-book-convert-dwim "II Chronicles") returns NIL but
+  ;; (bible-book-convert-dwim "II \n Chronicles") will return 14.
+  (list (cons "Genesis" 1)
+        (cons "Exodus" 2)
+        (cons "Leviticus" 3)
+        (cons "Numbers" 4)
+        (cons "Deuteronomy" 5)
+        (cons "Joshua" 6)
+        (cons "Judges" 7)
+        (cons "Ruth" 8)
+        (cons "I Samuel" 9)
+        (cons "II Samuel" 10)
+        (cons "I Kings" 11)
+        (cons "II Kings" 12)
+        (cons "I Chronicles" 13)
+        (cons "II Chronicles" 14)
+        (cons "Ezra" 15)
+        (cons "Nehemiah" 16)
+        (cons "Tobit" 17)
+        (cons "Judith" 18)
+        (cons "Esther" 19)
+        (cons "Job" 20)
+        (cons "Psalms" 21)
+        (cons "Proverbs" 22)
+        (cons "Ecclesiastes" 23)
+        (cons "Song of Solomon" 24)
+        (cons "Wisdom" 25)
+        (cons "Sirach" 26)
+        (cons "Isaiah" 27)
+        (cons "Jeremiah" 28)
+        (cons "Lamentations" 29)
+        (cons "Baruch" 30)
+        (cons "Ezekiel" 31)
+        (cons "Daniel" 32)
+        (cons "Hosea" 33)
+        (cons "Joel" 34)
+        (cons "Amos" 35)
+        (cons "Obadiah" 36)
+        (cons "Jonah" 37)
+        (cons "Micah" 38)
+        (cons "Nahum" 39)
+        (cons "Habakkuk" 40)
+        (cons "Zephaniah" 41)
+        (cons "Haggai" 42)
+        (cons "Zechariah" 43)
+        (cons "Malachi" 44)
+        (cons "I Maccabees" 45)
+        (cons "II Maccabees" 46)
+        (cons "Matthew" 47)
+        (cons "Mark" 48)
+        (cons "Luke" 49)
+        (cons "John" 50)
+        (cons "Acts" 51)
+        (cons "Romans" 52)
+        (cons "I Corinthians" 53)
+        (cons "II Corinthians" 54)
+        (cons "Galatians" 55)
+        (cons "Ephesians" 56)
+        (cons "Philippians" 57)
+        (cons "Colossians" 58)
+        (cons "I Thessalonians" 59)
+        (cons "II Thessalonians" 60)
+        (cons "I Timothy" 61)
+        (cons "II Timothy" 62)
+        (cons "Titus" 63)
+        (cons "Philemon" 64)
+        (cons "Hebrews" 65)
+        (cons "James" 66)
+        (cons "I Peter" 67)
+        (cons "II Peter" 68)
+        (cons "I John" 69)
+        (cons "II John" 70)
+        (cons "III John" 71)
+        (cons "Jude" 72)
+        (cons "Revelation of John" 73)))
 
 (defparameter *bible-chapter-url-alist*
 (list (cons "/bible?verses=1-1-1-1-1-31" "Genesis 1")
