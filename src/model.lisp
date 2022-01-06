@@ -133,21 +133,34 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
                    (list object-subsystem))))
 
 (defclass bible (bknr.datastore:store-object)
-  ((book :reader book
-         :initarg :book)
-   ;; Relative to book.
-   (chapter :reader chapter
-            :initarg :chapter)
-   ;; Relative to chapter.
-   (verse :reader verse
-          :initarg :verse)
-   (text :reader text
-         :initarg :text)
-   (haydock-text :reader haydock-text
-                 :initarg :haydock-text))
+  ((book :initarg :book :reader book-of
+         :type string
+         :documentation
+         "Title of the object instance. Ex. \"Genesis\" ")
+
+   (chapter :initarg :chapter :reader chapter-of
+            :type integer
+            :documentation
+            "Chapter of the object instance relative to `book-of'.")
+
+   (verse :initarg :verse :reader verse-of
+          :type string
+          :documentation
+          "Verse of the object instance relative to `chapter-of'")
+
+   (text :initarg :text :reader text-of
+         :type string
+         :documentation
+         "Text of the object instance.")
+
+   (haydock-text :initarg :haydock-text :reader haydock-text-of
+                 :type string
+                 :documentation
+                 "Haydock text of the object instance."))
   (:metaclass bknr.datastore:persistent-class)
-  (:documentation "Each verse of the Bible is created as an instance of class
-  `bible', each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
+  (:documentation
+   "Each verse of the Bible is created as an object instance of class `bible',
+  each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
   unbound."))
 
 (defun filter-list-by-book (list book)
@@ -157,8 +170,9 @@ argument BOOK. Argument BOOK must be of type string.
 Example:
 (filter-list-by-book (bknr.datastore:store-objects-with-class 'bible) \"Ruth\")"
 
-  (remove-if-not (lambda (x) (and x (string-equal book
-                                                  (slot-value x 'book)))) list))
+  (remove-if-not (lambda (x)
+                   (string-equal book (book-of x)))
+                 list))
 
 (defun filter-list-by-chapter (list chapter)
   "Locates within a provided list of bible objects whose slot CHAPTER matches
@@ -167,8 +181,9 @@ the argument CHAPTER. Argument CHAPTER must be of type integer.
 Example:
 (filter-list-by-chapter (bknr.datastore:store-objects-with-class 'bible) 50)"
 
-  (remove-if-not (lambda (x) (and x (equalp chapter
-                                            (slot-value x 'chapter)))) list))
+  (remove-if-not (lambda (x)
+                   (= chapter (chapter-of x)))
+                 list))
 
 (defun filter-list-by-verse (list verse)
   "Locates within a provided list of bible objects whose slot VERSE matches
@@ -177,7 +192,9 @@ the argument VERSE. Argument VERSE must be of type integer.
 Example:
 (filter-list-by-verse (bknr.datastore:store-objects-with-class 'bible) 50)"
 
-  (remove-if-not (lambda (x) (and x (equalp verse (slot-value x 'verse)))) list))
+  (remove-if-not (lambda (x)
+                   (= verse (verse-of x)))
+                 list))
 
 (defun get-bible-uid (book chapter verse)
   "Return a unique identifier assigned to each instance of class `bible'.
@@ -233,32 +250,23 @@ Example:
 (defun get-bible-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
-      (slot-value (bknr.datastore:store-object-with-id bible-uid) 'text)
-      (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid)))
+  (text-of (bknr.datastore:store-object-with-id bible-uid)))
 
 (defun get-heading-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (let ((book-string (slot-value (bknr.datastore:store-object-with-id bible-uid)
-                                 'book))
-        (chapter-string (write-to-string (slot-value
-                                          (bknr.datastore:store-object-with-id
-                                           bible-uid) 'chapter)))
-        (verse-string (write-to-string (slot-value
-                                        (bknr.datastore:store-object-with-id
-                                         bible-uid) 'verse))))
-  (if (>= 35816 bible-uid) ; 0 - 35816 total # of bible verses.
-      (concatenate 'string book-string " " chapter-string ":" verse-string)
-      (format t "GET-BIBLE-TEXT called with invalid bible-uid ~a" bible-uid))))
+  (concatenate
+   'string
+   (book-of (bknr.datastore:store-object-with-id bible-uid)) " "
+   (write-to-string (chapter-of (bknr.datastore:store-object-with-id bible-uid))) ":"
+   (write-to-string (verse-of (bknr.datastore:store-object-with-id bible-uid)))))
 
 (defun get-haydock-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
   (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
                      'haydock-text)
-    (slot-value (bknr.datastore:store-object-with-id bible-uid)
-                'haydock-text)))
+    (haydock-text-of (bknr.datastore:store-object-with-id bible-uid))))
 
 (defun bible-url-to-uid (bible-url)
   "Accepts a string of six integers and returns a list of 2 integers.
