@@ -1,21 +1,22 @@
-;;;; views.lisp
-;;;
-;;; Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
-;;;
-;;; This file is part of Project Isidore.
-;;;
-;;; Project Isidore is free software: you can redistribute it and/or modify it
-;;; under the terms of the GNU Affero General Public License as published by the
-;;; Free Software Foundation, either version 3 of the License, or (at your
-;;; option) any later version.
-;;;
-;;; Project Isidore is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
-;;; License for more details.
-;;;
-;;; You should have received a copy of the GNU Affero General Public License
-;;; along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+#| views.lisp
+
+Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+
+This file is part of Project Isidore.
+
+Project Isidore is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Project Isidore is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+|#
 
 (uiop:define-package #:project-isidore/views
   (:use #:common-lisp
@@ -25,14 +26,8 @@
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:index-page
-   #:about-page
-   #:work-page
-   #:contact-page
-   #:subscribe-page
-   #:subscribe-success-page
-   #:unsubscribe-page
-   #:unsubscribe-success-page
+   #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
+   #:subscribe-success-page #:unsubscribe-page #:unsubscribe-success-page
    #:bible-page)
   (:documentation
    "Project Isidore Web Page View Generation.
@@ -279,7 +274,8 @@ all other web app pages uses this boilerplate."
     (:a :target "_blank" :href "/" "Return to homepage." )))
 
 (defun bible-page (bible-url)
-  "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
+  "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a
+  string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
   (web-page-template (:title "Tabular Douay Rheims Bible")
     (:h1 :class "title" "Tabular Douay Rheims Bible")
     (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")

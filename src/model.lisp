@@ -1,21 +1,22 @@
-;;;; model.lisp
-;;;
-;;; Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
-;;;
-;;; This file is part of Project Isidore.
-;;;
-;;; Project Isidore is free software: you can redistribute it and/or modify it
-;;; under the terms of the GNU Affero General Public License as published by the
-;;; Free Software Foundation, either version 3 of the License, or (at your
-;;; option) any later version.
-;;;
-;;; Project Isidore is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
-;;; License for more details.
-;;;
-;;; You should have received a copy of the GNU Affero General Public License
-;;; along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+#| model.lisp
+
+Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+
+This file is part of Project Isidore.
+
+Project Isidore is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Project Isidore is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+|#
 
 (uiop:define-package #:project-isidore/model
   (:use #:common-lisp)
@@ -26,23 +27,15 @@
   (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:db-params
-   :*database-url*
-   :*localdb-params*
-   :mailinglist
-   #:mailinglist-add
-   #:mailinglist-delete
-   #:create-datastore
-   :bible
-   #:get-bible-uid
-   #:get-bible-text
-   #:get-heading-text
-   #:get-haydock-text
-   #:bible-book-convert-dwim
-   #:bible-url-to-uid
-   :*bible-chapter-url-alist*
-   :*bible-book-url-alist*
-   #:make-bible-chapter-url-list)
+   #:db-params :*database-url* :*localdb-params*
+
+   :mailinglist #:mailinglist-add #:mailinglist-delete
+
+   #:create-datastore :bible
+
+   #:get-bible-uid #:get-bible-text #:get-heading-text #:get-haydock-text
+   #:bible-book-convert-dwim #:bible-url-to-uid :*bible-chapter-url-alist*
+   :*bible-book-url-alist* #:make-bible-chapter-url-list)
   (:documentation
    "Project Isidore Object Schema.
 

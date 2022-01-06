@@ -1,21 +1,22 @@
-;;;; generate-doc.lisp
-;;;
-;;; Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
-;;;
-;;; This file is part of Project Isidore.
-;;;
-;;; Project Isidore is free software: you can redistribute it and/or modify it
-;;; under the terms of the GNU Affero General Public License as published by the
-;;; Free Software Foundation, either version 3 of the License, or (at your
-;;; option) any later version.
-;;;
-;;; Project Isidore is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
-;;; License for more details.
-;;;
-;;; You should have received a copy of the GNU Affero General Public License
-;;; along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+#| generate-doc.lisp
+
+Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+
+This file is part of Project Isidore.
+
+Project Isidore is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Project Isidore is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+|#
 
 ;;; See subheading 'Generate Reference Manual' at
 ;;; https://www.hanshenwang.com/blog/project-isidore-doc.html/

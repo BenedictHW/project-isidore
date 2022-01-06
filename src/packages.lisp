@@ -1,27 +1,27 @@
-;;;; packages.lisp
-;;;
-;;; Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
-;;;
-;;; This file is part of Project Isidore.
-;;;
-;;; Project Isidore is free software: you can redistribute it and/or modify it
-;;; under the terms of the GNU Affero General Public License as published by the
-;;; Free Software Foundation, either version 3 of the License, or (at your
-;;; option) any later version.
-;;;
-;;; Project Isidore is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-;;; or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
-;;; License for more details.
-;;;
-;;; You should have received a copy of the GNU Affero General Public License
-;;; along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+#| packages.lisp
+
+Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+
+This file is part of Project Isidore.
+
+Project Isidore is free software: you can redistribute it and/or modify it
+under the terms of the GNU Affero General Public License as published by the
+Free Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+Project Isidore is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public
+License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with Project Isidore. If not, see <https://www.gnu.org/licenses/>.
+|#
 
 (uiop:define-package #:project-isidore/packages
   (:nicknames #:project-isidore)
   (:use #:common-lisp)
   ;; No package local nicknames. See commit 1962a26.
-  ;; migration.lisp is excluded to remove runtime dependency on cl-org-mode.
   (:use-reexport #:project-isidore/application
                  #:project-isidore/model
                  #:project-isidore/styles
