@@ -6,7 +6,6 @@
         #:project-isidore/model
         #:project-isidore/views)
   (:import-from #:hunchentoot)
-  (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
   (:export #:initialize-application
            #:terminate-application)
@@ -106,7 +105,7 @@ DISPATCH-FOLDER determines from which URL static assets will be served.
 
 CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
 APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
-  (log4cl:log-info "
+  (format t "
 
 ========================================
 Project Isidore v1.1.0 (A.D. 2021-10-20)
@@ -144,7 +143,7 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
          (make-instance 'hunchentoot:easy-acceptor :port port
                                           :access-log-destination nil)))
   (format t "Server successfully started at PORT ~A" port)
-  (log4cl:log-info "
+  (format t "
 
 Project Isidore initialization successful ...
 
@@ -152,7 +151,7 @@ Navigate to http://localhost:~A to continue ...
 " port)
   (when cmd-user-interface
     (let ((do-sigint-poll t))
-      (log4cl:log-info "
+      (format t "
 
 Close this window or press Control+C to exit the program ...")
       (terminate-application do-sigint-poll))))
@@ -178,7 +177,7 @@ gracefully shut down the web server and exit the lisp process."
             (format *error-output* "Aborting.~&")
             (hunchentoot:stop *acceptor*)
             (uiop:quit)
-            (log4cl:log-info "Server successfully stopped")))
+            (format t "Server successfully stopped")))
       (error (c) (format t "Whoops, an unknown error occured:~&~a~&" c))))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (if (hunchentoot:started-p *acceptor*)

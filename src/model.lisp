@@ -7,7 +7,6 @@
   (:import-from #:postmodern)
   ;; In-memory Datastore library.
   (:import-from #:bknr.datastore)
-  (:import-from #:log4cl)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:db-params :*database-url* :*localdb-params*
@@ -94,7 +93,7 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
   "Creates new entry in the `mailinglist' table."
   (postmodern:with-connection (db-params)
     (postmodern:make-dao 'mailinglist :title title :name name :email email))
-  (log4cl:log-info "~A successfully added to mailing list." email))
+  (format t "~A successfully added to mailing list." email))
 
 (defun mailinglist-delete (email)
   "Removes entry from the `mailinglist' table."
@@ -102,7 +101,7 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
                          (postmodern:select-dao 'mailinglist
                              (:= 'email email))))))
   (postmodern:with-connection (db-params) (postmodern:delete-dao emailobj))
-  (log4cl:log-info "~A removed from mailing list." email)))
+  (format t "~A removed from mailing list." email)))
 
 (defun create-datastore ()
   "Initialize Datastore."
