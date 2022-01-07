@@ -304,6 +304,7 @@ p.verse  { margin-left:  3%; }
     <li><a id="toc-project_002disidore_002fviews" href="#The-project_002disidore_002fviews-system">1.5 <tt>project-isidore/views</tt></a></li>
     <li><a id="toc-project_002disidore_002fstyles" href="#The-project_002disidore_002fstyles-system">1.6 <tt>project-isidore/styles</tt></a></li>
     <li><a id="toc-project_002disidore_002fmodel" href="#The-project_002disidore_002fmodel-system">1.7 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fdata" href="#The-project_002disidore_002fdata-system">1.8 <tt>project-isidore/data</tt></a></li>
   </ul></li>
   <li><a id="toc-Files-1" href="#Files">2 Files</a>
   <ul class="no-bullet">
@@ -316,24 +317,27 @@ p.verse  { margin-left:  3%; }
       <li><a id="toc-project_002disidore_002fviews_002flisp_002elisp" href="#The-project_002disidore_002fviews_002flisp_2024lisp-file">2.1.5 <tt>project-isidore/views/lisp.lisp</tt></a></li>
       <li><a id="toc-project_002disidore_002fstyles_002flisp_002elisp" href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file">2.1.6 <tt>project-isidore/styles/lisp.lisp</tt></a></li>
       <li><a id="toc-project_002disidore_002fmodel_002flisp_002elisp" href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file">2.1.7 <tt>project-isidore/model/lisp.lisp</tt></a></li>
+      <li><a id="toc-project_002disidore_002fdata_002flisp_002elisp" href="#The-project_002disidore_002fdata_002flisp_2024lisp-file">2.1.8 <tt>project-isidore/data/lisp.lisp</tt></a></li>
     </ul></li>
   </ul></li>
   <li><a id="toc-Packages-1" href="#Packages">3 Packages</a>
   <ul class="no-bullet">
     <li><a id="toc-project_002disidore_002fstyles-1" href="#The-project_002disidore_002fstyles-package">3.1 <tt>project-isidore/styles</tt></a></li>
-    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.2 <tt>project-isidore/packages</tt></a></li>
-    <li><a id="toc-project_002disidore_002fcontroller-1" href="#The-project_002disidore_002fcontroller-package">3.3 <tt>project-isidore/controller</tt></a></li>
-    <li><a id="toc-project_002disidore_002fapplication-1" href="#The-project_002disidore_002fapplication-package">3.4 <tt>project-isidore/application</tt></a></li>
-    <li><a id="toc-project_002disidore_002fviews-1" href="#The-project_002disidore_002fviews-package">3.5 <tt>project-isidore/views</tt></a></li>
-    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.6 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fdata-1" href="#The-project_002disidore_002fdata-package">3.2 <tt>project-isidore/data</tt></a></li>
+    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.3 <tt>project-isidore/packages</tt></a></li>
+    <li><a id="toc-project_002disidore_002fcontroller-1" href="#The-project_002disidore_002fcontroller-package">3.4 <tt>project-isidore/controller</tt></a></li>
+    <li><a id="toc-project_002disidore_002fapplication-1" href="#The-project_002disidore_002fapplication-package">3.5 <tt>project-isidore/application</tt></a></li>
+    <li><a id="toc-project_002disidore_002fviews-1" href="#The-project_002disidore_002fviews-package">3.6 <tt>project-isidore/views</tt></a></li>
+    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.7 <tt>project-isidore/model</tt></a></li>
   </ul></li>
   <li><a id="toc-Definitions-1" href="#Definitions">4 Definitions</a>
   <ul class="no-bullet">
     <li><a id="toc-Exported-definitions-1" href="#Exported-definitions">4.1 Exported definitions</a>
     <ul class="no-bullet">
-      <li><a id="toc-Special-variables" href="#Exported-special-variables">4.1.1 Special variables</a></li>
-      <li><a id="toc-Functions" href="#Exported-functions">4.1.2 Functions</a></li>
-      <li><a id="toc-Classes" href="#Exported-classes">4.1.3 Classes</a></li>
+      <li><a id="toc-Constants" href="#Exported-constants">4.1.1 Constants</a></li>
+      <li><a id="toc-Special-variables" href="#Exported-special-variables">4.1.2 Special variables</a></li>
+      <li><a id="toc-Functions" href="#Exported-functions">4.1.3 Functions</a></li>
+      <li><a id="toc-Classes" href="#Exported-classes">4.1.4 Classes</a></li>
     </ul></li>
     <li><a id="toc-Internal-definitions-1" href="#Internal-definitions">4.2 Internal definitions</a>
     <ul class="no-bullet">
@@ -401,6 +405,8 @@ Next: <a href="#Files" accesskey="n" rel="next">Files</a>, Previous: <a href="#T
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fstyles-system" accesskey="6">The project-isidore/styles system</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-system" accesskey="7">The project-isidore/model system</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fdata-system" accesskey="8">The project-isidore/data system</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -553,7 +559,7 @@ Next: <a href="#The-project_002disidore_002fmodel-system" accesskey="n" rel="nex
 <hr>
 <span id="The-project_002disidore_002fmodel-system"></span><div class="header">
 <p>
-Previous: <a href="#The-project_002disidore_002fstyles-system" accesskey="p" rel="prev">The project-isidore/styles system</a>, Up: <a href="#Systems" accesskey="u" rel="up">Systems</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fdata-system" accesskey="n" rel="next">The project-isidore/data system</a>, Previous: <a href="#The-project_002disidore_002fstyles-system" accesskey="p" rel="prev">The project-isidore/styles system</a>, Up: <a href="#Systems" accesskey="u" rel="up">Systems</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="project_002disidore_002fmodel"></span><h3 class="section">1.7 <tt>project-isidore/model</tt></h3>
 <span id="go-to-the-project_002disidore_002fmodel-system"></span><span id="index-project_002disidore_002fmodel"></span>
@@ -561,12 +567,28 @@ Previous: <a href="#The-project_002disidore_002fstyles-system" accesskey="p" rel
 <dl compact="compact">
 <dt><strong>Dependencies</strong></dt>
 <dd><ul>
-<li> <tt>postmodern</tt>
+<li> <a href="#go-to-the-project_002disidore_002fdata-system"><tt>project-isidore/data</tt></a> (system)
+</li><li> <tt>postmodern</tt>
 </li><li> <tt>bknr.datastore</tt>
 </li></ul>
 </dd>
 <dt><strong>Component</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+
+
+<hr>
+<span id="The-project_002disidore_002fdata-system"></span><div class="header">
+<p>
+Previous: <a href="#The-project_002disidore_002fmodel-system" accesskey="p" rel="prev">The project-isidore/model system</a>, Up: <a href="#Systems" accesskey="u" rel="up">Systems</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fdata"></span><h3 class="section">1.8 <tt>project-isidore/data</tt></h3>
+<span id="go-to-the-project_002disidore_002fdata-system"></span><span id="index-project_002disidore_002fdata"></span>
+<span id="index-System_002c-project_002disidore_002fdata"></span>
+<dl compact="compact">
+<dt><strong>Component</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fdata_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 </dl>
 
@@ -607,6 +629,8 @@ Previous: <a href="#Files" accesskey="p" rel="prev">Files</a>, Up: <a href="#Fil
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" accesskey="6">The project-isidore/styles/lisp.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file" accesskey="7">The project-isidore/model/lisp.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file" accesskey="8">The project-isidore/data/lisp.lisp file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -787,7 +811,7 @@ Next: <a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file" access
 <hr>
 <span id="The-project_002disidore_002fmodel_002flisp_2024lisp-file"></span><div class="header">
 <p>
-Previous: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" accesskey="p" rel="prev">The project-isidore/styles/lisp․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file" accesskey="n" rel="next">The project-isidore/data/lisp․lisp file</a>, Previous: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" accesskey="p" rel="prev">The project-isidore/styles/lisp․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="project_002disidore_002fmodel_002flisp_002elisp"></span><h4 class="subsection">2.1.7 <tt>project-isidore/model/lisp.lisp</tt></h4>
 <span id="go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"></span><span id="index-project_002disidore_002fmodel_002flisp_002elisp"></span>
@@ -805,9 +829,7 @@ Previous: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" a
 </p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"><tt>*bible-book-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"><tt>bible</tt></a> (class)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
@@ -825,8 +847,7 @@ Previous: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" a
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dNUMBERS_002a-special-variable"><tt>*bible-book-numbers*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FRIEND_002dEMAIL-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-method"><tt>friend-email</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FRIEND_002dNAME-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-method"><tt>friend-name</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FRIEND_002dTITLE-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-method"><tt>friend-title</tt></a> (method)
@@ -835,6 +856,31 @@ Previous: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" a
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_2768SETF-ID_2769-COMMON_002dLISP_2236_2236T-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-method"><tt>(setf id)</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236TEXT_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>text-of</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236VERSE_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>verse-of</tt></a> (method)
+</li></ul>
+</dd>
+</dl>
+
+<hr>
+<span id="The-project_002disidore_002fdata_002flisp_2024lisp-file"></span><div class="header">
+<p>
+Previous: <a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file" accesskey="p" rel="prev">The project-isidore/model/lisp․lisp file</a>, Up: <a href="#Lisp-files" accesskey="u" rel="up">Lisp files</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fdata_002flisp_002elisp"></span><h4 class="subsection">2.1.8 <tt>project-isidore/data/lisp.lisp</tt></h4>
+<span id="go-to-the-project_002disidore_002fdata_002flisp_2024lisp-file"></span><span id="index-project_002disidore_002fdata_002flisp_002elisp"></span>
+<span id="index-Lisp-File_002c-project_002disidore_002fdata_002flisp_002elisp"></span>
+<span id="index-File_002c-Lisp_002c-project_002disidore_002fdata_002flisp_002elisp"></span>
+<dl compact="compact">
+<dt><strong>Parent</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fdata-system"><tt>project-isidore/data</tt></a> (system)
+</p></dd>
+<dt><strong>Location</strong></dt>
+<dd><p><tt>data.lisp</tt>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dNUMBERS_002dALIST_002b-constant"><tt>+bible-book-numbers-alist+</tt></a> (constant)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dURL_002dALIST_002b-constant"><tt>+bible-book-url-alist+</tt></a> (constant)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dCHAPTER_002dURL_002dALIST_002b-constant"><tt>+bible-chapter-url-alist+</tt></a> (constant)
 </li></ul>
 </dd>
 </dl>
@@ -852,15 +898,17 @@ Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous:
 <table class="menu" border="0" cellspacing="0">
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fstyles-package" accesskey="1">The project-isidore/styles package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="2">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fdata-package" accesskey="2">The project-isidore/data package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fcontroller-package" accesskey="3">The project-isidore/controller package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="3">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fapplication-package" accesskey="4">The project-isidore/application package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fcontroller-package" accesskey="4">The project-isidore/controller package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fviews-package" accesskey="5">The project-isidore/views package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fapplication-package" accesskey="5">The project-isidore/application package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="6">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fviews-package" accesskey="6">The project-isidore/views package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="7">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
@@ -868,7 +916,7 @@ Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous:
 <hr>
 <span id="The-project_002disidore_002fstyles-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fdata-package" accesskey="n" rel="next">The project-isidore/data package</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="project_002disidore_002fstyles-1"></span><h3 class="section">3.1 <tt>project-isidore/styles</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fSTYLES-package"></span><span id="index-project_002disidore_002fstyles-1"></span>
@@ -901,11 +949,37 @@ Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel=
 
 
 <hr>
+<span id="The-project_002disidore_002fdata-package"></span><div class="header">
+<p>
+Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#The-project_002disidore_002fstyles-package" accesskey="p" rel="prev">The project-isidore/styles package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fdata-1"></span><h3 class="section">3.2 <tt>project-isidore/data</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fDATA-package"></span><span id="index-project_002disidore_002fdata-1"></span>
+<span id="index-Package_002c-project_002disidore_002fdata"></span>
+<p>Project Isidore Data. 
+</p><dl compact="compact">
+<dt><strong>Use List</strong></dt>
+<dd><p><tt>common-lisp</tt>
+</p></dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dNUMBERS_002dALIST_002b-constant"><tt>+bible-book-numbers-alist+</tt></a> (constant)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dURL_002dALIST_002b-constant"><tt>+bible-book-url-alist+</tt></a> (constant)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dCHAPTER_002dURL_002dALIST_002b-constant"><tt>+bible-chapter-url-alist+</tt></a> (constant)
+</li></ul>
+</dd>
+</dl>
+
+
+<hr>
 <span id="The-project_002disidore_002fpackages-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fstyles-package" accesskey="p" rel="prev">The project-isidore/styles package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fdata-package" accesskey="p" rel="prev">The project-isidore/data package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.2 <tt>project-isidore/packages</tt></h3>
+<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.3 <tt>project-isidore/packages</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
 <span id="index-Package_002c-project_002disidore_002fpackages"></span>
 <p>Project Isidore Meta Package.<br>
@@ -947,7 +1021,7 @@ definitions, see the Reference Manual at
 <p>
 Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" rel="next">The project-isidore/application package</a>, Previous: <a href="#The-project_002disidore_002fpackages-package" accesskey="p" rel="prev">The project-isidore/packages package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fcontroller-1"></span><h3 class="section">3.3 <tt>project-isidore/controller</tt></h3>
+<span id="project_002disidore_002fcontroller-1"></span><h3 class="section">3.4 <tt>project-isidore/controller</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"></span><span id="index-project_002disidore_002fcontroller-1"></span>
 <span id="index-Package_002c-project_002disidore_002fcontroller"></span>
 <p>Project Isidore Controller.<br>
@@ -989,7 +1063,7 @@ Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" r
 <p>
 Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="next">The project-isidore/views package</a>, Previous: <a href="#The-project_002disidore_002fcontroller-package" accesskey="p" rel="prev">The project-isidore/controller package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fapplication-1"></span><h3 class="section">3.4 <tt>project-isidore/application</tt></h3>
+<span id="project_002disidore_002fapplication-1"></span><h3 class="section">3.5 <tt>project-isidore/application</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"></span><span id="index-project_002disidore_002fapplication-1"></span>
 <span id="index-Package_002c-project_002disidore_002fapplication"></span>
 <p>Project Isidore Web Interface.<br>
@@ -1045,7 +1119,7 @@ all located under &quot;project-isidore/assets/&quot;. See the
 <p>
 Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="next">The project-isidore/model package</a>, Previous: <a href="#The-project_002disidore_002fapplication-package" accesskey="p" rel="prev">The project-isidore/application package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fviews-1"></span><h3 class="section">3.5 <tt>project-isidore/views</tt></h3>
+<span id="project_002disidore_002fviews-1"></span><h3 class="section">3.6 <tt>project-isidore/views</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"></span><span id="index-project_002disidore_002fviews-1"></span>
 <span id="index-Package_002c-project_002disidore_002fviews"></span>
 <p>Project Isidore Web Page View Generation.<br>
@@ -1106,7 +1180,7 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,<br>
 <p>
 Previous: <a href="#The-project_002disidore_002fviews-package" accesskey="p" rel="prev">The project-isidore/views package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.6 <tt>project-isidore/model</tt></h3>
+<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.7 <tt>project-isidore/model</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fMODEL-package"></span><span id="index-project_002disidore_002fmodel-1"></span>
 <span id="index-Package_002c-project_002disidore_002fmodel"></span>
 <p>Project Isidore Object Schema.<br>
@@ -1133,8 +1207,11 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 <dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 <dt><strong>Use List</strong></dt>
-<dd><p><tt>common-lisp</tt>
-</p></dd>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA-package"><tt>project-isidore/data</tt></a>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
 <dt><strong>Used By List</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
@@ -1143,9 +1220,7 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 </dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"><tt>*bible-book-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"><tt>*bible-chapter-url-alist*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"><tt>bible</tt></a> (class)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
@@ -1163,8 +1238,7 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dNUMBERS_002a-special-variable"><tt>*bible-book-numbers*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"><tt>*local-db-params*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dWITH_002dVERSE-function"><tt>bible-with-verse</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FRIEND_002dEMAIL-generic-function"><tt>friend-email</tt></a> (generic function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236FRIEND_002dEMAIL-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-method"><tt>friend-email</tt></a> (method)
@@ -1213,20 +1287,69 @@ Next: <a href="#Internal-definitions" accesskey="n" rel="next">Internal definiti
 </div>
 <span id="Exported-definitions-1"></span><h3 class="section">4.1 Exported definitions</h3>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#Exported-special-variables" accesskey="1">Exported special variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Exported-constants" accesskey="1">Exported constants</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Exported-functions" accesskey="2">Exported functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Exported-special-variables" accesskey="2">Exported special variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#Exported-classes" accesskey="3">Exported classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#Exported-functions" accesskey="3">Exported functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="#Exported-classes" accesskey="4">Exported classes</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 <hr>
+<span id="Exported-constants"></span><div class="header">
+<p>
+Next: <a href="#Exported-special-variables" accesskey="n" rel="next">Exported special variables</a>, Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported definitions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="Constants"></span><h4 class="subsection">4.1.1 Constants</h4>
+<dl>
+<dt id="index-_002bbible_002dbook_002dnumbers_002dalist_002b">Constant: <strong>+bible-book-numbers-alist+</strong></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dNUMBERS_002dALIST_002b-constant"></span><span id="index-Constant_002c-_002bbible_002dbook_002dnumbers_002dalist_002b"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fDATA-package"><tt>project-isidore/data</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fdata_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-_002bbible_002dbook_002durl_002dalist_002b">Constant: <strong>+bible-book-url-alist+</strong></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dBOOK_002dURL_002dALIST_002b-constant"></span><span id="index-Constant_002c-_002bbible_002dbook_002durl_002dalist_002b"></span>
+<p>Associative list of bible books with their respective links for easy
+  conversion into HTML links.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fDATA-package"><tt>project-isidore/data</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fdata_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-_002bbible_002dchapter_002durl_002dalist_002b">Constant: <strong>+bible-chapter-url-alist+</strong></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fDATA_2236_2236_002bBIBLE_002dCHAPTER_002dURL_002dALIST_002b-constant"></span><span id="index-Constant_002c-_002bbible_002dchapter_002durl_002dalist_002b"></span>
+<p>Associative list of bible chapters with their respective links for easy
+  conversion into HTML links.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fDATA-package"><tt>project-isidore/data</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fdata_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+
+<hr>
 <span id="Exported-special-variables"></span><div class="header">
 <p>
-Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions</a>, Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported definitions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#Exported-functions" accesskey="n" rel="next">Exported functions</a>, Previous: <a href="#Exported-constants" accesskey="p" rel="prev">Exported constants</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Special-variables"></span><h4 class="subsection">4.1.1 Special variables</h4>
+<span id="Special-variables"></span><h4 class="subsection">4.1.2 Special variables</h4>
 <dl>
 <dt id="index-_002aacceptor_002a">Special Variable: <strong>*acceptor*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"></span><span id="index-Special-Variable_002c-_002aacceptor_002a"></span>
@@ -1238,34 +1361,6 @@ instance of class &lsquo;hunchentoot:acceptor&rsquo; to listen to a PORT
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-_002abible_002dbook_002durl_002dalist_002a">Special Variable: <strong>*bible-book-url-alist*</strong></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"></span>
-<p>Associative list of bible books with their respective links for easy
-  conversion into HTML links.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-_002abible_002dchapter_002durl_002dalist_002a">Special Variable: <strong>*bible-chapter-url-alist*</strong></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dCHAPTER_002dURL_002dALIST_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"></span>
-<p>Associative list of bible chapters with their respective links for easy
-  conversion into HTML links.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -1290,7 +1385,7 @@ be changed periodically by Heroku.
 <p>
 Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>, Previous: <a href="#Exported-special-variables" accesskey="p" rel="prev">Exported special variables</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Functions"></span><h4 class="subsection">4.1.2 Functions</h4>
+<span id="Functions"></span><h4 class="subsection">4.1.3 Functions</h4>
 <dl>
 <dt id="index-about_002dpage">Function: <strong>about-page</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236ABOUT_002dPAGE-function"></span><span id="index-Function_002c-about_002dpage"></span>
@@ -1570,7 +1665,7 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 <dl>
 <dt id="index-make_002dbible_002dchapter_002durl_002dlist">Function: <strong>make-bible-chapter-url-list</strong> <em>BIBLE-URL</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"></span><span id="index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"></span>
-<p>Selects the right links from &lsquo;*bible-chapter-url-alist*&rsquo; based on the
+<p>Selects the right links from &lsquo;+bible-chapter-url-alist+&rsquo; based on the
 BIBLE-URL<br>
 </p>
 <p>Example:<br>
@@ -1670,7 +1765,7 @@ gracefully shut down the web server and exit the lisp process.
 <p>
 Previous: <a href="#Exported-functions" accesskey="p" rel="prev">Exported functions</a>, Up: <a href="#Exported-definitions" accesskey="u" rel="up">Exported definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="Classes"></span><h4 class="subsection">4.1.3 Classes</h4>
+<span id="Classes"></span><h4 class="subsection">4.1.4 Classes</h4>
 <dl>
 <dt id="index-bible">Class: <strong>bible</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"></span><span id="index-Class_002c-bible"></span>
@@ -1854,18 +1949,6 @@ Previous: <a href="#Exported-definitions" accesskey="p" rel="prev">Exported defi
 Next: <a href="#Internal-macros" accesskey="n" rel="next">Internal macros</a>, Previous: <a href="#Internal-definitions" accesskey="p" rel="prev">Internal definitions</a>, Up: <a href="#Internal-definitions" accesskey="u" rel="up">Internal definitions</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="Special-variables-1"></span><h4 class="subsection">4.2.1 Special variables</h4>
-<dl>
-<dt id="index-_002abible_002dbook_002dnumbers_002a">Special Variable: <strong>*bible-book-numbers*</strong></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aBIBLE_002dBOOK_002dNUMBERS_002a-special-variable"></span><span id="index-Special-Variable_002c-_002abible_002dbook_002dnumbers_002a"></span>
-<dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
 <dl>
 <dt id="index-_002alocal_002ddb_002dparams_002a">Special Variable: <strong>*local-db-params*</strong></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aLOCAL_002dDB_002dPARAMS_002a-special-variable"></span><span id="index-Special-Variable_002c-_002alocal_002ddb_002dparams_002a"></span>
@@ -2283,6 +2366,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002easd">File, Lisp, <tt>project-isidore.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_2024asd-file">The project-isidore․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fapplication_002flisp_002elisp">File, Lisp, <tt>project-isidore/application/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication_002flisp_2024lisp-file">The project-isidore/application/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fcontroller_002flisp_002elisp">File, Lisp, <tt>project-isidore/controller/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller_002flisp_2024lisp-file">The project-isidore/controller/lisp․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fdata_002flisp_002elisp">File, Lisp, <tt>project-isidore/data/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file">The project-isidore/data/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fmodel_002flisp_002elisp">File, Lisp, <tt>project-isidore/model/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file">The project-isidore/model/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fpackages_002flisp_002elisp">File, Lisp, <tt>project-isidore/packages/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages_002flisp_2024lisp-file">The project-isidore/packages/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-File_002c-Lisp_002c-project_002disidore_002fstyles_002flisp_002elisp">File, Lisp, <tt>project-isidore/styles/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file">The project-isidore/styles/lisp․lisp file</a></td></tr>
@@ -2292,6 +2376,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002easd">Lisp File, <tt>project-isidore.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_2024asd-file">The project-isidore․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fapplication_002flisp_002elisp">Lisp File, <tt>project-isidore/application/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication_002flisp_2024lisp-file">The project-isidore/application/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fcontroller_002flisp_002elisp">Lisp File, <tt>project-isidore/controller/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller_002flisp_2024lisp-file">The project-isidore/controller/lisp․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fdata_002flisp_002elisp">Lisp File, <tt>project-isidore/data/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file">The project-isidore/data/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fmodel_002flisp_002elisp">Lisp File, <tt>project-isidore/model/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file">The project-isidore/model/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fpackages_002flisp_002elisp">Lisp File, <tt>project-isidore/packages/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages_002flisp_2024lisp-file">The project-isidore/packages/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Lisp-File_002c-project_002disidore_002fstyles_002flisp_002elisp">Lisp File, <tt>project-isidore/styles/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file">The project-isidore/styles/lisp․lisp file</a></td></tr>
@@ -2301,6 +2386,7 @@ Next: <a href="#Function-index" accesskey="n" rel="next">Function index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002easd"><tt>project-isidore.asd</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_2024asd-file">The project-isidore․asd file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fapplication_002flisp_002elisp"><tt>project-isidore/application/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication_002flisp_2024lisp-file">The project-isidore/application/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fcontroller_002flisp_002elisp"><tt>project-isidore/controller/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller_002flisp_2024lisp-file">The project-isidore/controller/lisp․lisp file</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-project_002disidore_002fdata_002flisp_002elisp"><tt>project-isidore/data/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file">The project-isidore/data/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fmodel_002flisp_002elisp"><tt>project-isidore/model/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file">The project-isidore/model/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fpackages_002flisp_002elisp"><tt>project-isidore/packages/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages_002flisp_2024lisp-file">The project-isidore/packages/lisp․lisp file</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fstyles_002flisp_002elisp"><tt>project-isidore/styles/lisp.lisp</tt></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file">The project-isidore/styles/lisp․lisp file</a></td></tr>
@@ -2562,7 +2648,11 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <span id="Variables"></span><h3 class="appendixsec">A.3 Variables</h3>
 <table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
  &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_symbol-2"><b>+</b></a>
+ &nbsp; 
 <br>
+<a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-H"><b>H</b></a>
@@ -2583,11 +2673,18 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Variable-index_vr_symbol-1">*</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002aacceptor_002a"><code>*acceptor*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abible_002dbook_002dnumbers_002a"><code>*bible-book-numbers*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abible_002dbook_002durl_002dalist_002a"><code>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-_002abible_002dchapter_002durl_002dalist_002a"><code>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002adatabase_002durl_002a"><code>*database-url*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-_002alocal_002ddb_002dparams_002a"><code>*local-db-params*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_symbol-2">+</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002bbible_002dbook_002dnumbers_002dalist_002b"><code>+bible-book-numbers-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002bbible_002dbook_002durl_002dalist_002b"><code>+bible-book-url-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-_002bbible_002dchapter_002durl_002dalist_002b"><code>+bible-chapter-url-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
+<tr><td colspan="4"> <hr></td></tr>
+<tr><th id="Variable-index_vr_letter-C">C</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Constant_002c-_002bbible_002dbook_002dnumbers_002dalist_002b"><code><span class="roman">Constant, </span>+bible-book-numbers-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Constant_002c-_002bbible_002dbook_002durl_002dalist_002b"><code><span class="roman">Constant, </span>+bible-book-url-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Constant_002c-_002bbible_002dchapter_002durl_002dalist_002b"><code><span class="roman">Constant, </span>+bible-chapter-url-alist+</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-constants">Exported constants</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Variable-index_vr_letter-E">E</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-email"><code>email</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
@@ -2610,9 +2707,6 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-title"><code><span class="roman">Slot, </span>title</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Slot_002c-verse"><code><span class="roman">Slot, </span>verse</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-classes">Exported classes</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002aacceptor_002a"><code><span class="roman">Special Variable, </span>*acceptor*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dbook_002dnumbers_002a"><code><span class="roman">Special Variable, </span>*bible-book-numbers*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dbook_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-book-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002abible_002dchapter_002durl_002dalist_002a"><code><span class="roman">Special Variable, </span>*bible-chapter-url-alist*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002adatabase_002durl_002a"><code><span class="roman">Special Variable, </span>*database-url*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-special-variables">Exported special variables</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Special-Variable_002c-_002alocal_002ddb_002dparams_002a"><code><span class="roman">Special Variable, </span>*local-db-params*</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-special-variables">Internal special variables</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
@@ -2626,7 +2720,11 @@ Next: <a href="#Data-type-index" accesskey="n" rel="next">Data type index</a>, P
 </table>
 <table><tr><th valign="top">Jump to: &nbsp; </th><td><a class="summary-letter" href="#Variable-index_vr_symbol-1"><b>*</b></a>
  &nbsp; 
+<a class="summary-letter" href="#Variable-index_vr_symbol-2"><b>+</b></a>
+ &nbsp; 
 <br>
+<a class="summary-letter" href="#Variable-index_vr_letter-C"><b>C</b></a>
+ &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-E"><b>E</b></a>
  &nbsp; 
 <a class="summary-letter" href="#Variable-index_vr_letter-H"><b>H</b></a>
@@ -2678,6 +2776,7 @@ Previous: <a href="#Variable-index" accesskey="p" rel="prev">Variable index</a>,
 <tr><th id="Data-type-index_tp_letter-P">P</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fapplication"><code><span class="roman">Package, </span>project-isidore/application</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication-package">The project-isidore/application package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fcontroller"><code><span class="roman">Package, </span>project-isidore/controller</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller-package">The project-isidore/controller package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fdata"><code><span class="roman">Package, </span>project-isidore/data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata-package">The project-isidore/data package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fmodel"><code><span class="roman">Package, </span>project-isidore/model</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel-package">The project-isidore/model package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fpackages"><code><span class="roman">Package, </span>project-isidore/packages</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages-package">The project-isidore/packages package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Package_002c-project_002disidore_002fstyles"><code><span class="roman">Package, </span>project-isidore/styles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fstyles-package">The project-isidore/styles package</a></td></tr>
@@ -2687,6 +2786,8 @@ Previous: <a href="#Variable-index" accesskey="p" rel="prev">Variable index</a>,
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fapplication-1"><code>project-isidore/application</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication-package">The project-isidore/application package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fcontroller"><code>project-isidore/controller</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller-system">The project-isidore/controller system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fcontroller-1"><code>project-isidore/controller</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller-package">The project-isidore/controller package</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-project_002disidore_002fdata"><code>project-isidore/data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata-system">The project-isidore/data system</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-project_002disidore_002fdata-1"><code>project-isidore/data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata-package">The project-isidore/data package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fmodel"><code>project-isidore/model</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel-system">The project-isidore/model system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fmodel-1"><code>project-isidore/model</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel-package">The project-isidore/model package</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-project_002disidore_002fpackages"><code>project-isidore/packages</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages-system">The project-isidore/packages system</a></td></tr>
@@ -2700,6 +2801,7 @@ Previous: <a href="#Variable-index" accesskey="p" rel="prev">Variable index</a>,
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore"><code><span class="roman">System, </span>project-isidore</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore-system">The project-isidore system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fapplication"><code><span class="roman">System, </span>project-isidore/application</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fapplication-system">The project-isidore/application system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fcontroller"><code><span class="roman">System, </span>project-isidore/controller</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fcontroller-system">The project-isidore/controller system</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fdata"><code><span class="roman">System, </span>project-isidore/data</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fdata-system">The project-isidore/data system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fmodel"><code><span class="roman">System, </span>project-isidore/model</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fmodel-system">The project-isidore/model system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fpackages"><code><span class="roman">System, </span>project-isidore/packages</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fpackages-system">The project-isidore/packages system</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-System_002c-project_002disidore_002fstyles"><code><span class="roman">System, </span>project-isidore/styles</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#The-project_002disidore_002fstyles-system">The project-isidore/styles system</a></td></tr>

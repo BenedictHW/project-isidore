@@ -268,7 +268,7 @@ all other web app pages uses this boilerplate."
     (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
-          (loop for (link . title) in *bible-book-url-alist*
+          (loop for (link . title) in +bible-book-url-alist+
                 do (cl-who:htm
                     (:div :style "width:200px;float:left"
                           (:a :href link (:b (cl-who:esc title)))))))
