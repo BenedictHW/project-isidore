@@ -233,12 +233,14 @@ all other web app pages uses this boilerplate."
            :required "required")
            (:input :name "commit" :type "submit" :value "Submit"))))
 
-(defun subscribe-success-page (email)
-  (web-page-template (:title "HanshenWang.com")
-    (:h1 :class "title" "Subscribe to Mailing List")
-    (cl-who:htm (:p "Thank you. The E-mail Address: " (:code (cl-who:str email)) " has
+(defun subscribe-success-page (title name email)
+  (progn
+    (mailinglist-add title name email)
+    (web-page-template (:title "HanshenWang.com")
+      (:h1 :class "title" "Subscribe to Mailing List")
+      (cl-who:htm (:p "Thank you. The E-mail Address: " (:code (cl-who:str email)) " has
   been successfully subscribed."))
-    (:a :target "_blank" :href "/" "Return to homepage." )))
+      (:a :target "_blank" :href "/" "Return to homepage." ))))
 
 (defun unsubscribe-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -250,11 +252,13 @@ all other web app pages uses this boilerplate."
            (:input :name "commit" :type "submit" :value "Submit"))))
 
 (defun unsubscribe-success-page (email)
-  (web-page-template (:title "HanshenWang.com")
-    (:h1 :class "title" "Unsubscribe from Mailing List")
-    (cl-who:htm (:p "The E-mail Address: " (:code (cl-who:str email)) " has been
+  (progn
+    (mailinglist-delete email)
+    (web-page-template (:title "HanshenWang.com")
+      (:h1 :class "title" "Unsubscribe from Mailing List")
+      (cl-who:htm (:p "The E-mail Address: " (:code (cl-who:str email)) " has been
   successfully unsubscribed. Have a good one."))
-    (:a :target "_blank" :href "/" "Return to homepage." )))
+      (:a :target "_blank" :href "/" "Return to homepage." ))))
 
 (defun bible-page (bible-url)
   "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a

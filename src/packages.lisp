@@ -5,12 +5,9 @@
   (:nicknames #:project-isidore)
   (:use #:common-lisp)
   ;; No package local nicknames. See commit 1962a26.
-  (:use-reexport #:project-isidore/application
-                 #:project-isidore/model
+  (:use-reexport #:project-isidore/model
                  #:project-isidore/views
-                 #:project-isidore/styles
-                 #:project-isidore/migration
-                 #:project-isidore/views)
+                 #:project-isidore/controller)
   (:export #:list-project-isidore-dependencies)
   (:documentation
    "Project Isidore Meta Package.

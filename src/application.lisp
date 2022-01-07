@@ -3,89 +3,27 @@
 
 (defpackage #:project-isidore/application
   (:use #:common-lisp
-        #:project-isidore/model
         #:project-isidore/views)
   (:import-from #:hunchentoot)
   ;; No package local nicknames. See commit 1962a26.
-  (:export #:initialize-application
+  (:export :*acceptor*
+           #:initialize-application
            #:terminate-application)
   (:documentation
-   "Project Isidore Web Server and Controller.
+   "Project Isidore Web Interface.
 
 Starting the Web server for the application is defined by
-`initialize-application'. This package also contains URI handler and routing
-logic. The Project Isidore web interface has a rough mapping onto the Model View
-Controller (MVC) design pattern.
-
-`hunchentoot:define-easy-handler' links an uri with a function postfixed with
-'-page'. It is said function which will generate the output HTML.
-
-In increasing order of complexity:
+`initialize-application'. The Project Isidore web interface has a rough mapping
+onto the Model View Controller (MVC) design pattern.
 
 1. Serve static assets.
 
-See the `hunchentoot:create-folder-dispatcher-and-handler' form in
-`initialize-application'.
-
-2. Serve dynamically generated HTML
-
-See `index-page' (inline CSS + JS example), `about-page', `work-page' and
-`contact-page'.
-
-3. Serve dynamically generated HTML from persistent CLOS object state.
-
-Persistent CLOS object state equals our datastore in this use case. Start with
-`bible-page'. "))
+This includes the HTML blog articles, reference manual and code coverage report
+all located under \"project-isidore/assets/\". See the
+`hunchentoot:create-folder-dispatcher-and-handler' form in
+`initialize-application'."))
 
 (in-package #:project-isidore/application)
-
-;;; Project Isidore web routing. The :uri keyword of define-easy-handler
-;;; maps to DOMAINNAME/HOST as such: /about maps to http://localhost:8080/about
-;;; or https://hanshenwang.com/about
-(hunchentoot:define-easy-handler (root :uri "/") ()
-  (index-page))
-
-(hunchentoot:define-easy-handler (about :uri "/about") ()
-  (about-page))
-
-(hunchentoot:define-easy-handler (work :uri "/work") ()
-  (work-page))
-
-(hunchentoot:define-easy-handler (contact :uri "/contact") ()
-  (contact-page))
-
-(hunchentoot:define-easy-handler (subscribe :uri "/subscribe") ()
-  (subscribe-page))
-
-(hunchentoot:define-easy-handler
-    (create-subscriber :uri "/create-subscriber") ()
-  (unless
-      (hunchentoot:parameter "friend-email")
-    (hunchentoot:redirect "/subscribe"))
-  (let ((title (hunchentoot:parameter "friend-title"))
-        (name (hunchentoot:parameter "friend-name"))
-        (email (hunchentoot:parameter "friend-email")))
-    (mailinglist-add title name email)
-    (subscribe-success-page email)))
-
-(hunchentoot:define-easy-handler (unsubscribe :uri "/unsubscribe") ()
-  (unsubscribe-page))
-
-(hunchentoot:define-easy-handler
-    (delete-subscriber :uri "/delete-subscriber") ()
-  (unless
-      (hunchentoot:parameter "friend-email")
-    (hunchentoot:redirect "/unsubscribe"))
-  (let ((email (hunchentoot:parameter "friend-email")))
-    (mailinglist-delete email)
-    (unsubscribe-success-page email)))
-
-;; All state is captured in the URI VERSES.
-(hunchentoot:define-easy-handler (view-bible :uri "/bible") (verses)
-  ;; HTTP response header is needed.
-  (setf (hunchentoot:content-type*) "text/html")
-  ;; localhost:8080/bible?verses=1-2-3-4-5-6
-  (bible-page verses))
 
 (defvar *acceptor* nil "To be used in `initialize-application' to create an
 instance of class `hunchentoot:acceptor' to listen to a PORT")
@@ -124,8 +62,7 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
   ;; Chose HTML5 encoding over default XHTML.
-  (setf (cl-who:html-mode) :HTML5
-        ;; Will show backtrace on status code 500 pages.
+  (setf ;; Will show backtrace on status code 500 pages.
         hunchentoot:*show-lisp-errors-p* t
         hunchentoot:*dispatch-table*
         `(hunchentoot:dispatch-easy-handlers
