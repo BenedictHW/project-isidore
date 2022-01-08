@@ -40,7 +40,9 @@ all other web app pages uses this boilerplate."
      (:html :lang "en"
             (:head
              (:meta :charset "utf-8" :name "viewport"
-             :content "width=device-width, initial-scale=1")
+                    :content "width=device-width, initial-scale=1"
+                    :http-equiv "Content-Security-Policy"
+                    :content "script-src 'self' https://apis.google.com")
              (:title, title)
              (:link :rel "preconnect" :href="https://fonts.googleapis.com")
              (:link :rel "preconnect" :href="https://fonts.gstatic.com"
@@ -72,9 +74,11 @@ all other web app pages uses this boilerplate."
   (cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
     (:html :lang "en"
            (:head
-            (:meta :charset "utf-8" :name "viewport" :content
-                   "width=device-width, initial-scale=1" :description "Personal
-                   Web Application")
+            (:meta :charset "utf-8" :name "viewport"
+                   :content "width=device-width, initial-scale=1"
+                   :description "Personal Web Application"
+                   :http-equiv "Content-Security-Policy"
+                   :content "script-src 'self' https://apis.google.com")
             (:title "HanshenWang.com")
             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
@@ -271,21 +275,21 @@ all other web app pages uses this boilerplate."
           (loop for (link . title) in +bible-book-url-alist+
                 do (cl-who:htm
                     (:div :style "width:200px;float:left"
-                          (:a :href link (:b (cl-who:esc title)))))))
+                          (:a :href link (:b (cl-who:str title)))))))
     (:br)
     (:div :style "overflow:auto"
           ;; Present links to all chapters of currently selected book.
           (loop for (link . title) in (make-bible-chapter-url-list bible-url)
                 do (cl-who:htm
                     (:div :style "width:200px;float:left"
-                          (:a :href link (:b (cl-who:esc title)))))))
+                          (:a :href link (:b (cl-who:str title)))))))
     (:table
      ;; Present tabular view of bible text.
      (loop for bible-uid from (car (bible-url-to-uid bible-url))
              to (cadr (bible-url-to-uid bible-url))
            do (cl-who:htm
                (:tr
-                (:td (cl-who:htm (cl-who:esc (get-heading-text bible-uid))))
-                (:td (cl-who:htm (cl-who:esc (get-bible-text bible-uid))))
-                (:td :width "50%" (cl-who:htm (cl-who:esc (get-haydock-text bible-uid))))))))))
+                (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
+                (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
+                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text bible-uid))))))))))
 
