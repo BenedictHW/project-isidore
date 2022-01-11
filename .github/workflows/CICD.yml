@@ -56,7 +56,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --load $BUILDPACK_DIR/make.lisp
+      run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
@@ -99,7 +99,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --load $BUILDPACK_DIR/make.lisp
+      run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -164,7 +164,7 @@ jobs:
     - name: Build Project Isidore
       shell: pwsh
       run:
-        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --load "${{ Env.BUILDPACK_DIR }}make.lisp"
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
 
     # ProjectIsidore renamed to ProjectIsidore.exe
     # Powershell command is seperate as it needs to be exectued sequentially.

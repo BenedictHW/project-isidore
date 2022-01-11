@@ -103,6 +103,6 @@ info "Starting Build..."
 info "Loading $BUILDPACK_DIR/bin/make.lisp..."
 # As per /sbcl-$CL_IMPL_VER-x86-64-linux/INSTALL, we run SBCL without installing
 # it, from the top of binary distribution directory: $ sh run-sbcl.sh
-sh $CL_DIR/sbcl-$CL_IMPL_VER-x86-64-linux/run-sbcl.sh --load "$BUILDPACK_DIR/bin/make.lisp"
+sh $CL_DIR/sbcl-$CL_IMPL_VER-x86-64-linux/run-sbcl.sh --dynamic-space-size 2000 --load "$BUILDPACK_DIR/bin/make.lisp"
 chmod a+x "$BUILD_DIR/ProjectIsidore" # grant permissions for application
 log "Successfully Loaded $BUILDPACK_DIR/bin/make.lisp"
