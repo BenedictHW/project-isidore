@@ -68,7 +68,7 @@ fi
 log "I. Installing STEEL BANK COMMON LISP"
 ##########################################
 
-CL_PACKAGE="http://prdownloads.sourceforge.net/sbcl/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2"
+CL_PACKAGE=" https://sourceforge.net/projects/sbcl/files/sbcl/$CL_IMPL_VER/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2/download"
 DECOMPRESS="tar jxf - -C $CL_DIR"
 
 rm -rf $CL_DIR # delete old leftover directory
