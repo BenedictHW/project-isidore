@@ -8,6 +8,8 @@
   (:import-from #:postmodern)
   ;; In-memory Datastore library.
   (:import-from #:bknr.datastore)
+  ;; Indexing engine library.
+  (:import-from #:montezuma)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:db-params :*database-url* :*localdb-params*
@@ -17,8 +19,13 @@
    #:create-datastore :bible
 
    #:get-bible-uid #:get-bible-text #:get-heading-text #:get-haydock-text
+
    #:bible-book-convert-dwim #:bible-url-to-uid :+bible-book-url-alist+
-   #:make-bible-chapter-url-list)
+   #:make-bible-chapter-url-list
+
+   :*search-index*
+   #:create-search-index
+   #:search-bible)
   (:documentation
    "Project Isidore Object Schema.
 
@@ -308,3 +315,44 @@ Example:
              ;; verse/chapter of the bible is inputted.
              ;; (+ 1 ending-uid)
              (nthcdr (+ 1 ending-uid) +bible-chapter-url-alist+)))))))
+
+(defparameter *search-index*
+  (make-instance 'montezuma:index
+                  ;; :path (asdf:system-relative-pathname :project-isidore "../data/")
+                  :default-field "*"
+                  :fields '("b" "c" "v" "t" "h")) )
+
+(defun search-bible (query &optional options)
+  "Searches the Bible and Haydock's commentary. Returns an association list of
+Bible unique ID's and a relevance score"
+  (let ((results '()))
+    (montezuma:search-each *search-index* query
+                           #'(lambda (doc score)
+                               (push (cons doc score) results))
+                           options)
+    (reverse results)))
+
+(defun create-search-index ()
+  " Montezuma index will have same indices as BKNR.DATASTORE class object
+bible. Therefore double check that `get-bible-uid' bible-uid and
+`montezuma:get-document *search-index*' bible-uid return the same values
+for the same input bible-uid. x = bible-uid.
+
+DO NOT CALL
+(montezuma:optimize *search-index*) as this will cause the tokens stored in
+project-isidore/data/index/ to be over 100 megabytes, the current hard
+limit to Microsoft's Github platform."
+  ;; The document fields are short so as to make end-user querying more
+  ;; efficient.
+  (loop for x from 0 to 35816
+        do (montezuma:add-document-to-index
+            *search-index* `(;; Book.
+                             ("b" . , (bible-book-convert-dwim (cdar (verse-of (bknr.datastore:store-object-with-id x)))))
+                             ;; Chapter.
+                             ("c"  . , (cdadr (verse-of (bknr.datastore:store-object-with-id x))))
+                             ;; Verse.
+                             ("v"  . , (cdaddr (verse-of (bknr.datastore:store-object-with-id x))))
+                             ;; Text.
+                             ("t"  . , (get-bible-text x))
+                             ;; Haydock Text.
+                             ("h"  . , (get-haydock-text x))))))

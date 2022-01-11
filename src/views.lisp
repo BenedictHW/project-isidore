@@ -9,9 +9,12 @@
   (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
-   #:subscribe-success-page #:unsubscribe-page #:unsubscribe-success-page
-   #:bible-page)
+   #:index-page #:about-page #:work-page #:contact-page
+
+   #:subscribe-page #:subscribe-success-page
+   #:unsubscribe-page #:unsubscribe-success-page
+
+   #:bible-page #:bible-search-page)
   (:documentation
    "Project Isidore Web Page View Generation.
 
@@ -283,12 +286,158 @@ all other web app pages uses this boilerplate."
                 do (cl-who:htm
                     (:div :style "width:200px;float:left"
                           (:a :href link (:b (cl-who:str title)))))))
+    (:br)
+    ;; Present search form for bible and haydock text.
+    (:div :id "query-form" :style "text-align:center;"
+          (:form :action "/bible-search" :method "GET"
+                 (:label "Search: ")
+                 (:input :name "query" :id "query" :size "50" :type "text"
+                         :required "required")
+                 (:input :type "submit" :value "Submit")))
     (:table
      ;; Present tabular view of bible text.
      (loop for bible-uid from (car (bible-url-to-uid bible-url))
              to (cadr (bible-url-to-uid bible-url))
            do (cl-who:htm
                (:tr
+                (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
+                (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
+                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text bible-uid))))))))))
+
+(defun bible-search-page (query)
+  "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
+
+DIV ID's
+--------
+query-syntax
+query-tutorial
+query-form"
+  (web-page-template (:title "Tabular Douay Rheims Bible")
+    (:h1 :class "title" "Tabular Douay Rheims Bible")
+    (:h2 :onclick "toggleDivWithId(\"query-syntax\")" :style "text-align:center;" "Query
+    Syntax (click to toggle)")
+    ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
+    ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
+    (:script :type "text/javascript"
+             (cl-who:str
+              (parenscript:ps-inline
+                  (defun toggle-div-with-id (div-id)
+                    (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
+                      (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "block")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")))))))
+    (:div :id "query-syntax" :style "display:none;"
+
+          (:h2 "1. FIELDS")
+          (:p " Each sentence of the Bible has the following metadata stored in fields,")
+          (:li" (b) The book.")
+          (:li" (c) The chapter number.")
+          (:li" (v) The verse number.")
+          (:li" (t) The text itself.")
+          (:li" (h) If applicable, the Haydock commentary.")
+          (:li" (implicit) All of the above fields.")
+
+          (:h2 "2. OPERATOR")
+          (:p " The fields are combined with Boolean OPERATOR(s),")
+          (:li" (+) AND,")
+          (:li" (implicit) OR")
+          (:li" (!) NOT")
+          (:p "Lastly, a particular predefined set of operations,")
+          (:li " (*) TRUNCATE")
+          (:p " The asterisk serves as the truncation (or wildcard) operator. Unlike the other operators, it should be appended to the word to be affected. Words match if they begin with the word preceding the * operator.")
+
+          (:h2 "3. FORM")
+          (:p " 3. A query takes the form of,")
+          (:p "[OPERATOR FIELD : EXPRESSION]")
+          (:p "where EXPRESSION may be affixed with an asterisk character. Mixing of explicit and implicit forms as well as multiple forms are allowed. E.g.")
+          (:li"charity")
+          (:li"loved much")
+          (:li"mercy +b:matthew")
+          (:li"principalities !c:2")
+          (:li"exacteth")
+          (:li"exact*")
+          (:li"+b:john +c:3 +v:15")
+          (:h2 :onclick "toggleDivWithId(\"query-tutorial\")" :style "text-align:center;" "Tutorial: (click to toggle)")
+          (:div :id "query-tutorial" :style "display:none;"
+
+                (:p " What is the Bible if not the (his)story between God and his people? And so to reveal the new covenant, we must look to the old. How far back must we go for our journey of prefigurement? All the way back to the time when Moses lifted the serpent? Nope, that's too far back, my eyes are already glazing over. Let us flash back to the year of our Lord 1972.")
+                (:p "The Israeli government has enacted Operation Wrath of God in response to the Munich massacre. It was before my time, so I'll have to rely on Spielberg's dramatization (Munich 2005). The circle is closing in on the Mossad operatives, and they are forewarned:")
+                (:blockquote "The race is not for the swift, nor the battle for the strong, But time and chance happens to them all. Fate's hand falls suddenly, who can say when it falls?")
+                (:p " It's certainly pithy. Though I had a vague feeling I had heard it somewhere once upon a time.")
+                (:code "Query> battle")
+                (:br)
+                (:code "Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=battle" "https://www.hanshenwang.com/bible-search?query=battle"))
+
+                (:p " The first column indicates the scoring of the result where a higher score is ranked as a better match. The rows are arranged in decreasing order of said score. Note the top result is Isaiah 22:2 with a score of 129.")
+                (:p " I see that my query has no explicit FIELD, so 'battle' was implicitly matched against all five fields as noted above under section 1. Explicit fields and operators are optional.")
+                (:p " N.B. The top results all include 'battle' in both the verse and commentary. There are results that include 'battle' in either the verse or commentary, but these will be scored lower. This is why the OPERATOR OR is marked as implicit under section 2.")
+                (:p " Say I would like to narrow the search to only the (t) text field.")
+
+                (:code " Query> +t:battle")
+                (:br)
+                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle"))
+
+                (:p " Now the top result is now I Maccabees 2:35. There are still too many results. Let's filter her down a bit more. It sounds like the quotation would belong to the Wisdom books, and as of now 'battle' is pulling in too many results from the Historical books. To exclude all results from the book of I and II Maccabees,")
+                (:code " Query> +t:battle !b:maccabees")
+                (:br)
+                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees"))
+
+                (:p " We can use the wildcard operator to make our lives a little bit easier. We can remove Judges, and Judith as they all begin with the pattern 'Ju'.")
+
+                (:code " Query> +t:battle !b:maccabees !b:ju*")
+                (:br)
+                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*"))
+
+                (:p " Let us finish the search by adding another term: '+t:race'. Note queries are whitespace sensitive.")
+
+                (:code " Query> +t:battle !b:maccabees !b:ju* +t:race")
+                (:br)
+                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace"))
+
+                (:p "Deo gratias, we have found our verse: Ecclesiastes 9:11.")
+                (:blockquote "I turned me to another thing, and I saw that under the sun, the race is not to the swift, nor the battle to the strong, nor bread to the wise, nor riches to the learned, nor favour to the skilful: but time and chance in all.")
+                (:p " With accompanying commentary from Antoine Augustin Calmet (1757),")
+                (:blockquote "All. Thus it appears to the inattentive, and to the wicked. For Solomon frequently inculcates that Providence directs all wisely. Human industry is not always attended with success. Deut. xxix. 19. This is a fresh proof of the vanity of all things. C.")
+                (:p " How can Providence, lady fortuna, and human free will co-exist? It reminds me of an analogy I first heard from a Dominican Father, \"that if you meet you friend at a grocery store, that is indeed chance, but you had both intended to go the grocery store in the first place.\" Ahh, forgive me, my memory fails me. I'll have to go digging through old notes. Point is, there was no real contradiction. I guess this distinction was too darn subtle for me hah.")
+                (:p " Anyways, we all know how that old cliche goes: it's not possible to not have a philosophy, you'll just end up with a bad one. It's true, we will not be 'tested beyond our strength' for Life has a funny way of confronting us with the question of moral evil. I suppose depending on your temperament you can find solace (and maybe even answers!) in either Aquinas' airtight summa proving any created thing as the 'vanity of vanities' -- for man's happiness resides in the summum bonum etc. etc. --, or perhaps you would relate more intimately with the lovers' quarrel of Job. Who am I kidding though, I ought to by now it's never either/or but both/and. See"
+                    (:a :href "https://isidore.co/aquinas/english/SSJob.htm" "Aquinas' commentary on the book of Job.")
+                    "Oh man, between that and Peter Kreeft, I have so many ideas about new features for this website. But forgive my rambling, all in good time.")
+
+                (:p" I hope you find this search functionality useful! It is my hope that one day Microsoft Word and Adobe Acrobat Reader DC will support searching that is less primitive. To see what I mean, look at this" (:a :href "https://raw.githubusercontent.com/ShingoFukuyama/images/master/helm-swoop.gif" "GIF."))
+
+                (:p" Some parting notes:")
+                (:p" I. Ctrl+F is well known as a shortcut to search a word, and I have found the 'Highlight All' option in the popup user interface to be helpful when scanning the results. See if your particular browser vendor supports this feature on your platform.")
+                (:p "II. If you've stumbled upon the Tabular Douay Rheims and are curious about the faith, don't make the same mistake I did by starting from Genesis. I can only testify what worked for myself, which was starting from the New Testament: the Gospel of Matthew.")
+                (:p "III. It seems only fitting to wrap up this tutorial with an epilogue from whence we started.")
+                (:blockquote" Avner: If these people committed crimes we should have arrested them. Like Eichmann.")
+                (:blockquote" Ephraim: If these guys live, Israelis die. Whatever doubts you have Avner, you know this is true.")
+                (:blockquote" [Avner walks away]")
+                (:blockquote" Ephraim: You did well but you're unhappy.")
+                (:blockquote" Avner: I killed seven men.")
+                (:blockquote" Ephraim: Not Salameh. We'll get him of course.")
+                (:blockquote" [Avner continues to walk away]")
+                (:blockquote" Ephraim: You think you were the only team? It's a big operation, you were only a part. Does that assuage your guilt?")
+                (:blockquote" Avner: Did we accomplish anything at all? Every man we killed has been replaced by worse.")
+                (:blockquote" Ephraim: Why cut my finger nails? They'll grow back.")
+                (:blockquote" Avner: Did we kill to replace the terrorist leadership or the Palestinian leadership? You tell me what we've done!")
+                (:blockquote" Ephraim: You killed them for the sake of a country you now choose to abandon. The country your mother and father built, that you were born into. You killed them for Munich, for the future, for peace.")
+                (:blockquote" Avner: There's no peace at the end of this no matter what you believe. You know this is true.")
+                (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. Proof is left as an exercise to the reader. Have a good one.")))
+    (:p :style "text-align:center;"
+    (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
+    (:div :id "query-form" :style "text-align:center;"
+          (:form :action "/bible-search" :method "GET"
+                 (:label "Search: ")
+                 (:input :name "query" :id "query" :size "50" :type "text"
+                         :value (princ query) :required "required")
+                 (:input :type "submit" :value "Submit")))
+    (:table
+     ;; 35817 includes all verses of the bible.
+     (loop for (bible-uid . score) in (search-bible query '(:num-docs 35817))
+           do (cl-who:htm
+               (:tr
+                ;; HACK Score of 1.37 > 137. Coerce double float to string with precision of 2.
+                (:td (cl-who:htm (cl-who:str (write-to-string (floor score 0.01)))))
                 (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
                 (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
                 (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text bible-uid))))))))))

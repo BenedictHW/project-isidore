@@ -76,3 +76,7 @@ Persistent CLOS object state equals our datastore in this use case.
   (setf (hunchentoot:content-type*) "text/html")
   ;; localhost:8080/bible?verses=1-2-3-4-5-6
   (bible-page verses))
+
+(hunchentoot:define-easy-handler (bible-search :uri "/bible-search") (query)
+  (setf (hunchentoot:content-type*) "text/html")
+  (bible-search-page query))

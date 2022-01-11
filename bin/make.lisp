@@ -103,6 +103,7 @@
 (let ((app-file (make-pathname :directory *build-dir*
                                :defaults "ProjectIsidore")))
   (progn (project-isidore:create-datastore)
+         (project-isidore:create-search-index)
          (sb-ext:save-lisp-and-die app-file
                                    :toplevel #'cl-user::application-toplevel
                                    :executable t)))
