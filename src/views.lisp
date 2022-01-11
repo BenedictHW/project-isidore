@@ -226,7 +226,7 @@ all other web app pages uses this boilerplate."
   Still, an option exists to receive new blog articles by E-mail. This mailing
   list exists for that sole purpose and nothing else.")
     (:h1 "Sign up")
-    (:form :action "/create-subscriber" :method "post"
+    (:form :action "/create-subscriber" :method "POST"
            (:label "Title: ")
            (:input :name "friend-title" :size "50" :type "text"
            :required "required")
@@ -252,7 +252,7 @@ all other web app pages uses this boilerplate."
 (defun unsubscribe-page ()
   (web-page-template (:title "HanshenWang.com")
     (:h1 :class "title" "Unsubscribe from Mailing List")
-    (:form :action "/delete-subscriber" :method "post"
+    (:form :action "/delete-subscriber" :method "POST"
            (:label "E-mail: ")
            (:input :name "friend-email" :size "50" :type "email"
            :required "required")

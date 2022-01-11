@@ -71,7 +71,7 @@ Persistent CLOS object state equals our datastore in this use case.
     (unsubscribe-success-page email)))
 
 ;; All state is captured in the URI VERSES.
-(hunchentoot:define-easy-handler (view-bible :uri "/bible") (verses)
+(hunchentoot:define-easy-handler (bible :uri "/bible") (verses)
   ;; HTTP response header is needed.
   (setf (hunchentoot:content-type*) "text/html")
   ;; localhost:8080/bible?verses=1-2-3-4-5-6
