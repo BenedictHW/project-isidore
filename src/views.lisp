@@ -373,17 +373,19 @@ query-form"
           (:p "[OPERATOR FIELD : EXPRESSION]")
           (:p "where EXPRESSION may be affixed with an asterisk character. Mixing of explicit and implicit forms as well as multiple forms are allowed. E.g.")
           (:li"charity")
+          (:li"charity cymbal")
           (:li"loved much")
           (:li"mercy +b:matthew")
+          (:li"broad path destruction narrow")
           (:li"principalities !c:2")
-          (:li"exacteth")
-          (:li"exact*")
+          (:li"compare 'exact*' with 'exacteth'")
+          (:li"no greater love lay down")
           (:li"+b:john +c:3 +v:15")
           (:h2 :onclick "toggleDivWithId(\"query-tutorial\")" :style "text-align:center;" "Tutorial: (click to toggle)")
           (:div :id "query-tutorial" :style "display:none;"
 
-                (:p " What is the Bible if not the (his)story between God and his people? And so to reveal the new covenant, we must look to the old. How far back must we go for our journey of prefigurement? All the way back to the time when Moses lifted the serpent? Nope, that's too far back, my eyes are already glazing over. Let us flash back to the year of our Lord 1972.")
-                (:p "The Israeli government has enacted Operation Wrath of God in response to the Munich massacre. It was before my time, so I'll have to rely on Spielberg's dramatization (Munich 2005). The circle is closing in on the Mossad operatives, and they are forewarned:")
+                (:p " What is the Bible if not the (his)story between God and his people? And so to reveal the new covenant, we must look to the old. How far back must we go for our journey of prefigurement? All the way back to the time when Moses lifted the serpent? Nope, that's too far back, my eyes are already glazing over. Let's flash back to 1972.")
+                (:p "The Israeli government has enacted Operation Wrath of God in response to the Munich massacre. It was before my time, so I'll have to rely on Spielberg's dramatization (Munich 2005). The circle is closing in on the Mossad assassins, and they are forewarned:")
                 (:blockquote "The race is not for the swift, nor the battle for the strong, But time and chance happens to them all. Fate's hand falls suddenly, who can say when it falls?")
                 (:p " It's certainly pithy. Though I had a vague feeling I had heard it somewhere once upon a time.")
                 (:code "Query> battle")
@@ -404,7 +406,7 @@ query-form"
                 (:br)
                 (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees"))
 
-                (:p " We can use the wildcard operator to make our lives a little bit easier. We can remove Judges, and Judith as they all begin with the pattern 'Ju'.")
+                (:p " We can use the wildcard operator to make our lives a little bit easier. We can remove Judges, and Judith as they all begin with the pattern 'Ju'. Another very common use case for the wildcard operator is plurals.")
 
                 (:code " Query> +t:battle !b:maccabees !b:ju*")
                 (:br)
@@ -420,23 +422,29 @@ query-form"
                 (:blockquote "I turned me to another thing, and I saw that under the sun, the race is not to the swift, nor the battle to the strong, nor bread to the wise, nor riches to the learned, nor favour to the skilful: but time and chance in all.")
                 (:p " With accompanying commentary from Antoine Augustin Calmet (1757),")
                 (:blockquote "All. Thus it appears to the inattentive, and to the wicked. For Solomon frequently inculcates that Providence directs all wisely. Human industry is not always attended with success. Deut. xxix. 19. This is a fresh proof of the vanity of all things. C.")
-                (:p " How can Providence, lady fortuna, and human free will co-exist? It reminds me of an analogy I first heard from a Dominican Father, \"that if you meet you friend at a grocery store, that is indeed chance, but you had both intended to go the grocery store in the first place.\" Ahh, forgive me, my memory fails me. I'll have to go digging through old notes. Point is, there was no real contradiction. I guess this distinction was too darn subtle for me hah.")
-                (:p " Anyways, we all know how that old cliche goes: it's not possible to not have a philosophy, you'll just end up with a bad one. It's true, we will not be 'tested beyond our strength' for Life has a funny way of confronting us with the question of moral evil. I suppose depending on your temperament you can find solace (and maybe even answers!) in either Aquinas' airtight summa proving any created thing as the 'vanity of vanities' -- for man's happiness resides in the summum bonum etc. etc. --, or perhaps you would relate more intimately with the lovers' quarrel of Job. Who am I kidding though, I ought to by now it's never either/or but both/and. See"
-                    (:a :href "https://isidore.co/aquinas/english/SSJob.htm" "Aquinas' commentary on the book of Job.")
-                    "Oh man, between that and Peter Kreeft, I have so many ideas about new features for this website. But forgive my rambling, all in good time.")
+                (:p " How can Providence, lady fortuna, and human free will co-exist? It reminds me of an analogy I first heard from a Dominican Father, \"that if you meet you friend at a grocery store, that is indeed chance, but you had both intended to go the grocery store in the first place.\" Ahh, forgive me, my memory fails me. I'll have to go digging through old notes. Point is, there was no real contradiction. I guess this distinction was too darn subtle for me hah. I digress.")
+                (:p " Anyways, as the old cliche goes: it's not possible to not have a philosophy, you'll just end up with a bad one. And as much as I wish questions like these stayed in the ivory tower, Life has a funny way of exacting a response from us in the day we least expect. Both in word and in deed, how willingly will we bear the cross of injustice? Especially when 'time and chance' combined with the misuse of free will ceases to be just text but become the blood and anguish of our loved ones.")
+                (:p " Will we hearken and take to heart that 'Providence directs all wisely'? Can we swallow the fact that to deny it would make us the 'inattentive and wicked'?")
+                (:p " Perhaps we will use our own free will to deny Providence and give in, for after all, 'who is willing to destroy a piece of his own heart'? Perhaps we renounce our free will -- given in His image -- blind to the Lover's pleas, no, insistence that we come to Him of our volition or not at all. Or will we decide to replace He who knew us from the beginning for that idol, that fickle mistress?")
+                (:p "Ask not be 'tested beyond our strength'. Ask to be 'delivered from evil'. Ask your Father for mercy, unless somehow man can forgive his own transgressions, settle his own conscience, and assure his own salvation. Ask for a 'heart of flesh', to remember the obligation every creature owes to its Creator, every son to every Father.")
+                (:p "But of course, that's only half the equation. Although I have made inattentiveness a habit, better late than never. I suppose depending on your temperament I can share what has helped me with that habit. We're not in Kansas anymore baby. Aquinas'"
+                    (:a :href "https://www.newadvent.org/summa/2002.htm#article8" "Q.2 A.8 of the Secunda secundae") " to prove any created thing as the 'vanity of vanities' -- man's happiness resides in the summum bonum etc. etc. -- for all the tin woodsman of the world.  As for the scarecrows, perhaps the more intimate lovers' quarrel of Job. Who am I kidding though, I ought to by now it's never either/or but both/and. See"
+                    (:a :href "https://isidore.co/aquinas/english/SSJob.htm" "Aquinas' commentary on the book of Job."))
 
-                (:p" I hope you find this search functionality useful! It is my hope that one day Microsoft Word and Adobe Acrobat Reader DC will support searching that is less primitive. To see what I mean, look at this" (:a :href "https://raw.githubusercontent.com/ShingoFukuyama/images/master/helm-swoop.gif" "GIF."))
+                (:p " Finally, let me borrow an expression from Peter Kreeft. You're holding God's love letter in your hands. New York #1 bestseller of the week would be an understatement. Try every week. You'll have to ask " (:a :href "https://www.google.com/search?q=nickly+gumbel" "Nicky from Alpha") "about that factoid. It is the holder of many other records, from being the first machine printed book (Gutenberg 1450s) to the Guinness world record holder for all-time copies produced. Even if you believe, as I once did, that \"religion is the opium of the masses\", it is at least fitting for such an ubermensch to criticize after having read himself \"the book\" that underpins western civilization and culture. It is not for no reason that reading the Bible is an indulgenced act. I find persevering with the reading is no different or controversial than exercising for health. It's easier done in a group, or with a spotter. Special thanks to Katie and Cole, leaders of various" (:strike "bible study/book clubs") "reading groups that kept me on track. Since you, dear reader, have so kindly indulged my rambling, I think it prudent to warn that I'm no man of the cloth, let alone baptized. While the latter hopefully will change this year, I encourage you to reach out to your local Catholic priest for answers if I've hindered more than I've helped.")
+
+                (:p" In any case, I hope you find this search functionality useful! It is my hope that one day Microsoft Word and Adobe Acrobat Reader DC will support searching that is less primitive. To see what I mean, look at this" (:a :href "https://raw.githubusercontent.com/ShingoFukuyama/images/master/helm-swoop.gif" "GIF."))
 
                 (:p" Some parting notes:")
-                (:p" I. Ctrl+F is well known as a shortcut to search a word, and I have found the 'Highlight All' option in the popup user interface to be helpful when scanning the results. See if your particular browser vendor supports this feature on your platform.")
-                (:p "II. If you've stumbled upon the Tabular Douay Rheims and are curious about the faith, don't make the same mistake I did by starting from Genesis. I can only testify what worked for myself, which was starting from the New Testament: the Gospel of Matthew.")
+                (:p" I. Ctrl+F is well known as a shortcut to search a word, and I have found the 'Highlight All' option in the popup user interface to be helpful when scanning the results. See if your particular browser supports this feature on your platform.")
+                (:p "II. If you've stumbled upon the Tabular Douay Rheims and are curious about the faith, don't do the foolish thing I did by starting from Genesis. Now I can only testify what worked for myself, which was starting from the New Testament: choose one of the Gospels.")
                 (:p "III. It seems only fitting to wrap up this tutorial with an epilogue from whence we started.")
-                (:blockquote" Avner: If these people committed crimes we should have arrested them. Like Eichmann.")
+                (:blockquote" Avner: If these people committed crimes we should have arrested them. Like" (:a :href "https://en.wikipedia.org/wiki/Adolf_Eichmann" "Eichmann."))
                 (:blockquote" Ephraim: If these guys live, Israelis die. Whatever doubts you have Avner, you know this is true.")
                 (:blockquote" [Avner walks away]")
                 (:blockquote" Ephraim: You did well but you're unhappy.")
                 (:blockquote" Avner: I killed seven men.")
-                (:blockquote" Ephraim: Not Salameh. We'll get him of course.")
+                (:blockquote" Ephraim: Not" (:a :href "https://en.wikipedia.org/wiki/Ali_Hassan_Salameh" "Salameh.") "We'll get him of course.")
                 (:blockquote" [Avner continues to walk away]")
                 (:blockquote" Ephraim: You think you were the only team? It's a big operation, you were only a part. Does that assuage your guilt?")
                 (:blockquote" Avner: Did we accomplish anything at all? Every man we killed has been replaced by worse.")
@@ -444,7 +452,7 @@ query-form"
                 (:blockquote" Avner: Did we kill to replace the terrorist leadership or the Palestinian leadership? You tell me what we've done!")
                 (:blockquote" Ephraim: You killed them for the sake of a country you now choose to abandon. The country your mother and father built, that you were born into. You killed them for Munich, for the future, for peace.")
                 (:blockquote" Avner: There's no peace at the end of this no matter what you believe. You know this is true.")
-                (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. Proof is left as an exercise to the reader. Have a good one.")))
+                (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. The proof is left as an exercise to the reader. More importantly, have a great rest of the day!")))
     (:p :style "text-align:center;"
     (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
     (:div :id "query-form" :style "text-align:center;"
