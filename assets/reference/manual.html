@@ -776,8 +776,11 @@ Next: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" acces
 </li></ul>
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"><tt>web-page-template</tt></a> (macro)
-</p></dd>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE_002dTEMPLATE-macro"><tt>bible-page-template</tt></a> (macro)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"><tt>web-page-template</tt></a> (macro)
+</li></ul>
+</dd>
 </dl>
 
 <hr>
@@ -1148,8 +1151,11 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,<br>
 </li></ul>
 </dd>
 <dt><strong>Internal Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"><tt>web-page-template</tt></a> (macro)
-</p></dd>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE_002dTEMPLATE-macro"><tt>bible-page-template</tt></a> (macro)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"><tt>web-page-template</tt></a> (macro)
+</li></ul>
+</dd>
 </dl>
 
 
@@ -2048,6 +2054,22 @@ Next: <a href="#Internal-functions" accesskey="n" rel="next">Internal functions<
 </div>
 <span id="Macros"></span><h4 class="subsection">4.2.2 Macros</h4>
 <dl>
+<dt id="index-bible_002dpage_002dtemplate">Macro: <strong>bible-page-template</strong> <em>(&amp;key TITLE) &amp;body BODY</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE_002dTEMPLATE-macro"></span><span id="index-Macro_002c-bible_002dpage_002dtemplate"></span>
+<p>Template HTML for bible webpages. It removes the top banner navigation
+located in the &lsquo;web-page-template&rsquo; macro and the copyright footer. The work is
+in the public domain and frankly I think it&rsquo;s tacky to plaster the top navbar
+with my name.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fviews_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
 <dt id="index-web_002dpage_002dtemplate">Macro: <strong>web-page-template</strong> <em>(&amp;key TITLE) &amp;body BODY</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"></span><span id="index-Macro_002c-web_002dpage_002dtemplate"></span>
 <p>Template HTML for application webpages. Other than the landing page (aka
@@ -2552,6 +2574,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-bible"><code>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dbook_002dconvert_002ddwim"><code>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dpage"><code>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bible_002dpage_002dtemplate"><code>bible-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dsearch"><code>bible-search</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dsearch_002dpage"><code>bible-search-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002durl_002dto_002duid"><code>bible-url-to-uid</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
@@ -2649,6 +2672,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-list_002dproject_002disidore_002ddependencies"><code>list-project-isidore-dependencies</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-M">M</th><td></td><td></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Macro_002c-bible_002dpage_002dtemplate"><code><span class="roman">Macro, </span>bible-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Macro_002c-web_002dpage_002dtemplate"><code><span class="roman">Macro, </span>web-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-mailinglist_002dadd"><code>mailinglist-add</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-mailinglist_002ddelete"><code>mailinglist-delete</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>

@@ -70,8 +70,7 @@ all other web app pages uses this boilerplate."
             (:hr)
             (:footer
              (:div :class "copyright-container"
-                   (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.
-                   All Rights Reserved."))))))
+                   (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang."))))))
 
 (defun index-page ()
   (cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
@@ -267,10 +266,33 @@ all other web app pages uses this boilerplate."
   successfully unsubscribed. Have a good one."))
       (:a :target "_blank" :href "/" "Return to homepage." ))))
 
+(defmacro bible-page-template ((&key title) &body body)
+  "Template HTML for bible webpages. It removes the top banner navigation
+located in the `web-page-template' macro and the copyright footer. The work is
+in the public domain and frankly I think it's tacky to plaster the top navbar
+with my name."
+  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
+     (:html :lang "en"
+            (:head
+             (:meta :charset "utf-8" :name "viewport"
+                    :content "width=device-width, initial-scale=1"
+                    :http-equiv "Content-Security-Policy"
+                    :content "script-src 'self' https://apis.google.com")
+             (:title, title)
+             (:link :rel "preconnect" :href="https://fonts.googleapis.com")
+             (:link :rel "preconnect" :href="https://fonts.gstatic.com"
+             :crossorigin)
+             (:link
+             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
+             :rel "stylesheet")
+             (:link :type "text/css" :href "global.css" :rel "stylesheet"))
+            (:body
+             (:div :class "main" ,@body)))))
+
 (defun bible-page (bible-url)
   "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a
   string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
-  (web-page-template (:title "Tabular Douay Rheims Bible")
+  (bible-page-template (:title "Tabular Douay Rheims Bible")
     (:h1 :class "title" "Tabular Douay Rheims Bible")
     (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")
     (:div :style "overflow:auto"
@@ -312,7 +334,7 @@ DIV ID's
 query-syntax
 query-tutorial
 query-form"
-  (web-page-template (:title "Tabular Douay Rheims Bible")
+  (bible-page-template (:title "Tabular Douay Rheims Bible")
     (:h1 :class "title" "Tabular Douay Rheims Bible")
     (:h2 :onclick "toggleDivWithId(\"query-syntax\")" :style "text-align:center;" "Query
     Syntax (click to toggle)")
