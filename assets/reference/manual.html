@@ -736,6 +736,7 @@ Next: <a href="#The-project_002disidore_002fviews_002flisp_2024lisp-file" access
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"><tt>*acceptor*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236APPLICATION_002dTOPLEVEL-function"><tt>application-toplevel</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
 </li></ul>
@@ -1073,6 +1074,7 @@ all located under &quot;project-isidore/assets/&quot;. See the
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"><tt>*acceptor*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236APPLICATION_002dTOPLEVEL-function"><tt>application-toplevel</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
 </li></ul>
@@ -1423,6 +1425,22 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 </p></dd>
 <dt><strong>Source</strong></dt>
 <dd><p><a href="#go-to-the-project_002disidore_002fviews_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-application_002dtoplevel">Function: <strong>application-toplevel</strong> <em>()</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236APPLICATION_002dTOPLEVEL-function"></span><span id="index-Function_002c-application_002dtoplevel"></span>
+<p>Application entry point. Emulate a &quot;main&quot; function. Used in
+  SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
+  argument that defaults to 8080. Heroku dynamically sets the PORT variable to
+  be binded.
+</p><dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
 </p></dd>
 </dl>
 </dd></dl>
@@ -2567,6 +2585,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><th id="Function-index_fn_letter-A">A</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-about"><code>about</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-about_002dpage"><code>about-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-application_002dtoplevel"><code>application-toplevel</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-B">B</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bg_002dslideshow_002ddiv"><code>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2600,6 +2619,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-friend_002dtitle-1"><code>friend-title</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-generic-functions">Internal generic functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-about"><code><span class="roman">Function, </span>about</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-about_002dpage"><code><span class="roman">Function, </span>about-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-application_002dtoplevel"><code><span class="roman">Function, </span>application-toplevel</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002ddiv"><code><span class="roman">Function, </span>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002dspan"><code><span class="roman">Function, </span>bg-slideshow-span</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible"><code><span class="roman">Function, </span>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>

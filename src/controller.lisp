@@ -9,7 +9,8 @@
   ;; No package local nicknames. See commit 1962a26.
   (:export :*acceptor*
            #:initialize-application
-           #:terminate-application)
+           #:terminate-application
+           #:application-toplevel)
   (:documentation
    "Project Isidore Controller.
 

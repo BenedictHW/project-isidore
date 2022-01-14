@@ -1,110 +1,117 @@
 ;;;; SPDX-FileCopyrightText: 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
-(in-package #:cl-user) ; buildpack requires cl-user package space
-(require :sb-posix)
-(require "asdf") ; recommended way from manual to load ASDF
+(in-package #:cl-user) ; The buildpack requires cl-user package space.
+(require :sb-posix) ; This is needed for "(uiop:getenv)".
+(require "asdf") ; The recommended way from the manual to load bundled ASDF.
 
-;; HARDCODED PATHNAME
-(defvar *production-buildp* nil
-  "Identify build as local or production based off of pathname comparison.
-  The matched directory is hardcoded to the author's personal working directory.
-  MAKE.LISP is intended to be called from the shell via 'sbcl --load
-  make.lisp'")
-
-(format t "~&        ====== MAKE.LISP ======~%")
-(if (probe-file "/home/hanshen/project-isidore/bin/make.lisp")
-    (setf *production-buildp* nil)
-    (setf *production-buildp* t))
-(format t "~&        Is this a production build? ~a ~%" *production-buildp*)
+(format t "~%~&        ====== MAKE.LISP ======~%")
 
-;;; Setup Production Environment
-(when (equalp *production-buildp* t)
-  (flet ((env-to-dirs (x)
-           (pathname-directory (pathname (concatenate 'string (uiop:getenv
-           x) "/")))))
-    (defvar *buildpack-dir* (env-to-dirs "BUILDPACK_DIR"))
-    (defvar *build-dir* (env-to-dirs "BUILD_DIR"))
-    (defvar *cache-dir* (env-to-dirs "CACHE_DIR"))
-    (defvar *quicklisp-dist-version* (uiop:getenv "QL_DIST_VER")))
+;;; I. ENVIRONMENT VARIABLES
+;;; Set environment variables if they cannot be found. When running the
+;;; buildpack locally, i.e. with `*build-dir*', `*buildpack-dir*', `*cache-dir*'
+;;; and `*quicklisp-dist-version*' environment variables unset, one should
+;;; run the shell command "sbcl --dynamic-space-size 2000 --load make.lisp"
+;;; while in the /bin project sub-directory.
+(defvar *buildpack-dir* (if (uiop:getenvp "BUILDPACK_DIR")
+                            (pathname-directory (pathname (concatenate 'string (uiop:getenv "BUILDPACK_DIR") "/")))
+                            ;; Local BUILDPACK_DIR should be equal to
+                            ;; /home/$USER/project-isidore/bin/
+                            (pathname-directory (uiop:getcwd))))
 
-  ;; Whitespace to enhance readability in Heroku logs
-  (format t "~&        *BUILD-DIR* = ~a" (make-pathname :directory *build-dir*))
-  (format t "~&        *CACHE-DIR* = ~a" (make-pathname :directory *cache-dir*))
-  (format t "~&        *BUILDPACK-DIR* = ~a~%" (make-pathname :directory
-  *buildpack-dir*))
+(defvar *build-dir* (if (uiop:getenvp "BUILD_DIR")
+                            (pathname-directory (pathname (concatenate 'string (uiop:getenv "BUILD_DIR") "/")))
+                            ;; Local BUILD_DIR should be equal to
+                            ;; /home/$USER/project-isidore/
+                            (pathname-directory (uiop:pathname-parent-directory-pathname (uiop:getcwd)))))
 
-  ;; Tell ASDF to store binaries in the cache dir.
-  (setf (uiop:getenv "XDG_CACHE_HOME") (concatenate
-  'string (uiop:getenv "CACHE_DIR") "/.asdf/"))
+(defvar *cache-dir* (if (uiop:getenvp "CACHE_DIR")
+                            (pathname-directory (pathname (concatenate 'string (uiop:getenv "CACHE_DIR") "/")))
+                            ;; Local CACHE_DIR should be equal to
+                            ;; /home/$USER/ as setup.lisp can usually be
+                            ;; found at /home/$USER/quicklisp/setup.lisp.
+                            (pathname-directory (uiop:pathname-parent-directory-pathname
+                                                 (uiop:pathname-parent-directory-pathname
+                                                  (asdf:system-source-directory "quicklisp"))))))
 
-  ;; Notify ASDF that our build and cache dir is an awesome place to find '.asd'
-  ;; files.
-  (asdf:initialize-source-registry `(:source-registry
-                                     (:tree ,(make-pathname :directory
-                                     *build-dir*))
-                                     (:tree ,(make-pathname :directory
-                                     *cache-dir*))
-                                     :inherit-configuration))
-
-  ;; Install Quicklisp
-  ;; If `*cache-dir*'exists, load SETUP.LISP.
-  (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp"))
-  :defaults "setup.lisp")))
-    (if (probe-file ql-setup)
-        (load ql-setup)
-        (progn
-          (load (make-pathname :directory (append *buildpack-dir* '("lib"))
-          :defaults "quicklisp.lisp"))
-          (funcall (symbol-function
-                    (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
-                   :path (make-pathname :directory (pathname-directory
-                   ql-setup)))
-          (funcall (symbol-function
-                    (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
-                   (format
-                   nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt"
-                   *quicklisp-dist-version*)
-                   :replace t :prompt nil)))))
+;; Whitespace to enhance readability in Heroku logs.
+(format t "~&        *BUILD-DIR* = ~a" (make-pathname :directory *build-dir*))
+(format t "~&        *CACHE-DIR* = ~a" (make-pathname :directory *cache-dir*))
+(format t "~&        *BUILDPACK-DIR* = ~a" (make-pathname :directory *buildpack-dir*))
+(format t "~&        COMMON-LISP-ENV = ~a:~a (Provided ASDF version ~a) on ~a~%" (lisp-implementation-type)
+        (lisp-implementation-version) (asdf:asdf-version) (machine-type))
+(format t "~&        Fixnum bits:~a~%" (integer-length most-positive-fixnum))
+(format t "~&        Features = ~a~%" *features*)
 
-;;; Load Application into Lisp image.
+;;; II. ASDF CONFIGURATION
+;;; Notify ASDF of the source code location.
+
+;; Tell ASDF to store binaries in the cache dir.
+(setf (uiop:getenv "XDG_CACHE_HOME") (concatenate
+                                      'string (uiop:getenv "CACHE_DIR") "/.asdf/"))
+
+;; Notify ASDF that our build and cache dir is an awesome place to find '.asd'
+;; files.
+(asdf:initialize-source-registry `(:source-registry
+                                   (:tree ,(make-pathname :directory
+                                                          *build-dir*))
+                                   (:tree ,(make-pathname :directory
+                                                          *cache-dir*))
+                                   :inherit-configuration))
+
+;;; III. QUICKLISP CONFIGURATION
+;;; Because we cannot assume the existence of a ".sbclrc" initialization file,
+;;; we need to either load an already existent/cached setup.lisp or load the
+;;; downloaded quicklisp.lisp.
+
+;; There may not be the luxury of having Quicklisp already added to the .sbclrc
+;; initialization file to automatically load the quicklisp system into the lisp
+;; image at startup. If `*cache-dir*'/quicklisp exists, load SETUP.LISP.
+(let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp"))
+                               :defaults "setup.lisp")))
+  (if (probe-file ql-setup)
+      (load ql-setup)
+      ;; Otherwise install quicklisp by loading the downloaded quicklisp.lisp.
+      (progn
+        (load (make-pathname :directory (append *buildpack-dir* '("lib"))
+                             :defaults "quicklisp.lisp"))
+        (funcall (symbol-function
+                  (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
+                 :path (make-pathname :directory (pathname-directory
+                                                  ql-setup)))
+        ;; Install distribution as specified by `*quicklisp-dist-version'.
+        (defvar *quicklisp-dist-version* (if (uiop:getenvp "QL_DIST_VER")
+                                             (uiop:getenv "QL_DIST_VER")
+                                             (funcall (symbol-function
+                                                       (find-symbol "DIST-VERSION" (find-package "QL-DIST")))
+                                                      "quicklisp")))
+        (format t "~&        *QL-DIST-VER* = ~a~%" *quicklisp-dist-version*)
+        (funcall (symbol-function
+                  (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
+                 (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)
+                 :replace t :prompt nil))))
+
+;;; IV. TESTING
+;; Load Application into Lisp image.
 (ql:quickload :project-isidore)
 
-;;; Run Application tests.
+;; Load separate Project Isidore test system.
 (ql:quickload :project-isidore-test)
+
+;; Run Application tests.
 (asdf:test-system :project-isidore)
-
-(defun application-toplevel ()
-  "Application entry point. Emulate a \"main\" function. Used in
-  SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
-  argument that defaults to 8080. Heroku dynamically sets the PORT variable to
-  be binded."
-  (project-isidore:initialize-application
-   :port (if (equalp NIL (uiop:getenv "PORT"))
-             8080
-             (parse-integer (uiop:getenv "PORT")))
-   :dispatch-folder "assets/"
-   :cmd-user-interface t)
-  (loop (sleep 600))) ; sleep forever
 
-;;; Save the application as an image
-;; Heroku buildpack's bin/release refers to ./ProjectIsidore as the application
-;; name. Store binary locally under /project-isidore/ for local builds.
-(when (equalp *production-buildp* nil)
-  (defvar *build-dir*
-    (pathname-directory
-     (pathname (asdf:system-relative-pathname :project-isidore "../")))))
+;;; V. BUILDING
+;; Initialize bible dataset and indexes sequentially as the search index is
+;; dependent on the bible dataset being already loaded in memory.
+(progn (project-isidore:create-datastore)
+       (project-isidore:create-search-index))
 
+;; Dump image. For details go to src/project-isidore.asd.
+(asdf:make :project-isidore)
 
 (format t "~&        ====== Build Successful | Deo Gratias ======~%")
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 
-(let ((app-file (make-pathname :directory *build-dir*
-                               :defaults "ProjectIsidore")))
-  (progn (project-isidore:create-datastore)
-         (project-isidore:create-search-index)
-         (sb-ext:save-lisp-and-die app-file
-                                   :toplevel #'cl-user::application-toplevel
-                                   :executable t)))
 (uiop:quit)

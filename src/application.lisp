@@ -8,7 +8,8 @@
   ;; No package local nicknames. See commit 1962a26.
   (:export :*acceptor*
            #:initialize-application
-           #:terminate-application)
+           #:terminate-application
+           #:application-toplevel)
   (:documentation
    "Project Isidore Web Interface.
 
@@ -124,3 +125,15 @@ gracefully shut down the web server and exit the lisp process."
             (format t "Server successfully stopped")))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
+(defun application-toplevel ()
+  "Application entry point. Emulate a \"main\" function. Used in
+  SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
+  argument that defaults to 8080. Heroku dynamically sets the PORT variable to
+  be binded."
+  (initialize-application :port (if (equalp NIL (uiop:getenv "PORT"))
+                                    8080
+                                    (parse-integer (uiop:getenv "PORT")))
+                          :dispatch-folder "assets/"
+                          :cmd-user-interface t)
+  ;; Sleep forever.
+  (loop (sleep 600)))
