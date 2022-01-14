@@ -85,7 +85,6 @@
                                              (funcall (symbol-function
                                                        (find-symbol "DIST-VERSION" (find-package "QL-DIST")))
                                                       "quicklisp")))
-        (format t "~&        *QL-DIST-VER* = ~a~%" *quicklisp-dist-version*)
         (funcall (symbol-function
                   (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
                  (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)

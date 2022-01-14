@@ -18,9 +18,7 @@
   ;; Documentation of "program-op" here,
   ;; https://common-lisp.net/project/asdf/asdf.html#Predefined-operations-of-ASDF
   :build-operation "program-op"
-  ;; Relative to source directory.
-  :build-pathname "../ProjectIsidore"
-  ;; (concatenate 'string (uiop/pathname:unix-namestring (asdf:system-relative-pathname :project-isidore "../")) "ProjectIsidore")
+  :build-pathname "ProjectIsidore"
   ;; Defined in src/application.lisp.
   :entry-point "project-isidore:application-toplevel")
 

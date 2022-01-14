@@ -56,8 +56,7 @@ Example:
 
 (in-package :cl-user)
 
-(list-project-isidore-dependencies) =>
-
-(\"cl-org-mode\" \"hunchentoot\" \"parenscript\" \"cl-who\" \"cl-css\" \"bknr.datastore\"
- \"log4cl\" \"postmodern\") "
+(list-project-isidore-dependencies) =>"
+;; ("hunchentoot" "parenscript" "cl-who" "cl-css" "montezuma" "bknr.datastore"
+;;  "postmodern")
   (package-dependencies "project-isidore"))

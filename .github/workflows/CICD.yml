@@ -58,6 +58,9 @@ jobs:
     - name: Build Project Isidore
       run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
 
+    - name: Move Project Isidore Executable
+      run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
+
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
       uses: actions/upload-artifact@v2
@@ -100,6 +103,9 @@ jobs:
 
     - name: Build Project Isidore
       run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
+
+    - name: Move Project Isidore Executable
+      run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -166,11 +172,10 @@ jobs:
       run:
         ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
 
-    # ProjectIsidore renamed to ProjectIsidore.exe
     # Powershell command is seperate as it needs to be exectued sequentially.
-    - name: MSWindows Rename Executable
+    - name: Move Project Isidore Executable
       shell: pwsh
-      run: Rename-Item -Path "${{ Env.BUILD_DIR }}ProjectIsidore" -NewName "ProjectIsidore.exe"
+      run: Move-Item -Path "${{ Env.BUILD_DIR }}src\ProjectIsidore.exe" -Destination "${{ Env.BUILD_DIR}}ProjectIsidore.exe"
 
     - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
