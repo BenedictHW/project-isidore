@@ -18,8 +18,8 @@
                              ;; picked up by git. Otherwise I would pick :long
                              :declt-notice :short)
 ;; https://lispcookbook.github.io/cl-cookbook/os.html#input-and-output-from-subprocess
-(defparameter *shell* (uiop:launch-program "bash" :input :stream :output
-                                                         :stream))
+(defparameter *shell* (uiop:launch-program "bash" :input :stream
+                                                  :output :stream))
 ;; Change to proper directory
 (defparameter *manual-path* (concatenate
                              'string "cd "

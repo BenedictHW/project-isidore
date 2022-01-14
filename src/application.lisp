@@ -44,13 +44,12 @@ DISPATCH-FOLDER determines from which URL static assets will be served.
 
 CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
 APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
-  (format t "
-
+  (format t "~%
 ========================================
 Project Isidore v1.1.0 (A.D. 2021-10-20)
 ========================================
 
-Copyright 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 
 Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO
 WARRANTY. This program is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -59,10 +58,12 @@ parts hereof under certain conditions. Please visit
 https://www.gnu.org/licenses/agpl-3.0.html for License details.
 
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
-")
+
+Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
+  ;; Connection credentials to Heroku managed PostgreSQL are passed as an
+  ;; environment variable.
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
-  ;; Chose HTML5 encoding over default XHTML.
   (setf ;; Will show backtrace on status code 500 pages.
         hunchentoot:*show-lisp-errors-p* t
         hunchentoot:*dispatch-table*
@@ -75,23 +76,16 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (when (hunchentoot:started-p *acceptor*)
       (return-from initialize-application
-        (format t "Server already running at PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
+        (format t "Server already listening to PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
         (hunchentoot:start
          (make-instance 'hunchentoot:easy-acceptor :port port
                                           :access-log-destination nil)))
-  (format t "Server successfully started at PORT ~A" port)
-  (format t "
-
-Project Isidore initialization successful ...
-
-Navigate to http://localhost:~A to continue ...
-" port)
+  (format t "~% Server successfully bound to PORT ~A~%" port)
+  (format t "~% Project Isidore initialization successful...~%~% Navigate to http://localhost:~A to continue... ~%" port)
   (when cmd-user-interface
     (let ((do-sigint-poll t))
-      (format t "
-
-Close this window or press Control+C to exit the program ...")
+      (format t "~% Close this window or press Control+C to exit the program...~%")
       (terminate-application do-sigint-poll))))
 
 (defun terminate-application (&optional sigint-poll)
@@ -112,17 +106,17 @@ gracefully shut down the web server and exit the lisp process."
        #+ecl ext:interactive-interrupt
        #+allegro excl:interrupt-signal
        () (progn
-            (format *error-output* "Aborting.~&")
+            (format *error-output* "~%Aborting.~&~%")
             (hunchentoot:stop *acceptor*)
-            (uiop:quit)
-            (format t "Server successfully stopped")))
+            (format t "~%Server successfully stopped.~%")
+            (uiop:quit)))
       (error (c) (format t "Whoops, an unknown error occured:~&~a~&" c))))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (if (hunchentoot:started-p *acceptor*)
         (progn
           (hunchentoot:stop *acceptor*)
           (return-from terminate-application
-            (format t "Server successfully stopped")))))
+            (format t "~%Server successfully stopped.~%")))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
 (defun application-toplevel ()
