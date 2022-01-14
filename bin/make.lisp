@@ -10,7 +10,7 @@
 ;;; I. ENVIRONMENT VARIABLES
 ;;; Set environment variables if they cannot be found. When running the
 ;;; buildpack locally, i.e. with `*build-dir*', `*buildpack-dir*', `*cache-dir*'
-;;; and `*quicklisp-dist-version*' environment variables unset, one should
+;;; and `ql-dist-version' environment variables unset, one should
 ;;; run the shell command "sbcl --dynamic-space-size 2000 --load make.lisp"
 ;;; while in the /bin project sub-directory.
 (defvar *buildpack-dir* (if (uiop:getenvp "BUILDPACK_DIR")
@@ -68,7 +68,8 @@
 ;; initialization file to automatically load the quicklisp system into the lisp
 ;; image at startup. If `*cache-dir*'/quicklisp exists, load SETUP.LISP.
 (let ((ql-setup (make-pathname :directory (append *cache-dir* '("quicklisp"))
-                               :defaults "setup.lisp")))
+                               :defaults "setup.lisp"))
+      (ql-dist-version nil))
   (if (probe-file ql-setup)
       (load ql-setup)
       ;; Otherwise install quicklisp by loading the downloaded quicklisp.lisp.
@@ -79,15 +80,15 @@
                   (find-symbol "INSTALL" (find-package "QUICKLISP-QUICKSTART")))
                  :path (make-pathname :directory (pathname-directory
                                                   ql-setup)))
-        ;; Install distribution as specified by `*quicklisp-dist-version'.
-        (defvar *quicklisp-dist-version* (if (uiop:getenvp "QL_DIST_VER")
-                                             (uiop:getenv "QL_DIST_VER")
-                                             (funcall (symbol-function
-                                                       (find-symbol "DIST-VERSION" (find-package "QL-DIST")))
-                                                      "quicklisp")))
+        ;; Install distribution as specified by `ql-dist-version'.
+        (setf ql-dist-version (if (uiop:getenvp "QL_DIST_VER")
+                                  (uiop:getenv "QL_DIST_VER")
+                                  (funcall (symbol-function
+                                            (find-symbol "DIST-VERSION" (find-package "QL-DIST")))
+                                           "quicklisp")))
         (funcall (symbol-function
                   (find-symbol "INSTALL-DIST" (find-package "QL-DIST")))
-                 (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" *quicklisp-dist-version*)
+                 (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" ql-dist-version)
                  :replace t :prompt nil))))
 
 ;;; IV. TESTING
@@ -104,13 +105,18 @@
 ;; Initialize bible dataset and indexes sequentially as the search index is
 ;; dependent on the bible dataset being already loaded in memory.
 (progn (project-isidore:create-datastore)
+       (format t "~&        ====== Datastore loaded... Creating search index... ======~%")
+       (format t "~&        ====== This may take a while... ======~%")
        (project-isidore:create-search-index))
-
-;; Dump image. For details go to src/project-isidore.asd.
-(asdf:make :project-isidore)
 
 (format t "~&        ====== Build Successful | Deo Gratias ======~%")
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 
+;; Dump image. For details go to src/project-isidore.asd.
+(asdf:make :project-isidore)
+
+;; SBCL's `save-lisp-and-die' unsurprisingly kills the lisp process at the end.
+;; However this behaviour is implementation dependent. This command is here in
+;; case it does not kill the lisp process.
 (uiop:quit)
