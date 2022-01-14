@@ -322,13 +322,13 @@ p.verse  { margin-left:  3%; }
   </ul></li>
   <li><a id="toc-Packages-1" href="#Packages">3 Packages</a>
   <ul class="no-bullet">
-    <li><a id="toc-project_002disidore_002fdata-1" href="#The-project_002disidore_002fdata-package">3.1 <tt>project-isidore/data</tt></a></li>
-    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.2 <tt>project-isidore/packages</tt></a></li>
-    <li><a id="toc-project_002disidore_002fcontroller-1" href="#The-project_002disidore_002fcontroller-package">3.3 <tt>project-isidore/controller</tt></a></li>
-    <li><a id="toc-project_002disidore_002fapplication-1" href="#The-project_002disidore_002fapplication-package">3.4 <tt>project-isidore/application</tt></a></li>
-    <li><a id="toc-project_002disidore_002fviews-1" href="#The-project_002disidore_002fviews-package">3.5 <tt>project-isidore/views</tt></a></li>
-    <li><a id="toc-project_002disidore_002fstyles-1" href="#The-project_002disidore_002fstyles-package">3.6 <tt>project-isidore/styles</tt></a></li>
-    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.7 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fstyles-1" href="#The-project_002disidore_002fstyles-package">3.1 <tt>project-isidore/styles</tt></a></li>
+    <li><a id="toc-project_002disidore_002fdata-1" href="#The-project_002disidore_002fdata-package">3.2 <tt>project-isidore/data</tt></a></li>
+    <li><a id="toc-project_002disidore_002fviews-1" href="#The-project_002disidore_002fviews-package">3.3 <tt>project-isidore/views</tt></a></li>
+    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.4 <tt>project-isidore/packages</tt></a></li>
+    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.5 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fcontroller-1" href="#The-project_002disidore_002fcontroller-package">3.6 <tt>project-isidore/controller</tt></a></li>
+    <li><a id="toc-project_002disidore_002fapplication-1" href="#The-project_002disidore_002fapplication-package">3.7 <tt>project-isidore/application</tt></a></li>
   </ul></li>
   <li><a id="toc-Definitions-1" href="#Definitions">4 Definitions</a>
   <ul class="no-bullet">
@@ -668,9 +668,6 @@ Next: <a href="#The-project_002disidore_002fcontroller_002flisp_2024lisp-file" a
 <dt><strong>Location</strong></dt>
 <dd><p><tt>packages.lisp</tt>
 </p></dd>
-<dt><strong>Packages</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
-</p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
 </p></dd>
@@ -759,9 +756,6 @@ Next: <a href="#The-project_002disidore_002fstyles_002flisp_2024lisp-file" acces
 <dt><strong>Location</strong></dt>
 <dd><p><tt>views.lisp</tt>
 </p></dd>
-<dt><strong>Packages</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236ABOUT_002dPAGE-function"><tt>about-page</tt></a> (function)
@@ -800,9 +794,6 @@ Next: <a href="#The-project_002disidore_002fmodel_002flisp_2024lisp-file" access
 <dt><strong>Location</strong></dt>
 <dd><p><tt>styles.lisp</tt>
 </p></dd>
-<dt><strong>Packages</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES-package"><tt>project-isidore/styles</tt></a>
-</p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236GENERATE_002dGLOBAL_002dCSS-function"><tt>generate-global-css</tt></a> (function)
@@ -832,9 +823,6 @@ Next: <a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file" accessk
 </p></dd>
 <dt><strong>Location</strong></dt>
 <dd><p><tt>model.lisp</tt>
-</p></dd>
-<dt><strong>Packages</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
 </p></dd>
 <dt><strong>Exported Definitions</strong></dt>
 <dd><ul>
@@ -908,29 +896,64 @@ Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous:
 <p>Packages are listed by definition order.
 </p>
 <table class="menu" border="0" cellspacing="0">
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fdata-package" accesskey="1">The project-isidore/data package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fstyles-package" accesskey="1">The project-isidore/styles package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="2">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fdata-package" accesskey="2">The project-isidore/data package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fcontroller-package" accesskey="3">The project-isidore/controller package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fviews-package" accesskey="3">The project-isidore/views package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fapplication-package" accesskey="4">The project-isidore/application package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="4">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fviews-package" accesskey="5">The project-isidore/views package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="5">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fstyles-package" accesskey="6">The project-isidore/styles package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fcontroller-package" accesskey="6">The project-isidore/controller package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="7">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fapplication-package" accesskey="7">The project-isidore/application package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 </table>
 
 
 <hr>
+<span id="The-project_002disidore_002fstyles-package"></span><div class="header">
+<p>
+Next: <a href="#The-project_002disidore_002fdata-package" accesskey="n" rel="next">The project-isidore/data package</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fstyles-1"></span><h3 class="section">3.1 <tt>project-isidore/styles</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fSTYLES-package"></span><span id="index-project_002disidore_002fstyles-1"></span>
+<span id="index-Package_002c-project_002disidore_002fstyles"></span>
+<p>Project Isidore Cascading Styles Sheets.<br>
+</p>
+<p>Generate GLOBAL.CSS from sexp notation. Provide static styling.
+</p>
+<p>See VIEWS.LISP for HTML generation. 
+</p><dl compact="compact">
+<dt><strong>Use List</strong></dt>
+<dd><p><tt>common-lisp</tt>
+</p></dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236GENERATE_002dGLOBAL_002dCSS-function"><tt>generate-global-css</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236INDEX_002dCSS-function"><tt>index-css</tt></a> (function)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236BG_002dSLIDESHOW_002dDIV-function"><tt>bg-slideshow-div</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236BG_002dSLIDESHOW_002dSPAN-function"><tt>bg-slideshow-span</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+
+<hr>
 <span id="The-project_002disidore_002fdata-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#Packages" accesskey="p" rel="prev">Packages</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="next">The project-isidore/views package</a>, Previous: <a href="#The-project_002disidore_002fstyles-package" accesskey="p" rel="prev">The project-isidore/styles package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fdata-1"></span><h3 class="section">3.1 <tt>project-isidore/data</tt></h3>
+<span id="project_002disidore_002fdata-1"></span><h3 class="section">3.2 <tt>project-isidore/data</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fDATA-package"></span><span id="index-project_002disidore_002fdata-1"></span>
 <span id="index-Package_002c-project_002disidore_002fdata"></span>
 <p>Project Isidore Data.<br>
@@ -955,153 +978,11 @@ however this results in a 100% percent increase in performance cost.
 
 
 <hr>
-<span id="The-project_002disidore_002fpackages-package"></span><div class="header">
-<p>
-Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fdata-package" accesskey="p" rel="prev">The project-isidore/data package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.2 <tt>project-isidore/packages</tt></h3>
-<span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
-<span id="index-Package_002c-project_002disidore_002fpackages"></span>
-<p>Project Isidore Meta Package.<br>
-</p>
-<p>Export a single package PROJECT-ISIDORE with all the external symbols from all
-inferred packages. Inferred here is taken to signify the ASDF Package Inferred
-System.<br>
-</p>
-<p>For the web application entry point, see INITIALIZE-APPLICATION. This symbol is
-located in APPLICATION.LISP. For a comprehensive index of exported symbols and
-definitions, see the Reference Manual at
-/project-isidore/assets/reference/manual.html 
-</p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fpackages_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-<dt><strong>Nickname</strong></dt>
-<dd><p><tt>project-isidore</tt>
-</p></dd>
-<dt><strong>Use List</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</li><li> <tt>common-lisp</tt>
-</li></ul>
-</dd>
-<dt><strong>Exported Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
-</p></dd>
-<dt><strong>Internal Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
-</p></dd>
-</dl>
-
-
-<hr>
-<span id="The-project_002disidore_002fcontroller-package"></span><div class="header">
-<p>
-Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" rel="next">The project-isidore/application package</a>, Previous: <a href="#The-project_002disidore_002fpackages-package" accesskey="p" rel="prev">The project-isidore/packages package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="project_002disidore_002fcontroller-1"></span><h3 class="section">3.3 <tt>project-isidore/controller</tt></h3>
-<span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"></span><span id="index-project_002disidore_002fcontroller-1"></span>
-<span id="index-Package_002c-project_002disidore_002fcontroller"></span>
-<p>Project Isidore Controller.<br>
-</p>
-<p>This package contains URI handler and routing logic.<br>
-</p>
-<p>&lsquo;hunchentoot:define-easy-handler&rsquo; links an uri with a function postfixed with
-&rsquo;-page&rsquo;. It is said function which will generate the &quot;view&quot;, or output HTML.
-</p>
-<p>1. Serve dynamically generated HTML<br>
-</p>
-<p>See &lsquo;index-page&rsquo; (inline CSS + JS example), &lsquo;about-page&rsquo;, &lsquo;work-page&rsquo; and
-&lsquo;contact-page&rsquo;.<br>
-</p>
-<p>2. Serve dynamically generated HTML from persistent CLOS object state.<br>
-</p>
-<p>Persistent CLOS object state equals our datastore in this use case.
-&lsquo;create-datastore&rsquo; as defined in MODEL.LISP deserializes data found in the
-&quot;project-isidore/data/&quot; See &lsquo;bible-page&rsquo;. 
-</p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fcontroller_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-<dt><strong>Use List</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</li><li> <tt>common-lisp</tt>
-</li></ul>
-</dd>
-<dt><strong>Used By List</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
-</p></dd>
-</dl>
-
-
-<hr>
-<span id="The-project_002disidore_002fapplication-package"></span><div class="header">
-<p>
-Next: <a href="#The-project_002disidore_002fviews-package" accesskey="n" rel="next">The project-isidore/views package</a>, Previous: <a href="#The-project_002disidore_002fcontroller-package" accesskey="p" rel="prev">The project-isidore/controller package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="project_002disidore_002fapplication-1"></span><h3 class="section">3.4 <tt>project-isidore/application</tt></h3>
-<span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"></span><span id="index-project_002disidore_002fapplication-1"></span>
-<span id="index-Package_002c-project_002disidore_002fapplication"></span>
-<p>Project Isidore Web Interface.<br>
-</p>
-<p>Starting the Web server for the application is defined by
-&lsquo;initialize-application&rsquo;. The Project Isidore web interface has a rough mapping
-onto the Model View Controller (MVC) design pattern.<br>
-</p>
-<p>1. Serve static assets.<br>
-</p>
-<p>This includes the HTML blog articles, reference manual and code coverage report
-all located under &quot;project-isidore/assets/&quot;. See the
-&lsquo;hunchentoot:create-folder-dispatcher-and-handler&rsquo; form in
-&lsquo;initialize-application&rsquo;.
-</p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-<dt><strong>Use List</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</li><li> <tt>common-lisp</tt>
-</li></ul>
-</dd>
-<dt><strong>Used By List</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
-</p></dd>
-<dt><strong>Exported Definitions</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"><tt>*acceptor*</tt></a> (special variable)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236APPLICATION_002dTOPLEVEL-function"><tt>application-toplevel</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
-</li></ul>
-</dd>
-<dt><strong>Internal Definitions</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ABOUT-function"><tt>about</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE_002dSEARCH-function"><tt>bible-search</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236DELETE_002dSUBSCRIBER-function"><tt>delete-subscriber</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ROOT-function"><tt>root</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236SUBSCRIBE-function"><tt>subscribe</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236UNSUBSCRIBE-function"><tt>unsubscribe</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236WORK-function"><tt>work</tt></a> (function)
-</li></ul>
-</dd>
-</dl>
-
-
-<hr>
 <span id="The-project_002disidore_002fviews-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fstyles-package" accesskey="n" rel="next">The project-isidore/styles package</a>, Previous: <a href="#The-project_002disidore_002fapplication-package" accesskey="p" rel="prev">The project-isidore/application package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#The-project_002disidore_002fdata-package" accesskey="p" rel="prev">The project-isidore/data package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fviews-1"></span><h3 class="section">3.5 <tt>project-isidore/views</tt></h3>
+<span id="project_002disidore_002fviews-1"></span><h3 class="section">3.3 <tt>project-isidore/views</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"></span><span id="index-project_002disidore_002fviews-1"></span>
 <span id="index-Package_002c-project_002disidore_002fviews"></span>
 <p>Project Isidore Web Page View Generation.<br>
@@ -1121,9 +1002,6 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,<br>
   (setf (cdr (assoc &rsquo;slynk:*string-elision-length* slynk:*slynk-pprint-bindings*)) nil)
 #+end_src 
 </p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fviews_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
 <dt><strong>Use List</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
@@ -1162,49 +1040,50 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,<br>
 
 
 <hr>
-<span id="The-project_002disidore_002fstyles-package"></span><div class="header">
+<span id="The-project_002disidore_002fpackages-package"></span><div class="header">
 <p>
 Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="next">The project-isidore/model package</a>, Previous: <a href="#The-project_002disidore_002fviews-package" accesskey="p" rel="prev">The project-isidore/views package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fstyles-1"></span><h3 class="section">3.6 <tt>project-isidore/styles</tt></h3>
-<span id="go-to-the-PROJECT_002dISIDORE_002fSTYLES-package"></span><span id="index-project_002disidore_002fstyles-1"></span>
-<span id="index-Package_002c-project_002disidore_002fstyles"></span>
-<p>Project Isidore Cascading Styles Sheets.<br>
+<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.4 <tt>project-isidore/packages</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
+<span id="index-Package_002c-project_002disidore_002fpackages"></span>
+<p>Project Isidore Meta Package.<br>
 </p>
-<p>Generate GLOBAL.CSS from sexp notation. Provide static styling.
+<p>Export a single package PROJECT-ISIDORE with all the external symbols from all
+inferred packages. Inferred here is taken to signify the ASDF Package Inferred
+System.<br>
 </p>
-<p>See VIEWS.LISP for HTML generation. 
+<p>For the web application entry point, see INITIALIZE-APPLICATION. This symbol is
+located in APPLICATION.LISP. For a comprehensive index of exported symbols and
+definitions, see the Reference Manual at
+/project-isidore/assets/reference/manual.html 
 </p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fstyles_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+<dt><strong>Nickname</strong></dt>
+<dd><p><tt>project-isidore</tt>
 </p></dd>
 <dt><strong>Use List</strong></dt>
-<dd><p><tt>common-lisp</tt>
-</p></dd>
-<dt><strong>Used By List</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</p></dd>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
 <dt><strong>Exported Definitions</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236GENERATE_002dGLOBAL_002dCSS-function"><tt>generate-global-css</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236INDEX_002dCSS-function"><tt>index-css</tt></a> (function)
-</li></ul>
-</dd>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
+</p></dd>
 <dt><strong>Internal Definitions</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236BG_002dSLIDESHOW_002dDIV-function"><tt>bg-slideshow-div</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fSTYLES_2236_2236BG_002dSLIDESHOW_002dSPAN-function"><tt>bg-slideshow-span</tt></a> (function)
-</li></ul>
-</dd>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
+</p></dd>
 </dl>
 
 
 <hr>
 <span id="The-project_002disidore_002fmodel-package"></span><div class="header">
 <p>
-Previous: <a href="#The-project_002disidore_002fstyles-package" accesskey="p" rel="prev">The project-isidore/styles package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fpackages-package" accesskey="p" rel="prev">The project-isidore/packages package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.7 <tt>project-isidore/model</tt></h3>
+<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.5 <tt>project-isidore/model</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fMODEL-package"></span><span id="index-project_002disidore_002fmodel-1"></span>
 <span id="index-Package_002c-project_002disidore_002fmodel"></span>
 <p>Project Isidore Object Schema.<br>
@@ -1227,9 +1106,6 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 </p>
 <p>See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 </p><dl compact="compact">
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
 <dt><strong>Use List</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fDATA-package"><tt>project-isidore/data</tt></a>
@@ -1284,6 +1160,106 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236VERSE_002dOF-generic-function"><tt>verse-of</tt></a> (generic function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236VERSE_002dOF-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-method"><tt>verse-of</tt></a> (method)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236WHOLE_002dBIBLE_002dLIST-function"><tt>whole-bible-list</tt></a> (function)
+</li></ul>
+</dd>
+</dl>
+
+
+<hr>
+<span id="The-project_002disidore_002fcontroller-package"></span><div class="header">
+<p>
+Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" rel="next">The project-isidore/application package</a>, Previous: <a href="#The-project_002disidore_002fmodel-package" accesskey="p" rel="prev">The project-isidore/model package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fcontroller-1"></span><h3 class="section">3.6 <tt>project-isidore/controller</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"></span><span id="index-project_002disidore_002fcontroller-1"></span>
+<span id="index-Package_002c-project_002disidore_002fcontroller"></span>
+<p>Project Isidore Controller.<br>
+</p>
+<p>This package contains URI handler and routing logic.<br>
+</p>
+<p>&lsquo;hunchentoot:define-easy-handler&rsquo; links an uri with a function postfixed with
+&rsquo;-page&rsquo;. It is said function which will generate the &quot;view&quot;, or output HTML.
+</p>
+<p>1. Serve dynamically generated HTML<br>
+</p>
+<p>See &lsquo;index-page&rsquo; (inline CSS + JS example), &lsquo;about-page&rsquo;, &lsquo;work-page&rsquo; and
+&lsquo;contact-page&rsquo;.<br>
+</p>
+<p>2. Serve dynamically generated HTML from persistent CLOS object state.<br>
+</p>
+<p>Persistent CLOS object state equals our datastore in this use case.
+&lsquo;create-datastore&rsquo; as defined in MODEL.LISP deserializes data found in the
+&quot;project-isidore/data/&quot; See &lsquo;bible-page&rsquo;. 
+</p><dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fcontroller_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Use List</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
+</p></dd>
+</dl>
+
+
+<hr>
+<span id="The-project_002disidore_002fapplication-package"></span><div class="header">
+<p>
+Previous: <a href="#The-project_002disidore_002fcontroller-package" accesskey="p" rel="prev">The project-isidore/controller package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fapplication-1"></span><h3 class="section">3.7 <tt>project-isidore/application</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"></span><span id="index-project_002disidore_002fapplication-1"></span>
+<span id="index-Package_002c-project_002disidore_002fapplication"></span>
+<p>Project Isidore Web Interface.<br>
+</p>
+<p>Starting the Web server for the application is defined by
+&lsquo;initialize-application&rsquo;. The Project Isidore web interface has a rough mapping
+onto the Model View Controller (MVC) design pattern.<br>
+</p>
+<p>1. Serve static assets.<br>
+</p>
+<p>This includes the HTML blog articles, reference manual and code coverage report
+all located under &quot;project-isidore/assets/&quot;. See the
+&lsquo;hunchentoot:create-folder-dispatcher-and-handler&rsquo; form in
+&lsquo;initialize-application&rsquo;.
+</p><dl compact="compact">
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fapplication_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+<dt><strong>Use List</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
+<dt><strong>Used By List</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
+</p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236_002aACCEPTOR_002a-special-variable"><tt>*acceptor*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236APPLICATION_002dTOPLEVEL-function"><tt>application-toplevel</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"><tt>initialize-application</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"><tt>terminate-application</tt></a> (function)
+</li></ul>
+</dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ABOUT-function"><tt>about</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE_002dSEARCH-function"><tt>bible-search</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236DELETE_002dSUBSCRIBER-function"><tt>delete-subscriber</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ROOT-function"><tt>root</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236SUBSCRIBE-function"><tt>subscribe</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236UNSUBSCRIBE-function"><tt>unsubscribe</tt></a> (function)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236WORK-function"><tt>work</tt></a> (function)
 </li></ul>
 </dd>
 </dl>
@@ -1709,10 +1685,7 @@ APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP.
 </p>
 <p>(in-package :cl-user)<br>
 </p>
-<p>(list-project-isidore-dependencies) =&gt;<br>
-</p>
-<p>(&quot;cl-org-mode&quot; &quot;hunchentoot&quot; &quot;parenscript&quot; &quot;cl-who&quot; &quot;cl-css&quot; &quot;bknr.datastore&quot;
- &quot;log4cl&quot; &quot;postmodern&quot;) 
+<p>(list-project-isidore-dependencies) =&gt;
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
