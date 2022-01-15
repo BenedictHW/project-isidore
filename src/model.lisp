@@ -162,8 +162,10 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
 
   Side Effects:
   BOOK will be converted from a string to an integer, if applicable. "
-  (unless (integerp book)
-    (setf book (bible-book-convert-dwim book)))
+  (declare (optimize speed)
+           (fixnum book)
+           (fixnum chapter)
+           (fixnum verse))
   ;; KLUDGE I assume there is an out of bounds/off by one error in
   ;; BKNR.DATASTORE's :index-reader function. Hence a special case for the last ID.
   (if (and (= book 73)
@@ -328,9 +330,12 @@ Bible unique ID's and a relevance score"
   (let ((results '()))
     (montezuma:search-each *search-index* query
                            #'(lambda (doc score)
+                               (declare (optimize)
+                                        (fixnum doc)
+                                        (double-float score))
                                (push (cons doc score) results))
                            options)
-    (reverse results)))
+    (nreverse results)))
 
 (defun create-search-index ()
   " Montezuma index will have same indices as BKNR.DATASTORE class object
