@@ -14,9 +14,9 @@
   <link>http://hanshenwang.com/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Mon, 01 Nov 2021 02:06:38 -0400</pubDate>
-  <lastBuildDate>Mon, 01 Nov 2021 02:06:38 -0400</lastBuildDate>
-  <generator>Emacs 27.1 Org-mode 9.4.6</generator>
+  <pubDate>Sat, 15 Jan 2022 00:17:24 -0500</pubDate>
+  <lastBuildDate>Sat, 15 Jan 2022 00:17:24 -0500</lastBuildDate>
+  <generator>Emacs 27.1 Org-mode 9.5.2</generator>
   <webMaster>hanshen@hanshenwang.com (Hanshen Wang)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
@@ -25,6 +25,15 @@
   </image>
 
 
+  <item>
+    <title>Tabular Douay Rheims</title>
+    <link>http://hanshenwang.com/blog/tabular-douay-rheims.html</link>
+    <author>hanshen@hanshenwang.com (Hanshen Wang)</author>
+    <guid isPermaLink="false">http://hanshenwang.com/blog/tabular-douay-rheims.html</guid>
+    <pubDate>Fri, 10 Dec 2021 00:00:00 -0500</pubDate>
+
+    <description><![CDATA[]]></description>
+  </item>
   <item>
     <title>Project Isidore Design Notebook</title>
     <link>http://hanshenwang.com/blog/project-isidore-doc.html</link>

@@ -294,7 +294,7 @@ with my name."
   string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
   (bible-page-template (:title "Tabular Douay Rheims Bible")
     (:h1 :class "title" "Tabular Douay Rheims Bible")
-    (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading. For more information.")
+    (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
           (loop for (link . title) in +bible-book-url-alist+

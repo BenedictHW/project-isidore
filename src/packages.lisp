@@ -53,7 +53,6 @@ definitions, see the Reference Manual at
   "Returns a list of all third party libraries needed to load Project Isidore.
 
 Example:
-
 (in-package :cl-user)
 
 (list-project-isidore-dependencies) =>"
