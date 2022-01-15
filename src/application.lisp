@@ -46,7 +46,7 @@ CMD-USER-INTERFACE when set to true will determine if C-c will exit. See
 APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
   (format t "~%
 ========================================
-Project Isidore v1.1.0 (A.D. 2021-10-20)
+Project Isidore v1.2.0 (A.D. 2022-01-15)
 ========================================
 
 Copyright (c) 2021 Hanshen Wang <Hanshen@HanshenWang.com>
