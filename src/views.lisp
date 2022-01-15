@@ -316,7 +316,18 @@ with my name."
                  (:input :name "query" :id "query" :size "50" :type "text"
                          :required "required")
                  (:input :type "submit" :value "Submit")))
-    (:table
+    (:div :class "font-dropdown-menu"
+          (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
+                   (:option :value "Times New Roman" :selected "selected" "Times New Roman")
+                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Helvetica" "Palatino"  "Verdana")
+                         do (cl-who:htm
+                             (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
+          (:script :type "text/javascript"
+                   (cl-who:str
+                    (parenscript:ps-inline
+                        (defun change-to-font (font)
+                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
+    (:table :id "main-content"
      ;; Present tabular view of bible text.
      (loop for bible-uid from (car (bible-url-to-uid bible-url))
              to (cadr (bible-url-to-uid bible-url))
@@ -449,13 +460,24 @@ query-form"
                 (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. The proof is left as an exercise to the reader. More importantly, have a great rest of the day!")))
     (:p :style "text-align:center;"
     (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
+    (:div :class "font-dropdown-menu"
+          (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
+                   (:option :value "Times New Roman" :selected "selected" "Times New Roman")
+                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Helvetica" "Palatino"  "Verdana")
+                         do (cl-who:htm
+                             (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
+          (:script :type "text/javascript"
+                   (cl-who:str
+                    (parenscript:ps-inline
+                        (defun change-to-font (font)
+                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:div :id "query-form" :style "text-align:center;"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
                  (:input :name "query" :id "query" :size "50" :type "text"
                          :value (princ query) :required "required")
                  (:input :type "submit" :value "Submit")))
-    (:table
+    (:table :id "main-content"
      ;; 35817 includes all verses of the bible.
      (loop for (bible-uid . score) in (search-bible query '(:num-docs 35817))
            do (cl-who:htm
