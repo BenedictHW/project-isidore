@@ -5,7 +5,7 @@
 
 (asdf:defsystem #:project-isidore
   :name "Project Isidore"
-  :version "1.2.0"
+  :version "1.2.1"
   :author "Hanshen Wang <hanshen@hanshenwang.com>"
   :description "Personal Web Application"
   :license  "GNU Affero General Public License 3.0 or later"

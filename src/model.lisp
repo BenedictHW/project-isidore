@@ -331,8 +331,7 @@ Bible unique ID's and a relevance score"
     (montezuma:search-each *search-index* query
                            #'(lambda (doc score)
                                (declare (optimize)
-                                        (fixnum doc)
-                                        (double-float score))
+                                        (fixnum doc))
                                (push (cons doc score) results))
                            options)
     (nreverse results)))
