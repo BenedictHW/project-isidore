@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-14 Fri 23:36 -->
+<!-- 2022-01-15 Sat 19:54 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -58,10 +58,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-14 Fri 23:36</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-15 Sat 19:54</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgd1c8b8a">
+<div class="abstract" id="orgb8bae2b">
 <p>
 
 </p>
@@ -2088,8 +2088,8 @@ where the real magic happens.
 <span class="org-variable-name">ENV_DIR</span>=$<span class="org-highlight-numbers-number">3</span>
 <span class="org-variable-name">CL_DIR</span>=<span class="org-string">"$CACHE_DIR/sbcl"</span>
 <span class="org-variable-name">CL_IMPL</span>=<span class="org-string">"sbcl-bin"</span>
-<span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL_VER '2.1.11')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
-<span class="org-variable-name">QL_DIST_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> QL_DIST_VER '2021-10-21')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
+<span class="org-variable-name">CL_IMPL_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> CL_IMPL_VER '2.2.0')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
+<span class="org-variable-name">QL_DIST_VER</span>=<span class="org-string">"$(</span><span class="org-sh-quoted-exec">getenv</span><span class="org-string"> QL_DIST_VER '2021-12-30')"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">safe to update this manually</span>
 
 <span class="org-comment-delimiter">####################</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">2. Run Buildpack #</span>
@@ -2113,7 +2113,7 @@ info <span class="org-string">"QL_DIST_VER: $QL_DIST_VER"</span>
 log <span class="org-string">"I. Installing STEEL BANK COMMON LISP"</span>
 <span class="org-comment-delimiter">##########################################</span>
 
-<span class="org-variable-name">CL_PACKAGE</span>=<span class="org-string">"http://prdownloads.sourceforge.net/sbcl/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2"</span>
+<span class="org-variable-name">CL_PACKAGE</span>=<span class="org-string">" https://sourceforge.net/projects/sbcl/files/sbcl/$CL_IMPL_VER/sbcl-$CL_IMPL_VER-x86-64-linux-binary.tar.bz2/download"</span>
 <span class="org-variable-name">DECOMPRESS</span>=<span class="org-string">"tar jxf - -C $CL_DIR"</span>
 
 rm -rf $<span class="org-variable-name">CL_DIR</span> <span class="org-comment-delimiter"># </span><span class="org-comment">delete old leftover directory</span>
@@ -2148,7 +2148,8 @@ info <span class="org-string">"Starting Build..."</span>
 info <span class="org-string">"Loading $BUILDPACK_DIR/bin/make.lisp..."</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">As per /sbcl-$CL_IMPL_VER-x86-64-linux/INSTALL, we run SBCL without installing</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">it, from the top of binary distribution directory: $ sh run-sbcl.sh</span>
-sh $<span class="org-variable-name">CL_DIR</span>/sbcl-$<span class="org-variable-name">CL_IMPL_VER</span>-x86-64-linux/run-sbcl.sh --load <span class="org-string">"$BUILDPACK_DIR/bin/make.lisp"</span>
+sh $<span class="org-variable-name">CL_DIR</span>/sbcl-$<span class="org-variable-name">CL_IMPL_VER</span>-x86-64-linux/run-sbcl.sh --dynamic-space-size <span class="org-highlight-numbers-number">2000</span> --load <span class="org-string">"$BUILDPACK_DIR/bin/make.lisp"</span>
+mv -v <span class="org-string">"$BUILD_DIR/src/ProjectIsidore"</span> <span class="org-string">"$BUILD_DIR/ProjectIsidore"</span>
 chmod a+x <span class="org-string">"$BUILD_DIR/ProjectIsidore"</span> <span class="org-comment-delimiter"># </span><span class="org-comment">grant permissions for application</span>
 log <span class="org-string">"Successfully Loaded $BUILDPACK_DIR/bin/make.lisp"</span>
 
@@ -2160,130 +2161,127 @@ log <span class="org-string">"Successfully Loaded $BUILDPACK_DIR/bin/make.lisp"<
 <h6 id="Make-Lisp">Make Lisp</h6>
 <div class="outline-text-6" id="text-Make-Lisp">
 <div class="org-src-container">
-<pre class="src src-lisp" id="org03a5866"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">make.lisp</span>
-<span class="org-comment-delimiter">;;;</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Copyright (c) 2021 Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
-<span class="org-comment-delimiter">;;;</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">This file is part of Project Isidore.</span>
-<span class="org-comment-delimiter">;;;</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is free software: you can redistribute it and/or modify it</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">under the terms of the GNU Affero General Public License as published by the</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Free Software Foundation, either version 3 of the License, or (at your</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">option) any later version.</span>
-<span class="org-comment-delimiter">;;;</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Project Isidore is distributed in the hope that it will be useful, but</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">License for more details.</span>
-<span class="org-comment-delimiter">;;;</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">You should have received a copy of the GNU Affero General Public License</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">along with Project Isidore. If not, see <a href="https://www.gnu.org/licenses/">&lt;https://www.gnu.org/licenses/&gt;</a>.</span>
+<pre class="src src-lisp" id="org03a5866"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">SPDX-FileCopyrightText: 2021 Hanshen Wang <a href="mailto:Hanshen%40HanshenWang.com">&lt;Hanshen@HanshenWang.com&gt;</a></span>
+<span class="org-comment-delimiter">;;;; </span><span class="org-comment">SPDX-License-Identifier: AGPL-3.0-or-later</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; The buildpack requires cl-user package space.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-posix</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; This is needed for "(uiop:getenv)".</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-string">"asdf"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; The recommended way from the manual to load bundled ASDF.</span>
+
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~%~&amp;        ====== MAKE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 &#12;
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">in-package</span> <span class="org-comment-delimiter">#:</span><span class="org-doc">cl-user</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; buildpack requires cl-user package space</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-constant">:sb-posix</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> <span class="org-string">"asdf"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; recommended way from manual to load ASDF</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">I. ENVIRONMENT VARIABLES</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Set environment variables if they cannot be found. When running the</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">buildpack locally, i.e. with `</span><span class="org-comment"><span class="org-constant">*build-dir*</span></span><span class="org-comment">', `</span><span class="org-comment"><span class="org-constant">*buildpack-dir*</span></span><span class="org-comment">', `</span><span class="org-comment"><span class="org-constant">*cache-dir*</span></span><span class="org-comment">'</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">and `</span><span class="org-comment"><span class="org-constant">ql-dist-version</span></span><span class="org-comment">' environment variables unset, one should</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">run the shell command "sbcl --dynamic-space-size 2000 --load make.lisp"</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">while in the /bin project sub-directory.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*buildpack-dir*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenvp <span class="org-string">"BUILDPACK_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>pathname <span class="org-rainbow-delimiters-depth-5">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-6">(</span>uiop:getenv <span class="org-string">"BUILDPACK_DIR"</span><span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">Local BUILDPACK_DIR should be equal to</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">/home/$USER/project-isidore/bin/</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getcwd<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-comment-delimiter">;; </span><span class="org-comment">HARDCODED PATHNAME</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*production-buildp*</span> nil
-  <span class="org-doc">"Identify build as local or production based off of pathname comparison.</span>
-<span class="org-doc">  The matched directory is hardcoded to the author's personal working directory.</span>
-<span class="org-doc">  MAKE.LISP is intended to be called from the shell via 'sbcl --load</span>
-<span class="org-doc">  make.lisp'"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenvp <span class="org-string">"BUILD_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>pathname <span class="org-rainbow-delimiters-depth-5">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-6">(</span>uiop:getenv <span class="org-string">"BUILD_DIR"</span><span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">Local BUILD_DIR should be equal to</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">/home/$USER/project-isidore/</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>uiop:pathname-parent-directory-pathname <span class="org-rainbow-delimiters-depth-5">(</span>uiop:getcwd<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== MAKE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-2">(</span>probe-file <span class="org-string">"/home/hanshen/project-isidore/bin/make.lisp"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-    <span class="org-rainbow-delimiters-depth-2">(</span>setf *production-buildp* nil<span class="org-rainbow-delimiters-depth-2">)</span>
-    <span class="org-rainbow-delimiters-depth-2">(</span>setf *production-buildp* t<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        Is this a production build? ~a ~%"</span> *production-buildp*<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*cache-dir*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenvp <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>pathname <span class="org-rainbow-delimiters-depth-5">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-6">(</span>uiop:getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">Local CACHE_DIR should be equal to</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">/home/$USER/ as setup.lisp can usually be</span>
+                            <span class="org-comment-delimiter">;; </span><span class="org-comment">found at /home/$USER/quicklisp/setup.lisp.</span>
+                            <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-4">(</span>uiop:pathname-parent-directory-pathname
+                                                 <span class="org-rainbow-delimiters-depth-5">(</span>uiop:pathname-parent-directory-pathname
+                                                  <span class="org-rainbow-delimiters-depth-6">(</span>asdf:system-source-directory <span class="org-string">"quicklisp"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Whitespace to enhance readability in Heroku logs.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        *BUILD-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        *CACHE-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        *BUILDPACK-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-2">(</span>make-pathname <span class="org-builtin">:directory</span> *buildpack-dir*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        COMMON-LISP-ENV = ~a:~a (Provided ASDF version ~a) on ~a~%"</span> <span class="org-rainbow-delimiters-depth-2">(</span>lisp-implementation-type<span class="org-rainbow-delimiters-depth-2">)</span>
+        <span class="org-rainbow-delimiters-depth-2">(</span>lisp-implementation-version<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>asdf:asdf-version<span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>machine-type<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        Fixnum bits:~a~%"</span> <span class="org-rainbow-delimiters-depth-2">(</span>integer-length most-positive-fixnum<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        Features = ~a~%"</span> *features*<span class="org-rainbow-delimiters-depth-1">)</span>
 &#12;
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Setup Production Environment</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp *production-buildp* t<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">flet</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-rainbow-delimiters-depth-5">(</span>x<span class="org-rainbow-delimiters-depth-5">)</span>
-           <span class="org-rainbow-delimiters-depth-5">(</span>pathname-directory <span class="org-rainbow-delimiters-depth-6">(</span>pathname <span class="org-rainbow-delimiters-depth-7">(</span>concatenate 'string <span class="org-rainbow-delimiters-depth-8">(</span>uiop:getenv
-           x<span class="org-rainbow-delimiters-depth-8">)</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*buildpack-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"BUILDPACK_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"BUILD_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*cache-dir*</span> <span class="org-rainbow-delimiters-depth-4">(</span>env-to-dirs <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*quicklisp-dist-version*</span> <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"QL_DIST_VER"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">II. ASDF CONFIGURATION</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Notify ASDF of the source code location.</span>
 
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Whitespace to enhance readability in Heroku logs</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *BUILD-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *CACHE-DIR* = ~a"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span> *cache-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        *BUILDPACK-DIR* = ~a~%"</span> <span class="org-rainbow-delimiters-depth-3">(</span>make-pathname <span class="org-builtin">:directory</span>
-  *buildpack-dir*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Tell ASDF to store binaries in the cache dir.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setf <span class="org-rainbow-delimiters-depth-2">(</span>uiop:getenv <span class="org-string">"XDG_CACHE_HOME"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate
+                                      'string <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"/.asdf/"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Tell ASDF to store binaries in the cache dir.</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>uiop:getenv <span class="org-string">"XDG_CACHE_HOME"</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">(</span>concatenate
-  'string <span class="org-rainbow-delimiters-depth-4">(</span>uiop:getenv <span class="org-string">"CACHE_DIR"</span><span class="org-rainbow-delimiters-depth-4">)</span> <span class="org-string">"/.asdf/"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Notify ASDF that our build and cache dir is an awesome place to find '.asd'</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">files.</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>asdf:initialize-source-registry `<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:source-registry</span>
-                                     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span>
-                                     *build-dir*<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-                                     <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span>
-                                     *cache-dir*<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-                                     <span class="org-builtin">:inherit-configuration</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Install Quicklisp</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">If `</span><span class="org-comment"><span class="org-constant">*cache-dir*</span></span><span class="org-comment">'exists, load SETUP.LISP.</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>ql-setup <span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-6">(</span>append *cache-dir* '<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-string">"quicklisp"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-  <span class="org-builtin">:defaults</span> <span class="org-string">"setup.lisp"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>probe-file ql-setup<span class="org-rainbow-delimiters-depth-4">)</span>
-        <span class="org-rainbow-delimiters-depth-4">(</span>load ql-setup<span class="org-rainbow-delimiters-depth-4">)</span>
-        <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">progn</span>
-          <span class="org-rainbow-delimiters-depth-5">(</span>load <span class="org-rainbow-delimiters-depth-6">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-7">(</span>append *buildpack-dir* '<span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"lib"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span>
-          <span class="org-builtin">:defaults</span> <span class="org-string">"quicklisp.lisp"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-          <span class="org-rainbow-delimiters-depth-5">(</span>funcall <span class="org-rainbow-delimiters-depth-6">(</span>symbol-function
-                    <span class="org-rainbow-delimiters-depth-7">(</span>find-symbol <span class="org-string">"INSTALL"</span> <span class="org-rainbow-delimiters-depth-8">(</span>find-package <span class="org-string">"QUICKLISP-QUICKSTART"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                   <span class="org-builtin">:path</span> <span class="org-rainbow-delimiters-depth-6">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-7">(</span>pathname-directory
-                   ql-setup<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-          <span class="org-rainbow-delimiters-depth-5">(</span>funcall <span class="org-rainbow-delimiters-depth-6">(</span>symbol-function
-                    <span class="org-rainbow-delimiters-depth-7">(</span>find-symbol <span class="org-string">"INSTALL-DIST"</span> <span class="org-rainbow-delimiters-depth-8">(</span>find-package <span class="org-string">"QL-DIST"</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                   <span class="org-rainbow-delimiters-depth-6">(</span>format
-                   nil <span class="org-string">"http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt"</span>
-                   *quicklisp-dist-version*<span class="org-rainbow-delimiters-depth-6">)</span>
-                   <span class="org-builtin">:replace</span> t <span class="org-builtin">:prompt</span> nil<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Notify ASDF that our build and cache dir is an awesome place to find '.asd'</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">files.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>asdf:initialize-source-registry `<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:source-registry</span>
+                                   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span>
+                                                          *build-dir*<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                                   <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-builtin">:tree</span> ,<span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span>
+                                                          *cache-dir*<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+                                   <span class="org-builtin">:inherit-configuration</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 &#12;
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Load Application into Lisp image.</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">III. QUICKLISP CONFIGURATION</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">Because we cannot assume the existence of a ".sbclrc" initialization file,</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">we need to either load an already existent/cached setup.lisp or load the</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">downloaded quicklisp.lisp.</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">There may not be the luxury of having Quicklisp already added to the .sbclrc</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">initialization file to automatically load the quicklisp system into the lisp</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">image at startup. If `</span><span class="org-comment"><span class="org-constant">*cache-dir*</span></span><span class="org-comment">'/quicklisp exists, load SETUP.LISP.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>ql-setup <span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-5">(</span>append *cache-dir* '<span class="org-rainbow-delimiters-depth-6">(</span><span class="org-string">"quicklisp"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                               <span class="org-builtin">:defaults</span> <span class="org-string">"setup.lisp"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>ql-dist-version nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>probe-file ql-setup<span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span>load ql-setup<span class="org-rainbow-delimiters-depth-3">)</span>
+      <span class="org-comment-delimiter">;; </span><span class="org-comment">Otherwise install quicklisp by loading the downloaded quicklisp.lisp.</span>
+      <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">progn</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>load <span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-6">(</span>append *buildpack-dir* '<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-string">"lib"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                             <span class="org-builtin">:defaults</span> <span class="org-string">"quicklisp.lisp"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>funcall <span class="org-rainbow-delimiters-depth-5">(</span>symbol-function
+                  <span class="org-rainbow-delimiters-depth-6">(</span>find-symbol <span class="org-string">"INSTALL"</span> <span class="org-rainbow-delimiters-depth-7">(</span>find-package <span class="org-string">"QUICKLISP-QUICKSTART"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                 <span class="org-builtin">:path</span> <span class="org-rainbow-delimiters-depth-5">(</span>make-pathname <span class="org-builtin">:directory</span> <span class="org-rainbow-delimiters-depth-6">(</span>pathname-directory
+                                                  ql-setup<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">Install distribution as specified by `</span><span class="org-comment"><span class="org-constant">ql-dist-version</span></span><span class="org-comment">'.</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>setf ql-dist-version <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-6">(</span>uiop:getenvp <span class="org-string">"QL_DIST_VER"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                                  <span class="org-rainbow-delimiters-depth-6">(</span>uiop:getenv <span class="org-string">"QL_DIST_VER"</span><span class="org-rainbow-delimiters-depth-6">)</span>
+                                  <span class="org-rainbow-delimiters-depth-6">(</span>funcall <span class="org-rainbow-delimiters-depth-7">(</span>symbol-function
+                                            <span class="org-rainbow-delimiters-depth-8">(</span>find-symbol <span class="org-string">"DIST-VERSION"</span> <span class="org-rainbow-delimiters-depth-9">(</span>find-package <span class="org-string">"QL-DIST"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span>
+                                           <span class="org-string">"quicklisp"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+        <span class="org-rainbow-delimiters-depth-4">(</span>funcall <span class="org-rainbow-delimiters-depth-5">(</span>symbol-function
+                  <span class="org-rainbow-delimiters-depth-6">(</span>find-symbol <span class="org-string">"INSTALL-DIST"</span> <span class="org-rainbow-delimiters-depth-7">(</span>find-package <span class="org-string">"QL-DIST"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                 <span class="org-rainbow-delimiters-depth-5">(</span>format nil <span class="org-string">"http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt"</span> ql-dist-version<span class="org-rainbow-delimiters-depth-5">)</span>
+                 <span class="org-builtin">:replace</span> t <span class="org-builtin">:prompt</span> nil<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+&#12;
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">IV. TESTING</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Load Application into Lisp image.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Run Application tests.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Load separate Project Isidore test system.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore-test</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Run Application tests.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">application-toplevel</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-doc">"Application entry point. Emulate a \"main\" function. Used in</span>
-<span class="org-doc">  SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword</span>
-<span class="org-doc">  argument that defaults to 8080. Heroku dynamically sets the PORT variable to</span>
-<span class="org-doc">  be binded."</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:initialize-application
-   <span class="org-builtin">:port</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>equalp NIL <span class="org-rainbow-delimiters-depth-5">(</span>uiop:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-             <span class="org-highlight-numbers-number">8080</span>
-             <span class="org-rainbow-delimiters-depth-4">(</span>parse-integer <span class="org-rainbow-delimiters-depth-5">(</span>uiop:getenv <span class="org-string">"PORT"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-builtin">:dispatch-folder</span> <span class="org-string">"assets/"</span>
-   <span class="org-builtin">:cmd-user-interface</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">loop</span> <span class="org-rainbow-delimiters-depth-3">(</span>sleep <span class="org-highlight-numbers-number">600</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; sleep forever</span>
 &#12;
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">Save the application as an image</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Heroku buildpack's bin/release refers to ./ProjectIsidore as the application</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">name. Store binary locally under /project-isidore/ for local builds.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-2">(</span>equalp *production-buildp* nil<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*build-dir*</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>pathname-directory
-     <span class="org-rainbow-delimiters-depth-4">(</span>pathname <span class="org-rainbow-delimiters-depth-5">(</span>asdf:system-relative-pathname <span class="org-builtin">:project-isidore</span> <span class="org-string">"../"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">V. BUILDING</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Initialize bible dataset and indexes sequentially as the search index is</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">dependent on the bible dataset being already loaded in memory.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">progn</span> <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:create-datastore<span class="org-rainbow-delimiters-depth-2">)</span>
+       <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        ====== Datastore loaded... Creating search index... ======~%"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+       <span class="org-rainbow-delimiters-depth-2">(</span>format t <span class="org-string">"~&amp;        ====== This may take a while... ======~%"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+       <span class="org-rainbow-delimiters-depth-2">(</span>project-isidore:create-search-index<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== Build Successful | Deo Gratias ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span>format t <span class="org-string">"~&amp;        ====== END OF MAKE.LISP ======~%"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>app-file <span class="org-rainbow-delimiters-depth-4">(</span>make-pathname <span class="org-builtin">:directory</span> *build-dir*
-                               <span class="org-builtin">:defaults</span> <span class="org-string">"ProjectIsidore"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">progn</span> <span class="org-rainbow-delimiters-depth-3">(</span>project-isidore:create-datastore<span class="org-rainbow-delimiters-depth-3">)</span>
-         <span class="org-rainbow-delimiters-depth-3">(</span>sb-ext:save-lisp-and-die app-file
-                                   <span class="org-builtin">:toplevel</span> #'cl-user::application-toplevel
-                                   <span class="org-builtin">:executable</span> t<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Dump image. For details go to src/project-isidore.asd.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>asdf:make <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
+
+<span class="org-comment-delimiter">;; </span><span class="org-comment">SBCL's `</span><span class="org-comment"><span class="org-constant">save-lisp-and-die</span></span><span class="org-comment">' unsurprisingly kills the lisp process at the end.</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">However this behaviour is implementation dependent. This command is here in</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">case it does not kill the lisp process.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>uiop:quit<span class="org-rainbow-delimiters-depth-1">)</span>
 
 </pre>
@@ -2383,6 +2381,9 @@ on:
     - name: Build Project Isidore
       run: sbcl --dynamic-space-size <span class="org-highlight-numbers-number">2000</span> --load $<span class="org-variable-name">BUILDPACK_DIR</span>/make.lisp
 
+    - name: Move Project Isidore Executable
+      run: mv -v $<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> github.workspace <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>/src/ProjectIsidore $<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> github.workspace <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>/ProjectIsidore
+
     <span class="org-comment-delimiter"># </span><span class="org-comment">Github current policy is to retain logs and artifacts for 90 days.</span>
     - name: GNU/Linux Upload Lisp Build
       uses: actions/upload-artifact@v2
@@ -2425,6 +2426,9 @@ on:
 
     - name: Build Project Isidore
       run: sbcl --dynamic-space-size <span class="org-highlight-numbers-number">2000</span> --load $<span class="org-variable-name">BUILDPACK_DIR</span>/make.lisp
+
+    - name: Move Project Isidore Executable
+      run: mv -v $<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> github.workspace <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>/src/ProjectIsidore $<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> github.workspace <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>/ProjectIsidore
 
     <span class="org-comment-delimiter"># </span><span class="org-comment">Github current policy is to retain logs and artifacts for 90 days.</span>
     - name: Darwin Upload Lisp Build
@@ -2491,11 +2495,10 @@ on:
 <span class="org-string">      run:</span>
 <span class="org-string">        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "</span>$<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> Env.BUILDPACK_DIR <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>make.lisp<span class="org-string">"</span>
 
-<span class="org-string">    # ProjectIsidore renamed to ProjectIsidore.exe</span>
 <span class="org-string">    # Powershell command is seperate as it needs to be exectued sequentially.</span>
-<span class="org-string">    - name: MSWindows Rename Executable</span>
+<span class="org-string">    - name: Move Project Isidore Executable</span>
 <span class="org-string">      shell: pwsh</span>
-<span class="org-string">      run: Rename-Item -Path "</span>$<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> Env.BUILD_DIR <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>ProjectIsidore<span class="org-string">" -NewName "</span>ProjectIsidore.exe<span class="org-string">"</span>
+<span class="org-string">      run: Move-Item -Path "</span>$<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> Env.BUILD_DIR <span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>src\ProjectIsidore.exe<span class="org-string">" -Destination "</span>$<span class="org-rainbow-delimiters-depth-1">{</span><span class="org-rainbow-delimiters-depth-2">{</span> Env.BUILD_DIR<span class="org-rainbow-delimiters-depth-2">}</span><span class="org-rainbow-delimiters-depth-1">}</span>ProjectIsidore.exe<span class="org-string">"</span>
 
 <span class="org-string">    - name: MSWindows Upload Lisp Build</span>
 <span class="org-string">      uses: actions/upload-artifact@v2</span>
@@ -3048,8 +3051,8 @@ git add assets/reference/manual.html
                              <span class="org-comment-delimiter">;; </span><span class="org-comment">picked up by git. Otherwise I would pick :long</span>
                              <span class="org-builtin">:declt-notice</span> <span class="org-builtin">:short</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">https://lispcookbook.github.io/cl-cookbook/os.html#input-and-output-from-subprocess</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*shell*</span> <span class="org-rainbow-delimiters-depth-2">(</span>uiop:launch-program <span class="org-string">"bash"</span> <span class="org-builtin">:input</span> <span class="org-builtin">:stream</span> <span class="org-builtin">:output</span>
-                                                         <span class="org-builtin">:stream</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*shell*</span> <span class="org-rainbow-delimiters-depth-2">(</span>uiop:launch-program <span class="org-string">"bash"</span> <span class="org-builtin">:input</span> <span class="org-builtin">:stream</span>
+                                                  <span class="org-builtin">:output</span> <span class="org-builtin">:stream</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Change to proper directory</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*manual-path*</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate
                              'string <span class="org-string">"cd "</span>
@@ -3094,278 +3097,6 @@ Thank you,
 </ul>
 </div>
 </div>
-<p>
-<a href="https://old.reddit.com/r/lisp/comments/luseqa/best_way_to_add_users_authentication_to_web_app/">https://old.reddit.com/r/lisp/comments/luseqa/best_way_to_add_users_authentication_to_web_app/</a>
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp">  <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload '<span class="org-rainbow-delimiters-depth-2">(</span>
-<span class="org-builtin">:hunchentoot</span>
-<span class="org-builtin">:cl-pass</span>
-<span class="org-builtin">:trivial-hashtable-serialize</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span>setf user-map
-   <span class="org-rainbow-delimiters-depth-2">(</span>make-hash-table
-<span class="org-builtin">:test</span> #'equal
-<span class="org-builtin">:size</span> <span class="org-highlight-numbers-number">10000</span>
-<span class="org-builtin">:rehash-size</span> <span class="org-highlight-numbers-number">10000</span>
-<span class="org-builtin">:rehash-threshold</span> <span class="org-highlight-numbers-number">0.8</span>
-<span class="org-builtin">:weakness</span> nil
-<span class="org-builtin">:synchronized</span> nil<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">;;</span><span class="org-comment">main------</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>setf web-server
-   <span class="org-rainbow-delimiters-depth-2">(</span>hunchentoot:start
-      <span class="org-rainbow-delimiters-depth-3">(</span>make-instance 'hunchentoot:easy-acceptor
-<span class="org-builtin">:address</span> <span class="org-string">"127.0.0.1"</span>
-<span class="org-builtin">:port</span> <span class="org-highlight-numbers-number">8000</span>
-<span class="org-builtin">:document-root</span> nil
-<span class="org-builtin">:persistent-connections-p</span> t
-<span class="org-builtin">:read-timeout</span> <span class="org-highlight-numbers-number">3.0</span>
-<span class="org-builtin">:write-timeout</span> <span class="org-highlight-numbers-number">3.0</span>
-<span class="org-builtin">:access-log-destination</span> nil
-<span class="org-builtin">:message-log-destination</span> nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">;;</span><span class="org-comment">index------</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>index <span class="org-builtin">:uri</span> <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>info<span class="org-rainbow-delimiters-depth-2">)</span>
-    <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/html"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>the-user <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:session-value <span class="org-builtin">:user</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-         <span class="org-rainbow-delimiters-depth-3">(</span>format nil
-<span class="org-string">"&lt;h4&gt;welcome-to-the-small-demo&lt;/h4&gt;&lt;hr&gt;</span>
-<span class="org-string">&lt;p&gt;info:~A&lt;/p&gt;</span>
-<span class="org-string">&lt;p&gt;user:~A&lt;/p&gt;</span>
-<span class="org-string">&lt;a href=\"/sign-up\"&gt;click-here-to-sign-up&lt;/a&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;a href=\"/sign-in\"&gt;click-here-to-sign-in&lt;/a&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;a href=\"/sign-out\"&gt;click-here-to-sign-out&lt;/a&gt;&lt;br&gt;"</span> info the-user<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">;;</span><span class="org-comment">sign-up------</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>sign-up <span class="org-builtin">:uri</span> <span class="org-string">"/sign-up"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>info<span class="org-rainbow-delimiters-depth-2">)</span>
-   <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/html"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span>format nil
-<span class="org-string">"&lt;h4&gt;welcome-to-sign-up&lt;/h4&gt;&lt;hr&gt;</span>
-<span class="org-string">&lt;p&gt;info:~A&lt;/p&gt;</span>
-<span class="org-string">&lt;a href=\"/\"&gt;click-here-to-index&lt;/a&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;form action=\"/sign-up-ok\" method=\"post\"&gt;</span>
-<span class="org-string">user:&lt;br&gt;&lt;input type=\"text\" name=\"user\" /&gt;&lt;br&gt;</span>
-<span class="org-string">pass:&lt;br&gt;&lt;input type=\"password\" name=\"pass\" /&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;input type=\"submit\" value=\"submit\" /&gt;&lt;/form&gt;"</span> info<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>sign-up-ok <span class="org-builtin">:uri</span> <span class="org-string">"/sign-up-ok"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-   <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/plain"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>the-user   <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:post-parameter <span class="org-string">"user"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-            <span class="org-rainbow-delimiters-depth-4">(</span>the-pass   <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:post-parameter <span class="org-string">"pass"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-         <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span>   <span class="org-rainbow-delimiters-depth-4">(</span>and  <span class="org-rainbow-delimiters-depth-5">(</span>stringp the-user<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>stringp the-pass<span class="org-rainbow-delimiters-depth-5">)</span>
-                     <span class="org-rainbow-delimiters-depth-5">(</span>&lt; <span class="org-highlight-numbers-number">1</span> <span class="org-rainbow-delimiters-depth-6">(</span>length the-user<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-highlight-numbers-number">200</span><span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>&lt; <span class="org-highlight-numbers-number">1</span> <span class="org-rainbow-delimiters-depth-6">(</span>length the-pass<span class="org-rainbow-delimiters-depth-6">)</span> <span class="org-highlight-numbers-number">200</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-               <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">if</span>   <span class="org-rainbow-delimiters-depth-5">(</span>gethash the-user user-map<span class="org-rainbow-delimiters-depth-5">)</span>
-                     <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:redirect <span class="org-string">"/sign-up?info=has-been-used"</span><span class="org-rainbow-delimiters-depth-5">)</span>
-                     <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">progn</span>
-                        <span class="org-rainbow-delimiters-depth-6">(</span>setf <span class="org-rainbow-delimiters-depth-7">(</span>gethash the-user user-map<span class="org-rainbow-delimiters-depth-7">)</span> <span class="org-rainbow-delimiters-depth-7">(</span>cl-pass:hash the-pass<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                        <span class="org-rainbow-delimiters-depth-6">(</span>hunchentoot:redirect <span class="org-string">"/sign-in"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-               <span class="org-rainbow-delimiters-depth-4">(</span>hunchentoot:redirect <span class="org-string">"/sign-up?info=input-error"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">;;</span><span class="org-comment">sign-in------</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>sign-in <span class="org-builtin">:uri</span> <span class="org-string">"/sign-in"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>info<span class="org-rainbow-delimiters-depth-2">)</span>
-   <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/html"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span>   <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:session-value <span class="org-builtin">:user</span><span class="org-rainbow-delimiters-depth-3">)</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:redirect <span class="org-string">"/?info=you-had-sign-in"</span><span class="org-rainbow-delimiters-depth-3">)</span>
-            <span class="org-rainbow-delimiters-depth-3">(</span>format nil
-<span class="org-string">"&lt;h4&gt;welcome-to-sign-in&lt;/h4&gt;&lt;hr&gt;</span>
-<span class="org-string">&lt;p&gt;info:~A&lt;/p&gt;</span>
-<span class="org-string">&lt;a href=\"/\"&gt;click-here-to-index&lt;/a&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;form action=\"/sign-in-ok\" method=\"post\"&gt;</span>
-<span class="org-string">user:&lt;br&gt;&lt;input type=\"text\" name=\"user\" /&gt;&lt;br&gt;</span>
-<span class="org-string">pass:&lt;br&gt;&lt;input type=\"password\" name=\"pass\" /&gt;&lt;br&gt;</span>
-<span class="org-string">&lt;input type=\"submit\" value=\"submit\" /&gt;&lt;/form&gt;"</span> info<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>sign-in-ok <span class="org-builtin">:uri</span> <span class="org-string">"/sign-in-ok"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-   <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/plain"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>the-user   <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:post-parameter <span class="org-string">"user"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-            <span class="org-rainbow-delimiters-depth-4">(</span>the-pass   <span class="org-rainbow-delimiters-depth-5">(</span>hunchentoot:post-parameter <span class="org-string">"pass"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-         <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span>   <span class="org-rainbow-delimiters-depth-4">(</span>and <span class="org-rainbow-delimiters-depth-5">(</span>stringp the-user<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-rainbow-delimiters-depth-5">(</span>stringp the-pass<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-               <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-rainbow-delimiters-depth-6">(</span>pass-info <span class="org-rainbow-delimiters-depth-7">(</span>gethash the-user user-map<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-                  <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">if</span>   <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">ignore-errors</span> <span class="org-rainbow-delimiters-depth-7">(</span>cl-pass:check-password the-pass pass-info<span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                        <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">progn</span>
-                           <span class="org-rainbow-delimiters-depth-7">(</span>hunchentoot:start-session<span class="org-rainbow-delimiters-depth-7">)</span>
-                           <span class="org-rainbow-delimiters-depth-7">(</span>setf <span class="org-rainbow-delimiters-depth-8">(</span>hunchentoot:session-value <span class="org-builtin">:user</span><span class="org-rainbow-delimiters-depth-8">)</span> the-user<span class="org-rainbow-delimiters-depth-7">)</span>
-                           <span class="org-rainbow-delimiters-depth-7">(</span>hunchentoot:redirect <span class="org-string">"/?info=you-had-sign-in"</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span>
-                        <span class="org-rainbow-delimiters-depth-6">(</span>hunchentoot:redirect <span class="org-string">"/sign-in?info=password-error"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-               <span class="org-rainbow-delimiters-depth-4">(</span>hunchentoot:redirect <span class="org-string">"/sign-in?info=input-error"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-comment-delimiter">;;</span><span class="org-comment">sign-out------</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">hunchentoot:define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>sign-out <span class="org-builtin">:uri</span> <span class="org-string">"/sign-out"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-   <span class="org-rainbow-delimiters-depth-2">(</span>setf <span class="org-rainbow-delimiters-depth-3">(</span>hunchentoot:content-type*<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-string">"text/plain"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-      <span class="org-rainbow-delimiters-depth-2">(</span>hunchentoot:remove-session hunchentoot:*session*<span class="org-rainbow-delimiters-depth-2">)</span>
-         <span class="org-rainbow-delimiters-depth-2">(</span>hunchentoot:redirect  <span class="org-string">"/?info=you-had-sign-out"</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-<p>
-<a href="http://ivy.io/common-lisp/2015/02/13/how-hunchentoot.html">http://ivy.io/common-lisp/2015/02/13/how-hunchentoot.html</a>
-I’ve written a fair number of sites with hunchentoot, cl-who, and parenscript. In each one, I write a couple of macros that look something like this:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defmacro</span> <span class="org-function-name">with-authenticated-user</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;rest</span> body<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>uid <span class="org-rainbow-delimiters-depth-5">(</span>session-uid ...<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-4">(</span>not <span class="org-rainbow-delimiters-depth-5">(</span>is-this-session-valid? uid<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-      <span class="org-rainbow-delimiters-depth-4">(</span>redirect <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-   ,@body<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
-Strangely I never seemed to remember that hunchentoot uses a seemingly sly method of capturing <b>request</b> that would be very handy, not to mention simple, to implement.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>test-handler <span class="org-builtin">:uri</span> <span class="org-string">"/test"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-comment">; (when (request-method *request*) ...</span>
-  <span class="org-comment">; (when (request-method) ...</span>
-</pre>
-</div>
-
-<p>
-Both of those calls to request-method are correct and do the right thing. How?
-</p>
-
-<p>
-The answer is probably obvious to you, but it took a fair bit of digging in the hunchentoot source to see it for myself.
-</p>
-
-<p>
-First, at the top level, we have a simple defvar:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">eval-when</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:compile-toplevel</span> <span class="org-builtin">:execute</span> <span class="org-builtin">:load-toplevel</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">defmacro</span> <span class="org-function-name">defvar-unbound</span> <span class="org-rainbow-delimiters-depth-3">(</span>name <span class="org-type">&amp;optional</span> <span class="org-rainbow-delimiters-depth-4">(</span>doc-string <span class="org-string">""</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    `<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">progn</span>
-       <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">defvar</span> ,name<span class="org-rainbow-delimiters-depth-4">)</span>
-       <span class="org-rainbow-delimiters-depth-4">(</span>setf <span class="org-rainbow-delimiters-depth-5">(</span>documentation ',name 'variable<span class="org-rainbow-delimiters-depth-5">)</span> ,doc-string<span class="org-rainbow-delimiters-depth-4">)</span>
-       ',name<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span>defvar-unbound *request*<span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
-So, <b>request</b> is there, it just depends on it’s scope whether it’s bound or not.
-</p>
-
-<p>
-My solution might be ham-handed, I’ll have to experiment more, but this is already a lot more simple than what I had before.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defclass</span> <span class="org-type">auth</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-rainbow-delimiters-depth-3">(</span>uid <span class="org-builtin">:initarg</span> <span class="org-builtin">:uid</span>
-        <span class="org-builtin">:reader</span> auth-uid<span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span>admin <span class="org-builtin">:initarg</span> <span class="org-builtin">:admin</span>
-          <span class="org-builtin">:reader</span> auth-admin<span class="org-rainbow-delimiters-depth-3">)</span>
-   <span class="org-rainbow-delimiters-depth-3">(</span>person <span class="org-builtin">:initarg</span> <span class="org-builtin">:person</span>
-           <span class="org-builtin">:reader</span> auth-person<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defvar</span> <span class="org-variable-name">*authentication*</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">auth-person*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;optional</span> <span class="org-rainbow-delimiters-depth-3">(</span>authentication *authentication*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>auth-person authentication<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">auth-admin*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;optional</span> <span class="org-rainbow-delimiters-depth-3">(</span>authentication *authentication*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>auth-admin authentication<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">auth-uid*</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;optional</span> <span class="org-rainbow-delimiters-depth-3">(</span>authentication *authentication*<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>auth-uid authentication<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defmacro</span> <span class="org-function-name">with-authentication</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;rest</span> body<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>person <span class="org-rainbow-delimiters-depth-5">(</span>gensym<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-        <span class="org-rainbow-delimiters-depth-4">(</span>uid <span class="org-rainbow-delimiters-depth-5">(</span>gensym<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    `<span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">let*</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-rainbow-delimiters-depth-5">(</span>,uid <span class="org-rainbow-delimiters-depth-6">(</span>hunchentoot-secure-cookie:get-secure-cookie <span class="org-string">"uid"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-            <span class="org-rainbow-delimiters-depth-5">(</span>,person <span class="org-rainbow-delimiters-depth-6">(</span>and ,uid <span class="org-rainbow-delimiters-depth-7">(</span>car <span class="org-rainbow-delimiters-depth-8">(</span><span class="org-keyword">with-pg</span> <span class="org-rainbow-delimiters-depth-9">(</span>select-dao 'person <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-builtin">:=</span> 'uid ,uid<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-       <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-rainbow-delimiters-depth-6">(</span>*authentication* <span class="org-rainbow-delimiters-depth-7">(</span>make-instance 'auth
-                                              <span class="org-builtin">:uid</span> ,uid
-                                              <span class="org-builtin">:person</span> ,person
-                                              <span class="org-builtin">:admin</span> <span class="org-rainbow-delimiters-depth-8">(</span>and ,person
-                                                          <span class="org-rainbow-delimiters-depth-9">(</span>person-admin ,person<span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-         ,@body<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
-
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">define-easy-handler</span> <span class="org-rainbow-delimiters-depth-2">(</span>test <span class="org-builtin">:uri</span> <span class="org-string">"/test"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">()</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">with-authentication</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">unless</span> <span class="org-rainbow-delimiters-depth-4">(</span>auth-person*<span class="org-rainbow-delimiters-depth-4">)</span>
-      <span class="org-rainbow-delimiters-depth-4">(</span>redirect <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-comment">; not logged in!</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>...<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-<p>
-<a href="https://lispcookbook.github.io/cl-cookbook/web.html#checking-a-user-is-logged-in">https://lispcookbook.github.io/cl-cookbook/web.html#checking-a-user-is-logged-in</a>
-Manually (with Ironclad) - preferred as the Ironclad library is already loaded
-due to postmodern.
-</p>
-
-<p>
-In this recipe we do the encryption and verification ourselves. We use the de-facto standard Ironclad cryptographic toolkit and the Babel charset encoding/decoding library.
-</p>
-
-<p>
-The following snippet creates the password hash that should be stored in your database. Note that Ironclad expects a byte-vector, not a string.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">password-hash</span> <span class="org-rainbow-delimiters-depth-2">(</span>password<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span>ironclad:pbkdf2-hash-password-to-combined-string
-   <span class="org-rainbow-delimiters-depth-3">(</span>babel:string-to-octets password<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
-pbkdf2 is defined in RFC2898. It uses a pseudorandom function to derive a secure encryption key based on the password.
-</p>
-
-<p>
-The following function checks if a user is active and verifies the entered password. It returns the user-id if active and verified and nil in all other cases even if an error occurs. Adapt it to your application.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">check-user-password</span> <span class="org-rainbow-delimiters-depth-2">(</span>user password<span class="org-rainbow-delimiters-depth-2">)</span>
-  <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">handler-case</span>
-      <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">let*</span> <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-rainbow-delimiters-depth-5">(</span>data <span class="org-rainbow-delimiters-depth-6">(</span>my-get-user-data user<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-             <span class="org-rainbow-delimiters-depth-5">(</span>hash <span class="org-rainbow-delimiters-depth-6">(</span>my-get-user-hash data<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-             <span class="org-rainbow-delimiters-depth-5">(</span>active <span class="org-rainbow-delimiters-depth-6">(</span>my-get-user-active data<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-        <span class="org-rainbow-delimiters-depth-4">(</span><span class="org-keyword">when</span> <span class="org-rainbow-delimiters-depth-5">(</span>and active <span class="org-rainbow-delimiters-depth-6">(</span>ironclad:pbkdf2-check-password <span class="org-rainbow-delimiters-depth-7">(</span>babel:string-to-octets password<span class="org-rainbow-delimiters-depth-7">)</span>
-                                                          hash<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-          <span class="org-rainbow-delimiters-depth-5">(</span>my-get-user-id data<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span>condition <span class="org-rainbow-delimiters-depth-4">()</span> nil<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-
-<p>
-Just an idea as to how to sort blog articles by tag.
-</p>
-<ol class="org-ol">
-<li>get tags to appear in org export</li>
-</ol>
-<p>
-For searching we should rely on google's site:hanshenwang.com as they are
-indexing it anyways.
-</p>
-<ol class="org-ol">
-<li><a href="https://johnblood.gitlab.io/haydock/id533.html">https://johnblood.gitlab.io/haydock/id533.html</a></li>
-</ol>
-<p>
-lapide commentary full.
-<a href="http://cdigital.dgb.uanl.mx/la/1080014741_C/1080014741_C.html">http://cdigital.dgb.uanl.mx/la/1080014741_C/1080014741_C.html</a>
-similar software to mine.
-<a href="https://www.credobiblestudy.com/">https://www.credobiblestudy.com/</a>
-</p>
-
-<p>
-To include this snippet in book of job introduction&gt;?
-                (:p "But of course, that's only half the equation. Although I have made inattentiveness a habit, better late than never. I suppose depending on your temperament I can share what has helped me with that habit. We're not in Kansas anymore baby. Aquinas'"
-                    (:a :href "<a href="https://www.newadvent.org/summa/2002.htm#article8">https://www.newadvent.org/summa/2002.htm#article8</a>" "Q.2 A.8 of the Secunda secundae") " to prove any created thing as the 'vanity of vanities' &#x2013; man's happiness resides in the summum bonum etc. etc. &#x2013; for all the tin woodsman of the world.  As for the scarecrows, perhaps the more intimate lovers' quarrel of Job. Who am I kidding though, I ought to by now it's never either/or but both/and. See"
-                    (:a :href "<a href="https://isidore.co/aquinas/english/SSJob.htm">https://isidore.co/aquinas/english/SSJob.htm</a>" "Aquinas' commentary on the book of Job."))
-</p>
-
-<p>
-(:p " Finally, let me borrow an expression from Peter Kreeft. You're holding God's love letter in your hands. New York #1 bestseller of the week would be an understatement. Try every week. You'll have to ask " (:a :href "<a href="https://www.google.com/search?q=nickly+gumbel">https://www.google.com/search?q=nickly+gumbel</a>" "Nicky from Alpha") "about that factoid. It is the holder of many other records, from being the first machine printed book (Gutenberg 1450s) to the Guinness world record holder for all-time copies produced. Even if you believe, as I once did, that \"religion is the opium of the masses\", it is at least fitting for such an ubermensch to criticize after having read himself \"the book\" that underpins western civilization and culture. It is not for no reason that reading the Bible is an indulgenced act. I find persevering with the reading is no different or controversial than exercising for health. It's easier done in a group, or with a spotter. Special thanks to Katie and Cole, leaders of various" (:strike "bible study/book clubs") "reading groups that kept me on track. Since you, dear reader, have so kindly indulged my rambling, I think it prudent to warn that I'm no man of the cloth, let alone baptized. While the latter hopefully will change this year, I encourage you to reach out to your local Catholic priest for answers if I've hindered more than I've helped.")
-</p>
 <div id="bibliography">
 <h2>References</h2>
 
