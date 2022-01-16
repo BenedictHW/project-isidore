@@ -17,15 +17,25 @@ Prerequisite(s):
 An ANSI Common Lisp implementation. The development platform is x86_64 GNU/Linux
 with [[http://www.sbcl.org/][SBCL.]]
 
+#+begin_src bash
+$ sudo apt install sbcl
+#+end_src
+
 The [[https://www.quicklisp.org/beta/][Quicklisp]] library manager to download system dependencies.
 
-*Optionally,* a local installation of [[https://www.postgresql.org/][PostgreSQL.]]
+#+begin_src bash
+$ curl -O https://beta.quicklisp.org/quicklisp.lisp
+$ sbcl --load quicklisp.lisp
+,* (quicklisp-quickstart:install)
+,* (ql:add-to-init-file)
+,* (quit)
+#+end_src
 
 1. Clone the repository
 
    #+begin_src bash
-   cd ~/quicklisp/local-projects
-   git clone https://github.com/HanshenWang/project-isidore.git
+   $ cd ~/quicklisp/local-projects
+   $ git clone https://github.com/HanshenWang/project-isidore.git
    #+end_src
 
 2. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) buffer with =M-x sly=. Depending
@@ -38,8 +48,17 @@ The [[https://www.quicklisp.org/beta/][Quicklisp]] library manager to download s
    #+begin_src lisp
      (ql:quickload :project-isidore)
      (in-package :project-isidore) ; switch to package namespace
+     (create-datastore) ; optionally for the Tabular Douay Rheims.
+     ;; The creating of the index in memory takes approx. 2 mins.
+     (create-search-index) ; optionally for the search functionality.
      (initialize-application) ; starts server at http://localhost:8080
      (terminate-application) ; stop server
+   #+end_src
+
+4. To build a standalone exectuable binary locally,
+   #+begin_src bash
+     $ cd ~/quicklisp/local-projects/project-isidore/bin/
+     $ sbcl --dynamic-space-size 2000 --load make.lisp
    #+end_src
 
 Full documentation available here:
