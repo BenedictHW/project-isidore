@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2021-10-29 Fri 17:09 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2022-01-17 Mon 21:30 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Installation of Spacemacs on Windows 10 via WSL2</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Site Admin.">
+<meta name="author" content="Site Admin." />
+<meta name="generator" content="Org Mode" />
 
                       <link rel="stylesheet" type="text/css" href="../global.css"/>
                       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,29 +15,7 @@
                       <link rel="stylesheet"
                             href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css">
                       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" defer></script>
-                      <script defer>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
-<script type="text/javascript">
-// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
-<!--/*--><![CDATA[/*><!--*/
-     function CodeHighlightOn(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.add("code-highlighted");
-         target.classList.add("code-highlighted");
-       }
-     }
-     function CodeHighlightOff(elem, id)
-     {
-       var target = document.getElementById(id);
-       if(null != target) {
-         elem.classList.remove("code-highlighted");
-         target.classList.remove("code-highlighted");
-       }
-     }
-    /*]]>*///-->
-// @license-end
-</script>
+                      <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         displayAlign: "center",
@@ -58,8 +36,7 @@
              }
 });
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="preamble" class="status">
@@ -81,10 +58,10 @@
                                     </div>
                                     <h1 class="title">Installation of Spacemacs on Windows 10 via WSL2</h1>
                                     <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2021-10-15 Fri 17:35</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-17 Mon 21:30</p>
 </div>
-<div id="content">
-<div class="abstract" id="orge9dd325">
+<div id="content" class="content">
+<div class="abstract" id="org2054250">
 <p>
 Take advantage of the unparalleled, extensible, and powerful text editing
 capabilities of GNU Emacs from within Windows OS.
@@ -94,9 +71,9 @@ capabilities of GNU Emacs from within Windows OS.
 <p>
 <hr/>
 </p>
-<nav id="table-of-contents">
+<nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#Introduction">1. Introduction</a></li>
 <li><a href="#Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">2. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
@@ -122,7 +99,8 @@ capabilities of GNU Emacs from within Windows OS.
 </li>
 <li><a href="#Conclusion">7. Conclusion</a></li>
 <li><a href="#Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep">8. Bonus! Why is my GUI Spacemacs interrupted by Sleep?</a></li>
-<li><a href="#Sources-and-Credits">9. Sources and Credits</a></li>
+<li><a href="#org191ef78">9. Encore! Performance tips and tricks</a></li>
+<li><a href="#Sources-and-Credits">10. Sources and Credits</a></li>
 </ul>
 </div>
 </nav>
@@ -132,7 +110,7 @@ capabilities of GNU Emacs from within Windows OS.
 <p>
 Is it possible to judge whether or not a piece of music is objectively good,
 perfect and beautiful? The word "objectively" must sound a bit old fashioned,
-after all, every man is doing what is right in his own eyes in these times<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>.
+after all, every man is doing what is right in his own eyes in these times<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
 But we can be reasonably certain that a song which has been well loved
 generation after generation has a quality absent from a yet untested,
 recently released album. Yes, I'm talking about Emacs here. 40 odd years is a
@@ -331,7 +309,10 @@ sudo apt install emacs27
 </div>
 
 <p>
-Enter the following in your WSL terminal to install Spacemacs from the develop branch. It is strongly recommended to use develop over master as bugs get fixed more quickly on develop. You have the option to change later on. Make sure git is installed on Ubuntu and clone the Spacemacs repo.
+Enter the following in your WSL terminal to install Spacemacs from the develop
+branch. It is strongly recommended to use develop over master as bugs get fixed
+more quickly on develop. You have the option to change later on. Make sure git
+is installed on Ubuntu and clone the Spacemacs repo.
 </p>
 
 <div class="org-src-container">
@@ -365,7 +346,7 @@ download is completed, you will have successfully installed Spacemacs.
 <div class="outline-text-3" id="text-Fixing-the-Font">
 <p>
 If you get a message informing you that "adobe source code pro" cannot be
-found, you can install it with the following WSL bash commands<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>,
+found, you can install it with the following WSL bash commands<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>,
 </p>
 
 <div class="org-src-container">
@@ -722,10 +703,6 @@ that is the case, then here is the workaround I use: <a href="https://derkoe.dev
 </p>
 
 <p>
-My own notes after completing said workaround.
-</p>
-
-<p>
 DO NOT uninstall or change your previous VCXSRV setup. I keep both X2Go and
 VCXSRV open as otherwise my clipboard will stop working. Hard to debug.
 </p>
@@ -750,7 +727,7 @@ The reason I do not use this option is due to battery usage as indicated by the
 Windows task manager. X2go client uses pulseaudio server and the cpu usage for
 <code>windows audio process</code> will be stuck around 8-10% CPU. My elfeed-mpv function
 is also very slow. I will have to wait until Windows 11 with WSLg before
-managing my music with Emacs ;).
+managing my music with Emacs.
 </p>
 
 <blockquote>
@@ -764,8 +741,20 @@ because input is unavailable. &#x2013; <a href="https://wiki.x2go.org/doku.php/d
 </div>
 </div>
 
+<div id="outline-container-org191ef78" class="outline-2">
+<h2 id="org191ef78"><span class="section-number-2">9.</span> Encore! Performance tips and tricks</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Profiler with SPC h P s
+gcmh melpa package
+timer-list
+timer-idle-list
+</p>
+</div>
+</div>
+
 <div id="outline-container-Sources-and-Credits" class="outline-2">
-<h2 id="Sources-and-Credits"><span class="section-number-2">9.</span> Sources and Credits</h2>
+<h2 id="Sources-and-Credits"><span class="section-number-2">10.</span> Sources and Credits</h2>
 <div class="outline-text-2" id="text-Sources-and-Credits">
 <ul class="org-ul">
 <li><a href="http://mdr78.github.io/2019/07/01/windows-spacemacs-install.html">The definitive guide to installing Spacemacs on Windows</a></li>
@@ -777,14 +766,14 @@ because input is unavailable. &#x2013; <a href="https://wiki.x2go.org/doku.php/d
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
 
-<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
 Judges 21:24 DRA. What would medieval Thomists think of the word
 "self-actualization"? Can man remake himself in his own image anymore than a
 creature can be the first cause of itself, to reduce his potential to actual in
 such a manner?
 </p></div></div>
 
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
 <a href="https://askubuntu.com/questions/193072/how-to-use-the-adobe-source-code-pro-font">Software
 installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
 </p></div></div>
@@ -793,7 +782,7 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script defer>
+<script>
                               const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );
 
                               headers.forEach( header => {
@@ -823,24 +812,22 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
                                     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
                                       <img alt="Creative Commons License"
                                            src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
-                                           height="31px"
-                                           width="88px">
-                                      </img>
+                                           height="31"
+                                           width="88">
                                     </a>
                                   </div>
                                   <div class="rss-badge">
                                     <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
                                       <img alt="Really Simple Syndication - RSS"
                                            src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png"
-                                           height="50px"
-                                           width="50px">
-                                      </img>
+                                           height="50"
+                                           width="50">
                                     </a>
                                   </div>
                                 </div>
 
                                 <div class="generated">
-                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.4.6) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
                                 </div>
                               </footer>
 </div>

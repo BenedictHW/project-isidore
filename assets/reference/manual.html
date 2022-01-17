@@ -325,8 +325,8 @@ p.verse  { margin-left:  3%; }
     <li><a id="toc-project_002disidore_002fstyles-1" href="#The-project_002disidore_002fstyles-package">3.1 <tt>project-isidore/styles</tt></a></li>
     <li><a id="toc-project_002disidore_002fdata-1" href="#The-project_002disidore_002fdata-package">3.2 <tt>project-isidore/data</tt></a></li>
     <li><a id="toc-project_002disidore_002fviews-1" href="#The-project_002disidore_002fviews-package">3.3 <tt>project-isidore/views</tt></a></li>
-    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.4 <tt>project-isidore/packages</tt></a></li>
-    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.5 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fmodel-1" href="#The-project_002disidore_002fmodel-package">3.4 <tt>project-isidore/model</tt></a></li>
+    <li><a id="toc-project_002disidore_002fpackages-1" href="#The-project_002disidore_002fpackages-package">3.5 <tt>project-isidore/packages</tt></a></li>
     <li><a id="toc-project_002disidore_002fcontroller-1" href="#The-project_002disidore_002fcontroller-package">3.6 <tt>project-isidore/controller</tt></a></li>
     <li><a id="toc-project_002disidore_002fapplication-1" href="#The-project_002disidore_002fapplication-package">3.7 <tt>project-isidore/application</tt></a></li>
   </ul></li>
@@ -567,9 +567,10 @@ Next: <a href="#The-project_002disidore_002fdata-system" accesskey="n" rel="next
 <dt><strong>Dependencies</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-project_002disidore_002fdata-system"><tt>project-isidore/data</tt></a> (system)
-</li><li> <tt>postmodern</tt>
 </li><li> <tt>bknr.datastore</tt>
 </li><li> <tt>montezuma</tt>
+</li><li> <tt>rucksack</tt>
+</li><li> <tt>postmodern</tt>
 </li></ul>
 </dd>
 <dt><strong>Component</strong></dt>
@@ -902,9 +903,9 @@ Next: <a href="#Definitions" accesskey="n" rel="next">Definitions</a>, Previous:
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fviews-package" accesskey="3">The project-isidore/views package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="4">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="4">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
-<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fmodel-package" accesskey="5">The project-isidore/model package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+<tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fpackages-package" accesskey="5">The project-isidore/packages package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
 <tr><td align="left" valign="top">&bull; <a href="#The-project_002disidore_002fcontroller-package" accesskey="6">The project-isidore/controller package</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
 </td></tr>
@@ -980,7 +981,7 @@ however this results in a 100% percent increase in performance cost.
 <hr>
 <span id="The-project_002disidore_002fviews-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#The-project_002disidore_002fdata-package" accesskey="p" rel="prev">The project-isidore/data package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="next">The project-isidore/model package</a>, Previous: <a href="#The-project_002disidore_002fdata-package" accesskey="p" rel="prev">The project-isidore/data package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="project_002disidore_002fviews-1"></span><h3 class="section">3.3 <tt>project-isidore/views</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"></span><span id="index-project_002disidore_002fviews-1"></span>
@@ -1040,50 +1041,11 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,<br>
 
 
 <hr>
-<span id="The-project_002disidore_002fpackages-package"></span><div class="header">
-<p>
-Next: <a href="#The-project_002disidore_002fmodel-package" accesskey="n" rel="next">The project-isidore/model package</a>, Previous: <a href="#The-project_002disidore_002fviews-package" accesskey="p" rel="prev">The project-isidore/views package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
-</div>
-<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.4 <tt>project-isidore/packages</tt></h3>
-<span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
-<span id="index-Package_002c-project_002disidore_002fpackages"></span>
-<p>Project Isidore Meta Package.<br>
-</p>
-<p>Export a single package PROJECT-ISIDORE with all the external symbols from all
-inferred packages. Inferred here is taken to signify the ASDF Package Inferred
-System.<br>
-</p>
-<p>For the web application entry point, see INITIALIZE-APPLICATION. This symbol is
-located in APPLICATION.LISP. For a comprehensive index of exported symbols and
-definitions, see the Reference Manual at
-/project-isidore/assets/reference/manual.html 
-</p><dl compact="compact">
-<dt><strong>Nickname</strong></dt>
-<dd><p><tt>project-isidore</tt>
-</p></dd>
-<dt><strong>Use List</strong></dt>
-<dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</li><li> <tt>common-lisp</tt>
-</li></ul>
-</dd>
-<dt><strong>Exported Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
-</p></dd>
-<dt><strong>Internal Definitions</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
-</p></dd>
-</dl>
-
-
-<hr>
 <span id="The-project_002disidore_002fmodel-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fpackages-package" accesskey="p" rel="prev">The project-isidore/packages package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fpackages-package" accesskey="n" rel="next">The project-isidore/packages package</a>, Previous: <a href="#The-project_002disidore_002fviews-package" accesskey="p" rel="prev">The project-isidore/views package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
-<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.5 <tt>project-isidore/model</tt></h3>
+<span id="project_002disidore_002fmodel-1"></span><h3 class="section">3.4 <tt>project-isidore/model</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fMODEL-package"></span><span id="index-project_002disidore_002fmodel-1"></span>
 <span id="index-Package_002c-project_002disidore_002fmodel"></span>
 <p>Project Isidore Object Schema.<br>
@@ -1166,9 +1128,48 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 
 
 <hr>
+<span id="The-project_002disidore_002fpackages-package"></span><div class="header">
+<p>
+Next: <a href="#The-project_002disidore_002fcontroller-package" accesskey="n" rel="next">The project-isidore/controller package</a>, Previous: <a href="#The-project_002disidore_002fmodel-package" accesskey="p" rel="prev">The project-isidore/model package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+</div>
+<span id="project_002disidore_002fpackages-1"></span><h3 class="section">3.5 <tt>project-isidore/packages</tt></h3>
+<span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"></span><span id="index-project_002disidore_002fpackages-1"></span>
+<span id="index-Package_002c-project_002disidore_002fpackages"></span>
+<p>Project Isidore Meta Package.<br>
+</p>
+<p>Export a single package PROJECT-ISIDORE with all the external symbols from all
+inferred packages. Inferred here is taken to signify the ASDF Package Inferred
+System.<br>
+</p>
+<p>For the web application entry point, see INITIALIZE-APPLICATION. This symbol is
+located in APPLICATION.LISP. For a comprehensive index of exported symbols and
+definitions, see the Reference Manual at
+/project-isidore/assets/reference/manual.html 
+</p><dl compact="compact">
+<dt><strong>Nickname</strong></dt>
+<dd><p><tt>project-isidore</tt>
+</p></dd>
+<dt><strong>Use List</strong></dt>
+<dd><ul>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</li><li> <tt>common-lisp</tt>
+</li></ul>
+</dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236LIST_002dPROJECT_002dISIDORE_002dDEPENDENCIES-function"><tt>list-project-isidore-dependencies</tt></a> (function)
+</p></dd>
+<dt><strong>Internal Definitions</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236PACKAGE_002dDEPENDENCIES-function"><tt>package-dependencies</tt></a> (function)
+</p></dd>
+</dl>
+
+
+<hr>
 <span id="The-project_002disidore_002fcontroller-package"></span><div class="header">
 <p>
-Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" rel="next">The project-isidore/application package</a>, Previous: <a href="#The-project_002disidore_002fmodel-package" accesskey="p" rel="prev">The project-isidore/model package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
+Next: <a href="#The-project_002disidore_002fapplication-package" accesskey="n" rel="next">The project-isidore/application package</a>, Previous: <a href="#The-project_002disidore_002fpackages-package" accesskey="p" rel="prev">The project-isidore/packages package</a>, Up: <a href="#Packages" accesskey="u" rel="up">Packages</a> &nbsp; [<a href="#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="#Indexes" title="Index" rel="index">Index</a>]</p>
 </div>
 <span id="project_002disidore_002fcontroller-1"></span><h3 class="section">3.6 <tt>project-isidore/controller</tt></h3>
 <span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"></span><span id="index-project_002disidore_002fcontroller-1"></span>
@@ -1917,8 +1918,19 @@ Ex. &quot;((BOOK . 1) (CHAPTER . 2) (VERSE . 3))&quot;
 <dl>
 <dt id="index-mailinglist">Class: <strong>mailinglist</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST-class"></span><span id="index-Class_002c-mailinglist"></span>
-<p>MAILINGLIST table schema contains all E-mails that are to
-  receive notifications on PROJECT-ISIDORE blog article updates.
+<p>MAILINGLIST table schema contains all E-mails that are to<br>
+  receive notifications on PROJECT-ISIDORE blog article updates.<br>
+</p>
+<p>Create table with:<br>
+(pomo:with-connection (db-params)<br>
+           (pomo:execute (pomo:dao-table-definition &rsquo;movie))))<br>
+</p>
+<p>(defun mailinglist-get (id)<br>
+  (pomo:with-connection (db-params)<br>
+    (pomo:get-dao &rsquo;mailinglist id)))<br>
+</p>
+<p>(pomo:with-connection (db-params)<br>
+(pomo:query (:select &rsquo;email :from &rsquo;mailinglist :where (:= &rsquo;id 2)) :single))
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>

@@ -42,13 +42,12 @@ all other web app pages uses this boilerplate."
   `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
      (:html :lang "en"
             (:head
-             (:meta :charset "utf-8" :name "viewport"
-                    :content "width=device-width, initial-scale=1"
-                    :http-equiv "Content-Security-Policy"
-                    :content "script-src 'self' https://apis.google.com")
              (:title, title)
-             (:link :rel "preconnect" :href="https://fonts.googleapis.com")
-             (:link :rel "preconnect" :href="https://fonts.gstatic.com"
+             (:meta :charset "utf-8")
+             (:meta :name "viewport"
+                    :content "width=device-width, initial-scale=1")
+             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
+             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
              :crossorigin)
              (:link
              :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
@@ -66,28 +65,26 @@ all other web app pages uses this boilerplate."
                                 (:li (:a :href "/work" "Work"))
                                 (:li (:a :href "/blog/archive.html" "Blog"))
                                 (:li (:a :href "/contact" "Contact"))))))
-             (:div :class "main" ,@body))
-            (:hr)
-            (:footer
-             (:div :class "copyright-container"
-                   (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang."))))))
+             (:div :class "main" ,@body)
+             (:hr)
+             (:footer
+              (:div :class "copyright-container"
+                    (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
 
 (defun index-page ()
   (cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
     (:html :lang "en"
            (:head
-            (:meta :charset "utf-8" :name "viewport"
-                   :content "width=device-width, initial-scale=1"
-                   :description "Personal Web Application"
-                   :http-equiv "Content-Security-Policy"
-                   :content "script-src 'self' https://apis.google.com")
             (:title "HanshenWang.com")
+            (:meta :charset "utf-8")
+            (:meta :name "viewport"
+                   :content "width=device-width, initial-scale=1")
             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
-            :crossorigin)
+                   :crossorigin)
             (:link
-            :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
-            :rel "stylesheet")
+             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
+             :rel "stylesheet")
             (:style (cl-who:str
                      (index-css))))
            (:body
@@ -112,39 +109,33 @@ all other web app pages uses this boilerplate."
                                (:h2 "Nice to meet you.")))
                    (:hr)
                    (:br)
-                   (:p "Welcome to my personal website! This website was built
-  with" (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" "<s>
-  Next.js") "and React </s>" (:a :href "https://edicl.github.io/hunchentoot/"
-                                 :target "_blank"
-                                 :rel "noreferrer""Hunchentoot") "and Common
-                                 Lisp. My resume can be found under the work
-                                 tab. I hope you find what you're looking for,
-                                 and may the wind be always at your back.")
+                   (:p "Welcome to my personal website! This website was built with"
+                       (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" (cl-who:htm (:s "Next.js and React")))
+                       (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" :rel "noreferrer" " Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for,and may the wind be always at your back.")
                    (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
                        (:a :href "/blog/archive.html" "Blog")
-                       (:a :href "/contact" "Contact")))))
-           (:script :type "text/javascript"
-                    (cl-who:str
-                     ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
-                     (parenscript:ps-inline
-                         ((parenscript:chain ps-dom2-symbols:document
-                                    (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
-                                                                        (lambda (event)
-                                                                          (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                                                                          (defun type-writer(text i fn-callback)
-                                                                            (cond ((< i (length text))
-                                                                                   (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                                                                   (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                                                                  ((equal (parenscript:typeof fn-callback) "function")
-                                                                                   (ps-window-wd-symbols:set-timeout fn-callback 700))))
-                                                                          (defun start-text-animation (i)
-                                                                            (when (equal (parenscript:typeof (aref data-text i)) "undefined")
-                                                                              (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
-                                                                            (when (< i (length (aref data-text i)))
-                                                                              (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                                                                          (start-text-animation 0)))))))))))
+                       (:a :href "/contact" "Contact"))))
+            (:script (cl-who:str
+                      ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
+                      (parenscript:ps-inline
+                          ((parenscript:chain ps-dom2-symbols:document
+                                              (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
+                                                                                  (lambda (event)
+                                                                                    (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                                                                                    (defun type-writer(text i fn-callback)
+                                                                                      (cond ((< i (length text))
+                                                                                             (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                                                                             (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                                                                            ((equal (parenscript:typeof fn-callback) "function")
+                                                                                             (ps-window-wd-symbols:set-timeout fn-callback 700))))
+                                                                                    (defun start-text-animation (i)
+                                                                                      (when (equal (parenscript:typeof (aref data-text i)) "undefined")
+                                                                                        (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
+                                                                                      (when (< i (length (aref data-text i)))
+                                                                                        (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                                                                                    (start-text-animation 0))))))))))))
 
 (defun about-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -274,13 +265,12 @@ with my name."
   `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
      (:html :lang "en"
             (:head
-             (:meta :charset "utf-8" :name "viewport"
-                    :content "width=device-width, initial-scale=1"
-                    :http-equiv "Content-Security-Policy"
-                    :content "script-src 'self' https://apis.google.com")
              (:title, title)
-             (:link :rel "preconnect" :href="https://fonts.googleapis.com")
-             (:link :rel "preconnect" :href="https://fonts.gstatic.com"
+             (:meta :charset "utf-8")
+             (:meta :name "viewport"
+                    :content "width=device-width, initial-scale=1")
+             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
+             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
              :crossorigin)
              (:link
              :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
@@ -319,11 +309,10 @@ with my name."
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
                    (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Helvetica" "Palatino"  "Verdana")
+                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
                          do (cl-who:htm
                              (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
-          (:script :type "text/javascript"
-                   (cl-who:str
+          (:script (cl-who:str
                     (parenscript:ps-inline
                         (defun change-to-font (font)
                           (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
@@ -351,8 +340,7 @@ query-form"
     Syntax (click to toggle)")
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
-    (:script :type "text/javascript"
-             (cl-who:str
+    (:script (cl-who:str
               (parenscript:ps-inline
                   (defun toggle-div-with-id (div-id)
                     (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
@@ -463,11 +451,10 @@ query-form"
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
                    (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Helvetica" "Palatino"  "Verdana")
+                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
                          do (cl-who:htm
                              (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
-          (:script :type "text/javascript"
-                   (cl-who:str
+          (:script (cl-who:str
                     (parenscript:ps-inline
                         (defun change-to-font (font)
                           (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))

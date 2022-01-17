@@ -38,7 +38,7 @@ See VIEWS.LISP for HTML generation. "))
 
      (".slideshow li span" :width" 100%" :height" 100%" :position" absolute"
                            :top" 0px" :left" 0px" :color" transparent" :background-size" cover"
-                           :background-position" 50% 50%" :background-repeat" none" :opacity" 0"
+                           :background-position" 50% 50%" :opacity" 0"
                            :z-index" 0" :backface-visibility" hidden" :animation" imageAnimation 36s
      linear infinite 0s")
 
@@ -99,7 +99,7 @@ See VIEWS.LISP for HTML generation. "))
      0px 5px 0px")
 
      (".container > header h2" :font-family" 'Cinzel', 'Times New Roman', serif"
-                               :font-size" 1.5em" :font-style" bold" :color" #f8f8f8" :text-shadow" 1px
+                               :font-size" 1.5em" :color" #f8f8f8" :text-shadow" 1px
      1px 1px rgba(0,0,0,0.6)")
 
      (".container > header p" :font-family" 'EB Garamond', 'Times New Roman',

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-15 Sat 19:54 -->
+<!-- 2022-01-17 Mon 23:22 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -15,7 +15,7 @@
                       <link rel="stylesheet"
                             href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css">
                       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" defer></script>
-                      <script defer>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
+                      <script>var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll("pre.src"),function(t){var e;e=t.getAttribute("class"),e=e.replace(/src-(w+)/,"src-$1 $1"),console.log(e),t.setAttribute("class",e),hljs.highlightBlock(t)})};addEventListener("DOMContentLoaded",hlf);</script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         displayAlign: "center",
@@ -58,10 +58,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-15 Sat 19:54</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-17 Mon 23:22</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgb8bae2b">
+<div class="abstract" id="orgebff108">
 <p>
 
 </p>
@@ -101,7 +101,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <ul>
 <li><a href="#org9de5735">6.1. PostgreSQL</a></li>
 <li><a href="#org4bf3eac">6.2. In-Memory Datastore</a></li>
-<li><a href="#org6c64df2">6.3. BKNR.Datastore vs Rucksack vs CLSQL</a></li>
+<li><a href="#orgf1b4fe4">6.3. BKNR.Datastore vs Rucksack vs Postmodern</a></li>
 </ul>
 </li>
 <li><a href="#Development-Operations">7. Development Operations</a>
@@ -1645,15 +1645,19 @@ using the Data Access Objects.</a>
 <li>To start PostgreSQL server process</li>
 </ol>
 <div class="org-src-container">
-<pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">Start server process. PostgreSQL defaults to PORT 5432</span>
+<pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">Install PostgreSQL.</span>
+sudo apt install postgresql
+<span class="org-comment-delimiter"># </span><span class="org-comment">Start server process. PostgreSQL defaults to PORT 5432</span>
 sudo service postgresql start
-<span class="org-comment-delimiter"># </span><span class="org-comment">Run the first time to create user</span>
-sudo -u postgres createuser -s $<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">whoami</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Create Database "Test"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create database "Test"</span>
 createdb test
-<span class="org-comment-delimiter"># </span><span class="org-comment">Delete Database "Test"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Delete database "Test"</span>
 dropdb test
-<span class="org-comment-delimiter"># </span><span class="org-comment">Use Shell to login as test user</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Login as superuser to create user for database "Test"</span>
+sudo -u postgres psql
+<span class="org-comment-delimiter"># </span><span class="org-comment">See defparameter `*local-db-params*' in MODEL.LISP.</span>
+CREATE USER user1 WITH PASSWORD <span class="org-string">'user1'</span>;
+<span class="org-comment-delimiter"># </span><span class="org-comment">Use Shell to login as host: localhost with database: test and user:user1</span>
 psql -h localhost -d test -U user1
 <span class="org-comment-delimiter"># </span><span class="org-comment">Once logged in,</span>
 <span class="org-variable-name">test</span>=# select * from tablename;
@@ -1720,9 +1724,13 @@ Memory-Centric Data Management A Monash Information Services White Paper by Curt
 </div>
 </div>
 
-<div id="outline-container-org6c64df2" class="outline-3">
-<h3 id="org6c64df2"><span class="section-number-3">6.3.</span> BKNR.Datastore vs Rucksack vs CLSQL</h3>
+<div id="outline-container-orgf1b4fe4" class="outline-3">
+<h3 id="orgf1b4fe4"><span class="section-number-3">6.3.</span> BKNR.Datastore vs Rucksack vs Postmodern</h3>
 <div class="outline-text-3" id="text-6-3">
+<p>
+<a href="https://common-lisp.net/project/rucksack/">Rucksack</a> measurements are listed first, then <a href="https://github.com/hanshuebner/bknr-datastore">BKNR.Datastore.</a>
+</p>
+
 <div class="org-src-container">
 <pre class="src src-text">PROJECT-ISIDORE/VIEWS&gt; (time (get-bible-text1 24))
 Evaluation took:
@@ -1778,6 +1786,160 @@ Evaluation took:
   327,536,880 bytes consed
 </pre>
 </div>
+
+<p>
+A sampling of <a href="https://github.com/marijnh/Postmodern">postmodern</a> DAO speeds,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">PROJECT-ISIDORE/MODEL&gt; (time (friend-email (mailinglist-get 2)))
+Evaluation took:
+  0.010 seconds of real time
+  0.002794 seconds of total run time (0.002794 user, 0.000000 system)
+  30.00% CPU
+  25,589,575 processor cycles
+  32,432 bytes consed
+
+"Bob234@gmail.com"
+</pre>
+</div>
+
+<p>
+And a regular SQL query done in postmodern,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">PROJECT-ISIDORE/MODEL&gt;  (time (pomo:with-connection (db-params) (pomo:query (:select 'email :from 'mailinglist :where (:= 'id 2)) :single)))
+Evaluation took:
+  0.010 seconds of real time
+  0.003089 seconds of total run time (0.003089 user, 0.000000 system)
+  30.00% CPU
+  24,084,690 processor cycles
+  16,368 bytes consed
+
+"Bob234@gmail.com"
+1 (1 bit, #x1, #o1, #b1)
+</pre>
+</div>
+
+<p>
+A sampling of <a href="https://common-lisp.net/project/cl-sqlite/">cl-sqlite</a> with the in-memory database,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">SQLITE&gt;
+(time (execute-single *db* "select id from users where user_name = ?" "dvk"))
+Evaluation took:
+  0.000 seconds of real time
+  0.000047 seconds of total run time (0.000045 user, 0.000002 system)
+  100.00% CPU
+  108,448 processor cycles
+  0 bytes consed
+
+2 (2 bits, #x2, #o2, #b10)
+</pre>
+</div>
+
+<p>
+and with a regular disk based database,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">SQLITE&gt; (time (execute-single *dba* "select id from users where user_name = ?" "dvk"))
+Evaluation took:
+  0.000 seconds of real time
+  0.000085 seconds of total run time (0.000081 user, 0.000004 system)
+  100.00% CPU
+  196,908 processor cycles
+  0 bytes consed
+
+2 (2 bits, #x2, #o2, #b10)
+</pre>
+</div>
+
+<p>
+For this admittedly shallow testing, BKNR.Datastore and Rucksack perform
+admirably! <a href="https://github.com/phoe/quicklisp-stats">Quicklisp-stats</a> shows BKNR.Datastore is still in use, with the most
+recent example being a <a href="https://lisp-journey.gitlab.io/blog/lisp-interview-screenshotbot/">startup by an ex-Facebook engineer.</a> The most recent
+mention I can find of Rucksack is by <a href="https://european-lisp-symposium.org/static/2020/lawson-slides.pdf">Ravenpack, at ELS2020.</a>
+</p>
+
+<p>
+The quicklisp download stats for Rucksack show an 200% increase (from NIL &gt;
+223/239) around the months of January and February. I find it plausible that
+Ravenpack, who does data analysis for the financial sector, have their engineers
+repull all libraries from quicklisp once per year; I have noticed same patterns
+for some other libraries.
+</p>
+
+<p>
+BKNR.Datastore is the reason I am able to structure the Tabular Douay Rheims in
+the way that I have. Any disk based solution would have been too slow, forcing
+me to cache the pages or store them as static files. Many thanks to Hans Hubner,
+the author of said library. And yes, <a href="https://common-lisp.net/project/cl-store/">cl-store</a> or simple serialization would have
+sufficed for my use case but I'll take Edmund Weitz's word when he recommends
+BKNR.Datastore over cl-store in his ebib:weitzCommonLispRecipes2016.
+</p>
+
+<p>
+The question of ORM's comes up again. As of the current writing, I am aware of a
+handful of options.
+</p>
+
+<p>
+<a href="https://common-lisp.net/project/elephant/">Elephant</a> - interfaces to the C databases (Berkeley DB, PostgreSQL) most likely
+bitrotted, perhaps the author got hired to work on allegrocache? Quicklisp-stats
+show 35 downloads total for the past 2 years.
+</p>
+
+<p>
+<a href="http://clsql.kpe.io/">CLSQL</a> - by far the greatest number of backends supported, with the necessary
+compromises that suggests. Tradition extends back many years, shares ideas with
+<a href="http://www.lispworks.com/documentation/sql-tutorial/">CommonSQL</a> and has a SOLID track record. Packaged for Debian. Great documentation.
+</p>
+
+<p>
+<a href="https://common-lisp.net/project/cl-perec/index-old.shtml">Hu.dwim.perec</a> - Originally started as a fork of CLSQL. Greatly extends the ORM
+capabilities and is kept up to date: I think mostly by one person, Levente
+Mészáros. This is one of the libraries that show almost exact same download
+patterns as Rucksack. So what's the catch? Very little documentation. You will
+have to dive deep into a bunch of hu.dwim.* packages and look at tests. Pretty
+much pulls in the entire hu.dwim.* ecosystem with it when downloaded from
+quicklisp. With great power comes&#x2026;
+</p>
+
+<p>
+<a href="https://github.com/fukamachi/mito">Mito</a> - Fukamachi-ware. Similar download stats to CLSQL. Very young project,
+started in 2016. Also see <a href="https://github.com/eudoxia0/crane/">Crane,</a> the stats show close to zero usage though.
+</p>
+
+<p>
+If one is willing to make the trade-off of SQL for object persistence, then as
+far as I know there are really only two pure lisp options. I say "only" but I'm
+not aware of any other language with libraries comparable to the ones below.
+</p>
+
+<p>
+Rucksack (open source) - as mentioned earlier, authored by hacker Arthur Lemmens
+(worked at Ravenbrook). Small, written in portable lisp, possessing performance
+that isn't bad at all, a real gem of a project. The mailing lists of Elephant
+and Rucksack show some attempt made to combine the ideas of Rucksack into a pure
+lisp backend for Elephant. Rucksack also shows a lack of recent updates, but
+unlike Elephant, has users to this day. Ain't it beautiful how the stability of
+the language shines through the library? Don't let the date of the last commit
+turn you away. Give it a shot, look at the talk-eclm2006.txt file under the
+/docs folder.
+</p>
+
+<p>
+<a href="https://franz.com/products/allegrocache/">Allegrocache</a> (proprietary, Franz Inc.) - what Rucksack could have been if you
+threw a bunch of money at the problem. Tightly integrated with the rest of the
+Allegro CL ecosystem. You do get what you pay for in this case. I have heard
+they have great support too. Allegrocache was originally based on ObjectStore
+(Dan Weinreb of Symbolics fame + others). <a href="https://web.archive.org/web/20110715000000*/https://www.danweinreb.org/blog/object-oriented-database-management-systems-succeeded">Dan does a fair job at defending
+object oriented database management systems here.</a> <a href="https://allegrograph.com/about-franz/">Franz Inc. has an impressive
+listing of current customers.</a>
+</p>
 </div>
 </div>
 </div>
@@ -3118,7 +3280,7 @@ Scott Chacon.
 </div>
 </div>
 <div id="postamble" class="status">
-<script defer>
+<script>
                               const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );
 
                               headers.forEach( header => {
@@ -3148,18 +3310,16 @@ Scott Chacon.
                                     <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
                                       <img alt="Creative Commons License"
                                            src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
-                                           height="31px"
-                                           width="88px">
-                                      </img>
+                                           height="31"
+                                           width="88">
                                     </a>
                                   </div>
                                   <div class="rss-badge">
                                     <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
                                       <img alt="Really Simple Syndication - RSS"
                                            src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png"
-                                           height="50px"
-                                           width="50px">
-                                      </img>
+                                           height="50"
+                                           width="50">
                                     </a>
                                   </div>
                                 </div>
