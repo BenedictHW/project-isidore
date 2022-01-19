@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-17 Mon 23:22 -->
+<!-- 2022-01-19 Wed 02:13 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -9,9 +9,6 @@
 <meta name="generator" content="Org Mode" />
 
                       <link rel="stylesheet" type="text/css" href="../global.css"/>
-                      <link rel="preconnect" href="https://fonts.googleapis.com">
-                      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap" rel="stylesheet">
                       <link rel="stylesheet"
                             href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css">
                       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" defer></script>
@@ -58,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-17 Mon 23:22</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-19 Wed 02:11</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgebff108">
+<div class="abstract" id="orga6bfad1">
 <p>
 
 </p>
@@ -92,16 +89,16 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </ul>
 </li>
 <li><a href="#Org-Publish-Pipeline">4. Org Publish Pipeline</a></li>
-<li><a href="#orgd4ac77b">5. Case Study: Profiling and Performance</a>
+<li><a href="#Case-Study-Profiling-and-Performance">5. Case Study: Profiling and Performance</a>
 <ul>
 <li><a href="#Benchmarking-Profiling">5.1. Benchmarking &amp; Profiling</a></li>
 </ul>
 </li>
 <li><a href="#Data-Persistence">6. Data Persistence</a>
 <ul>
-<li><a href="#org9de5735">6.1. PostgreSQL</a></li>
-<li><a href="#org4bf3eac">6.2. In-Memory Datastore</a></li>
-<li><a href="#orgf1b4fe4">6.3. BKNR.Datastore vs Rucksack vs Postmodern</a></li>
+<li><a href="#PostgreSQL">6.1. PostgreSQL</a></li>
+<li><a href="#In-Memory-Datastore">6.2. In-Memory Datastore</a></li>
+<li><a href="#BKNR-Datastore-vs-Rucksack-vs-Postmodern">6.3. BKNR.Datastore vs Rucksack vs Postmodern</a></li>
 </ul>
 </li>
 <li><a href="#Development-Operations">7. Development Operations</a>
@@ -124,7 +121,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 <li><a href="#Testing">7.2. Testing</a>
 <ul>
-<li><a href="#org5d58d0e">7.2.1. Notes on Drakma</a></li>
+<li><a href="#Notes-on-Drakma">7.2.1. Notes on Drakma</a></li>
 <li><a href="#Debugging">7.2.2. Debugging</a></li>
 <li><a href="#Logging">7.2.3. Logging</a></li>
 <li><a href="#Generate-Code-Coverage-Report">7.2.4. Generate Code Coverage Report</a></li>
@@ -134,11 +131,10 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 <li><a href="#User-Manual">8. User Manual</a>
 <ul>
-<li><a href="#org8bc3cf1">8.1. How do I find past versions of a blog article?</a></li>
-<li><a href="#org71f92ca">8.2. How do I unsubscribe from the mailing list?</a></li>
-<li><a href="#orgb780c0d">8.3. Can I visit this website offline?</a></li>
-<li><a href="#orgcd4947f">8.4. I can't find what I'm looking for. How is the documentation organized?</a></li>
-<li><a href="#org6b536e6">8.5. Known Issues</a></li>
+<li><a href="#How-do-I-find-past-versions-of-a-blog-article">8.1. How do I find past versions of a blog article?</a></li>
+<li><a href="#How-do-I-unsubscribe-from-the-mailing-list">8.2. How do I unsubscribe from the mailing list?</a></li>
+<li><a href="#Can-I-visit-this-website-offline">8.3. Can I visit this website offline?</a></li>
+<li><a href="#I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">8.4. I can't find what I'm looking for. How is the documentation organized?</a></li>
 </ul>
 </li>
 <li><a href="#Reference-Manual">9. Reference Manual</a>
@@ -897,75 +893,82 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
          <span class="org-comment-delimiter">;; </span><span class="org-comment">Link to external custom stylesheet</span>
          <span class="org-comment-delimiter">;; </span><span class="org-comment">If you need code highlight from highlight.js, include the latter three lines.</span>
          <span class="org-builtin">:html-head</span> <span class="org-string">"</span>
-<span class="org-string">  &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"../global.css\"/&gt;</span>
-<span class="org-string">  &lt;link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"&gt;</span>
-<span class="org-string">  &lt;link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin&gt;</span>
-<span class="org-string">  &lt;link href=\"https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&amp;family=EB+Garamond:ital@0;1&amp;family=Montserrat:ital@0;1&amp;display=swap\" rel=\"stylesheet\"&gt;</span>
-<span class="org-string">  &lt;link rel=\"stylesheet\"</span>
-<span class="org-string">        href=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css\"&gt;</span>
-<span class="org-string">  &lt;script src=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js\"&gt;&lt;/script&gt;</span>
-<span class="org-string">  &lt;script&gt;var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll(\"pre.src\"),function(t){var e;e=t.getAttribute(\"class\"),e=e.replace(/src-(</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">w+)/,\"src-$1 $1\"),console.log(e),t.setAttribute(\"class\",e),hljs.highlightBlock(t)})};addEventListener(\"DOMContentLoaded\",hlf);&lt;/script&gt;"</span>
+<span class="org-string">                    &lt;link rel=\"stylesheet\" type=\"text/css\" href=\"../global.css\"/&gt;</span>
+<span class="org-string">                    &lt;link rel=\"stylesheet\"</span>
+<span class="org-string">                          href=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css\"&gt;</span>
+<span class="org-string">                    &lt;script src=\"//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js\" defer&gt;&lt;/script&gt;</span>
+<span class="org-string">                    &lt;script&gt;var hlf=function(){Array.prototype.forEach.call(document.querySelectorAll(\"pre.src\"),function(t){var e;e=t.getAttribute(\"class\"),e=e.replace(/src-(</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">w+)/,\"src-$1 $1\"),console.log(e),t.setAttribute(\"class\",e),hljs.highlightBlock(t)})};addEventListener(\"DOMContentLoaded\",hlf);&lt;/script&gt;"</span>
          <span class="org-builtin">:html-preamble</span> <span class="org-string">"</span>
-<span class="org-string">                                    &lt;div class=\"header header-fixed\"&gt;</span>
-<span class="org-string">                                      &lt;div class=\"navbar container\"&gt;</span>
-<span class="org-string">                                        &lt;div class=\"logo\"&gt;&lt;a href=\"/\"&gt;Hanshen Wang&lt;/a&gt;&lt;/div&gt;</span>
-<span class="org-string">                                        &lt;input type=\"checkbox\" id=\"navbar-toggle\" &gt;</span>
-<span class="org-string">                                        &lt;label for=\"navbar-toggle\"&gt;&lt;i&gt;&lt;/i&gt;&lt;/label&gt;</span>
-<span class="org-string">                                        &lt;nav class=\"menu\"&gt;</span>
-<span class="org-string">                                          &lt;ul&gt;</span>
-<span class="org-string">                                            &lt;li&gt;&lt;a href=\"/about\"&gt;About&lt;/a&gt;&lt;/li&gt;</span>
-<span class="org-string">                                            &lt;li&gt;&lt;a href=\"/work\"&gt;Work&lt;/a&gt;&lt;/li&gt;</span>
-<span class="org-string">                                            &lt;li&gt;&lt;a href=\"/blog/archive.html\"&gt;Blog&lt;/a&gt;&lt;/li&gt;</span>
-<span class="org-string">                                            &lt;li&gt;&lt;a href=\"/contact\"&gt;Contact&lt;/a&gt;&lt;/li&gt;</span>
-<span class="org-string">                                          &lt;/ul&gt;</span>
-<span class="org-string">                                        &lt;/nav&gt;</span>
-<span class="org-string">                                      &lt;/div&gt;</span>
+<span class="org-string">                                  &lt;div class=\"header header-fixed\"&gt;</span>
+<span class="org-string">                                    &lt;div class=\"navbar container\"&gt;</span>
+<span class="org-string">                                      &lt;div class=\"logo\"&gt;&lt;a href=\"/\"&gt;Hanshen Wang&lt;/a&gt;&lt;/div&gt;</span>
+<span class="org-string">                                      &lt;input type=\"checkbox\" id=\"navbar-toggle\" &gt;</span>
+<span class="org-string">                                      &lt;label for=\"navbar-toggle\"&gt;&lt;i&gt;&lt;/i&gt;&lt;/label&gt;</span>
+<span class="org-string">                                      &lt;nav class=\"menu\"&gt;</span>
+<span class="org-string">                                        &lt;ul&gt;</span>
+<span class="org-string">                                          &lt;li&gt;&lt;a href=\"/about\"&gt;About&lt;/a&gt;&lt;/li&gt;</span>
+<span class="org-string">                                          &lt;li&gt;&lt;a href=\"/work\"&gt;Work&lt;/a&gt;&lt;/li&gt;</span>
+<span class="org-string">                                          &lt;li&gt;&lt;a href=\"/blog/archive.html\"&gt;Blog&lt;/a&gt;&lt;/li&gt;</span>
+<span class="org-string">                                          &lt;li&gt;&lt;a href=\"/contact\"&gt;Contact&lt;/a&gt;&lt;/li&gt;</span>
+<span class="org-string">                                        &lt;/ul&gt;</span>
+<span class="org-string">                                      &lt;/nav&gt;</span>
 <span class="org-string">                                    &lt;/div&gt;</span>
-<span class="org-string">                                    &lt;h1 class=\"title\"&gt;%t&lt;/h1&gt;</span>
-<span class="org-string">                                    &lt;p class=\"subtitle\"&gt;%s&lt;/p&gt; &lt;br/&gt;</span>
-<span class="org-string">                                    &lt;p class=\"updated\"&gt;&lt;a href=\"/contact#article-history\"&gt;Updated:&lt;/a&gt; %C&lt;/p&gt;"</span>
+<span class="org-string">                                  &lt;/div&gt;</span>
+<span class="org-string">                                  &lt;h1 class=\"title\"&gt;%t&lt;/h1&gt;</span>
+<span class="org-string">                                  &lt;p class=\"subtitle\"&gt;%s&lt;/p&gt; &lt;br/&gt;</span>
+<span class="org-string">                                  &lt;p class=\"updated\"&gt;&lt;a href=\"/contact#article-history\"&gt;Updated:&lt;/a&gt; %C&lt;/p&gt;"</span>
 
          <span class="org-comment-delimiter">;; </span><span class="org-comment">Article Postamble includes</span>
          <span class="org-comment-delimiter">;; </span><span class="org-comment">Javascript snippet to insert anchor links to Table of Contents</span>
          <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML Footer</span>
          <span class="org-builtin">:html-postamble</span> <span class="org-string">"&lt;script&gt;</span>
-<span class="org-string">                              const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );</span>
+<span class="org-string">                            const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );</span>
 
-<span class="org-string">                              headers.forEach( header =&gt; {</span>
-<span class="org-string">                                header.insertAdjacentHTML('afterbegin',</span>
-<span class="org-string">                                 '&lt;a href=\"#table-of-contents\"&gt;&amp;#8689;&lt;/a&gt;'</span>
-<span class="org-string">                                );</span>
-<span class="org-string">                              });</span>
-<span class="org-string">                              &lt;/script&gt;</span>
-<span class="org-string">                              &lt;hr/&gt;</span>
-<span class="org-string">                              &lt;footer&gt;</span>
-<span class="org-string">                                &lt;div class=\"copyright-container\"&gt;</span>
-<span class="org-string">                                  &lt;div class=\"copyright\"&gt;</span>
-<span class="org-string">                                    Comments? Corrections? &lt;a href=\"https://hanshenwang.com/contact\"&gt; Please do reach out.&lt;/a&gt;&lt;a href=\"https://hanshenwang.com/blog/rss.xml\"&gt; RSS Feed. &lt;/a&gt;&lt;br/&gt;</span>
-<span class="org-string">                                    Copyright &amp;copy; 2021 Hanshen Wang. Some Rights Reserved.&lt;br/&gt;</span>
-<span class="org-string">                                    Content is available under</span>
-<span class="org-string">                                    &lt;a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"&gt;</span>
-<span class="org-string">                                      CC-BY-SA 4.0</span>
-<span class="org-string">                                    &lt;/a&gt; unless otherwise noted.</span>
-<span class="org-string">                                  &lt;/div&gt;</span>
-<span class="org-string">                                  &lt;div class=\"cc-badge\"&gt;</span>
-<span class="org-string">                                    &lt;a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"&gt;</span>
-<span class="org-string">                                      &lt;img alt=\"Creative Commons License\"</span>
-<span class="org-string">                                           src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\" /&gt;</span>
-<span class="org-string">                                    &lt;/a&gt;</span>
-<span class="org-string">                                  &lt;/div&gt;</span>
-<span class="org-string">                                  &lt;div class=\"rss-badge\"&gt;</span>
-<span class="org-string">                                    &lt;a rel=\"license\" href=\"http://hanshenwang.com/blog/rss.xml\"&gt;</span>
-<span class="org-string">                                      &lt;img alt=\"Really Simple Syndication - RSS\"</span>
-<span class="org-string">                                           src=\"https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png\" /&gt;</span>
-<span class="org-string">                                    &lt;/a&gt;</span>
-<span class="org-string">                                  &lt;/div&gt;</span>
+<span class="org-string">                            headers.forEach( header =&gt; {</span>
+<span class="org-string">                              header.insertAdjacentHTML('afterbegin',</span>
+<span class="org-string">                               '&lt;a href=\"#table-of-contents\"&gt;&amp;#8689;&lt;/a&gt;'</span>
+<span class="org-string">                              );</span>
+<span class="org-string">                            });</span>
+<span class="org-string">                            &lt;/script&gt;</span>
+<span class="org-string">                            &lt;hr/&gt;</span>
+<span class="org-string">                            &lt;footer&gt;</span>
+<span class="org-string">                              &lt;div class=\"copyright-container\"&gt;</span>
+<span class="org-string">                                &lt;div class=\"copyright\"&gt;</span>
+<span class="org-string">                                  Comments? Corrections? &lt;a</span>
+<span class="org-string">                              href=\"https://hanshenwang.com/contact\"&gt;</span>
+<span class="org-string">                              Please do reach out.&lt;/a&gt;&lt;a</span>
+<span class="org-string">                              href=\"https://hanshenwang.com/blog/rss.xml\"&gt;</span>
+<span class="org-string">                              RSS Feed. &lt;/a&gt;&lt;a</span>
+<span class="org-string">                              href=\"https://hanshenwang.com/subscribe\"&gt;</span>
+<span class="org-string">                              Mailing List. &lt;/a&gt;&lt;br/&gt;</span>
+<span class="org-string">                                  Copyright &amp;copy; 2021 Hanshen Wang. Some Rights Reserved.&lt;br/&gt;</span>
+<span class="org-string">                                  Blog content is available under</span>
+<span class="org-string">                                  &lt;a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"&gt;</span>
+<span class="org-string">                                    CC-BY-SA 4.0</span>
+<span class="org-string">                                  &lt;/a&gt; unless otherwise noted.</span>
 <span class="org-string">                                &lt;/div&gt;</span>
+<span class="org-string">                                &lt;div class=\"cc-badge\"&gt;</span>
+<span class="org-string">                                  &lt;a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\"&gt;</span>
+<span class="org-string">                                    &lt;img alt=\"Creative Commons License\"</span>
+<span class="org-string">                                         src=\"https://i.creativecommons.org/l/by-sa/4.0/88x31.png\"</span>
+<span class="org-string">                                         height=\"31\"</span>
+<span class="org-string">                                         width=\"88\"&gt;</span>
+<span class="org-string">                                  &lt;/a&gt;</span>
+<span class="org-string">                                &lt;/div&gt;</span>
+<span class="org-string">                                &lt;div class=\"rss-badge\"&gt;</span>
+<span class="org-string">                                  &lt;a rel=\"license\" href=\"http://hanshenwang.com/blog/rss.xml\"&gt;</span>
+<span class="org-string">                                    &lt;img alt=\"Really Simple Syndication - RSS\"</span>
+<span class="org-string">                                         src=\"https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png\"</span>
+<span class="org-string">                                         height=\"50\"</span>
+<span class="org-string">                                         width=\"50\"&gt;</span>
+<span class="org-string">                                  &lt;/a&gt;</span>
+<span class="org-string">                                &lt;/div&gt;</span>
+<span class="org-string">                              &lt;/div&gt;</span>
 
-<span class="org-string">                                &lt;div class=\"generated\"&gt;</span>
-<span class="org-string">                                  Created with %c on &lt;a href=\"https://www.gnu.org\"&gt;GNU&lt;/a&gt;/&lt;a href=\"https://www.kernel.org/\"&gt;Linux&lt;/a&gt;</span>
-<span class="org-string">                                &lt;/div&gt;</span>
-<span class="org-string">                              &lt;/footer&gt;"</span>
+<span class="org-string">                              &lt;div class=\"generated\"&gt;</span>
+<span class="org-string">                                Created with %c on &lt;a href=\"https://www.gnu.org\"&gt;GNU&lt;/a&gt;/&lt;a href=\"https://www.kernel.org/\"&gt;Linux&lt;/a&gt;</span>
+<span class="org-string">                              &lt;/div&gt;</span>
+<span class="org-string">                            &lt;/footer&gt;"</span>
          <span class="org-rainbow-delimiters-depth-3">)</span>
         <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-string">"blog-rss"</span>
          <span class="org-builtin">:base-directory</span> <span class="org-string">"~/Dropbox/project-maria/blog"</span>
@@ -988,14 +991,14 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 <span class="org-comment-delimiter">;; </span><span class="org-comment">https://alhassy.github.io/AlBasmala#Clickable-Headlines</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my/ensure-headline-ids</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;rest</span> _<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Org trees without a custom ID will have</span>
-<span class="org-doc">                              All non-alphanumeric characters are cleverly replaced with &#8216;-&#8217;.</span>
+<span class="org-doc">                            All non-alphanumeric characters are cleverly replaced with &#8216;-&#8217;.</span>
 
-<span class="org-doc">                              If multiple trees end-up with the same id property, issue a</span>
-<span class="org-doc">                              message and undo any property insertion thus far.</span>
+<span class="org-doc">                            If multiple trees end-up with the same id property, issue a</span>
+<span class="org-doc">                            message and undo any property insertion thus far.</span>
 
-<span class="org-doc">                              E.g., &#8623; We'll go on a &#8704;&#8707;&#8645; adventure</span>
-<span class="org-doc">                                 &#8614;  We'll-go-on-a-adventure</span>
-<span class="org-doc">                              "</span>
+<span class="org-doc">                            E.g., &#8623; We'll go on a &#8704;&#8707;&#8645; adventure</span>
+<span class="org-doc">                               &#8614;  We'll-go-on-a-adventure</span>
+<span class="org-doc">                            "</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">interactive</span><span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>ids<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>org-map-entries
@@ -1030,35 +1033,35 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
                                       <span class="org-rainbow-delimiters-depth-6">(</span>org-publish-find-date entry project<span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>message pubdate<span class="org-rainbow-delimiters-depth-3">)</span>
     <span class="org-rainbow-delimiters-depth-3">(</span>format <span class="org-string">"%s</span>
-<span class="org-string">                :properties:</span>
-<span class="org-string">                :rss_permalink: %s</span>
-<span class="org-string">                :author: %s</span>
-<span class="org-string">                :pubdate: %s</span>
-<span class="org-string">                :end:\n"</span>
+<span class="org-string">              :properties:</span>
+<span class="org-string">              :rss_permalink: %s</span>
+<span class="org-string">              :author: %s</span>
+<span class="org-string">              :pubdate: %s</span>
+<span class="org-string">              :end:\n"</span>
             title
             link
             author
             pubdate<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">posts-rss-feed</span> <span class="org-rainbow-delimiters-depth-2">(</span>title list<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Generate a sitemap of posts that is exported as a RSS feed.</span>
-<span class="org-doc">                TITLE is the title of the RSS feed.  LIST is an internal</span>
-<span class="org-doc">                representation for the files to include.  PROJECT is the current</span>
-<span class="org-doc">                project."</span>
+<span class="org-doc">              TITLE is the title of the RSS feed.  LIST is an internal</span>
+<span class="org-doc">              representation for the files to include.  PROJECT is the current</span>
+<span class="org-doc">              project."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span>concat
    <span class="org-string">"#+TITLE: "</span> title <span class="org-string">"\n#+EMAIL: hanshen@hanshenwang.com"</span> <span class="org-string">"\n\n"</span>
    <span class="org-rainbow-delimiters-depth-3">(</span>org-list-to-subtree list<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">publish-posts-rss-feed</span> <span class="org-rainbow-delimiters-depth-2">(</span>plist filename dir<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Publish PLIST to RSS when FILENAME is rss.org.</span>
-<span class="org-doc">                DIR is the location of the output."</span>
+<span class="org-doc">              DIR is the location of the output."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-3">(</span>equal <span class="org-string">"rss.org"</span> <span class="org-rainbow-delimiters-depth-4">(</span>file-name-nondirectory filename<span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
       <span class="org-rainbow-delimiters-depth-3">(</span>org-rss-publish-to-rss plist filename dir<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd4ac77b" class="outline-2">
-<h2 id="orgd4ac77b"><span class="section-number-2">5.</span> Case Study: Profiling and Performance</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-Case-Study-Profiling-and-Performance" class="outline-2">
+<h2 id="Case-Study-Profiling-and-Performance"><span class="section-number-2">5.</span> Case Study: Profiling and Performance</h2>
+<div class="outline-text-2" id="text-Case-Study-Profiling-and-Performance">
 <p>
 A through treatment of the generalities of optimization in Common Lisp can be
 found in weitzCommonLispRecipes2016 pages 503-560. Dr. Weitz testifies that lisp
@@ -1253,7 +1256,7 @@ system, I would try a library like <a href="https://gitlab.common-lisp.net/dkoch
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Includes COMMON LISP USER package symbols as defined in the Hyperspec.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:profile-call-counts <span class="org-string">"CL-USER"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Profile and output both graph and flat formats.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">sb-sprof:with-profiling</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> <span class="org-highlight-numbers-number">5000</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:with-profiling <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> <span class="org-highlight-numbers-number">5000</span>
                           <span class="org-builtin">:report</span> <span class="org-builtin">:graph</span>
                           <span class="org-builtin">:loop</span> t
                           <span class="org-builtin">:show-progress</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
@@ -1618,9 +1621,9 @@ Read-only data is stored by the object prevalence model library BKNR.Datastore.
 </p>
 </div>
 
-<div id="outline-container-org9de5735" class="outline-3">
-<h3 id="org9de5735"><span class="section-number-3">6.1.</span> PostgreSQL</h3>
-<div class="outline-text-3" id="text-6-1">
+<div id="outline-container-PostgreSQL" class="outline-3">
+<h3 id="PostgreSQL"><span class="section-number-3">6.1.</span> PostgreSQL</h3>
+<div class="outline-text-3" id="text-PostgreSQL">
 <p>
 All of Lisp's homoiconic syntax aside, to create data that will persist after
 the program is shut down is a useful things to do. We cannot write to a file as
@@ -1665,9 +1668,9 @@ psql -h localhost -d test -U user1
 </div>
 </div>
 </div>
-<div id="outline-container-org4bf3eac" class="outline-3">
-<h3 id="org4bf3eac"><span class="section-number-3">6.2.</span> In-Memory Datastore</h3>
-<div class="outline-text-3" id="text-6-2">
+<div id="outline-container-In-Memory-Datastore" class="outline-3">
+<h3 id="In-Memory-Datastore"><span class="section-number-3">6.2.</span> In-Memory Datastore</h3>
+<div class="outline-text-3" id="text-In-Memory-Datastore">
 <p>
 Design constraints imposed by the current deployment platform, Heroku &amp; Github.
 </p>
@@ -1724,9 +1727,9 @@ Memory-Centric Data Management A Monash Information Services White Paper by Curt
 </div>
 </div>
 
-<div id="outline-container-orgf1b4fe4" class="outline-3">
-<h3 id="orgf1b4fe4"><span class="section-number-3">6.3.</span> BKNR.Datastore vs Rucksack vs Postmodern</h3>
-<div class="outline-text-3" id="text-6-3">
+<div id="outline-container-BKNR-Datastore-vs-Rucksack-vs-Postmodern" class="outline-3">
+<h3 id="BKNR-Datastore-vs-Rucksack-vs-Postmodern"><span class="section-number-3">6.3.</span> BKNR.Datastore vs Rucksack vs Postmodern</h3>
+<div class="outline-text-3" id="text-BKNR-Datastore-vs-Rucksack-vs-Postmodern">
 <p>
 <a href="https://common-lisp.net/project/rucksack/">Rucksack</a> measurements are listed first, then <a href="https://github.com/hanshuebner/bknr-datastore">BKNR.Datastore.</a>
 </p>
@@ -2776,9 +2779,9 @@ Project Isidore code aims to be portable Common Lisp within reason. <a href="htt
 Portability Library Status</a>
 </p>
 </div>
-<div id="outline-container-org5d58d0e" class="outline-4">
-<h4 id="org5d58d0e"><span class="section-number-4">7.2.1.</span> Notes on Drakma</h4>
-<div class="outline-text-4" id="text-7-2-1">
+<div id="outline-container-Notes-on-Drakma" class="outline-4">
+<h4 id="Notes-on-Drakma"><span class="section-number-4">7.2.1.</span> Notes on Drakma</h4>
+<div class="outline-text-4" id="text-Notes-on-Drakma">
 <p>
 From: <a href="https://courses.cs.northwestern.edu/325/admin/json-client.php">https://courses.cs.northwestern.edu/325/admin/json-client.php</a>
 </p>
@@ -2997,9 +3000,9 @@ stains.
 <h2 id="User-Manual"><span class="section-number-2">8.</span> User Manual</h2>
 <div class="outline-text-2" id="text-User-Manual">
 </div>
-<div id="outline-container-org8bc3cf1" class="outline-3">
-<h3 id="org8bc3cf1"><span class="section-number-3">8.1.</span> How do I find past versions of a blog article?</h3>
-<div class="outline-text-3" id="text-8-1">
+<div id="outline-container-How-do-I-find-past-versions-of-a-blog-article" class="outline-3">
+<h3 id="How-do-I-find-past-versions-of-a-blog-article"><span class="section-number-3">8.1.</span> How do I find past versions of a blog article?</h3>
+<div class="outline-text-3" id="text-How-do-I-find-past-versions-of-a-blog-article">
 <p>
 To view the entire revision history of an article, find and click the article
 title on <a href="https://github.com/HanshenWang/project-isidore/tree/master/assets/blog">the repository's blog subfolder.</a> Then click on the <code>History</code> button
@@ -3010,9 +3013,9 @@ Machine</a> is also an option.
 </div>
 </div>
 
-<div id="outline-container-org71f92ca" class="outline-3">
-<h3 id="org71f92ca"><span class="section-number-3">8.2.</span> How do I unsubscribe from the mailing list?</h3>
-<div class="outline-text-3" id="text-8-2">
+<div id="outline-container-How-do-I-unsubscribe-from-the-mailing-list" class="outline-3">
+<h3 id="How-do-I-unsubscribe-from-the-mailing-list"><span class="section-number-3">8.2.</span> How do I unsubscribe from the mailing list?</h3>
+<div class="outline-text-3" id="text-How-do-I-unsubscribe-from-the-mailing-list">
 <p>
 To remove an email address from the mailing list, fill out and submit the form
 on the <a href="https://www.hanshenwang.com/unsubscribe">unsubscribe page.</a> To resubscribe, visit <a href="https://www.hanshenwang.com/subscribe">https://www.hanshenwang.com/subscribe.</a>
@@ -3020,9 +3023,9 @@ on the <a href="https://www.hanshenwang.com/unsubscribe">unsubscribe page.</a> T
 </div>
 </div>
 
-<div id="outline-container-orgb780c0d" class="outline-3">
-<h3 id="orgb780c0d"><span class="section-number-3">8.3.</span> Can I visit this website offline?</h3>
-<div class="outline-text-3" id="text-8-3">
+<div id="outline-container-Can-I-visit-this-website-offline" class="outline-3">
+<h3 id="Can-I-visit-this-website-offline"><span class="section-number-3">8.3.</span> Can I visit this website offline?</h3>
+<div class="outline-text-3" id="text-Can-I-visit-this-website-offline">
 <p>
 To access the website offline, download the appropriate executable
 from the project release page. <a href="https://github.com/HanshenWang/project-isidore/releases">Releases · HanshenWang/project-isidore · GitHub</a>.
@@ -3041,19 +3044,37 @@ have to manually execute the unsigned binaries. Please see
 </p>
 
 <p>
+When running the Windows binary you may run into an error similar to,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">("libcrypto-1_1-x64.dll" "libeay32.dll") [Condition of type CFFI:LOAD-FOREIGN-LIBRARY-ERROR]
+</pre>
+</div>
+
+<p>
+Project Isidore uses the <a href="https://common-lisp.net/project/cl-plus-ssl/">cl+ssl</a> library which in turn requires OpenSSL as a
+dependency if the web server is to send HTTPS requests. Hit <code>0</code> to continue twice
+and the application will proceed as normal. Firewall network exceptions need not
+be granted if the application is to be used locally.
+</p>
+
+<p>
 An audit of the source code can be done at any time. Please see the <a href="#Introduction">source
 repository</a> as well as the <a href="#Libraries-System-dependencies">third party dependencies.</a>
 </p>
 
 <p>
-Be advised that the program consumes around 250mb of RAM while running.
+Be advised that the program consumes around 50MB of RAM when used by a single
+user locally. Please understand the executable is provided AS IS, WITHOUT
+WARRANTY. See the provided COPYING.txt included in the download.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgcd4947f" class="outline-3">
-<h3 id="orgcd4947f"><span class="section-number-3">8.4.</span> I can't find what I'm looking for. How is the documentation organized?</h3>
-<div class="outline-text-3" id="text-8-4">
+<div id="outline-container-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized" class="outline-3">
+<h3 id="I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized"><span class="section-number-3">8.4.</span> I can't find what I'm looking for. How is the documentation organized?</h3>
+<div class="outline-text-3" id="text-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">
 <p>
 The documentation is organized according to the best practices outlined here:
 <a href="https://documentation.divio.com/">The documentation system — divio.</a>
@@ -3066,25 +3087,6 @@ as close as possible to the end-user interface. How-to guides are meant to be
 placed here in the user manual. The Reference is auto-generated with the help of
 <a href="#Generate-Reference-Manual">the Declt system</a>. The Explanation is this Design Notebook blog article and git
 commit messages.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org6b536e6" class="outline-3">
-<h3 id="org6b536e6"><span class="section-number-3">8.5.</span> Known Issues</h3>
-<div class="outline-text-3" id="text-8-5">
-<p>
-When running the Windows binary,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-text">("libcrypto-1_1-x64.dll" "libeay32.dll") [Condition of type CFFI:LOAD-FOREIGN-LIBRARY-ERROR]
-</pre>
-</div>
-
-<p>
-Project Isidore requires the <a href="https://common-lisp.net/project/cl-plus-ssl/">cl+ssl</a> library which in turn requires OpenSSL as a
-dependency. Hit <code>0</code> to continue twice and the application will proceed as normal.
 </p>
 </div>
 </div>
