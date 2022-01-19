@@ -30,7 +30,14 @@ See VIEWS.LISP for HTML generation. "))
   ;; When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an
   ;; error will be thrown
   (cl-css:css
-   `(;; CSS Background Slideshow
+   `(;; Load fonts.
+     ("@font-face"
+      :font-family "Cinzel"
+      :font-style "normal"
+      :font-weight "400"
+      :font-display "swap"
+      :src "local(''), url('/cinzel-v11-latin-regular.woff2') format('woff2')")
+     ;; CSS Background Slideshow
      (".slideshow,.slideshow:after" :position" fixed" :width" 100%" :height"
      100%" :top" 0px" :left" 0px" :z-index" 0")
 
@@ -102,15 +109,14 @@ See VIEWS.LISP for HTML generation. "))
                                :font-size" 1.5em" :color" #f8f8f8" :text-shadow" 1px
      1px 1px rgba(0,0,0,0.6)")
 
-     (".container > header p" :font-family" 'EB Garamond', 'Times New Roman',
-     serif")
+     (".container > header p" :font-family" 'Times New Roman',serif")
 
      ;; Button Style
      ("p.portfolio-button" :display" block" :padding" 15px 0px")
 
      ( "p.portfolio-button a" :display" inline-block" :border" 1px solid #FFF"
                               :padding" 4px 10px 3px" :font-family" 'Cinzel', 'Times New Roman', serif"
-                              :font-size" 13px" :line-height" 18px" :margin" 2px 3px" :font-weight" 500"
+                              :font-size" 13px" :line-height" 18px" :margin" 2px 3px" :font-weight" 400"
                               :box-shadow" 0px 1px 1px rgba(0,0,0,0.1)" :color"#fff" :border-radius" 5px"
                               :background"rgba(0,0,0,0)")
 
@@ -129,7 +135,14 @@ See VIEWS.LISP for HTML generation. "))
   (cl-css:compile-css
    (merge-pathnames #P"global.css"
                     (asdf:system-relative-pathname :project-isidore "../assets/"))
-   '(;; Navbar CSS
+   '(;; Load Fonts
+     ("@font-face"
+      :font-family "Cinzel"
+      :font-style "normal"
+      :font-weight "400"
+      :font-display "swap"
+      :src "local(''), url('/cinzel-v11-latin-regular.woff2') format('woff2')")
+     ;; Navbar CSS
      (".header-fixed " :position" relative" :left" 0" :top" 0" :z-index" 1"
                        :width" 100%" :margin" 0" :background-color" #FDF6E3")
 
@@ -139,7 +152,7 @@ See VIEWS.LISP for HTML generation. "))
      (".navbar .logo " :flex" 3")
 
      (".navbar .logo a " :display" block" :margin-left" 10%" :font-size" 22px"
-                         :font-family" 'Cinzel'" :font-weight" 500" :color" #000" :text-decoration"
+                         :font-family" 'Cinzel'" :font-weight" 400" :color" #000" :text-decoration"
      none")
 
      (".navbar .logo a:hover " :color" #777777")
@@ -221,8 +234,7 @@ See VIEWS.LISP for HTML generation. "))
      ("html" :background-color" #FDF6E3")
 
      ("body " :width" 95%" :margin" 2% auto" :font-size" 14px" :line-height"
-     1.4em" :font-family" 'EB Garamond', 'Times New Roman', serif" :font-weight"
-     400" :color" #333")
+     1.4em" :font-family" 'Times New Roman', serif" :font-weight" 400" :color" #333")
 
      ("@media screen and (min-width: 600px) " ("body " :font-size" 18px"))
 
@@ -239,7 +251,7 @@ See VIEWS.LISP for HTML generation. "))
      ("dl " :margin" 0 auto")
 
      (".title " :text-align" center" :margin" 0.8em auto" :color" black"
-                :font-family"'Cinzel'" :font-weight" 500")
+                :font-family"'Cinzel'" :font-weight" 400")
 
      (".subtitle " :text-align" center" :font-size" 1.5em" :line-height" 1.4"
                    :font-weight" bold" :margin" 1em auto")
@@ -276,7 +288,7 @@ See VIEWS.LISP for HTML generation. "))
      (".MathJax_Display " :margin" 0!important" :width" 90%!important")
 
      ("h1,h2,h3,h4,h5,h6 " :color" #A5573E" :line-height" 1em" :font-weight"
-     400" :font-family" 'Montserrat', 'Arial', non-serif")
+     400" :font-family" 'Arial', non-serif")
 
      ("h2 a " :color" #A5573E")
 
@@ -492,6 +504,6 @@ See VIEWS.LISP for HTML generation. "))
      ("@media screen and (min-width: 600px) " (".creator " :display" inline"
                                                            :float" right"))
 
-     (".cryptedmail:after " :font-family" 'EB Garamond', 'Times New Roman',
-     serif" :font-size"1.2 rem" :content" attr(data-name) \"@\"
-     attr(data-domain) \".\" attr(data-tld)"))))
+     (".cryptedmail:after " :font-family" 'Times New Roman',serif"
+     :font-size"1.2 rem" :content" attr(data-name) \"@\" attr(data-domain) \".\"
+     attr(data-tld)"))))

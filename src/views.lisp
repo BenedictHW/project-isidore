@@ -46,12 +46,6 @@ all other web app pages uses this boilerplate."
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
-             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
-             :crossorigin)
-             (:link
-             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
-             :rel "stylesheet")
              (:link :type "text/css" :href "global.css" :rel "stylesheet"))
             (:body
              (:div :class "header header-fixed"
@@ -79,12 +73,6 @@ all other web app pages uses this boilerplate."
             (:meta :charset "utf-8")
             (:meta :name "viewport"
                    :content "width=device-width, initial-scale=1")
-            (:link :rel "preconnect" :href "https://fonts.googleapis.com")
-            (:link :rel "preconnect" :href "https://fonts.gstatic.com"
-                   :crossorigin)
-            (:link
-             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
-             :rel "stylesheet")
             (:style (cl-who:str
                      (index-css))))
            (:body
@@ -269,15 +257,8 @@ with my name."
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :rel "preconnect" :href "https://fonts.googleapis.com")
-             (:link :rel "preconnect" :href "https://fonts.gstatic.com"
-             :crossorigin)
-             (:link
-             :href "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap"
-             :rel "stylesheet")
              (:link :type "text/css" :href "global.css" :rel "stylesheet"))
-            (:body
-             (:div :class "main" ,@body)))))
+            (:body (:div :class "main" ,@body)))))
 
 (defun bible-page (bible-url)
   "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a

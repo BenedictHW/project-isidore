@@ -1,8 +1,9 @@
+@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/cinzel-v11-latin-regular.woff2') format('woff2'); }
 .header-fixed  { position:  relative; left:  0; top:  0; z-index:  1; width:  100%; margin:  0; background-color:  #FDF6E3; }
 .navbar  { display:  flex; justify-content:  space-between; align-items: 
      center; color:  #fff; line-height:  60px; }
 .navbar .logo  { flex:  3; }
-.navbar .logo a  { display:  block; margin-left:  10%; font-size:  22px; font-family:  'Cinzel'; font-weight:  500; color:  #000; text-decoration: 
+.navbar .logo a  { display:  block; margin-left:  10%; font-size:  22px; font-family:  'Cinzel'; font-weight:  400; color:  #000; text-decoration: 
      none; }
 .navbar .logo a:hover  { color:  #777777; }
 .navbar nav  { flex:  8; }
@@ -35,8 +36,7 @@
       #000; text-decoration:  none; } .navbar nav li.active  { background:  #555; } .navbar nav li:hover  { background:  #EEE8D5; } .navbar label  { display:  none; } }
 html { background-color:  #FDF6E3; }
 body  { width:  95%; margin:  2% auto; font-size:  14px; line-height: 
-     1.4em; font-family:  'EB Garamond', 'Times New Roman', serif; font-weight: 
-     400; color:  #333; }
+     1.4em; font-family:  'Times New Roman', serif; font-weight:  400; color:  #333; }
 @media screen and (min-width: 600px)  { body  { font-size:  18px; } }
 @media screen and (min-width: 910px)  { body  { width:  900px; } }
 #content  { width:  100%; }
@@ -44,7 +44,7 @@ body  { width:  95%; margin:  2% auto; font-size:  14px; line-height:
 p  { line-height: 1.5em; margin:  1em auto; }
 ol,ul  { margin:  0 auto; }
 dl  { margin:  0 auto; }
-.title  { text-align:  center; margin:  0.8em auto; color:  black; font-family: 'Cinzel'; font-weight:  500; }
+.title  { text-align:  center; margin:  0.8em auto; color:  black; font-family: 'Cinzel'; font-weight:  400; }
 .subtitle  { text-align:  center; font-size:  1.5em; line-height:  1.4; font-weight:  bold; margin:  1em auto; }
 .updated  { text-align:  center; }
 .abstract  { text-align:  center; margin:  auto; width:  80%; font-style: 
@@ -63,7 +63,7 @@ figure  { padding:  0px; margin:  1em auto; text-align:  center; }
 img  { max-width:  100%; vertical-align:  middle; }
 .MathJax_Display  { margin:  0!important; width:  90%!important; }
 h1,h2,h3,h4,h5,h6  { color:  #A5573E; line-height:  1em; font-weight: 
-     400; font-family:  'Montserrat', 'Arial', non-serif; }
+     400; font-family:  'Arial', non-serif; }
 h2 a  { color:  #A5573E; }
 h3 a  { color:  #A5573E; }
 h4 a  { color:  #A5573E; }
@@ -199,6 +199,5 @@ p.verse  { margin-left:  3%; }
 #bibliography table  { width:  100%; }
 .creator  { display:  block; }
 @media screen and (min-width: 600px)  { .creator  { display:  inline; float:  right; } }
-.cryptedmail:after  { font-family:  'EB Garamond', 'Times New Roman',
-     serif; font-size: 1.2 rem; content:  attr(data-name) "@"
-     attr(data-domain) "." attr(data-tld); }
+.cryptedmail:after  { font-family:  'Times New Roman',serif; font-size: 1.2 rem; content:  attr(data-name) "@" attr(data-domain) "."
+     attr(data-tld); }
