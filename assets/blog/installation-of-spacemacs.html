@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-17 Mon 21:30 -->
+<!-- 2022-01-19 Wed 02:13 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Installation of Spacemacs on Windows 10 via WSL2</title>
@@ -9,9 +9,6 @@
 <meta name="generator" content="Org Mode" />
 
                       <link rel="stylesheet" type="text/css" href="../global.css"/>
-                      <link rel="preconnect" href="https://fonts.googleapis.com">
-                      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-                      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=EB+Garamond:ital@0;1&family=Montserrat:ital@0;1&display=swap" rel="stylesheet">
                       <link rel="stylesheet"
                             href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/base16/solarized-light.min.css">
                       <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" defer></script>
@@ -58,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Installation of Spacemacs on Windows 10 via WSL2</h1>
                                     <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-17 Mon 21:30</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-19 Wed 01:55</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org2054250">
+<div class="abstract" id="org8f1e7dd">
 <p>
 Take advantage of the unparalleled, extensible, and powerful text editing
 capabilities of GNU Emacs from within Windows OS.
@@ -99,7 +96,7 @@ capabilities of GNU Emacs from within Windows OS.
 </li>
 <li><a href="#Conclusion">7. Conclusion</a></li>
 <li><a href="#Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep">8. Bonus! Why is my GUI Spacemacs interrupted by Sleep?</a></li>
-<li><a href="#org191ef78">9. Encore! Performance tips and tricks</a></li>
+<li><a href="#Performance-tips-and-tricks">9. Performance tips and tricks</a></li>
 <li><a href="#Sources-and-Credits">10. Sources and Credits</a></li>
 </ul>
 </div>
@@ -741,14 +738,44 @@ because input is unavailable. &#x2013; <a href="https://wiki.x2go.org/doku.php/d
 </div>
 </div>
 
-<div id="outline-container-org191ef78" class="outline-2">
-<h2 id="org191ef78"><span class="section-number-2">9.</span> Encore! Performance tips and tricks</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-Performance-tips-and-tricks" class="outline-2">
+<h2 id="Performance-tips-and-tricks"><span class="section-number-2">9.</span> Performance tips and tricks</h2>
+<div class="outline-text-2" id="text-Performance-tips-and-tricks">
 <p>
-Profiler with SPC h P s
-gcmh melpa package
-timer-list
-timer-idle-list
+In the Lisp programming language family, Emacs Lisp is a derivative of the
+Maclisp of the 1980's. For a general purpose programming language other lisp
+dialects are better suited, such as ANSI Common Lisp. Emacs Lisp however remains
+perfectly adequate as a Domain Specific Language (DSL) for editing text. As
+recently as 2020 has the Emacs Lisp implementation gained the ability to compile
+to native machine code with libgccgit.
+</p>
+
+<p>
+That does not mean performance becomes less of a concern, as many Emacs configs
+are treated less like a software program (for which typical best practices
+apply) and more like a throwaway script hacked together by the worst of
+copy-paste programming. I have learned the hard way that when it comes to subpar
+Emacs performance, the culprit and resolution is not so different from
+performance problems in other languages: check for errors in your own code or
+the libraries you use. Performance comes from data structures, and efficiency
+from algorithms. Even (premature) optimization out the wazoo will not save you
+if those principles are ignored. However if we must optimize, then it would be
+wise to profile first.
+</p>
+
+<p>
+Open the built-in Emacs Profiler with SPC h P s.
+</p>
+
+<p>
+I have it on the authority of common sense and the Emacs maintainer that messing
+with Emacs garbage collector is not a good idea. But if you must, check out the
+<a href="https://gitlab.com/koral/gcmh">gcmh melpa package</a>.
+</p>
+
+<p>
+To see what functions are running at set times, see the variables <code>timer-list</code>
+and <code>timer-idle-list</code>.
 </p>
 </div>
 </div>
