@@ -443,7 +443,7 @@ query-form"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
                  (:input :name "query" :id "query" :size "50" :type "text"
-                         :value (princ query) :required "required")
+                         :value (princ (cl-who:esc query)) :required "required")
                  (:input :type "submit" :value "Submit")))
     (:table :id "main-content"
      ;; 35817 includes all verses of the bible.
