@@ -18,14 +18,17 @@
 
    #:create-datastore :bible
 
-   #:get-bible-uid #:get-bible-text #:get-heading-text #:get-haydock-text
+   #:get-bible-uid
+   #:get-bible-text #:get-heading-text #:get-haydock-text #:get-haydock-text-with-ref
 
    #:bible-book-convert-dwim #:bible-url-to-uid :+bible-book-url-alist+
    #:make-bible-chapter-url-list
 
    :*search-index*
    #:create-search-index
-   #:search-bible)
+   #:search-bible
+
+   #:roman-to-decimal #:roman-numeral-p :*reference-regex*)
   (:documentation
    "Project Isidore Object Schema.
 
@@ -152,16 +155,11 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
     "Return a unique identifier assigned to each instance of class `bible'.
    As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
   returns the aforementioned unique identifier as an integer value bound to slot
-  ID. BOOK can either be a string or an integer. If the instance does not exist,
-  NIL is returned.
+  ID. BOOK CHAPTER and VERSE must be an integer with the range 0 - 35816.
 
   Example:
-  (get-bible-uid \"Matthew\" 3 6) => 27916
   (get-bible-uid 47 3 6) => 27916
-  (get-bible-uid 12983 29394 2938498) => NIL
-
-  Side Effects:
-  BOOK will be converted from a string to an integer, if applicable. "
+  (get-bible-uid 12983 29394 2938498) => NIL "
   (declare (optimize speed)
            (fixnum book)
            (fixnum chapter)
@@ -207,9 +205,116 @@ The bible-uid can be found by calling `get-bible-uid' with valid arguments."
 (defun get-haydock-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
+  ;; Only get text if commentary exists for given BIBLE-UID.
   (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
                      'haydock-text)
     (haydock-text-of (bknr.datastore:store-object-with-id bible-uid))))
+
+(defun bible-ref-to-url (string bible-uid)
+"Haydock commentary cross references are in the form ABBREVIATED BOOK NAME,
+ROMAN NUMERAL, and INTEGER representing BOOK CHAPTER and VERSE respectively. Ex.
+\"Ps. cxliv. 9.\" A list of ABBREVIATED BOOK NAMES can be found in
+`+bible-book-abbrev-alist+'INTERNAL-CHAPTER is to properly process C. xxiii. 3.
+where C. is short form for chapter. "
+  (let ((internal-chapter (cdar (verse-of (bknr.datastore:store-object-with-id bible-uid))))
+        (book nil)
+        (chapter nil)
+        (verse nil))
+        (loop for metadata-list in (cl-ppcre:split "\\s" (remove #\. string))
+              ;; 35019
+              ;; ("" "Ps." "cxliv." "9.")
+              do (cond
+                   ;; Discard empty string.
+                   ((string-equal "" metadata-list) nil)
+                   ;; Book is nil, decimal number found.
+                   ((and (not book)
+                         (parse-integer metadata-list :junk-allowed t))
+                    (setf book (format nil "~@r" (parse-integer metadata-list :junk-allowed t))))
+                   ;; No roman or decimal number found.
+                   ((and (not (roman-numeral-p metadata-list))
+                         (not (parse-integer metadata-list :junk-allowed t)))
+                    (if book
+                        (setf book (concatenate 'string book " "
+                                                (string-trim '(#\Space #\Tab #\Newline) metadata-list)))
+                        (setf book (string-trim '(#\Space #\Tab #\Newline) metadata-list))))
+                   ;; Roman numeral found.
+                   ((roman-numeral-p metadata-list)
+                    (setf chapter (roman-to-decimal metadata-list)))
+                   ;; Book is not nil, decimal number found.
+                   ((and book
+                         (parse-integer metadata-list :junk-allowed t))
+                    (progn
+                      (setf verse (parse-integer metadata-list :junk-allowed t))
+                      (setf book (cond ((integerp book) book)
+                                       ((string-equal "C" book) internal-chapter)
+                                       (t (cdr (assoc book +bible-book-abbrev-alist+ :test #'string-equal)))))
+                      (return-from bible-ref-to-url
+                        (if (not book)
+                            nil
+                        (concatenate 'string "/bible?verses="
+                                     (write-to-string book) "-"
+                                     (write-to-string chapter) "-"
+                                     (write-to-string verse) "-"
+                                     (write-to-string book) "-"
+                                     (write-to-string chapter) "-"
+                                     (write-to-string verse))))))))))
+
+(defparameter *reference-regex* (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,6}\\.?\\s[clxvi]+\\.\\s[0-9]{1,3}\\.)")
+  "Regex explanation.
+[1-4]? 4 K. is the highest for 4 Kings. ? signifies the number may or may not be
+there.
+\s whitespace.
+[a-zA-Z]{1,6} Esdras is the longest book name I have found thus far.
+\. optional period.
+\s whitespace.
+[clxvi]+\. Any number of the listed letters until a period.
+\s whitespace.
+[0-9]{1,3} 3 digits that make up a verse number.
+\. period.
+An extra backslash is need to escape the backslash itself.
+([1-4]?\s[a-zA-Z]{1,6}\.\s[clxvi]+\.\s[0-9]{1,3}\.) ")
+
+(defun encode-haydock-text (string bible-uid)
+  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
+                     'haydock-text)
+    (flet ((convert (match y)
+             (if (not (bible-ref-to-url match bible-uid))
+                 (format nil "~a" match)
+                 (format nil "<a href=\"~a\">~a</a>"
+                         (bible-ref-to-url match bible-uid) y))))
+      (ppcre:regex-replace-all *reference-regex* string #'convert :simple-calls t))))
+
+(defun get-haydock-text-with-ref (bible-uid)
+  (let ((haydock-text (get-haydock-text bible-uid)))
+  (if haydock-text
+      (encode-haydock-text haydock-text bible-uid))))
+
+(defvar *roman-chars* "ivxlcdm")
+(defvar *roman-nums*  '(1 5 10 50 100 500 1000))
+
+(defun roman-numeral-to-decimal (roman-numeral)
+  (let ((i (position (coerce roman-numeral 'character) *roman-chars*)))
+    (and i (nth i *roman-nums*))))
+
+(defun map-roman-numerals-to-decimal (roman-numerals)
+  (map 'list #'roman-numeral-to-decimal roman-numerals))
+
+(defun roman-numeral-p (string)
+  (if (not (loop for test-char across "abefghjknopqrstuwyz0123456789"
+      when (find test-char string :test #'char-equal)
+        collect test-char))
+      t
+      nil))
+
+(defun roman-to-decimal (roman)
+  "The Roman numeral symbols are I, V, X, L, C, D, and M, standing respectively
+for 1, 5, 10, 50, 100, 500, and 1,000. The book with the highest chapter number
+is indeed the Psalms, at 150. The chapter with the highest verse number is also
+in the Psalms: Psalm 118 (119):176. "
+  (if (roman-numeral-p roman)
+      (loop as (A B) on (map-roman-numerals-to-decimal roman)
+            if A sum (if (and B (< A B)) (- A) A))
+      nil))
 
 (defun bible-url-to-uid (bible-url)
   "Accepts a string of six integers and returns a list of 2 integers.

@@ -305,7 +305,7 @@ with my name."
                (:tr
                 (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
                 (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
-                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text bible-uid))))))))))
+                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text-with-ref bible-uid))))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -454,5 +454,5 @@ query-form"
                 (:td (cl-who:htm (cl-who:str (write-to-string (floor score 0.01)))))
                 (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
                 (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
-                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text bible-uid))))))))))
+                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text-with-ref bible-uid))))))))))
 

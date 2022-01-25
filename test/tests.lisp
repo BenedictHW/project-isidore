@@ -8,7 +8,8 @@
   (:import-from #:parachute)
   ;; HTTP client library.
   (:import-from #:drakma)
-  (:export #:master-suite)
+  (:export #:master-suite
+           #:generate-data-finish)
   (:documentation
    "Project Isidore Regression Tests.
 
@@ -47,15 +48,18 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
                                 :project-isidore "../assets/global.css"))))
 
-(parachute:define-test generate-bible-html-finish
-  :description "Check that BIBLE-PAGE finishes. Datastore needs to be closed,
-  otherwise when make.lisp tries to open an already opened datastore, an error
-  will be signaled."
+(parachute:define-test generate-data-finish
+  :description "Check that `bible-page' and `bible-search-page' finishes.
+  Datastore needs to be closed,otherwise when make.lisp tries to open an already
+  opened datastore, an error will be signaled. By far the longest test, as it
+  takes roughly 90 seconds to generate the search index via
+  `create-search-index'"
   :parent master-suite
   (parachute:finish (progn
-                       (project-isidore:create-datastore)
-                       (project-isidore:bible-page "1-1-1-73-22-21")
-                       (bknr.datastore:close-store))))
+                      (project-isidore:create-datastore)
+                      (project-isidore:create-search-index)
+                      (project-isidore:bible-page "1-1-1-73-22-21")
+                      (project-isidore:bible-search-page "water"))))
 
 (parachute:define-test is-production-server-status-200
   :description "As per Heroku documentation: 'Whenever your app experiences an
@@ -73,3 +77,19 @@ The test suite is run prior to the build process. See MAKE.LISP."))
        (= 200 (nth-value 1 (drakma:http-request "https://www.HanshenWang.com/")))
        ;; Secondary URL is a fallback if the HanshenWang.com domain expires.
        (= 200 (nth-value 1 (drakma:http-request "https://project-isidore.herokuapp.com/"))))))
+
+(parachute:define-test roman-numeral-conversion
+  :description "`roman-to-decimal' and `roman-numeral-p' function correctly."
+  :parent master-suite
+  (parachute:true (project-isidore:roman-numeral-p "ivxlcdm"))
+  (parachute:false (project-isidore:roman-numeral-p "ailvlkasxlwc"))
+  (parachute:false (project-isidore:roman-numeral-p "ai32xvl91k"))
+  (parachute:false (project-isidore:roman-to-decimal "983fj"))
+  (parachute:true (= 104 (project-isidore:roman-to-decimal "vic"))))
+
+(parachute:define-test regex-validity
+  :description "Check `*reference-regex*' still works with the version of
+  CL-PPCRE in use."
+  :parent master-suite
+  :depends-on (project-isidore-test/tests:generate-data-finish)
+  (parachute:true (string-equal " Gen. xlix. 29." (car (ppcre:all-matches-as-strings project-isidore:*reference-regex* (project-isidore:get-haydock-text 9201))))))

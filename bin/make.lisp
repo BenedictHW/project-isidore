@@ -93,28 +93,24 @@
 
 ;;; IV. TESTING
 ;; Load Application into Lisp image.
-(ql:quickload :project-isidore)
+(ql:quickload "project-isidore")
 
 ;; Load separate Project Isidore test system.
-(ql:quickload :project-isidore-test)
+(ql:quickload "project-isidore-test")
 
 ;; Run Application tests.
-(asdf:test-system :project-isidore)
+(asdf:test-system "project-isidore")
 
 ;;; V. BUILDING
 ;; Initialize bible dataset and indexes sequentially as the search index is
 ;; dependent on the bible dataset being already loaded in memory.
-(progn (project-isidore:create-datastore)
-       (format t "~&        ====== Datastore loaded... Creating search index... ======~%")
-       (format t "~&        ====== This may take a while... ======~%")
-       (project-isidore:create-search-index))
 
 (format t "~&        ====== Build Successful | Deo Gratias ======~%")
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 
 ;; Dump image. For details go to src/project-isidore.asd.
-(asdf:make :project-isidore)
+(asdf:make "project-isidore")
 
 ;; SBCL's `save-lisp-and-die' unsurprisingly kills the lisp process at the end.
 ;; However this behaviour is implementation dependent. This command is here in
