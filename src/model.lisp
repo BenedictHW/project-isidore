@@ -259,7 +259,8 @@ where C. is short form for chapter. "
                                      (write-to-string chapter) "-"
                                      (write-to-string verse))))))))))
 
-(defparameter *reference-regex* (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,6}\\.?\\s[clxvi]+\\.\\s[0-9]{1,3}\\.)")
+(defparameter *reference-regex*
+  (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,6}\\.?\\s[clxvi]+\\.\\s[0-9]{1,3}\\.)")
   "Regex explanation.
 [1-4]? 4 K. is the highest for 4 Kings. ? signifies the number may or may not be
 there.
