@@ -266,3 +266,29 @@ jobs:
           ${{ github.workspace }}/pi-build-Linux/project-isidore-Linux-x86-64-${{ env.RELEASE_VERSION }}.zip
           ${{ github.workspace }}/pi-build-macOS/project-isidore-macOS-x86-64-${{ env.RELEASE_VERSION }}.zip
           ${{ github.workspace }}/pi-build-Windows/project-isidore-Windows-x86-64-${{ env.RELEASE_VERSION }}.zip
+
+  build_docker_image:
+    name: Docker Image Build
+    runs-on: [ubuntu-latest]
+    # Following jobs must succeed
+    needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
+
+    steps:
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Login to Heroku container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+
+    - name: Build & Push Docker Image
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        heroku container:push -a project-isidore web
+        heroku container:release -a project-isidore web

@@ -30,8 +30,8 @@ all located under \"project-isidore/assets/\". See the
 instance of class `hunchentoot:acceptor' to listen to a PORT")
 
 (defun initialize-application (&key (port 8080)
-(dispatch-folder (asdf:system-relative-pathname :project-isidore "../assets/"))
-(cmd-user-interface nil))
+                                 (dispatch-folder (asdf:system-relative-pathname :project-isidore "../assets/"))
+                                 (cmd-user-interface nil))
   "Start a web server at PORT.
 
 Set DATABASE_URL to connect to PostgreSQL database.
@@ -65,22 +65,24 @@ Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf ;; Will show backtrace on status code 500 pages.
-        hunchentoot:*show-lisp-errors-p* t
-        hunchentoot:*dispatch-table*
-        `(hunchentoot:dispatch-easy-handlers
-          ;; http://localhost:PORT/example.jpg will dispatched to
-          ;; /project-isidore/assets/example.jpg
-          ;; Requires full system path
-          ;; /app is the root on a heroku filesystem
-          ,(hunchentoot:create-folder-dispatcher-and-handler "/" dispatch-folder)))
+   hunchentoot:*show-lisp-errors-p* t
+   hunchentoot:*dispatch-table*
+   `(hunchentoot:dispatch-easy-handlers
+     ;; http://localhost:PORT/example.jpg will dispatched to
+     ;; /project-isidore/assets/example.jpg
+     ;; Requires full system path
+     ;; /app is the root on a heroku filesystem
+     ,(hunchentoot:create-folder-dispatcher-and-handler "/" dispatch-folder)))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (when (hunchentoot:started-p *acceptor*)
       (return-from initialize-application
         (format t "Server already listening to PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
         (hunchentoot:start
-         (make-instance 'hunchentoot:easy-acceptor :port port
-                                          :access-log-destination nil)))
+         (make-instance 'hunchentoot:easy-acceptor
+                        :port port
+                        :address "0.0.0.0"
+                        :access-log-destination nil)))
   (format t "~% Server successfully bound to PORT ~A~%" port)
   (format t "~% Project Isidore initialization successful...~%~% Navigate to http://localhost:~A to continue... ~%" port)
   (when cmd-user-interface
@@ -127,7 +129,6 @@ gracefully shut down the web server and exit the lisp process."
   (initialize-application :port (if (equalp NIL (uiop:getenv "PORT"))
                                     8080
                                     (parse-integer (uiop:getenv "PORT")))
-                          :dispatch-folder "assets/"
                           :cmd-user-interface t)
   ;; Sleep forever.
   (loop (sleep 600)))

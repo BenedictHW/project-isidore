@@ -46,19 +46,34 @@ $ sbcl --load quicklisp.lisp
 3. Load Project Isidore & start local development server.
 
    #+begin_src lisp
-     (ql:quickload :project-isidore)
-     (in-package :project-isidore) ; switch to package namespace
-     (create-datastore) ; optionally for the Tabular Douay Rheims.
+     CL-USER> (ql:quickload :project-isidore)
+     ;; Switch to package namespace.
+     CL-USER> (in-package :project-isidore)
+     ;; Load data for the Tabular Douay Rheims.
+     PROJECT-ISIDORE> (create-datastore)
      ;; The creating of the index in memory takes approx. 2 mins.
-     (create-search-index) ; optionally for the search functionality.
-     (initialize-application) ; starts server at http://localhost:8080
-     (terminate-application) ; stop server
+     PROJECT-ISIDORE> (create-search-index)
+     ;; Starts web server at http://localhost:8080.
+     PROJECT-ISIDORE> (initialize-application)
+     PROJECT-ISIDORE> (terminate-application)
    #+end_src
 
 4. To build a standalone exectuable binary locally,
+
    #+begin_src bash
      $ cd ~/quicklisp/local-projects/project-isidore/bin/
-     $ sbcl --dynamic-space-size 2000 --load make.lisp
+     $ sbcl --dynamic-space-size 2048 --load make.lisp
+   #+end_src
+
+5. To build a docker image,
+
+   #+begin_src sh
+     $ cd ~/quicklisp/local-projects/project-isidore/
+     $ sudo dockerd
+     $ docker build -t project-isidore-image .
+     $ docker run -dp 8080:8080 project-isidore-image
+     $ docker stop $(docker ps -a -q)
+     $ sudo pkill -9 dockerd
    #+end_src
 
 Full documentation available here:
