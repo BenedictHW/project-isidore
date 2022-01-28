@@ -51,10 +51,8 @@ definitions, see the Reference Manual at
 
 (defun list-project-isidore-dependencies ()
   "Returns a list of all third party libraries needed to load Project Isidore.
-
 Example:
 (in-package :cl-user)
-
 (list-project-isidore-dependencies) =>"
 ;; ("hunchentoot" "parenscript" "cl-who" "cl-css" "montezuma" "bknr.datastore"
 ;;  "postmodern")

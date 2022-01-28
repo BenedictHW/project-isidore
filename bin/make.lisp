@@ -6,6 +6,8 @@
 (require "asdf") ; The recommended way from the manual to load bundled ASDF.
 
 (format t "~%~&        ====== MAKE.LISP ======~%")
+;; I also like to live dangerously.
+(declaim (optimize (safety 0) (speed 3) (space 0) (debug 0) (compilation-speed 0)))
 
 ;;; I. ENVIRONMENT VARIABLES
 ;;; Set environment variables if they cannot be found. When running the

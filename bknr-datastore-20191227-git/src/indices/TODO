@@ -1,5 +1,0 @@
-- name von den class-indices soll weg. praeferierte weg ist
-(defvar *broesel* (create-index ...))
-
-(defclass ...
-  (:class-indices (:index *broesel* ...)))
