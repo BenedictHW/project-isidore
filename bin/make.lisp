@@ -2,12 +2,17 @@
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (in-package #:cl-user) ; The buildpack requires cl-user package space.
-(require :sb-posix) ; This is needed for "(uiop:getenv)".
+#+sbcl (require :sb-posix) ; This is needed for "(uiop:getenv)".
 (require "asdf") ; The recommended way from the manual to load bundled ASDF.
 
 (format t "~%~&        ====== MAKE.LISP ======~%")
 ;; I also like to live dangerously.
 (declaim (optimize (safety 0) (speed 3) (space 0) (debug 0) (compilation-speed 0)))
+;; I do see a noticeable benefit of a 2 time reduction of memory usage both in
+;; the local docker image (docker stats) and with load testing of the production
+;; server (loader.io). It's a bit harder to test for performance, as I can't
+;; interact with the Lisp image with the SBCL profiler or with the (time)
+;; function.
 
 ;;; I. ENVIRONMENT VARIABLES
 ;;; Set environment variables if they cannot be found. When running the
@@ -113,7 +118,7 @@
 
 ;; SBCL's garbage collector is conservative. Manually call garbage collector
 ;; after allocating large amounts due to `create-search-index'.
-(sb-ext:gc :full t)
+#+sbcl (sb-ext:gc :full t)
 
 ;; Dump image. For details go to src/project-isidore.asd.
 (asdf:make "project-isidore")
