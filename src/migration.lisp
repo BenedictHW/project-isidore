@@ -286,3 +286,28 @@ return an associative list similar to `*bible-book-url-alist*'."
                                       (get-heading-text
                                        (get-bible-uid book chapter verse)))))))
            (setf counter 1)))))))
+
+(defun create-search-index ()
+  " Montezuma index will have same indices as BKNR.DATASTORE class object
+bible. Therefore double check that `get-bible-uid' bible-uid and
+`montezuma:get-document *search-index*' bible-uid return the same values
+for the same input bible-uid. x = bible-uid.
+
+DO NOT CALL
+(montezuma:optimize *search-index*) as this will cause the tokens stored in
+project-isidore/data/index/ to be over 100 megabytes, the current hard
+limit to Microsoft's Github platform."
+  ;; The document fields are short so as to make end-user querying more
+  ;; efficient.
+  (loop for x from 0 to 35816
+        do (montezuma:add-document-to-index
+            *search-index* `(;; Book.
+                             ("b" . , (bible-book-convert-dwim (cdar (verse-of (bknr.datastore:store-object-with-id x)))))
+                             ;; Chapter.
+                             ("c"  . , (cdadr (verse-of (bknr.datastore:store-object-with-id x))))
+                             ;; Verse.
+                             ("v"  . , (cdaddr (verse-of (bknr.datastore:store-object-with-id x))))
+                             ;; Text.
+                             ("t"  . , (get-bible-text x))
+                             ;; Haydock Text.
+                             ("h"  . , (get-haydock-text x))))))

@@ -8,7 +8,7 @@ RUN apk add --no-cache sbcl && \
     mkdir -p /project-isidore/bin/lib && \
     wget https://beta.quicklisp.org/quicklisp.lisp \
     -O $BUILDPACK_DIR/lib/quicklisp.lisp && \
-    sbcl --dynamic-space-size 2048 --load $BUILDPACK_DIR/make.lisp && \
+    sbcl --dynamic-space-size 512 --load $BUILDPACK_DIR/make.lisp && \
     mv -v $BUILD_DIR/src/ProjectIsidore $BUILD_DIR/ProjectIsidore && \
     chmod a+x $BUILD_DIR/ProjectIsidore && \
     rm -rf /pi-build-cache && \

@@ -3,7 +3,8 @@
 
 (defpackage #:project-isidore/application
   (:use #:common-lisp
-        #:project-isidore/views)
+        #:project-isidore/views
+        #:project-isidore/model)
   (:import-from #:hunchentoot)
   ;; No package local nicknames. See commit 1962a26.
   (:export :*acceptor*
@@ -65,6 +66,11 @@ Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
   (when (uiop:getenv "DATABASE_URL")
     (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf ;; Will show backtrace on status code 500 pages.
+   *search-index*
+         (make-instance 'montezuma:index
+                        :path (asdf:system-relative-pathname :project-isidore "../data/")
+                        :default-field "*"
+                        :fields '("b" "c" "v" "t" "h"))
    hunchentoot:*show-lisp-errors-p* t
    hunchentoot:*dispatch-table*
    `(hunchentoot:dispatch-easy-handlers

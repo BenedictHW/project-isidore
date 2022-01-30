@@ -18,7 +18,7 @@
 ;;; Set environment variables if they cannot be found. When running the
 ;;; buildpack locally, i.e. with `*build-dir*', `*buildpack-dir*', `*cache-dir*'
 ;;; and `ql-dist-version' environment variables unset, one should
-;;; run the shell command "sbcl --dynamic-space-size 2048 --load make.lisp"
+;;; run the shell command "sbcl --dynamic-space-size 512 --load make.lisp"
 ;;; while in the /bin project sub-directory.
 (defvar *buildpack-dir* (if (uiop:getenvp "BUILDPACK_DIR")
                             (pathname-directory (pathname (concatenate 'string (uiop:getenv "BUILDPACK_DIR") "/")))

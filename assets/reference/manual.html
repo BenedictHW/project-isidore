@@ -504,6 +504,7 @@ Next: <a href="#The-project_002disidore_002fviews-system" accesskey="n" rel="nex
 <dt><strong>Dependencies</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-project_002disidore_002fviews-system"><tt>project-isidore/views</tt></a> (system)
+</li><li> <a href="#go-to-the-project_002disidore_002fmodel-system"><tt>project-isidore/model</tt></a> (system)
 </li><li> <tt>hunchentoot</tt>
 </li></ul>
 </dd>
@@ -694,10 +695,12 @@ Next: <a href="#The-project_002disidore_002fapplication_002flisp_2024lisp-file" 
 <dt><strong>Packages</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
 </p></dd>
+<dt><strong>Exported Definitions</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
+</p></dd>
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ABOUT-function"><tt>about</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE_002dSEARCH-function"><tt>bible-search</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
@@ -832,7 +835,6 @@ Next: <a href="#The-project_002disidore_002fdata_002flisp_2024lisp-file" accessk
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dDATASTORE-function"><tt>create-datastore</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dSEARCH_002dINDEX-function"><tt>create-search-index</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236DB_002dPARAMS-function"><tt>db-params</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dTEXT-function"><tt>get-bible-text</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dUID-function"><tt>get-bible-uid</tt></a> (function)
@@ -1126,6 +1128,7 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 <dt><strong>Used By List</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fPACKAGES-package"><tt>project-isidore/packages</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
 </li></ul>
 </dd>
@@ -1134,11 +1137,11 @@ A. Monash, Ph.D. May, 2006, accessible at http://www.monash.com/whitepapers.html
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aDATABASE_002dURL_002a-special-variable"><tt>*database-url*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aREFERENCE_002dREGEX_002a-special-variable"><tt>*reference-regex*</tt></a> (special variable)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236_002aSEARCH_002dINDEX_002a-special-variable"><tt>*search-index*</tt></a> (special variable)
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-class"><tt>bible</tt></a> (class)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"><tt>bible-book-convert-dwim</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"><tt>bible-url-to-uid</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dDATASTORE-function"><tt>create-datastore</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dSEARCH_002dINDEX-function"><tt>create-search-index</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236DB_002dPARAMS-function"><tt>db-params</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dTEXT-function"><tt>get-bible-text</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dUID-function"><tt>get-bible-uid</tt></a> (function)
@@ -1254,7 +1257,8 @@ all located under &quot;project-isidore/assets/&quot;. See the
 </p></dd>
 <dt><strong>Use List</strong></dt>
 <dd><ul>
-<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
+<li> <a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fVIEWS-package"><tt>project-isidore/views</tt></a>
 </li><li> <tt>common-lisp</tt>
 </li></ul>
 </dd>
@@ -1272,7 +1276,6 @@ all located under &quot;project-isidore/assets/&quot;. See the
 <dt><strong>Internal Definitions</strong></dt>
 <dd><ul>
 <li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ABOUT-function"><tt>about</tt></a> (function)
-</li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE-function"><tt>bible</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE_002dSEARCH-function"><tt>bible-search</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"><tt>contact</tt></a> (function)
 </li><li> <a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"><tt>create-subscriber</tt></a> (function)
@@ -1479,7 +1482,19 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dbook_002dconvert_002ddwim">Function: <strong>bible-book-convert-dwim</strong> <em>BIBLE-BOOK</em></dt>
+<dt id="index-bible">Function: <strong>bible</strong> <em>()</em></dt>
+<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-function"></span><span id="index-Function_002c-bible"></span>
+<dl compact="compact">
+<dt><strong>Package</strong></dt>
+<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
+</p></dd>
+<dt><strong>Source</strong></dt>
+<dd><p><a href="#go-to-the-project_002disidore_002fcontroller_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
+</p></dd>
+</dl>
+</dd></dl>
+<dl>
+<dt id="index-bible_002dbook_002dconvert_002ddwim">Function: <strong>bible-book-convert-dwim</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dBOOK_002dCONVERT_002dDWIM-function"></span><span id="index-Function_002c-bible_002dbook_002dconvert_002ddwim"></span>
 <p>Given a Bible book string name or integer, convert to the opposite format.
 </p>
@@ -1496,7 +1511,7 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dpage">Function: <strong>bible-page</strong> <em>BIBLE-URL</em></dt>
+<dt id="index-bible_002dpage">Function: <strong>bible-page</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE-function"></span><span id="index-Function_002c-bible_002dpage"></span>
 <p>127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL &quot;1-2-3-4-5-6&quot; is a
   string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse.
@@ -1510,7 +1525,7 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dsearch_002dpage">Function: <strong>bible-search-page</strong> <em>QUERY</em></dt>
+<dt id="index-bible_002dsearch_002dpage">Function: <strong>bible-search-page</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dSEARCH_002dPAGE-function"></span><span id="index-Function_002c-bible_002dsearch_002dpage"></span>
 <p>127.0.0.1:8080/bible?query=chicken where QUERY &quot;chicken&quot; is a string.
 </p>
@@ -1529,7 +1544,7 @@ query-form
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002durl_002dto_002duid">Function: <strong>bible-url-to-uid</strong> <em>BIBLE-URL</em></dt>
+<dt id="index-bible_002durl_002dto_002duid">Function: <strong>bible-url-to-uid</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dURL_002dTO_002dUID-function"></span><span id="index-Function_002c-bible_002durl_002dto_002duid"></span>
 <p>Accepts a string of six integers and returns a list of 2 integers.
 The list includes the beginning bible-uid and the ending bible-uid.
@@ -1571,27 +1586,6 @@ The list includes the beginning bible-uid and the ending bible-uid.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-create_002dsearch_002dindex">Function: <strong>create-search-index</strong> <em>()</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236CREATE_002dSEARCH_002dINDEX-function"></span><span id="index-Function_002c-create_002dsearch_002dindex"></span>
-<p>Montezuma index will have same indices as BKNR.DATASTORE class object
-bible. Therefore double check that &lsquo;get-bible-uid&rsquo; bible-uid and
-&lsquo;montezuma:get-document *search-index*&rsquo; bible-uid return the same values
-for the same input bible-uid. x = bible-uid.<br>
-</p>
-<p>DO NOT CALL<br>
-(montezuma:optimize *search-index*) as this will cause the tokens stored in
-project-isidore/data/index/ to be over 100 megabytes, the current hard
-limit to Microsoft&rsquo;s Github platform.
-</p><dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fmodel_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
 <dt id="index-db_002dparams">Function: <strong>db-params</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236DB_002dPARAMS-function"></span><span id="index-Function_002c-db_002dparams"></span>
 <p>Sets *DATABASE-URL* parameter. Heroku database URL format is
@@ -1620,7 +1614,7 @@ localhost, use the db-parameters from *LOCAL-DB-PARAMS*.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-get_002dbible_002dtext">Function: <strong>get-bible-text</strong> <em>BIBLE-UID</em></dt>
+<dt id="index-get_002dbible_002dtext">Function: <strong>get-bible-text</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dTEXT-function"></span><span id="index-Function_002c-get_002dbible_002dtext"></span>
 <p>Returns a string if bible-uid is valid else return NIL.<br>
 The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arguments.
@@ -1634,7 +1628,7 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-get_002dbible_002duid">Function: <strong>get-bible-uid</strong> <em>BOOK CHAPTER VERSE</em></dt>
+<dt id="index-get_002dbible_002duid">Function: <strong>get-bible-uid</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dBIBLE_002dUID-function"></span><span id="index-Function_002c-get_002dbible_002duid"></span>
 <p>Return a unique identifier assigned to each instance of class &lsquo;bible&rsquo;.<br>
    As class &lsquo;bible&rsquo; is of CLOS metaclass &lsquo;bknr.datastore:persistent-class&rsquo;, this
@@ -1654,7 +1648,7 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-get_002dhaydock_002dtext">Function: <strong>get-haydock-text</strong> <em>BIBLE-UID</em></dt>
+<dt id="index-get_002dhaydock_002dtext">Function: <strong>get-haydock-text</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dHAYDOCK_002dTEXT-function"></span><span id="index-Function_002c-get_002dhaydock_002dtext"></span>
 <p>Returns a string if bible-uid is valid else return NIL.<br>
 The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arguments.
@@ -1668,7 +1662,7 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-get_002dhaydock_002dtext_002dwith_002dref">Function: <strong>get-haydock-text-with-ref</strong> <em>BIBLE-UID</em></dt>
+<dt id="index-get_002dhaydock_002dtext_002dwith_002dref">Function: <strong>get-haydock-text-with-ref</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dHAYDOCK_002dTEXT_002dWITH_002dREF-function"></span><span id="index-Function_002c-get_002dhaydock_002dtext_002dwith_002dref"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -1680,7 +1674,7 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-get_002dheading_002dtext">Function: <strong>get-heading-text</strong> <em>BIBLE-UID</em></dt>
+<dt id="index-get_002dheading_002dtext">Function: <strong>get-heading-text</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236GET_002dHEADING_002dTEXT-function"></span><span id="index-Function_002c-get_002dheading_002dtext"></span>
 <p>Returns a string if bible-uid is valid else return NIL.<br>
 The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arguments.
@@ -1718,7 +1712,7 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-initialize_002dapplication">Function: <strong>initialize-application</strong> <em>&amp;key PORT DISPATCH-FOLDER CMD-USER-INTERFACE</em></dt>
+<dt id="index-initialize_002dapplication">Function: <strong>initialize-application</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236INITIALIZE_002dAPPLICATION-function"></span><span id="index-Function_002c-initialize_002dapplication"></span>
 <p>Start a web server at PORT.<br>
 </p>
@@ -1758,7 +1752,7 @@ Example:<br>
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-mailinglist_002dadd">Function: <strong>mailinglist-add</strong> <em>TITLE NAME EMAIL</em></dt>
+<dt id="index-mailinglist_002dadd">Function: <strong>mailinglist-add</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dADD-function"></span><span id="index-Function_002c-mailinglist_002dadd"></span>
 <p>Creates new entry in the &lsquo;mailinglist&rsquo; table.
 </p><dl compact="compact">
@@ -1771,7 +1765,7 @@ Example:<br>
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-mailinglist_002ddelete">Function: <strong>mailinglist-delete</strong> <em>EMAIL</em></dt>
+<dt id="index-mailinglist_002ddelete">Function: <strong>mailinglist-delete</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAILINGLIST_002dDELETE-function"></span><span id="index-Function_002c-mailinglist_002ddelete"></span>
 <p>Removes entry from the &lsquo;mailinglist&rsquo; table.
 </p><dl compact="compact">
@@ -1784,7 +1778,7 @@ Example:<br>
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-make_002dbible_002dchapter_002durl_002dlist">Function: <strong>make-bible-chapter-url-list</strong> <em>BIBLE-URL</em></dt>
+<dt id="index-make_002dbible_002dchapter_002durl_002dlist">Function: <strong>make-bible-chapter-url-list</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAKE_002dBIBLE_002dCHAPTER_002dURL_002dLIST-function"></span><span id="index-Function_002c-make_002dbible_002dchapter_002durl_002dlist"></span>
 <p>Selects the right links from &lsquo;+bible-chapter-url-alist+&rsquo; based on the
 BIBLE-URL<br>
@@ -1806,7 +1800,7 @@ BIBLE-URL<br>
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-roman_002dnumeral_002dp">Function: <strong>roman-numeral-p</strong> <em>STRING</em></dt>
+<dt id="index-roman_002dnumeral_002dp">Function: <strong>roman-numeral-p</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ROMAN_002dNUMERAL_002dP-function"></span><span id="index-Function_002c-roman_002dnumeral_002dp"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -1818,7 +1812,7 @@ BIBLE-URL<br>
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-roman_002dto_002ddecimal">Function: <strong>roman-to-decimal</strong> <em>ROMAN</em></dt>
+<dt id="index-roman_002dto_002ddecimal">Function: <strong>roman-to-decimal</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ROMAN_002dTO_002dDECIMAL-function"></span><span id="index-Function_002c-roman_002dto_002ddecimal"></span>
 <p>The Roman numeral symbols are I, V, X, L, C, D, and M, standing respectively
 for 1, 5, 10, 50, 100, 500, and 1,000. The book with the highest chapter number
@@ -1834,7 +1828,7 @@ in the Psalms: Psalm 118 (119):176.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-search_002dbible">Function: <strong>search-bible</strong> <em>QUERY &amp;optional OPTIONS</em></dt>
+<dt id="index-search_002dbible">Function: <strong>search-bible</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236SEARCH_002dBIBLE-function"></span><span id="index-Function_002c-search_002dbible"></span>
 <p>Searches the Bible and Haydock&rsquo;s commentary. Returns an association list of
 Bible unique ID&rsquo;s and a relevance score
@@ -1860,7 +1854,7 @@ Bible unique ID&rsquo;s and a relevance score
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-subscribe_002dsuccess_002dpage">Function: <strong>subscribe-success-page</strong> <em>TITLE NAME EMAIL</em></dt>
+<dt id="index-subscribe_002dsuccess_002dpage">Function: <strong>subscribe-success-page</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236SUBSCRIBE_002dSUCCESS_002dPAGE-function"></span><span id="index-Function_002c-subscribe_002dsuccess_002dpage"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -1872,7 +1866,7 @@ Bible unique ID&rsquo;s and a relevance score
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-terminate_002dapplication">Function: <strong>terminate-application</strong> <em>&amp;optional SIGINT-POLL</em></dt>
+<dt id="index-terminate_002dapplication">Function: <strong>terminate-application</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236TERMINATE_002dAPPLICATION-function"></span><span id="index-Function_002c-terminate_002dapplication"></span>
 <p>Stop the web server started by &lsquo;initialize-application&rsquo;, if it exists. When
 called with a non NIL value for SIGINT-POLL, it will listen for SIGINT and
@@ -1899,7 +1893,7 @@ gracefully shut down the web server and exit the lisp process.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-unsubscribe_002dsuccess_002dpage">Function: <strong>unsubscribe-success-page</strong> <em>EMAIL</em></dt>
+<dt id="index-unsubscribe_002dsuccess_002dpage">Function: <strong>unsubscribe-success-page</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236UNSUBSCRIBE_002dSUCCESS_002dPAGE-function"></span><span id="index-Function_002c-unsubscribe_002dsuccess_002dpage"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2159,7 +2153,7 @@ Next: <a href="#Internal-functions" accesskey="n" rel="next">Internal functions<
 </div>
 <span id="Macros"></span><h4 class="subsection">4.2.2 Macros</h4>
 <dl>
-<dt id="index-bible_002dpage_002dtemplate">Macro: <strong>bible-page-template</strong> <em>(&amp;key TITLE) &amp;body BODY</em></dt>
+<dt id="index-bible_002dpage_002dtemplate">Macro: <strong>bible-page-template</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236BIBLE_002dPAGE_002dTEMPLATE-macro"></span><span id="index-Macro_002c-bible_002dpage_002dtemplate"></span>
 <p>Template HTML for bible webpages. It removes the top banner navigation
 located in the &lsquo;web-page-template&rsquo; macro and the copyright footer. The work is
@@ -2175,7 +2169,7 @@ with my name.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-web_002dpage_002dtemplate">Macro: <strong>web-page-template</strong> <em>(&amp;key TITLE) &amp;body BODY</em></dt>
+<dt id="index-web_002dpage_002dtemplate">Macro: <strong>web-page-template</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fVIEWS_2236_2236WEB_002dPAGE_002dTEMPLATE-macro"></span><span id="index-Macro_002c-web_002dpage_002dtemplate"></span>
 <p>Template HTML for application webpages. Other than the landing page (aka
 &rsquo;index.html&rsquo;), the static blog post HTML files and other generated HTML files,
@@ -2197,7 +2191,7 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </div>
 <span id="Functions-1"></span><h4 class="subsection">4.2.3 Functions</h4>
 <dl>
-<dt id="index-about">Function: <strong>about</strong> <em>&amp;key</em></dt>
+<dt id="index-about">Function: <strong>about</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ABOUT-function"></span><span id="index-Function_002c-about"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2235,19 +2229,7 @@ Next: <a href="#Internal-generic-functions" accesskey="n" rel="next">Internal ge
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible">Function: <strong>bible</strong> <em>&amp;key VERSES</em></dt>
-<dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE-function"></span><span id="index-Function_002c-bible"></span>
-<dl compact="compact">
-<dt><strong>Package</strong></dt>
-<dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fAPPLICATION-package"><tt>project-isidore/application</tt></a>
-</p></dd>
-<dt><strong>Source</strong></dt>
-<dd><p><a href="#go-to-the-project_002disidore_002fcontroller_002flisp_2024lisp-file"><tt>lisp.lisp</tt></a> (file)
-</p></dd>
-</dl>
-</dd></dl>
-<dl>
-<dt id="index-bible_002dref_002dto_002durl">Function: <strong>bible-ref-to-url</strong> <em>STRING BIBLE-UID</em></dt>
+<dt id="index-bible_002dref_002dto_002durl">Function: <strong>bible-ref-to-url</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE_002dREF_002dTO_002dURL-function"></span><span id="index-Function_002c-bible_002dref_002dto_002durl"></span>
 <p>Haydock commentary cross references are in the form ABBREVIATED BOOK NAME,
 ROMAN NUMERAL, and INTEGER representing BOOK CHAPTER and VERSE respectively. Ex.
@@ -2264,7 +2246,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-bible_002dsearch">Function: <strong>bible-search</strong> <em>&amp;key QUERY</em></dt>
+<dt id="index-bible_002dsearch">Function: <strong>bible-search</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236BIBLE_002dSEARCH-function"></span><span id="index-Function_002c-bible_002dsearch"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2288,7 +2270,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-contact">Function: <strong>contact</strong> <em>&amp;key</em></dt>
+<dt id="index-contact">Function: <strong>contact</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CONTACT-function"></span><span id="index-Function_002c-contact"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2300,7 +2282,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-create_002dsubscriber">Function: <strong>create-subscriber</strong> <em>&amp;key</em></dt>
+<dt id="index-create_002dsubscriber">Function: <strong>create-subscriber</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236CREATE_002dSUBSCRIBER-function"></span><span id="index-Function_002c-create_002dsubscriber"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2312,7 +2294,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-delete_002dsubscriber">Function: <strong>delete-subscriber</strong> <em>&amp;key</em></dt>
+<dt id="index-delete_002dsubscriber">Function: <strong>delete-subscriber</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236DELETE_002dSUBSCRIBER-function"></span><span id="index-Function_002c-delete_002dsubscriber"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2324,7 +2306,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-encode_002dhaydock_002dtext">Function: <strong>encode-haydock-text</strong> <em>STRING BIBLE-UID</em></dt>
+<dt id="index-encode_002dhaydock_002dtext">Function: <strong>encode-haydock-text</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ENCODE_002dHAYDOCK_002dTEXT-function"></span><span id="index-Function_002c-encode_002dhaydock_002dtext"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2336,7 +2318,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-map_002droman_002dnumerals_002dto_002ddecimal">Function: <strong>map-roman-numerals-to-decimal</strong> <em>ROMAN-NUMERALS</em></dt>
+<dt id="index-map_002droman_002dnumerals_002dto_002ddecimal">Function: <strong>map-roman-numerals-to-decimal</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236MAP_002dROMAN_002dNUMERALS_002dTO_002dDECIMAL-function"></span><span id="index-Function_002c-map_002droman_002dnumerals_002dto_002ddecimal"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2348,7 +2330,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-package_002ddependencies">Function: <strong>package-dependencies</strong> <em>PKG-NAME</em></dt>
+<dt id="index-package_002ddependencies">Function: <strong>package-dependencies</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fPACKAGES_2236_2236PACKAGE_002dDEPENDENCIES-function"></span><span id="index-Function_002c-package_002ddependencies"></span>
 <p>Collect explicit dependencies of an ASDF system.
 </p><dl compact="compact">
@@ -2361,7 +2343,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-roman_002dnumeral_002dto_002ddecimal">Function: <strong>roman-numeral-to-decimal</strong> <em>ROMAN-NUMERAL</em></dt>
+<dt id="index-roman_002dnumeral_002dto_002ddecimal">Function: <strong>roman-numeral-to-decimal</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236ROMAN_002dNUMERAL_002dTO_002dDECIMAL-function"></span><span id="index-Function_002c-roman_002dnumeral_002dto_002ddecimal"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2373,7 +2355,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-root">Function: <strong>root</strong> <em>&amp;key</em></dt>
+<dt id="index-root">Function: <strong>root</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236ROOT-function"></span><span id="index-Function_002c-root"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2385,7 +2367,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-subscribe">Function: <strong>subscribe</strong> <em>&amp;key</em></dt>
+<dt id="index-subscribe">Function: <strong>subscribe</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236SUBSCRIBE-function"></span><span id="index-Function_002c-subscribe"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2397,7 +2379,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-unsubscribe">Function: <strong>unsubscribe</strong> <em>&amp;key</em></dt>
+<dt id="index-unsubscribe">Function: <strong>unsubscribe</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236UNSUBSCRIBE-function"></span><span id="index-Function_002c-unsubscribe"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2421,7 +2403,7 @@ where C. is short form for chapter.
 </dl>
 </dd></dl>
 <dl>
-<dt id="index-work">Function: <strong>work</strong> <em>&amp;key</em></dt>
+<dt id="index-work">Function: <strong>work</strong> <em>()</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fAPPLICATION_2236_2236WORK-function"></span><span id="index-Function_002c-work"></span>
 <dl compact="compact">
 <dt><strong>Package</strong></dt>
@@ -2732,7 +2714,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><th id="Function-index_fn_letter-B">B</th><td></td><td></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bg_002dslideshow_002ddiv"><code>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bg_002dslideshow_002dspan"><code>bg-slideshow-span</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-bible"><code>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-bible"><code>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dbook_002dconvert_002ddwim"><code>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dpage"><code>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-bible_002dpage_002dtemplate"><code>bible-page-template</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-macros">Internal macros</a></td></tr>
@@ -2746,7 +2728,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-contact"><code>contact</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-contact_002dpage"><code>contact-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-create_002ddatastore"><code>create-datastore</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-create_002dsearch_002dindex"><code>create-search-index</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-create_002dsubscriber"><code>create-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td colspan="4"> <hr></td></tr>
 <tr><th id="Function-index_fn_letter-D">D</th><td></td><td></td></tr>
@@ -2768,7 +2749,7 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-application_002dtoplevel"><code><span class="roman">Function, </span>application-toplevel</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002ddiv"><code><span class="roman">Function, </span>bg-slideshow-div</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bg_002dslideshow_002dspan"><code><span class="roman">Function, </span>bg-slideshow-span</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-bible"><code><span class="roman">Function, </span>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
+<tr><td></td><td valign="top"><a href="#index-Function_002c-bible"><code><span class="roman">Function, </span>bible</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dbook_002dconvert_002ddwim"><code><span class="roman">Function, </span>bible-book-convert-dwim</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dpage"><code><span class="roman">Function, </span>bible-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-bible_002dref_002dto_002durl"><code><span class="roman">Function, </span>bible-ref-to-url</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
@@ -2779,7 +2760,6 @@ Next: <a href="#Variable-index" accesskey="n" rel="next">Variable index</a>, Pre
 <tr><td></td><td valign="top"><a href="#index-Function_002c-contact"><code><span class="roman">Function, </span>contact</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-contact_002dpage"><code><span class="roman">Function, </span>contact-page</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-create_002ddatastore"><code><span class="roman">Function, </span>create-datastore</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
-<tr><td></td><td valign="top"><a href="#index-Function_002c-create_002dsearch_002dindex"><code><span class="roman">Function, </span>create-search-index</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-create_002dsubscriber"><code><span class="roman">Function, </span>create-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-db_002dparams"><code><span class="roman">Function, </span>db-params</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Exported-functions">Exported functions</a></td></tr>
 <tr><td></td><td valign="top"><a href="#index-Function_002c-delete_002dsubscriber"><code><span class="roman">Function, </span>delete-subscriber</code></a>:</td><td>&nbsp;</td><td valign="top"><a href="#Internal-functions">Internal functions</a></td></tr>

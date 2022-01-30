@@ -62,7 +62,7 @@ $ sbcl --load quicklisp.lisp
 
    #+begin_src bash
      $ cd ~/quicklisp/local-projects/project-isidore/bin/
-     $ sbcl --dynamic-space-size 2048 --load make.lisp
+     $ sbcl --dynamic-space-size 512 --load make.lisp
    #+end_src
 
 5. To build a docker image,
@@ -73,6 +73,7 @@ $ sbcl --load quicklisp.lisp
      $ docker build -t project-isidore-image .
      $ docker run -dp 8080:8080 project-isidore-image
      $ docker stop $(docker ps -a -q)
+     $ docker system prune
      $ sudo pkill -9 dockerd
    #+end_src
 
