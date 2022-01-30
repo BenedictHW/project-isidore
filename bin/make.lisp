@@ -48,6 +48,8 @@
 (format t "~&        COMMON-LISP-ENV = ~a:~a (Provided ASDF version ~a) on ~a~%" (lisp-implementation-type)
         (lisp-implementation-version) (asdf:asdf-version) (machine-type))
 (format t "~&        Fixnum bits:~a~%" (integer-length most-positive-fixnum))
+;; Compile Hunchentoot without SSL support.
+(pushnew :hunchentoot-no-ssl *features*)
 (format t "~&        Features = ~a~%" *features*)
 
 ;;; II. ASDF CONFIGURATION
