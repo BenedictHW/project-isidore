@@ -25,8 +25,56 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build_docker_image:
+    name: Docker Image Build
+    runs-on: [ubuntu-latest]
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+
+    - name: Build Container Image
+      run: docker build . --file Dockerfile --tag project-isidore --label "runnumber=${GITHUB_RUN_ID}"
+
+    - name: Login to Github Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Push Image to Github Container Registry
+      run: |
+        IMAGE_ID=ghcr.io/${{ github.repository_owner }}/project-isidore
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "master" ] && VERSION=latest
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+        docker tag project-isidore $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
+
+    - name: Push Image to Heroku Container Registry and Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        heroku container:login
+        docker tag project-isidore registry.heroku.com/project-isidore/web
+        docker push registry.heroku.com/project-isidore/web
+        heroku container:release -a project-isidore web
+
   build_executable_linux:
     name: GNU/Linux Build
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
 
     steps:
@@ -71,121 +119,126 @@ jobs:
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/COPYING.txt
 
-  # build_executable_macOS:
-  #   name: Darwin Build
-  #   runs-on: [macos-latest]
 
-  #   steps:
-  #   # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #   # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-  #   - name: Clone Project Isidore Repository
-  #     uses: actions/checkout@v2
+  build_executable_macOS:
+    name: Darwin Build
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: [macos-latest]
 
-  #   - name: Setup MacOS Environment
-  #     run: |
-  #       echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
-  #       echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
-  #       echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-  #       echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
+    steps:
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
 
-  #   - name: Install SBCL & Quicklisp
-  #     run: |
-  #       brew install sbcl
-  #       sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
+    - name: Setup MacOS Environment
+      run: |
+        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
+        echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
 
-  #   # If Packages.lisp changes, the cache will be invalidated.
-  #   # Github policy also invalidates caches not accessed in 7 days.
-  #   - name: Cache Quicklisp Libraries
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: ${{ Env.CACHE_DIR }}
-  #       key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
+    - name: Install SBCL & Quicklisp
+      run: |
+        brew install sbcl
+        sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
 
-  #   - name: Build Project Isidore
-  #     run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
+    # If Packages.lisp changes, the cache will be invalidated.
+    # Github policy also invalidates caches not accessed in 7 days.
+    - name: Cache Quicklisp Libraries
+      uses: actions/cache@v2
+      with:
+        path: ${{ Env.CACHE_DIR }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
-  #   - name: Move Project Isidore Executable
-  #     run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
+    - name: Build Project Isidore
+      run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
 
-  #   # Github current policy is to retain logs and artifacts for 90 days.
-  #   - name: Darwin Upload Lisp Build
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: pi-build-macOS
-  #       path: |
-  #         ${{ github.workspace }}/ProjectIsidore
-  #         ${{ github.workspace }}/assets/
-  #         ${{ github.workspace }}/COPYING.txt
+    - name: Move Project Isidore Executable
+      run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
 
-  # build_executable_windows:
-  #   name: MSWindows Build
-  #   runs-on: [windows-latest]
+    # Github current policy is to retain logs and artifacts for 90 days.
+    - name: Darwin Upload Lisp Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: pi-build-macOS
+        path: |
+          ${{ github.workspace }}/ProjectIsidore
+          ${{ github.workspace }}/assets/
+          ${{ github.workspace }}/COPYING.txt
 
-  #   steps:
-  #   # Microsoft Windows has evolved in parallel with UNIX systems to
-  #   # have different pathnames and newline characters.
-  #   # Note well the %HOMEPATH% variable is not set in [windows-latest] runner environments.
-  #   # See also https://github.com/actions/virtual-environments/issues/1301.
-  #   # Also note conversion of UNIX style line endings (LF)
-  #   # to Windows style lines endings (CRLF) must be disabled when
-  #   # checking out the git repository.
-  #   # SBCL does not support CRLF. For more information see
-  #   # https://sourceforge.net/p/sbcl/mailman/message/27045870/
-  #   # https://stackoverflow.com/questions/17926556/on-windows-cr-still-here-after-read-line-in-common-lisp
-  #   - name: Setup Windows Environment
-  #     shell: pwsh
-  #     run:
-  #       git config --global core.autocrlf false;
-  #       echo "BUILDPACK_DIR=${{ github.workspace }}\bin\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-  #       echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-  #       echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-  #       echo "QL_DIST_VER=2021-12-30" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-  #       echo "CL_IMPL_VER=2.2.0" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+  build_executable_windows:
+    name: MSWindows Build
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    runs-on: [windows-latest]
 
-  #   # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
-  #   # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-  #   - name: Clone Project Isidore Repository
-  #     uses: actions/checkout@v2
+    steps:
+    # Microsoft Windows has evolved in parallel with UNIX systems to
+    # have different pathnames and newline characters.
+    # Note well the %HOMEPATH% variable is not set in [windows-latest] runner environments.
+    # See also https://github.com/actions/virtual-environments/issues/1301.
+    # Also note conversion of UNIX style line endings (LF)
+    # to Windows style lines endings (CRLF) must be disabled when
+    # checking out the git repository.
+    # SBCL does not support CRLF. For more information see
+    # https://sourceforge.net/p/sbcl/mailman/message/27045870/
+    # https://stackoverflow.com/questions/17926556/on-windows-cr-still-here-after-read-line-in-common-lisp
+    - name: Setup Windows Environment
+      shell: pwsh
+      run:
+        git config --global core.autocrlf false;
+        echo "BUILDPACK_DIR=${{ github.workspace }}\bin\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2021-12-30" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CL_IMPL_VER=2.2.0" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
-  #   # No convenient apt or brew package managers.
-  #   # Download and unzip binary from official SBCL repository.
-  #   - name: Install SBCL & Quicklisp
-  #     shell: pwsh
-  #     run:
-  #       mkdir "${{ Env.CACHE_DIR }}";
-  #       Invoke-WebRequest -UserAgent "Wget" -uri " https://sourceforge.net/projects/sbcl/files/sbcl/${{ Env.CL_IMPL_VER }}/sbcl-${{ Env.CL_IMPL_VER }}-x86-64-windows-binary.msi/download " -Method "GET" -OutFile "${{ Env.CACHE_DIR }}sbcl-bin.msi";
-  #       mkdir "${{ Env.CACHE_DIR }}sbcl\";
-  #       Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
-  #       mkdir "${{ Env.BUILDPACK_DIR }}lib\";
-  #       Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILDPACK_DIR }}lib\quicklisp.lisp";
+    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
+    - name: Clone Project Isidore Repository
+      uses: actions/checkout@v2
 
-  #   # If Packages.lisp changes, the cache will be invalidated.
-  #   # Github policy also invalidates caches not accessed in 7 days.
-  #   - name: Cache Quicklisp Libraries
-  #     uses: actions/cache@v2
-  #     with:
-  #       path: ${{ Env.CACHE_DIR }}
-  #       key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
+    # No convenient apt or brew package managers.
+    # Download and unzip binary from official SBCL repository.
+    - name: Install SBCL & Quicklisp
+      shell: pwsh
+      run:
+        mkdir "${{ Env.CACHE_DIR }}";
+        Invoke-WebRequest -UserAgent "Wget" -uri " https://sourceforge.net/projects/sbcl/files/sbcl/${{ Env.CL_IMPL_VER }}/sbcl-${{ Env.CL_IMPL_VER }}-x86-64-windows-binary.msi/download " -Method "GET" -OutFile "${{ Env.CACHE_DIR }}sbcl-bin.msi";
+        mkdir "${{ Env.CACHE_DIR }}sbcl\";
+        Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
+        mkdir "${{ Env.BUILDPACK_DIR }}lib\";
+        Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILDPACK_DIR }}lib\quicklisp.lisp";
 
-  #   - name: Build Project Isidore
-  #     shell: pwsh
-  #     run:
-  #       ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
+    # If Packages.lisp changes, the cache will be invalidated.
+    # Github policy also invalidates caches not accessed in 7 days.
+    - name: Cache Quicklisp Libraries
+      uses: actions/cache@v2
+      with:
+        path: ${{ Env.CACHE_DIR }}
+        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
-  #   # Powershell command is seperate as it needs to be exectued sequentially.
-  #   - name: Move Project Isidore Executable
-  #     shell: pwsh
-  #     run: Move-Item -Path "${{ Env.BUILD_DIR }}src\ProjectIsidore.exe" -Destination "${{ Env.BUILD_DIR}}ProjectIsidore.exe"
+    - name: Build Project Isidore
+      shell: pwsh
+      run:
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
 
-  #   - name: MSWindows Upload Lisp Build
-  #     uses: actions/upload-artifact@v2
-  #     with:
-  #       name: pi-build-Windows
-  #       path: |
-  #         # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
-  #         ${{ github.workspace }}/ProjectIsidore.exe
-  #         ${{ github.workspace }}/assets/
-  #         ${{ github.workspace }}/COPYING.txt
+    # Powershell command is seperate as it needs to be exectued sequentially.
+    - name: Move Project Isidore Executable
+      shell: pwsh
+      run: Move-Item -Path "${{ Env.BUILD_DIR }}src\ProjectIsidore.exe" -Destination "${{ Env.BUILD_DIR}}ProjectIsidore.exe"
+
+    - name: MSWindows Upload Lisp Build
+      uses: actions/upload-artifact@v2
+      with:
+        name: pi-build-Windows
+        path: |
+          # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
+          ${{ github.workspace }}/ProjectIsidore.exe
+          ${{ github.workspace }}/assets/
+          ${{ github.workspace }}/COPYING.txt
 
   create_release:
     name: Create Github Release
@@ -193,8 +246,7 @@ jobs:
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
     # Following jobs must succeed
-    # needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
-    needs: [build_executable_linux]
+    needs: [build_docker_image, build_executable_linux, build_executable_macOS, build_executable_windows]
 
     steps:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -267,30 +319,3 @@ jobs:
           ${{ github.workspace }}/pi-build-Linux/project-isidore-Linux-x86-64-${{ env.RELEASE_VERSION }}.zip
           ${{ github.workspace }}/pi-build-macOS/project-isidore-macOS-x86-64-${{ env.RELEASE_VERSION }}.zip
           ${{ github.workspace }}/pi-build-Windows/project-isidore-Windows-x86-64-${{ env.RELEASE_VERSION }}.zip
-
-  build_docker_image:
-    name: Docker Image Build
-    runs-on: [ubuntu-latest]
-    # Following jobs must succeed
-    # needs: [build_executable_linux, build_executable_macOS, build_executable_windows]
-    needs: [build_executable_linux]
-
-    steps:
-    # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
-    # $GITHUB_WORKSPACE may vary under $MATRIX.OS
-    - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
-
-    - name: Login to Heroku container registry
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:login
-
-    - name: Build & Push Docker Image
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: |
-        heroku container:push -a project-isidore web
-        heroku container:release -a project-isidore web
