@@ -57,7 +57,6 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   :parent master-suite
   (parachute:finish (progn
                       (project-isidore:create-datastore)
-                      ;; (project-isidore:create-search-index)
                       (project-isidore:bible-page "1-1-1-73-22-21")
                       (project-isidore:bible-search-page "water"))))
 

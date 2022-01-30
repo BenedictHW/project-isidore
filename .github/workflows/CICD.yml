@@ -22,7 +22,8 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
-
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build_docker_image:
@@ -62,14 +63,17 @@ jobs:
         docker tag project-isidore $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
 
-    - name: Push Image to Heroku Container Registry and Release
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: |
-        heroku container:login
-        docker tag project-isidore registry.heroku.com/project-isidore/web
-        docker push registry.heroku.com/project-isidore/web
-        heroku container:release -a project-isidore web
+    - name: Deploy Image on Fly.io
+      uses: superfly/flyctl-actions@1.1
+      with:
+        args: "deploy --app project-isidore --image ghcr.io/hanshenwang/project-isidore:latest"
+
+    - name: Delete Old Container Images
+      uses: actions/delete-package-versions@v2
+      with:
+        package-name: 'project-isidore'
+        min-versions-to-keep: 1
+        token: ${{ secrets.GITHUB_TOKEN }}
 
   build_executable_linux:
     name: GNU/Linux Build
@@ -104,7 +108,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
+      run: sbcl --dynamic-space-size 512 --load $BUILDPACK_DIR/make.lisp
 
     - name: Move Project Isidore Executable
       run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
@@ -154,7 +158,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 2000 --load $BUILDPACK_DIR/make.lisp
+      run: sbcl --dynamic-space-size 512 --load $BUILDPACK_DIR/make.lisp
 
     - name: Move Project Isidore Executable
       run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
@@ -225,7 +229,7 @@ jobs:
     - name: Build Project Isidore
       shell: pwsh
       run:
-        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 2000 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 512 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
 
     # Powershell command is seperate as it needs to be exectued sequentially.
     - name: Move Project Isidore Executable
