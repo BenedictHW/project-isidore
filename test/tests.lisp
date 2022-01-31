@@ -48,18 +48,6 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
                                 :project-isidore "../assets/global.css"))))
 
-(parachute:define-test generate-data-finish
-  :description "Check that `bible-page' and `bible-search-page' finishes.
-  Datastore needs to be closed,otherwise when make.lisp tries to open an already
-  opened datastore, an error will be signaled. By far the longest test, as it
-  takes roughly 90 seconds to generate the search index via
-  `create-search-index'"
-  :parent master-suite
-  (parachute:finish (progn
-                      (project-isidore:create-datastore)
-                      (project-isidore:bible-page "1-1-1-73-22-21")
-                      (project-isidore:bible-search-page "water"))))
-
 (parachute:define-test is-production-server-status-200
   :description "As per Heroku documentation: 'Whenever your app experiences an
   error, Heroku will return a standard error page with the HTTP status code
@@ -75,7 +63,7 @@ The test suite is run prior to the build process. See MAKE.LISP."))
    (if (= 200 (nth-value 1 (drakma:http-request "https://www.HanshenWang.com/")))
        (= 200 (nth-value 1 (drakma:http-request "https://www.HanshenWang.com/")))
        ;; Secondary URL is a fallback if the HanshenWang.com domain expires.
-       (= 200 (nth-value 1 (drakma:http-request "https://project-isidore.herokuapp.com/"))))))
+       (= 200 (nth-value 1 (drakma:http-request "https://project-isidore.fly.dev/"))))))
 
 (parachute:define-test roman-numeral-conversion
   :description "`roman-to-decimal' and `roman-numeral-p' function correctly."
@@ -85,6 +73,21 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   (parachute:false (project-isidore:roman-numeral-p "ai32xvl91k"))
   (parachute:false (project-isidore:roman-to-decimal "983fj"))
   (parachute:true (= 104 (project-isidore:roman-to-decimal "vic"))))
+
+(parachute:define-test generate-data-finish
+  :description "Check that `bible-page' and `bible-search-page' finishes.
+  Datastore needs to be closed,otherwise when make.lisp tries to open an already
+  opened datastore, an error will be signaled. By far the longest test, as it
+  takes roughly 90 seconds to generate the search index via
+  `create-search-index'"
+  :parent master-suite
+  (parachute:finish (progn
+                      (project-isidore:create-datastore)
+                      ;; NOTE Data is still accessible afterwards???
+                      ;; I think this just prevents transactions...
+                      (bknr.datastore:close-store)
+                      (project-isidore:bible-page "1-1-1-1-1-31")
+                      (project-isidore:bible-search-page "water"))))
 
 (parachute:define-test regex-validity
   :description "Check `*reference-regex*' still works with the version of

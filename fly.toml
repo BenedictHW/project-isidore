@@ -37,3 +37,7 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+[mounts]
+  source="project_isidore_database"
+  destination="/project-isidore/data/rucksack"

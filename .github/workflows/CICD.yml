@@ -68,12 +68,12 @@ jobs:
       with:
         args: "deploy --app project-isidore --image ghcr.io/hanshenwang/project-isidore:latest"
 
-    - name: Delete Old Container Images
-      uses: actions/delete-package-versions@v2
+    - name: Prune Github Container Registry
+      uses: vlaurin/action-ghcr-prune@main
       with:
-        package-name: 'project-isidore'
-        min-versions-to-keep: 1
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.DEL_OLD_PKG }}
+        container: project-isidore
+        untagged: true
 
   build_executable_linux:
     name: GNU/Linux Build
