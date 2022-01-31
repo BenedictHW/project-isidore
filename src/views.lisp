@@ -188,63 +188,36 @@ all other web app pages uses this boilerplate."
     found" (:a :target "_blank"
     :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
     the version-controlled Github repository ."))))
-
+
 (defun subscribe-page ()
   (web-page-template (:title "HanshenWang.com")
     (:h1 :class "title" "Subscribe to Mailing List")
     (:p "The Real Simple Syndication (RSS) protocol best represents the World
   Wide Web as originally visualized: as an information highway. It does so while
   respecting your privacy, and maintains a high signal-to-noise ratio. \"Walled
-  gardens\" have a vested interest beyond delivering news, but rather primarily
-  are businesses in advertising and data harvesting.")
+  gardens\" have a vested interest beyond delivering news, but rather are
+  primarily businesses in advertising and data harvesting.")
     (:a :target "_blank"
         :href "https://www.wired.com/story/rss-readers-feedly-inoreader-old-reader/"
   "Further information on getting started with RSS can be found here.")
+    (:a :target "_blank"
+        :href "http://hanshenwang.com/blog/rss.xml"
+        "My blog RSS is here.")
     (:p "I highly recommend the use of RSS for newsgroups and news reading.
   Still, an option exists to receive new blog articles by E-mail. This mailing
-  list exists for that sole purpose and nothing else.")
-    (:h1 "Sign up")
-    (:form :action "/create-subscriber" :method "POST"
-           (:label "Title: ")
-           (:input :name "friend-title" :size "50" :type "text"
-           :required "required")
-           (:br)
-           (:label "Name: ")
-           (:input :name "friend-name" :size "50" :type "text"
-           :required "required")
-           (:br)
-           (:label "E-mail: ")
-           (:input :name "friend-email" :size "50" :type "email"
-           :required "required")
-           (:input :name "commit" :type "submit" :value "Submit"))))
+  list exists for that sole purpose and nothing else. Subscriptions are
+  double-opt in.")
+    (:h1 :style "text-align:center;" "Sign up")
+    (:form :style "text-align:center;" :action "https://HanshenWang.us14.list-manage.com/subscribe/post?u=361768abae01d8b2d0358aa3d&amp;id=1433484afa"
+           :method "POST"
+           :id "mc-embedded-subscribe-form"
+           :name "mc-embedded-subscribe-form"
+           :class "validate"
+           :target "_blank"
+           (:label :for "mce-EMAIL" "Email Address")
+           (:input :type "email" :value "" :name "EMAIL" :class "required email" :id "mce-EMAIL" :size "50")
+           (:input :type "submit" :value "Subscribe" :name "subscribe" :id "mc-embedded-subscribe" :class "button"))))
 
-(defun subscribe-success-page (title name email)
-  (progn
-    (mailinglist-add title name email)
-    (web-page-template (:title "HanshenWang.com")
-      (:h1 :class "title" "Subscribe to Mailing List")
-      (cl-who:htm (:p "Thank you. The E-mail Address: " (:code (cl-who:str email)) " has
-  been successfully subscribed."))
-      (:a :target "_blank" :href "/" "Return to homepage." ))))
-
-(defun unsubscribe-page ()
-  (web-page-template (:title "HanshenWang.com")
-    (:h1 :class "title" "Unsubscribe from Mailing List")
-    (:form :action "/delete-subscriber" :method "POST"
-           (:label "E-mail: ")
-           (:input :name "friend-email" :size "50" :type "email"
-           :required "required")
-           (:input :name "commit" :type "submit" :value "Submit"))))
-
-(defun unsubscribe-success-page (email)
-  (progn
-    (mailinglist-delete email)
-    (web-page-template (:title "HanshenWang.com")
-      (:h1 :class "title" "Unsubscribe from Mailing List")
-      (cl-who:htm (:p "The E-mail Address: " (:code (cl-who:str email)) " has been
-  successfully unsubscribed. Have a good one."))
-      (:a :target "_blank" :href "/" "Return to homepage." ))))
-
 (defmacro bible-page-template ((&key title) &body body)
   "Template HTML for bible webpages. It removes the top banner navigation
 located in the `web-page-template' macro and the copyright footer. The work is

@@ -50,27 +50,6 @@ Persistent CLOS object state equals our datastore in this use case.
 (hunchentoot:define-easy-handler (subscribe :uri "/subscribe") ()
   (subscribe-page))
 
-(hunchentoot:define-easy-handler
-    (create-subscriber :uri "/create-subscriber") ()
-  (unless
-      (hunchentoot:parameter "friend-email")
-    (hunchentoot:redirect "/subscribe"))
-  (let ((title (hunchentoot:parameter "friend-title"))
-        (name (hunchentoot:parameter "friend-name"))
-        (email (hunchentoot:parameter "friend-email")))
-    (subscribe-success-page title name email)))
-
-(hunchentoot:define-easy-handler (unsubscribe :uri "/unsubscribe") ()
-  (unsubscribe-page))
-
-(hunchentoot:define-easy-handler
-    (delete-subscriber :uri "/delete-subscriber") ()
-  (unless
-      (hunchentoot:parameter "friend-email")
-    (hunchentoot:redirect "/unsubscribe"))
-  (let ((email (hunchentoot:parameter "friend-email")))
-    (unsubscribe-success-page email)))
-
 ;; All state is captured in the URI VERSES.
 (hunchentoot:define-easy-handler (bible :uri "/bible") (verses)
   ;; HTTP response header is needed.

@@ -4,18 +4,12 @@
 (uiop:define-package #:project-isidore/model
   (:use #:common-lisp
         #:project-isidore/data)
-  ;; PostgreSQL wrapper library.
-  (:import-from #:postmodern)
   ;; In-memory Datastore library.
   (:import-from #:bknr.datastore)
   ;; Indexing engine library.
   (:import-from #:montezuma)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:db-params :*database-url* :*localdb-params*
-
-   :mailinglist #:mailinglist-add #:mailinglist-delete
-
    #:create-datastore :bible
 
    #:get-bible-uid
@@ -50,67 +44,6 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 "))
 
 (in-package #:project-isidore/model)
-
-;;; Database functions
-(defparameter *database-url* nil
-  "Production Database URL. To be retrieved from production
-environment variables and parsed by DB-PARAMS. This URL is NOT constant and will
-be changed periodically by Heroku.")
-(defparameter *local-db-params* (list "test" "user1" "user1" "localhost") "Local
-Database Parameters. A local PostgreSQL installation with the creation of
-\"user1\" user and \"test\" database is needed")
-
-(defun db-params ()
-  "Sets *DATABASE-URL* parameter. Heroku database URL format is
-postgres://username:password@host:port/database_name. If we are testing on
-localhost, use the db-parameters from *LOCAL-DB-PARAMS*."
-  ;; Heroku PostgreSQL requires SSL to connect
-  (setf postmodern:*default-use-ssl* :try)
-  (if *database-url*
-      (let* ((url (second (cl-ppcre:split "//" *database-url*))) ; remove
-                                        ; postgres://
-             (user (first (cl-ppcre:split ":" (first
-                                               (cl-ppcre:split "@" url)))))
-             (password (second (cl-ppcre:split ":" (first
-                                                    (cl-ppcre:split "@" url)))))
-             (host (first (cl-ppcre:split ":" (second
-                                               (cl-ppcre:split "@" url)))))
-             ;; PORT parameter not needed. (port (first (cl-ppcre:split "/"
-             ;; (third (cl-ppcre:split ":" url)))))
-             (database (second (cl-ppcre:split "/"
-                                               (second (cl-ppcre:split
-                                                        "@"
-                                                        url))))))
-        (list database user password host))
-      *local-db-params*))
-
-(defclass mailinglist ()
-  ((id :col-type integer :col-identity t :accessor id :documentation "Unique ID
-  number for each subscriber. Note ID is unique and not reused upon deletion.")
-   (title :col-type string :initarg :title :reader friend-title :documentation
-          "For usage in E-mail greetings: TITLE NAME")
-   (name :col-type string :initarg :name :reader friend-name :documentation "For
-  usage in E-mail greetings: TITLE NAME")
-   (email :col-type string :col-unique t :initarg :email :reader friend-email
-          :documentation "Subscriber E-mail. Must be unique."))
-  (:metaclass postmodern:dao-class)
-  (:table-name mailinglist)
-  (:documentation "MAILINGLIST table schema contains all E-mails that are to
-  receive notifications on PROJECT-ISIDORE blog article updates."))
-
-(defun mailinglist-add (title name email)
-  "Creates new entry in the `mailinglist' table."
-  (postmodern:with-connection (db-params)
-    (postmodern:make-dao 'mailinglist :title title :name name :email email))
-  (format t "~A successfully added to mailing list." email))
-
-(defun mailinglist-delete (email)
-  "Removes entry from the `mailinglist' table."
-  (let ((emailobj (car (postmodern:with-connection (db-params)
-                         (postmodern:select-dao 'mailinglist
-                             (:= 'email email))))))
-  (postmodern:with-connection (db-params) (postmodern:delete-dao emailobj))
-  (format t "~A removed from mailing list." email)))
 
 (defun create-datastore ()
   "Initialize Datastore."

@@ -61,10 +61,6 @@ https://www.gnu.org/licenses/agpl-3.0.html for License details.
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 
 Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
-  ;; Connection credentials to Heroku managed PostgreSQL are passed as an
-  ;; environment variable.
-  (when (uiop:getenv "DATABASE_URL")
-    (setf *database-url* (uiop:getenv "DATABASE_URL")))
   (setf ;; Will show backtrace on status code 500 pages.
    *search-index*
          (make-instance 'montezuma:index

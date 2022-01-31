@@ -54,6 +54,5 @@ definitions, see the Reference Manual at
 Example:
 (in-package :cl-user)
 (list-project-isidore-dependencies) =>"
-;; ("hunchentoot" "parenscript" "cl-who" "cl-css" "montezuma" "bknr.datastore"
-;;  "postmodern")
+  ;; ("hunchentoot" "parenscript" "cl-who" "cl-css" "montezuma" "bknr.datastore")
   (package-dependencies "project-isidore"))
