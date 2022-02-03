@@ -357,9 +357,12 @@ Example:
 
 (defparameter *search-index*
   (make-instance 'montezuma:index
-                  :path (asdf:system-relative-pathname :project-isidore "../data/")
-                  :default-field "*"
-                  :fields '("b" "c" "v" "t" "h")) )
+                 :path (asdf:system-relative-pathname :project-isidore "../data/")
+                 :default-field "*"
+                 :fields '("b" "c" "v" "t" "h"))
+  "Used in `search-bible' to query Bible data. Since `sb-ext:save-lisp-and-die'
+  closes all open streams, this parameter is set during
+  `initialize-application'.")
 
 (defun search-bible (query &optional options)
   "Searches the Bible and Haydock's commentary. Returns an association list of

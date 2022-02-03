@@ -50,8 +50,6 @@ $ sbcl --load quicklisp.lisp
      CL-USER> (in-package :project-isidore)
      ;; Load data for the Tabular Douay Rheims.
      PROJECT-ISIDORE> (create-datastore)
-     ;; The creating of the index in memory takes approx. 2 mins.
-     PROJECT-ISIDORE> (create-search-index)
      ;; Starts web server at http://localhost:8080.
      PROJECT-ISIDORE> (initialize-application)
      PROJECT-ISIDORE> (terminate-application)
