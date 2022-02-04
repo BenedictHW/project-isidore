@@ -100,27 +100,13 @@
                  (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" ql-dist-version)
                  :replace t :prompt nil))))
 
-;;; IV. TESTING
+;;; IV. BUILDING
 ;; Load Application into Lisp image.
 (ql:quickload "project-isidore")
-
-;; Load separate Project Isidore test system.
-(ql:quickload "project-isidore-test")
-
-;; Run Application tests.
-(asdf:test-system "project-isidore")
-
-;;; V. BUILDING
-;; Initialize bible dataset and indexes sequentially as the search index is
-;; dependent on the bible dataset being already loaded in memory.
 
 (format t "~&        ====== Build Successful | Deo Gratias ======~%")
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
-
-;; SBCL's garbage collector is conservative. Manually call garbage collector
-;; after allocating large amounts due to `create-search-index'.
-#+sbcl (sb-ext:gc :full t)
 
 ;; Dump image. For details go to src/project-isidore.asd.
 (asdf:make "project-isidore")
