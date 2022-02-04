@@ -8,8 +8,7 @@
   (:import-from #:parachute)
   ;; HTTP client library.
   (:import-from #:drakma)
-  (:export #:master-suite
-           #:generate-data-finish)
+  (:export #:master-suite)
   (:documentation
    "Project Isidore Regression Tests.
 
@@ -33,9 +32,9 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   hunchentoot thread."
   :parent master-suite
   (parachute:skip-on (win32) "Hunchentoot has poor Microsoft Windows support."
-      (parachute:finish (progn
-                          (project-isidore:initialize-application)
-                          (project-isidore:terminate-application)))))
+                     (parachute:true (progn
+                                       (project-isidore:initialize-application)
+                                       (project-isidore:terminate-application)))))
 
 (parachute:define-test does-global-css-exist
   :description "Global.css must exist in project-isidore/assets/global.css. The
@@ -75,11 +74,7 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   (parachute:true (= 104 (project-isidore:roman-to-decimal "vic"))))
 
 (parachute:define-test generate-data-finish
-  :description "Check that `bible-page' and `bible-search-page' finishes.
-  Datastore needs to be closed,otherwise when make.lisp tries to open an already
-  opened datastore, an error will be signaled. By far the longest test, as it
-  takes roughly 90 seconds to generate the search index via
-  `create-search-index'"
+  :description "Check that `bible-page' and `bible-search-page' finishes."
   :parent master-suite
   (parachute:finish (progn
                       (project-isidore:bible-page "1-1-1-73-22-21")

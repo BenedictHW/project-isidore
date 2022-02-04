@@ -61,19 +61,19 @@ https://www.gnu.org/licenses/agpl-3.0.html for License details.
 Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 
 Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
-  (setf ;; Will show backtrace on status code 500 pages.
-   *search-index*
+  (setf *search-index*
          (make-instance 'montezuma:index
                         :path (asdf:system-relative-pathname :project-isidore "../data/")
                         :default-field "*"
                         :fields '("b" "c" "v" "t" "h"))
+   ;; Will show backtrace on status code 500 pages.
    hunchentoot:*show-lisp-errors-p* t
    hunchentoot:*dispatch-table*
    `(hunchentoot:dispatch-easy-handlers
      ;; http://localhost:PORT/example.jpg will dispatched to
      ;; /project-isidore/assets/example.jpg
-     ;; Requires full system path
-     ;; /app is the root on a heroku filesystem
+     ;; Requires full system path.
+     ;; /app is the root on a heroku filesystem.
      ,(hunchentoot:create-folder-dispatcher-and-handler "/" dispatch-folder)))
   (unless (equalp *acceptor* nil) ; only true upon first loading
     (when (hunchentoot:started-p *acceptor*)
@@ -90,7 +90,8 @@ Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
   (when cmd-user-interface
     (let ((do-sigint-poll t))
       (format t "~% Close this window or press Control+C to exit the program...~%")
-      (terminate-application do-sigint-poll))))
+      (terminate-application do-sigint-poll)))
+  (return-from initialize-application t))
 
 (defun terminate-application (&optional sigint-poll)
   "Stop the web server started by `initialize-application', if it exists. When
@@ -119,8 +120,8 @@ gracefully shut down the web server and exit the lisp process."
     (if (hunchentoot:started-p *acceptor*)
         (progn
           (hunchentoot:stop *acceptor*)
-          (return-from terminate-application
-            (format t "~%Server successfully stopped.~%")))))
+          (format t "~%Server successfully stopped.~%")
+          (return-from terminate-application t))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))
 
 (defun application-toplevel ()
