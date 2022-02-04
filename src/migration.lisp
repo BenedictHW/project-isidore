@@ -36,11 +36,16 @@ https://github.com/deepfire/cl-org-mode/pull/4 "))
 
 (in-package #:project-isidore/migration)
 
-(defun create-bible (verse text)
+(defvar *unique-id* 0)
+(defmethod initialize-instance :after ((obj bible) &key)
+  (setf (slot-value obj 'unique-id) (incf *unique-id*)))
+
+(defun create-bible (title text)
   "Helper function for class `bible'. Creates an instance of object `bible' with
 the required parameters. See `parse-org-bible' for usage."
-  (make-instance 'bible :verse verse
-                        :text text))
+  (rs:with-transaction ()
+    (make-instance 'bible :title title
+                          :text text)))
 
 (defun parse-org-bible ()
   "Convert from org-mode syntax text bible to CLOS objects. After import of
@@ -104,12 +109,8 @@ backreference."
     (if (slot-exists-p current-node 'cl-org-mode::text)
         (progn
           (setf current-text (slot-value current-node 'cl-org-mode::text))
-          (setf current-verse-alist (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK
-                                                         PROJECT-ISIDORE/MODEL::CHAPTER
-                                                         PROJECT-ISIDORE/MODEL::VERSE)
-                                                       (list (bible-book-convert-dwim current-book)
-                                                             current-chapter
-                                                             current-verse))))
+          (setf current-verse-alist
+                (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK PROJECT-ISIDORE/MODEL::CHAPTER PROJECT-ISIDORE/MODEL::VERSE) (list (bible-book-convert-dwim current-book) current-chapter current-verse))))
           (create-bible
            current-verse-alist current-text)))
     ;; Increment the current-node and the next node.
@@ -125,15 +126,15 @@ backreference."
        (nreverse (pairlis '(book chapter verse) (list (bible-book-convert-dwim "Revelation of John") 22 21)))
        "The grace of our Lord Jesus Christ be with you all. Amen.
     ")))))
-
-;; Anytime objects from the datastore are modified, they ought to be wrapped
-;; in a transaction so they can be 'replayed'.
-(bknr.datastore:deftransaction
-    create-haydock-commentary (input-bible-uid input-text)
-    (setf
-     (slot-value
-      (bknr.datastore:store-object-with-id input-bible-uid)
-      'project-isidore/model::haydock-text) input-text))
+
+(defun create-haydock-commentary (input-bible-uid input-text)
+  (rs:with-transaction ()
+    (rs:rucksack-map-slot rs:*rucksack* 'bible 'unique-id
+                          (lambda (obj)
+                            (setf (slot-value obj 'project-isidore/model::haydock-text) input-text)
+                            )
+                          :equal input-bible-uid))
+  )
 
 (defvar *line-counter* 0 "Counter used to find out i variable for dotimes loop")
 

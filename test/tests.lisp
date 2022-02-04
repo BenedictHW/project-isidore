@@ -82,16 +82,11 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   `create-search-index'"
   :parent master-suite
   (parachute:finish (progn
-                      (project-isidore:create-datastore)
-                      ;; NOTE Data is still accessible afterwards???
-                      ;; I think this just prevents transactions...
-                      (bknr.datastore:close-store)
-                      (project-isidore:bible-page "1-1-1-1-1-31")
+                      (project-isidore:bible-page "1-1-1-73-22-21")
                       (project-isidore:bible-search-page "water"))))
 
 (parachute:define-test regex-validity
   :description "Check `*reference-regex*' still works with the version of
   CL-PPCRE in use."
   :parent master-suite
-  :depends-on (project-isidore-test/tests:generate-data-finish)
-  (parachute:true (string-equal " Gen. xlix. 29." (car (ppcre:all-matches-as-strings project-isidore:*reference-regex* (project-isidore:get-haydock-text 9201))))))
+  (parachute:true (string-equal " Gen. xlix. 29." (car (ppcre:all-matches-as-strings project-isidore:*reference-regex* (project-isidore:get-haydock-text 9202))))))

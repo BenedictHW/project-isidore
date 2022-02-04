@@ -4,13 +4,14 @@
 (uiop:define-package #:project-isidore/model
   (:use #:common-lisp
         #:project-isidore/data)
-  ;; In-memory Datastore library.
-  (:import-from #:bknr.datastore)
+  ;; Embedded Database.
+  (:import-from #:rucksack)
   ;; Indexing engine library.
   (:import-from #:montezuma)
+  (:import-from #:cl-org-mode)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:create-datastore :bible
+   :*database* :bible
 
    #:get-bible-uid
    #:get-bible-text #:get-heading-text #:get-haydock-text #:get-haydock-text-with-ref
@@ -24,16 +25,7 @@
   (:documentation
    "Project Isidore Object Schema.
 
-Contains two unrelated schemas, the class `mailinglist' and the class `bible'
-with their respective operations.
-
-Note `mailinglist' is used in the traditional relational database fashion.
-Currently only PostgreSQL client-server architecture is supported by the
-deployment platform Heroku.
-
-Note `bible' is NOT a database, but an in-memory datastore. It is comparable to
-Redis and Memcache, but most similar to Object Prevalance libraries like the
-Java Prevayler library.
+OUTDATED (Back when I used BKNR.Datastore)
 
 For an indepth explanation on in-memory datastores, see:
 
@@ -45,101 +37,100 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 
 (in-package #:project-isidore/model)
 
-(defun create-datastore ()
-  "Initialize Datastore."
-  (let ((object-subsystem
-          (make-instance
-           'bknr.datastore:store-object-subsystem)))
-    (make-instance 'bknr.datastore:mp-store
-                   :directory
-                   (asdf:system-relative-pathname :project-isidore "../data/")
-                   :subsystems
-                   (list object-subsystem))))
-
-(defclass bible (bknr.datastore:store-object)
-  ((verse :initarg :verse :reader verse-of
-          :type cons
-          :index-type bknr.datastore::unique-index
-          :index-initargs (:test #'equal)
-          :index-reader bible-with-verse
-          :index-values whole-bible-list
-          :documentation
-          "The reference verse includes the book, chapter and line number.
+(defvar *database*
+  (rs:open-rucksack
+   (asdf:system-relative-pathname :project-isidore "../data/rucksack/")))
+
+;; Makes no difference, there are only 35817 objects total.
+;; (setf (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1000000)
+
+(rs:with-transaction ()
+  (defclass bible ()
+    ((unique-id :initarg :unique-id :reader unique-id-of
+                :type fixnum
+                :index :number-index
+                :unique t)
+
+     (heading :initarg :title :reader heading-of
+              :type cons
+              :documentation
+              "The reference verse includes the book, chapter and line number.
 Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
 
-   (text :initarg :text :reader text-of
-         :type string
-         :documentation
-         "Text of the object instance.")
+     (text :initarg :text :reader text-of
+           :type string
+           :documentation
+           "Text of the object instance.")
 
-   (haydock-text :initarg :haydock-text :reader haydock-text-of
-                 :type string
-                 :documentation
-                 "Haydock text of the object instance."))
-  (:metaclass bknr.datastore:persistent-class)
-  (:documentation
-   "Each verse of the Bible is created as an object instance of class `bible',
+     (haydock-text :initarg :haydock-text :reader haydock-text-of
+                   :type string
+                   :documentation
+                   "Haydock text of the object instance."))
+    (:index t)
+    (:metaclass rs:persistent-class)
+    (:documentation
+     "Each verse of the Bible is created as an object instance of class `bible',
   each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
-  unbound."))
+  unbound.")))
 
 (defun get-bible-uid (book chapter verse)
-    "Return a unique identifier assigned to each instance of class `bible'.
-   As class `bible' is of CLOS metaclass `bknr.datastore:persistent-class', this
+  "Return a unique identifier assigned to each instance of class `bible'.
+   As class `bible' is of CLOS metaclass `rs:persistent-class', this
   returns the aforementioned unique identifier as an integer value bound to slot
-  ID. BOOK CHAPTER and VERSE must be an integer with the range 0 - 35816.
+  ID. BOOK CHAPTER and VERSE must be an integer with the range 1 - 35817.
 
   Example:
-  (get-bible-uid 47 3 6) => 27916
+  (get-bible-uid 47 3 6) => 27917
   (get-bible-uid 12983 29394 2938498) => NIL "
-  (declare (optimize speed)
-           (fixnum book)
-           (fixnum chapter)
-           (fixnum verse))
-  ;; KLUDGE I assume there is an out of bounds/off by one error in
-  ;; BKNR.DATASTORE's :index-reader function. Hence a special case for the last ID.
-  (if (and (= book 73)
-           (= chapter 22)
-           (= verse 21))
-      35816
-      (slot-value (bible-with-verse
-                   (list
-                    (cons 'PROJECT-ISIDORE/MODEL::BOOK book)
-                    (cons 'PROJECT-ISIDORE/MODEL::CHAPTER chapter)
-                    (cons 'PROJECT-ISIDORE/MODEL::VERSE verse)))
-                  'bknr.datastore::id)))
+  (rs:with-transaction ()
+    (rs:rucksack-map-class
+     *database* 'bible (lambda (obj)
+                         (if
+                          (equalp (list
+                                   (cons 'PROJECT-ISIDORE/MODEL::BOOK book)
+                                   (cons 'PROJECT-ISIDORE/MODEL::CHAPTER chapter)
+                                   (cons 'PROJECT-ISIDORE/MODEL::VERSE verse))
+                                  (heading-of obj))
+                          (return-from get-bible-uid (unique-id-of obj)))))))
 
-(defun bible-book-convert-dwim (bible-book)
+(defun bible-obj-with-id (bible-uid)
+  "Returns the instance of object class `bible' when BIBLE-UID matches
+UNIQUE-ID. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by
+calling `get-bible-uid'."
+  (rs:with-transaction ()
+    (rs:rucksack-map-slot *database* 'bible 'unique-id
+                          (lambda (obj)
+                            (return-from bible-obj-with-id obj))
+                          :equal bible-uid)))
+
+(defun bible-book-convert-dwim (book)
   "Given a Bible book string name or integer, convert to the opposite format.
 
    Example:
    (bible-book-convert-dwim \"Matthew\") => 47
    (bible-book-convert-dwim 47) => \"Matthew\" "
-  (if (stringp bible-book)
+  (if (stringp book)
       ;; string-equal is case insensitive. string= is case sensitive.
-      (cdr (assoc bible-book +bible-book-numbers-alist+ :test #'string-equal))
-      (car (rassoc bible-book +bible-book-numbers-alist+))))
+      (cdr (assoc book +bible-book-numbers-alist+ :test #'string-equal))
+      (car (rassoc book +bible-book-numbers-alist+))))
 
 (defun get-bible-text (bible-uid)
-  "Returns a string if bible-uid is valid else return NIL.
-The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (text-of (bknr.datastore:store-object-with-id bible-uid)))
+  "Returns the text slot of object class `bible' in a string. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by calling `get-bible-uid'."
+  (text-of (bible-obj-with-id bible-uid)))
 
 (defun get-heading-text (bible-uid)
-  "Returns a string if bible-uid is valid else return NIL.
-The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (concatenate
-   'string
-   (bible-book-convert-dwim(cdar (verse-of (bknr.datastore:store-object-with-id bible-uid)))) " "
-   (write-to-string (cdadr (verse-of (bknr.datastore:store-object-with-id bible-uid)))) ":"
-   (write-to-string (cdaddr (verse-of (bknr.datastore:store-object-with-id bible-uid))))))
+  "Returns the title slot of object class `bible' in a string. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by calling `get-bible-uid'."
+  (concatenate 'string
+   (bible-book-convert-dwim (cdar (heading-of (bible-obj-with-id bible-uid)))) " "
+   (write-to-string (cdadr (heading-of (bible-obj-with-id bible-uid)))) ":"
+   (write-to-string (cdaddr (heading-of (bible-obj-with-id bible-uid))))))
 
 (defun get-haydock-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
+  Only get text if commentary exists for given BIBLE-UID.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  ;; Only get text if commentary exists for given BIBLE-UID.
-  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
-                     'haydock-text)
-    (haydock-text-of (bknr.datastore:store-object-with-id bible-uid))))
+  (when (slot-boundp (bible-obj-with-id bible-uid) 'haydock-text)
+    (haydock-text-of (bible-obj-with-id bible-uid))))
 
 (defun bible-ref-to-url (string bible-uid)
 "Haydock commentary cross references are in the form ABBREVIATED BOOK NAME,
@@ -147,7 +138,7 @@ ROMAN NUMERAL, and INTEGER representing BOOK CHAPTER and VERSE respectively. Ex.
 \"Ps. cxliv. 9.\" A list of ABBREVIATED BOOK NAMES can be found in
 `+bible-book-abbrev-alist+'INTERNAL-CHAPTER is to properly process C. xxiii. 3.
 where C. is short form for chapter. "
-  (let ((internal-chapter (cdar (verse-of (bknr.datastore:store-object-with-id bible-uid))))
+  (let ((internal-chapter (cdar (heading-of (bible-obj-with-id bible-uid))))
         (book nil)
         (chapter nil)
         (verse nil))
@@ -207,8 +198,7 @@ An extra backslash is need to escape the backslash itself.
 ([1-4]?\s[a-zA-Z]{1,6}\.\s[clxvi]+\.\s[0-9]{1,3}\.) ")
 
 (defun encode-haydock-text (string bible-uid)
-  (when (slot-boundp (bknr.datastore:store-object-with-id bible-uid)
-                     'haydock-text)
+  (when (get-haydock-text bible-uid)
     (flet ((convert (match y)
              (if (not (bible-ref-to-url match bible-uid))
                  (format nil "~a" match)
@@ -285,12 +275,11 @@ Example:
           (position (rassoc (concatenate 'string
                                          (bible-book-convert-dwim
                                           (cdar
-                                           (verse-of (bknr.datastore:store-object-with-id
-                                                      (car (bible-url-to-uid bible-url))))))
+                                           (heading-of (bible-obj-with-id (car (bible-url-to-uid bible-url))))))
                                          " "
                                          (write-to-string
                                           (cdadr
-                                           (verse-of (bknr.datastore:store-object-with-id
+                                           (heading-of (bible-obj-with-id
                                                       (car (bible-url-to-uid bible-url)))))))
                             +bible-chapter-url-alist+ :test #'string-equal)
                     +bible-chapter-url-alist+))
@@ -298,12 +287,12 @@ Example:
           (position (rassoc (concatenate 'string
                                          (bible-book-convert-dwim
                                           (cdar
-                                           (verse-of (bknr.datastore:store-object-with-id
+                                           (heading-of (bible-obj-with-id
                                                       (cadr (bible-url-to-uid bible-url))))))
                                          " "
                                          (write-to-string
                                           (cdadr
-                                           (verse-of (bknr.datastore:store-object-with-id
+                                           (heading-of (bible-obj-with-id
                                                       (cadr (bible-url-to-uid bible-url)))))))
                             +bible-chapter-url-alist+ :test #'string-equal)
                     +bible-chapter-url-alist+)))
