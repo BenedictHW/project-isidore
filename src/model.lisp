@@ -37,7 +37,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 
 (in-package #:project-isidore/model)
 
-(defvar *database*
+(defparameter *database*
   (rs:open-rucksack
    (asdf:system-relative-pathname :project-isidore "../data/rucksack/")))
 
