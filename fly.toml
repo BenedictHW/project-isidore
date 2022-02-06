@@ -39,5 +39,9 @@ processes = []
     timeout = "2s"
 
 [mounts]
-  source="project_isidore_database"
-  destination="/project-isidore/data/rucksack"
+  source = "project_isidore_database"
+  destination = "/project-isidore-database"
+
+[[statics]]
+  guest_path = "/project-isidore/assets"
+  url_prefix = "/"

@@ -48,8 +48,6 @@ $ sbcl --load quicklisp.lisp
      CL-USER> (ql:quickload :project-isidore)
      ;; Switch to package namespace.
      CL-USER> (in-package :project-isidore)
-     ;; Load data for the Tabular Douay Rheims.
-     PROJECT-ISIDORE> (create-datastore)
      ;; Starts web server at http://localhost:8080.
      PROJECT-ISIDORE> (initialize-application)
      PROJECT-ISIDORE> (terminate-application)

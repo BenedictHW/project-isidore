@@ -25,6 +25,15 @@
   (:documentation
    "Project Isidore Object Schema.
 
+Data serialization.
+How to represent tree structure? XML, JSON or SEXP?
+https://unthought.net/2016/08/16-xml-json-trees-and-lisp/
+https://eli.thegreenplace.net/2012/03/04/some-thoughts-on-json-vs-s-expressions
+
+Microsoft Word uses XML. Web browsers render (X)HTML. Jupyter notebooks use JSON.
+
+I see no great benefits to inserting an extra layer. CLOS Obj. > JSON > XML.
+
 OUTDATED (Back when I used BKNR.Datastore)
 
 For an indepth explanation on in-memory datastores, see:
@@ -39,7 +48,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 
 (defparameter *database*
   (rs:open-rucksack
-   (asdf:system-relative-pathname :project-isidore "../data/rucksack/")))
+   (asdf:system-relative-pathname :project-isidore "../data/")))
 
 ;; Makes no difference, there are only 35817 objects total.
 ;; (setf (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1000000)
@@ -355,7 +364,8 @@ Example:
 
 (defun search-bible (query &optional options)
   "Searches the Bible and Haydock's commentary. Returns an association list of
-Bible unique ID's and a relevance score"
+Bible unique ID's and a relevance score "
+  ;; XXX the query "water made" will throw an error.
   (let ((results '()))
     (montezuma:search-each *search-index* query
                            #'(lambda (doc score)

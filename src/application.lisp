@@ -68,7 +68,7 @@ Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
                        :fields '("b" "c" "v" "t" "h"))
         *database*
         (rs:open-rucksack
-         (asdf:system-relative-pathname :project-isidore "../data/rucksack/"))
+         (asdf:system-relative-pathname :project-isidore "../data/"))
    ;; Will show backtrace on status code 500 pages.
    hunchentoot:*show-lisp-errors-p* t
    hunchentoot:*dispatch-table*
