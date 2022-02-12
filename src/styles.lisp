@@ -134,7 +134,7 @@ See VIEWS.LISP for HTML generation. "))
   "Generates global.css file in the #P/project-isidore/assets/global.css"
   (cl-css:compile-css
    (merge-pathnames #P"global.css"
-                    (asdf:system-relative-pathname :project-isidore "../assets/"))
+                    (asdf:system-relative-pathname :project-isidore "assets/"))
    '(;; Load Fonts
      ("@font-face"
       :font-family "Cinzel"

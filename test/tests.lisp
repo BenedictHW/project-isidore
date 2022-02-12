@@ -14,8 +14,6 @@
 
 To run locally evaluate in the listener,
 
-(ql:quickload :project-isidore-test)
-
 (asdf:test-system :project-isidore)
 
 The test suite is run prior to the build process. See MAKE.LISP."))
@@ -45,7 +43,7 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   global.css does indeed exist."
   :parent master-suite
   (parachute:true (uiop:file-exists-p (asdf:system-relative-pathname
-                                :project-isidore "../assets/global.css"))))
+                                :project-isidore "assets/global.css"))))
 
 (parachute:define-test is-production-server-status-200
   :description "As per Heroku documentation: 'Whenever your app experiences an

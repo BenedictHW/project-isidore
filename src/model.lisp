@@ -52,7 +52,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 
 (defparameter *database*
   (rs:open-rucksack
-   (asdf:system-relative-pathname :project-isidore "../data/rucksack/")))
+   (asdf:system-relative-pathname :project-isidore "data/rucksack/")))
 
 ;; 37199 (BIBLE-UID range = 0-37198) objects of class bible should exist. If
 ;; total objects exceeds the cache size, it can be set with, (setf
@@ -349,7 +349,7 @@ Example:
 
 (defparameter *search-index*
   (make-instance 'montezuma:index
-                 :path (asdf:system-relative-pathname :project-isidore "../data/montezuma/")
+                 :path (asdf:system-relative-pathname :project-isidore "data/montezuma/")
                  :default-field "*"
                  :fields '("b" "c" "v" "t" "f" "x"))
   "Used in `search-bible' to query Bible data. Since `sb-ext:save-lisp-and-die'

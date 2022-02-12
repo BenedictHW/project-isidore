@@ -31,7 +31,7 @@ all located under \"project-isidore/assets/\". See the
 instance of class `hunchentoot:acceptor' to listen to a PORT")
 
 (defun initialize-application (&key (port 8080)
-                                 (dispatch-folder (asdf:system-relative-pathname :project-isidore "../assets/"))
+                                 (dispatch-folder (asdf:system-relative-pathname :project-isidore "assets/"))
                                  (cmd-user-interface nil))
   "Start a web server at PORT.
 
@@ -63,12 +63,12 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
   (setf *search-index*
         (make-instance 'montezuma:index
-                       :path (asdf:system-relative-pathname :project-isidore "../data/montezuma/")
+                       :path (asdf:system-relative-pathname :project-isidore "data/montezuma/")
                        :default-field "*"
                        :fields '("b" "c" "v" "t" "h"))
         *database*
         (rs:open-rucksack
-         (asdf:system-relative-pathname :project-isidore "../data/rucksack/"))
+         (asdf:system-relative-pathname :project-isidore "data/rucksack/"))
    ;; Will show backtrace on status code 500 pages.
    hunchentoot:*show-lisp-errors-p* t
    hunchentoot:*dispatch-table*
