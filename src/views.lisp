@@ -277,8 +277,13 @@ with my name."
            do (cl-who:htm
                (:tr
                 (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
-                (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
-                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text-with-ref bible-uid))))))))))
+                (:td (cl-who:htm
+                      (progn
+                        (cl-who:str (get-bible-text bible-uid))
+                        (cl-who:htm (:br)
+                                    (:br))
+                        (cl-who:str (get-cross-references-text-with-links bible-uid)))))
+                (:td :width "55%" (cl-who:htm (cl-who:str (get-footnotes-text-with-links bible-uid))))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -309,7 +314,8 @@ query-form"
           (:li" (c) The chapter number.")
           (:li" (v) The verse number.")
           (:li" (t) The text itself.")
-          (:li" (h) If applicable, the Haydock commentary.")
+          (:li" (f) If applicable, the footnote (Haydock) commentary.")
+          (:li" (x) If applicable, the listed cross-references.")
           (:li" (implicit) All of the above fields.")
 
           (:h2 "2. OPERATOR")
@@ -419,13 +425,20 @@ query-form"
                          :value (princ (cl-who:esc query)) :required "required")
                  (:input :type "submit" :value "Submit")))
     (:table :id "main-content"
-     ;; 35817 includes all verses of the bible.
-     (loop for (bible-uid . score) in (search-bible query '(:num-docs 35817))
+     ;; 37199 includes all verses of the bible. The extra are from chapter/book
+     ;; descriptions etc. BIBLE-UID is a lie here, it ought to be named
+     ;; MONTEZUMA-UID. They should be the same, but be careful with behaviour.
+     (loop for (bible-uid . score) in (search-bible query '(:num-docs 37199))
            do (cl-who:htm
                (:tr
                 ;; HACK Score of 1.37 > 137. Coerce double float to string with precision of 2.
                 (:td (cl-who:htm (cl-who:str (write-to-string (floor score 0.01)))))
                 (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
-                (:td (cl-who:htm (cl-who:str (get-bible-text bible-uid))))
-                (:td :width "50%" (cl-who:htm (cl-who:str (get-haydock-text-with-ref bible-uid))))))))))
+                (:td (cl-who:htm
+                      (progn
+                        (cl-who:str (get-bible-text bible-uid))
+                        (cl-who:htm (:br)
+                                    (:br))
+                        (cl-who:str (get-cross-references-text-with-links bible-uid)))))
+                (:td :width "50%" (cl-who:htm (cl-who:str (get-footnotes-text-with-links bible-uid))))))))))
 

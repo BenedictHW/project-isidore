@@ -8,20 +8,24 @@
   (:import-from #:rucksack)
   ;; Indexing engine library.
   (:import-from #:montezuma)
-  (:import-from #:cl-org-mode)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    :*database* :bible
 
    #:get-bible-uid
-   #:get-bible-text #:get-heading-text #:get-haydock-text #:get-haydock-text-with-ref
+
+   #:get-bible-text #:get-heading-text
+   #:get-footnotes-text #:get-cross-references-text
+
+   #:get-footnotes-text-with-links
+   #:get-cross-references-text-with-links
 
    #:bible-book-convert-dwim #:bible-url-to-uid :+bible-book-url-alist+
    #:make-bible-chapter-url-list
 
    :*search-index* #:search-bible
 
-   #:roman-to-decimal #:roman-numeral-p :*reference-regex*)
+   :*reference-regex*)
   (:documentation
    "Project Isidore Object Schema.
 
@@ -48,10 +52,12 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 
 (defparameter *database*
   (rs:open-rucksack
-   (asdf:system-relative-pathname :project-isidore "../data/")))
+   (asdf:system-relative-pathname :project-isidore "../data/rucksack/")))
 
-;; Makes no difference, there are only 35817 objects total.
-;; (setf (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1000000)
+;; 37199 (BIBLE-UID range = 0-37198) objects of class bible should exist. If
+;; total objects exceeds the cache size, it can be set with, (setf
+;; (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1 000 000) . The default is
+;; 100 000.
 
 (rs:with-transaction ()
   (defclass bible ()
@@ -60,7 +66,10 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
                 :index :number-index
                 :unique t)
 
-     (heading :initarg :title :reader heading-of
+     ;; Having the heading information in one slot instead of three prevents
+     ;; mapping over class BIBLE thrice in `get-bible-uid' to locate a
+     ;; UNIQUE-ID.
+     (heading :initarg :heading :reader heading-of
               :type cons
               :documentation
               "The reference verse includes the book, chapter and line number.
@@ -71,7 +80,12 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
            :documentation
            "Text of the object instance.")
 
-     (haydock-text :initarg :haydock-text :reader haydock-text-of
+     (cross-references :initarg :cross-references :reader cross-references-of
+                       :type string
+                       :documentation
+                       "Cross references of object instance.")
+
+     (footnotes    :initarg :footnotes :reader footnotes-of
                    :type string
                    :documentation
                    "Haydock text of the object instance."))
@@ -79,7 +93,7 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
     (:metaclass rs:persistent-class)
     (:documentation
      "Each verse of the Bible is created as an object instance of class `bible',
-  each with appropriate text in it's slot. HAYDOCK-TEXT however, may be
+  each with appropriate text in it's slot. FOOTNOTES however, may be
   unbound.")))
 
 (defun get-bible-uid (book chapter verse)
@@ -129,23 +143,29 @@ calling `get-bible-uid'."
 
 (defun get-heading-text (bible-uid)
   "Returns the title slot of object class `bible' in a string. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by calling `get-bible-uid'."
-  (concatenate 'string
-   (bible-book-convert-dwim (cdar (heading-of (bible-obj-with-id bible-uid)))) " "
-   (write-to-string (cdadr (heading-of (bible-obj-with-id bible-uid)))) ":"
-   (write-to-string (cdaddr (heading-of (bible-obj-with-id bible-uid))))))
+  (let* ((heading-alist (heading-of (bible-obj-with-id bible-uid)))
+         (book (bible-book-convert-dwim (cdar heading-alist)))
+         (chapter (write-to-string (cdadr heading-alist)))
+         (verse (write-to-string (cdaddr heading-alist))))
+    (concatenate 'string book " " chapter ":" verse )))
 
-(defun get-haydock-text (bible-uid)
+(defun get-footnotes-text (bible-uid)
   "Returns a string if bible-uid is valid else return NIL.
   Only get text if commentary exists for given BIBLE-UID.
 The bible-uid can be found by calling `get-bible-uid' with valid arguments."
-  (when (slot-boundp (bible-obj-with-id bible-uid) 'haydock-text)
-    (haydock-text-of (bible-obj-with-id bible-uid))))
+  (when (slot-boundp (bible-obj-with-id bible-uid) 'footnotes)
+    (footnotes-of (bible-obj-with-id bible-uid))))
+
+(defun get-cross-references-text (bible-uid)
+  "Returns a string if bible-uid is valid else return NIL.
+  Only get text if commentary exists for given BIBLE-UID.
+The bible-uid can be found by calling `get-bible-uid' with valid arguments."
+  (when (slot-boundp (bible-obj-with-id bible-uid) 'cross-references)
+    (cross-references-of (bible-obj-with-id bible-uid))))
 
 (defun bible-ref-to-url (string bible-uid)
-"Haydock commentary cross references are in the form ABBREVIATED BOOK NAME,
-ROMAN NUMERAL, and INTEGER representing BOOK CHAPTER and VERSE respectively. Ex.
-\"Ps. cxliv. 9.\" A list of ABBREVIATED BOOK NAMES can be found in
-`+bible-book-abbrev-alist+'INTERNAL-CHAPTER is to properly process C. xxiii. 3.
+"Haydock commentary cross references are in the form BOOK, CHAPTER, VERSE. Ex.
+\"Psalm 12:9.\" INTERNAL-CHAPTER is to properly process C. xxiii. 3.
 where C. is short form for chapter. "
   (let ((internal-chapter (cdar (heading-of (bible-obj-with-id bible-uid))))
         (book nil)
@@ -160,25 +180,22 @@ where C. is short form for chapter. "
                    ;; Book is nil, decimal number found.
                    ((and (not book)
                          (parse-integer metadata-list :junk-allowed t))
-                    (setf book (format nil "~@r" (parse-integer metadata-list :junk-allowed t))))
-                   ;; No roman or decimal number found.
-                   ((and (not (roman-numeral-p metadata-list))
-                         (not (parse-integer metadata-list :junk-allowed t)))
+                    (setf book (write-to-string (parse-integer metadata-list :junk-allowed t))))
+                   ;; No decimal number found.
+                   ((not (parse-integer metadata-list :junk-allowed t))
                     (if book
                         (setf book (concatenate 'string book " "
                                                 (string-trim '(#\Space #\Tab #\Newline) metadata-list)))
                         (setf book (string-trim '(#\Space #\Tab #\Newline) metadata-list))))
-                   ;; Roman numeral found.
-                   ((roman-numeral-p metadata-list)
-                    (setf chapter (roman-to-decimal metadata-list)))
                    ;; Book is not nil, decimal number found.
                    ((and book
                          (parse-integer metadata-list :junk-allowed t))
                     (progn
-                      (setf verse (parse-integer metadata-list :junk-allowed t))
+                      (setf chapter (parse-integer metadata-list :junk-allowed t))
+                      (setf verse (parse-integer (car (last (cl-ppcre:split ":" metadata-list))) :junk-allowed t))
                       (setf book (cond ((integerp book) book)
                                        ((string-equal "C" book) internal-chapter)
-                                       (t (cdr (assoc book +bible-book-abbrev-alist+ :test #'string-equal)))))
+                                       (t (cdr (assoc book +bible-book-numbers-alist+ :test #'string-equal)))))
                       (return-from bible-ref-to-url
                         (if (not book)
                             nil
@@ -191,23 +208,22 @@ where C. is short form for chapter. "
                                      (write-to-string verse))))))))))
 
 (defparameter *reference-regex*
-  (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,6}\\.?\\s[clxvi]+\\.\\s[0-9]{1,3}\\.)")
+  (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,15}\\s[0-9]{1,3}\\:[0-9]{1,3})")
   "Regex explanation.
 [1-4]? 4 K. is the highest for 4 Kings. ? signifies the number may or may not be
 there.
 \s whitespace.
-[a-zA-Z]{1,6} Esdras is the longest book name I have found thus far.
+[a-zA-Z]{1,15} Paralipomenon is the longest book name I have found thus far.
 \. optional period.
 \s whitespace.
-[clxvi]+\. Any number of the listed letters until a period.
-\s whitespace.
+[0-9]{1,3} 3 digits that make up a chapter number.
+\: colon.
 [0-9]{1,3} 3 digits that make up a verse number.
-\. period.
-An extra backslash is need to escape the backslash itself.
-([1-4]?\s[a-zA-Z]{1,6}\.\s[clxvi]+\.\s[0-9]{1,3}\.) ")
+An extra backslash is need to escape the backslash itself.")
 
-(defun encode-haydock-text (string bible-uid)
-  (when (get-haydock-text bible-uid)
+(defun encode-cross-references-to-html-links (string bible-uid)
+  (when (or (get-footnotes-text bible-uid)
+            (get-cross-references-text bible-uid))
     (flet ((convert (match y)
              (if (not (bible-ref-to-url match bible-uid))
                  (format nil "~a" match)
@@ -215,37 +231,15 @@ An extra backslash is need to escape the backslash itself.
                          (bible-ref-to-url match bible-uid) y))))
       (ppcre:regex-replace-all *reference-regex* string #'convert :simple-calls t))))
 
-(defun get-haydock-text-with-ref (bible-uid)
-  (let ((haydock-text (get-haydock-text bible-uid)))
-  (if haydock-text
-      (encode-haydock-text haydock-text bible-uid))))
+(defun get-footnotes-text-with-links (bible-uid)
+  (let ((footnotes-text (get-footnotes-text bible-uid)))
+  (when footnotes-text
+      (encode-cross-references-to-html-links footnotes-text bible-uid))))
 
-(defvar *roman-chars* "ivxlcdm")
-(defvar *roman-nums*  '(1 5 10 50 100 500 1000))
-
-(defun roman-numeral-to-decimal (roman-numeral)
-  (let ((i (position (coerce roman-numeral 'character) *roman-chars*)))
-    (and i (nth i *roman-nums*))))
-
-(defun map-roman-numerals-to-decimal (roman-numerals)
-  (map 'list #'roman-numeral-to-decimal roman-numerals))
-
-(defun roman-numeral-p (string)
-  (if (not (loop for test-char across "abefghjknopqrstuwyz0123456789"
-      when (find test-char string :test #'char-equal)
-        collect test-char))
-      t
-      nil))
-
-(defun roman-to-decimal (roman)
-  "The Roman numeral symbols are I, V, X, L, C, D, and M, standing respectively
-for 1, 5, 10, 50, 100, 500, and 1,000. The book with the highest chapter number
-is indeed the Psalms, at 150. The chapter with the highest verse number is also
-in the Psalms: Psalm 118 (119):176. "
-  (if (roman-numeral-p roman)
-      (loop as (A B) on (map-roman-numerals-to-decimal roman)
-            if A sum (if (and B (< A B)) (- A) A))
-      nil))
+(defun get-cross-references-text-with-links (bible-uid)
+  (let ((cross-references-text (get-cross-references-text bible-uid)))
+    (when cross-references-text
+        (encode-cross-references-to-html-links cross-references-text bible-uid))))
 
 (defun bible-url-to-uid (bible-url)
   "Accepts a string of six integers and returns a list of 2 integers.
@@ -355,9 +349,9 @@ Example:
 
 (defparameter *search-index*
   (make-instance 'montezuma:index
-                 :path (asdf:system-relative-pathname :project-isidore "../data/")
+                 :path (asdf:system-relative-pathname :project-isidore "../data/montezuma/")
                  :default-field "*"
-                 :fields '("b" "c" "v" "t" "h"))
+                 :fields '("b" "c" "v" "t" "f" "x"))
   "Used in `search-bible' to query Bible data. Since `sb-ext:save-lisp-and-die'
   closes all open streams, this parameter is set during
   `initialize-application'.")
@@ -365,7 +359,6 @@ Example:
 (defun search-bible (query &optional options)
   "Searches the Bible and Haydock's commentary. Returns an association list of
 Bible unique ID's and a relevance score "
-  ;; XXX the query "water made" will throw an error.
   (let ((results '()))
     (montezuma:search-each *search-index* query
                            #'(lambda (doc score)

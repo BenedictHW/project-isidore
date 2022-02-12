@@ -63,12 +63,12 @@ Homepage: https://www.hanshenwang.com/blog/project-isidore-doc.html
 Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
   (setf *search-index*
         (make-instance 'montezuma:index
-                       :path (asdf:system-relative-pathname :project-isidore "../data/")
+                       :path (asdf:system-relative-pathname :project-isidore "../data/montezuma/")
                        :default-field "*"
                        :fields '("b" "c" "v" "t" "h"))
         *database*
         (rs:open-rucksack
-         (asdf:system-relative-pathname :project-isidore "../data/"))
+         (asdf:system-relative-pathname :project-isidore "../data/rucksack/"))
    ;; Will show backtrace on status code 500 pages.
    hunchentoot:*show-lisp-errors-p* t
    hunchentoot:*dispatch-table*

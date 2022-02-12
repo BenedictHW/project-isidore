@@ -64,15 +64,6 @@ The test suite is run prior to the build process. See MAKE.LISP."))
        ;; Secondary URL is a fallback if the HanshenWang.com domain expires.
        (= 200 (nth-value 1 (drakma:http-request "https://project-isidore.fly.dev/"))))))
 
-(parachute:define-test roman-numeral-conversion
-  :description "`roman-to-decimal' and `roman-numeral-p' function correctly."
-  :parent master-suite
-  (parachute:true (project-isidore:roman-numeral-p "ivxlcdm"))
-  (parachute:false (project-isidore:roman-numeral-p "ailvlkasxlwc"))
-  (parachute:false (project-isidore:roman-numeral-p "ai32xvl91k"))
-  (parachute:false (project-isidore:roman-to-decimal "983fj"))
-  (parachute:true (= 104 (project-isidore:roman-to-decimal "vic"))))
-
 (parachute:define-test generate-data-finish
   :description "Check that `bible-page' and `bible-search-page' finishes."
   :parent master-suite
@@ -84,4 +75,4 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   :description "Check `*reference-regex*' still works with the version of
   CL-PPCRE in use."
   :parent master-suite
-  (parachute:true (string-equal " Gen. xlix. 29." (car (ppcre:all-matches-as-strings project-isidore:*reference-regex* (project-isidore:get-haydock-text 9202))))))
+  (parachute:true (string-equal "1 Esdras 5:1" (car (ppcre:all-matches-as-strings project-isidore:*reference-regex* (project-isidore:get-footnotes-text 27144))))))
