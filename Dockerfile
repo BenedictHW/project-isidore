@@ -1,4 +1,4 @@
-FROM clfoundation/sbcl:2.2.0-alpine3.15
+FROM clfoundation/sbcl:2.2.1-alpine3.15
 COPY . /project-isidore
 ARG BUILDPACK_DIR=/project-isidore/bin
 ARG BUILD_DIR=/project-isidore
