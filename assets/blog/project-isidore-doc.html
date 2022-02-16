@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-01-29 Sat 12:43 -->
+<!-- 2022-02-16 Wed 14:35 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-29 Sat 12:42</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-02-10 Thu 13:16</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org89d137a">
+<div class="abstract" id="orgda29c95">
 <p>
 
 </p>
@@ -104,11 +104,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </ul>
 </li>
 <li><a href="#org8719e15">5.2. Continous Delivery</a></li>
-<li><a href="#org05d9781">5.3. Continous Deployment</a>
-<ul>
-<li><a href="#orgbc34893">5.3.1. Building the Dockerfile</a></li>
-</ul>
-</li>
+<li><a href="#org05d9781">5.3. Continous Deployment</a></li>
 <li><a href="#Benchmarking-Profiling">5.4. Basic Benchmarks</a></li>
 </ul>
 </li>
@@ -643,14 +639,6 @@ Direct dependencies from ASDF:DEPENDS-ON
 </tr>
 
 <tr>
-<td class="org-left"><a href="https://www.common-lisp.net/project/bknr/pdf/datastore-manual.pdf">BKNR.Datastore</a></td>
-<td class="org-left">Hans Hubner</td>
-<td class="org-left">Object Prevalence</td>
-<td class="org-left">BSD-0-Clause</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
 <td class="org-left"><a href="https://github.com/edicl/drakma">Drakma</a></td>
 <td class="org-left">Edmund Weitz</td>
 <td class="org-left">HTTP Client</td>
@@ -754,6 +742,12 @@ Cool libraries to check out:
 <td class="org-left">Marco Antonetti</td>
 <td class="org-left">Generalized pattern matching</td>
 </tr>
+
+<tr>
+<td class="org-left"><a href="https://tilton.medium.com/the-cells-manifesto-b21ed10329f0">Cells</a></td>
+<td class="org-left">Kenny Tilton</td>
+<td class="org-left">Dataflow (GUI)</td>
+</tr>
 </tbody>
 </table></li>
 <li>Javascript Dependencies
@@ -763,13 +757,12 @@ Upgrade via editing <code>:head</code> under <code>org-publish-project-alist</co
 <li>Mathjax 2.7.0
 See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-template</code>.</li>
 </ul></li>
-<li>Foreign Dependencies
-<ul class="org-ul">
-<li>PostgreSQL
-See <a href="#Data-Persistence">Data Persistence</a></li>
-</ul></li>
 <li>Lisp Web Example Projects &amp; Misc. Resources
 <ul class="org-ul">
+<li><a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/problemas-lisp/L-99_Ninety-Nine_Lisp_Problems.html">L-99: Ninety-Nine Lisp Problems</a></li>
+<li><a href="https://cells-gtk.common-lisp.dev/cgtk-primer.html">https://cells-gtk.common-lisp.dev/cgtk-primer.html</a></li>
+<li><a href="https://nullprogram.com/blog/2013/06/10/">https://nullprogram.com/blog/2013/06/10/</a> (WebGPU is the successor to WebGL).</li>
+<li><a href="https://github.com/byulparan/websocket-demo">GitHub - byulparan/websocket-demo: websocket/webgl demo in CommonLisp</a></li>
 <li><a href="https://www.cs.cmu.edu/Groups/AI/html/faqs/lang/lisp/">https://www.cs.cmu.edu/Groups/AI/html/faqs/lang/lisp/</a></li>
 <li><a href="https://gitlab.com/duncan-bayne/heroku-app-clozure-common-lisp">Duncan Bayne / heroku-app-clozure-common-lisp · GitLab</a>.
 Used as a base template. Hence the AGPL License on my own derived work.</li>
@@ -1054,16 +1047,11 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 <h2 id="Development-Operations"><span class="section-number-2">5.</span> Development Operations</h2>
 <div class="outline-text-2" id="text-Development-Operations">
 <p>
-Notes on project infrastructure.
-</p>
-
-<p>
 Follow industry best practice in <a href="https://www.redhat.com/en/topics/devops/what-is-ci-cd">automating part of development operations.</a> In
 the context of this project, CI/CD is done on the Github Actions platform.
-Cheers to Microsoft for allowing unlimited build limits for open source
-projects! In the following breakdown, I explain how to run the steps on the
-local machine. The result of automating all 3 subheading tasks &#x2013; executing
-arbitrary code on Microsoft's servers &#x2013; can be found in <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml</a>
+Cheers to Github for allowing unlimited build limits for open source projects!
+In the following breakdown, I explain how to run the steps on the local machine.
+The result of automating all 3 subheading tasks can be found in <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml</a>
 </p>
 </div>
 
@@ -1329,9 +1317,15 @@ Github release interface.</a> This is done as the final step of <a href="https:/
 
 <div class="org-src-container">
 <pre class="src src-sh">$ cd ~/quicklisp/local-projects/project-isidore/bin/
-$ sbcl --dynamic-space-size <span class="org-highlight-numbers-number">2048</span> --load make.lisp
+$ sbcl --dynamic-space-size <span class="org-highlight-numbers-number">512</span> --load make.lisp
 </pre>
 </div>
+
+<p>
+Lisp being amenable to image based development means an executable binary in
+the Lisp world saves the entire global state (the stack is unwound), libraries
+and SBCL runtime included.
+</p>
 </div>
 </div>
 
@@ -1339,91 +1333,62 @@ $ sbcl --dynamic-space-size <span class="org-highlight-numbers-number">2048</spa
 <h3 id="org05d9781"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
-Build a <a href="https://opencontainers.org/">container</a> image to easily deploy said executable binary on Heroku's AWS
-servers, making it accessible from the World Wide Web. The typical analogy I
-have heard to explain Docker containers is to compare them to an intermodal
-shipping container. It makes deployment of software much easier when the
-abstraction level goes as close as possible to the hardware. Heroku takes care
-of that for us. Lovely. This is done as the final step in <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml.</a>
+Build a <a href="https://opencontainers.org/">container</a> image to easily deploy said executable binary on servers,
+making it accessible from the World Wide Web. No matter how you deploy, you will
+need a domain name. Cloudflare offers at-cost pricing for domain registration.
 </p>
 
 <p>
-If you are not deploying on a Platform-as-a-Service but rather on-premises or on
-Infrastructure-as-a-Service, lispers in the past have NGINX as a reverse proxy
-in front of Hunchentoot. However I use Cloudflare's free tier instead, which
-uses the same underlying technology but also acts as a Content Delivery Network.
+If you are deploying on-premises or on a virtual private server (VPS), lispers
+in the past have NGINX as a reverse proxy in front of Hunchentoot to cache
+static content. Hunchentoot is after all a thread-per-request server, and
+expensive lisp threads would be quite wasteful to spend on static content.
+However I use Cloudflare's free tier instead, which uses the same underlying
+technology but also acts as a Content Delivery Network (CDN) for said static
+content. <a href="https://developers.cloudflare.com/cache/about/default-cache-behavior#default-cached-file-extensions">Not all static assets are automatically cached.</a> To follow the <a href="https://support.cloudflare.com/hc/en-us/articles/360021023712-Best-Practices-Speed-up-your-Site-with-Custom-Caching-via-Cloudflare-Page-Rules">best
+practices</a> documented, we can cache the static anonymous HTML that is generated
+by our org blog.
 </p>
 
 <p>
-Cloudflare as a company is a breath of fresh air. Despite their very generous
-free tier, by default you are unsubscribed from marketing/promotional emails,
-they offer at-cost pricing for domain registration and have taken a well
-publicized stance against patent trolls. I also have my fair share of
-compliments for Heroku, a subsidiary of Cloudflare, and how easy it is to deploy
-on their platform.
+In partnership with Cloudflare we use <a href="https://fly.io">Fly.io.</a> In exchange for placing our
+executable binary inside a Docker container image, Fly.io will turn it into a
+lightweight virtual machine (VM) through <a href="https://firecracker-microvm.github.io/">Amazon Firecracker</a> and run it on their
+servers. Lovely. Fly.io differs from VPS providers like Hetzner by offering
+optional prepaid usage based pricing over contract based pricing. What tips the
+balance in their favour is the awesome team (<a href="https://fly.io/blog/">great technical blog posts</a>) and the
+generous free monthly allowance. It makes hobby projects affordable to host and
+expand. I'm very impressed, go give them a try, and no, I have no affiliation
+with them other than that of a happy customer.
 </p>
 
 <p>
-Github and Heroku make for an appropriate abstraction for the level we're
-working at. It simplifies the process of moving development code to production
-code to
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">git push origin/master
-</pre>
-</div>
-
-<p>
-For the uninitiated, in order to further enhance developer experience in Emacs,
-an excellent git porcelain (with spacemacs layer integration) is <a href="https://magit.vc">Magit.</a> This,
-paired with [<a href="#chaconProGit2014">1</a>], takes care of your version control needs.
+The typical analogy I have heard to explain Docker containers is to compare them
+to an intermodal shipping container. Can you imagine shipping transatlantic
+cargo without standardized containers? It makes deployment of software much
+easier when the abstraction level goes as close as possible to the hardware.
+Like their metal counterparts, a software container image can be compared to a
+process with constraints placed by the kernel (the captain goes down with his
+ship) with an isolated filesystem that may have some holes poked through (though
+I'm sure modern shipping containers are considerably more rust-proof).
 </p>
 
 <p>
-Make sure the project is on <a href="https://git-scm.com/">git version control.</a> <a href="https://devcenter.heroku.com/articles/heroku-cli">Install Heroku CLI.</a>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-bash">git clone https://github.com/HanshenWang/project-isidore
-heroku container:login
-heroku create
-heroku stack:set container
-<span class="org-comment-delimiter"># </span><span class="org-comment">Uses /project-isidore/Dockerfile as the receipe.</span>
-heroku container:push web
-heroku container:release web
-</pre>
-</div>
-
-<p>
-You can visit your application at the provided project-name.herokuapp.com
-address. To add a custom domain, see the <a href="https://devcenter.heroku.com/articles/custom-domains">Heroku documentation on custom
-domain names for apps.</a> Said documentation also links to a Cloudflare document
-on enabling SSL for your website. Cloudflare also acts as a CDN, but know
-that <a href="https://developers.cloudflare.com/cache/about/default-cache-behavior#default-cached-file-extensions">not all static assets are automatically cached.</a> To follow the <a href="https://support.cloudflare.com/hc/en-us/articles/360021023712-Best-Practices-Speed-up-your-Site-with-Custom-Caching-via-Cloudflare-Page-Rules">best
-practices</a> documented, we can cache the static anonymous HTML that is
-generated by our org blog.
+Github and Fly.io are well integrated. It simplifies the process of moving
+development code to production code to <code>git push origin/master</code>. This is done in
+<a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml.</a> For the uninitiated, in order to further enhance developer experience
+in Emacs, an excellent git porcelain (with spacemacs layer integration) is
+<a href="https://magit.vc">Magit.</a> This, paired with [<a href="#chaconProGit2014">1</a>], takes care of your version
+control needs.
 </p>
 
 <p>
 This website can be visited at:
 </p>
 <ul class="org-ul">
-<li>hanshenwang.com</li>
-<li>project-isidore.herokuapp.com</li>
+<li><a href="https://www.hanshenwang.com">https://www.hanshenwang.com</a></li>
+<li><a href="https://project-isidore.fly.dev">https://project-isidore.fly.dev</a></li>
 </ul>
-
-<p>
-Heroku free tier limitation means free dynos can go to sleep after a period
-of inactivity . This means visitors to our application will experience
-significant delay. To avoid this, two options exist. Heroku's free tier is
-generous even considering vendor lock-in. Should resources be available,
-upgrade to a hobby tier dyno to avoid sleeping. Alternatively, use
-<a href="https://uptimerobot.com">https://uptimerobot.com</a> to ping your server every 20 minutes and to email
-notifications in cases of downtime. SBCL produces binaries with very fast
-startup times too, so the wake-up time is tolerable. Beware that this may
-affect search engines trying to crawl your website.
-</p>
 
 <p>
 With how simple the application and dependencies currently are, it's arguable if
@@ -1431,19 +1396,6 @@ a Dockerfile (aka a 16 line shell script) is even needed. Using Common Lisp on
 Heroku necessitates a custom buildpack (aka a 100 line shell script) anyways,
 and this was exactly the approach taken until <a href="https://github.com/HanshenWang/project-isidore/commit/603da4f0ab28c7e15a1811b96a0640d6ecba0a2a">commit 603da4f.</a>
 </p>
-</div>
-
-<div id="outline-container-orgbc34893" class="outline-4">
-<h4 id="orgbc34893"><span class="section-number-4">5.3.1.</span> Building the Dockerfile</h4>
-<div class="outline-text-4" id="text-5-3-1">
-<div class="org-src-container">
-<pre class="src src-sh">sudo dockerd
-docker build -t project-isidore-image .
-docker run -p <span class="org-highlight-numbers-number">8080:8080</span> project-isidore-image
-sudo pkill -9 dockerd
-</pre>
-</div>
-</div>
 </div>
 </div>
 
@@ -1473,9 +1425,9 @@ I originally spent some time seeing if there was a convenient way to hide
 blog, and what seemed like a minor annoyance at first proved useful when setting
 up Cloudflare page rules; it took one rule to tell Cloudflare to cache all URL's
 ending in <code>.html</code>. They have a very reasonable usage policy for their CDN (<a href="https://www.cloudflare.com/en-ca/terms/">see
-section 2.8 of their EULA</a>). Heroku deserves applause in tandem, for their soft
-capped network egress limit of 2TB. Thank you to abuse-prevention teams in both
-these companies! It makes the homegrown part of the internet possible.
+section 2.8 of their EULA</a>). Fly.io deserves applause in tandem, for their 100GB
+free data egress. Thank you to abuse-prevention teams in both these companies!
+It makes the homegrown part of the internet possible.
 </p>
 
 <p>
@@ -1622,10 +1574,11 @@ For my future self, see also <code>sudo apt install apache2-utils</code> and <a 
 <h2 id="Data-Persistence"><span class="section-number-2">6.</span> Data Persistence</h2>
 <div class="outline-text-2" id="text-Data-Persistence">
 <p>
-Project Isidore's solution is split two-fold. Operations that require writes or
-that would require a client-server architecture is served by the
-industry-standard Relational DataBase Management System (RDBMS) PostgreSQL.
-Read-only data is stored by the object prevalence model library BKNR.Datastore.
+Project Isidore uses <a href="https://www.sqlite.org/whentouse.html">an embedded database</a> (Rucksack) over more typical
+client-server RDBMS's such as PostgreSQL. Extremely heavy read-heavy data or
+whatever data that ought to be cached are stored by the in-memory object
+prevalence model (BKNR.Datastore). <a href="https://blog.wesleyac.com/posts/consider-sqlite">Moore's law has brought us significant
+improvements,</a> and as a result SQLite is a viable choice for this application.
 </p>
 </div>
 
@@ -1633,10 +1586,11 @@ Read-only data is stored by the object prevalence model library BKNR.Datastore.
 <h3 id="PostgreSQL"><span class="section-number-3">6.1.</span> PostgreSQL</h3>
 <div class="outline-text-3" id="text-PostgreSQL">
 <p>
-All of Lisp's homoiconic syntax aside, to create data that will persist after
-the program is shut down is a useful things to do. We cannot write to a file as
-<a href="https://devcenter.heroku.com/articles/dynos#ephemeral-filesystem">Heroku has an ephemeral filesystem.</a> This rules out Sqlite3, and forces us to a
-client-server model.
+This section is now outdated. I implemented a trivial PostgreSQL mailing list
+but running what amounts to your own mail server that does not have its messages
+marked by the big email providers as spam is most definitely non-trivial. As of
+<a href="https://github.com/HanshenWang/project-isidore/commit/7a4fc5dce7c489e7ba07a6e5d7c3c7cc491fa000">commit 7a4fc5d,</a> I have switched to <a href="https://mailchimp.com/pricing/marketing/">Mailchimp.</a> On production instances, there's a
+savings of 138MB-92.8MB=45.2MB RAM.
 </p>
 
 <p>
@@ -1743,15 +1697,14 @@ Memory-Centric Data Management A Monash Information Services White Paper by Curt
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text">PROJECT-ISIDORE/VIEWS&gt; (time (get-bible-text1 24))
+<pre class="src src-text">PROJECT-ISIDORE/VIEWS&gt; (time (get-bible-text 23))
 Evaluation took:
   0.000 seconds of real time
-  0.001632 seconds of total run time (0.001632 user, 0.000000 system)
+  0.000098 seconds of total run time (0.000095 user, 0.000003 system)
   100.00% CPU
-  4,059,510 processor cycles
-  2,638,816 bytes consed
+  228,122 processor cycles
+  0 bytes consed
 
-;; BKNR.Datastore index starts at 0.
 PROJECT-ISIDORE/VIEWS&gt; (time (get-bible-text 23))
 Evaluation took:
   0.000 seconds of real time
@@ -1762,12 +1715,11 @@ Evaluation took:
 
 PROJECT-ISIDORE/VIEWS&gt; (time (bible-page "1-1-1-2-2-2"))
 Evaluation took:
-  11.260 seconds of real time
-  10.095437 seconds of total run time (7.650386 user, 2.445051 system)
-  [ Run times consist of 1.531 seconds GC time, and 8.565 seconds non-GC time. ]
-  89.65% CPU
-  28,126,150,785 processor cycles
-  12,443,308,352 bytes consed
+  0.330 seconds of real time
+  0.328973 seconds of total run time (0.328973 user, 0.000000 system)
+  99.70% CPU
+  821,152,853 processor cycles
+  30,101,264 bytes consed
 
 PROJECT-ISIDORE/VIEWS&gt; (time (bible-page "1-1-1-2-2-2"))
 Evaluation took:
@@ -1780,12 +1732,12 @@ Evaluation took:
 
 PROJECT-ISIDORE/VIEWS&gt; (time (bible-page "1-1-1-73-22-21"))
 Evaluation took:
-  252.620 seconds of real time
-  225.415922 seconds of total run time (173.072441 user, 52.343481 system)
-  [ Run times consist of 33.043 seconds GC time, and 192.373 seconds non-GC time. ]
-  89.23% CPU
-  630,541,375,724 processor cycles
-  285,064,582,544 bytes consed
+  8.990 seconds of real time
+  8.998338 seconds of total run time (8.102798 user, 0.895540 system)
+  [ Run times consist of 0.077 seconds GC time, and 8.922 seconds non-GC time. ]
+  100.09% CPU
+  22,446,254,265 processor cycles
+  796,903,104 bytes consed
 
 PROJECT-ISIDORE/VIEWS&gt; (time (bible-page "1-1-1-73-22-21"))
 Evaluation took:
@@ -2153,7 +2105,7 @@ system, I would try a library like <a href="https://gitlab.common-lisp.net/dkoch
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Includes COMMON LISP USER package symbols as defined in the Hyperspec.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:profile-call-counts <span class="org-string">"CL-USER"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Profile and output both graph and flat formats.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">sb-sprof:with-profiling</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> <span class="org-highlight-numbers-number">5000</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:with-profiling <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> <span class="org-highlight-numbers-number">5000</span>
                           <span class="org-builtin">:report</span> <span class="org-builtin">:graph</span>
                           <span class="org-builtin">:loop</span> t
                           <span class="org-builtin">:show-progress</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
@@ -2482,22 +2434,6 @@ have to manually execute the unsigned binaries. Please see
 </p>
 
 <p>
-When running the Windows binary you may run into an error similar to,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-text">("libcrypto-1_1-x64.dll" "libeay32.dll") [Condition of type CFFI:LOAD-FOREIGN-LIBRARY-ERROR]
-</pre>
-</div>
-
-<p>
-Project Isidore uses the <a href="https://common-lisp.net/project/cl-plus-ssl/">cl+ssl</a> library which in turn requires OpenSSL as a
-dependency if the web server is to send HTTPS requests. Hit <code>0</code> to continue twice
-and the application will proceed as normal. Firewall network exceptions need not
-be granted if the application is to be used locally.
-</p>
-
-<p>
 An audit of the source code can be done at any time. Please see the <a href="#Introduction">source
 repository</a> as well as the <a href="#Libraries-System-dependencies">third party dependencies.</a>
 </p>
@@ -2685,18 +2621,20 @@ using NextJS. <a href="0401bc27-686c-4276-a46d-6d95f05dce56">See also MEAN stack
 </p>
 
 <p>
-Credit must be given where credit is due.
+Credit must be given where credit is due. This website would not be possible
+without,
 </p>
 
-<p>
-Thank you,
-</p>
 <ul class="org-ul">
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
 <li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
-<li>Github, Heroku, Cloudflare, Sourceforge</li>
+<li>Cloudflare, Fly.io and Github.</li>
 </ul>
+
+<p>
+Thank you!
+</p>
 </div>
 </div>
 <div id="bibliography">
