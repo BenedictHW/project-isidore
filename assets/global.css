@@ -1,41 +1,41 @@
 @font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/cinzel-v11-latin-regular.woff2') format('woff2'); }
 .header-fixed  { position:  relative; left:  0; top:  0; z-index:  1; width:  100%; margin:  0; background-color:  #FDF6E3; }
-.navbar  { display:  flex; justify-content:  space-between; align-items: 
+.navbar  { display:  flex; justify-content:  space-between; align-items:
      center; color:  #fff; line-height:  60px; }
 .navbar .logo  { flex:  3; }
-.navbar .logo a  { display:  block; margin-left:  10%; font-size:  22px; font-family:  'Cinzel'; font-weight:  400; color:  #000; text-decoration: 
+.navbar .logo a  { display:  block; margin-left:  10%; font-size:  22px; font-family:  'Cinzel'; font-weight:  400; color:  #000; text-decoration:
      none; }
 .navbar .logo a:hover  { color:  #777777; }
 .navbar nav  { flex:  8; }
 .navbar label  { user-select:  none; cursor:  pointer; padding:  28px
      20px; position:  relative; z-index:  3; }
-.navbar label i  { height:  2px; position:  relative; transition: 
-     background .2s ease-out; width:  18px; font-style:  normal; font-weight: 
+.navbar label i  { height:  2px; position:  relative; transition:
+     background .2s ease-out; width:  18px; font-style:  normal; font-weight:
      normal; }
-.navbar label i:before, .navbar label i:after  { content:  ''; height: 
+.navbar label i:before, .navbar label i:after  { content:  ''; height:
      100%; position:  absolute; transition:  all .2s ease-out; width:  100%; }
 .navbar label i, .navbar label i:before, .navbar label i:after  { display:  block; background:  black; }
 .navbar label i:before  { top:  5px; }
 .navbar label i:after  { top:  -5px; }
 .navbar #navbar-toggle  { display:  none; }
-.header #navbar-toggle:checked ~ .menu  { visibility:  visible; opacity: 
+.header #navbar-toggle:checked ~ .menu  { visibility:  visible; opacity:
      0.99; }
 .header #navbar-toggle:checked ~ label  { background:  gray; border-radius:  50%; }
 .header #navbar-toggle:checked ~ label i  { background:  transparent; }
-.header #navbar-toggle:checked ~ label i:before  { transform: 
+.header #navbar-toggle:checked ~ label i:before  { transform:
      rotate(-45deg); }
-.header #navbar-toggle:checked ~ label i:after  { transform: 
+.header #navbar-toggle:checked ~ label i:after  { transform:
      rotate(45deg); }
 .header #navbar-toggle:checked ~ label:not(.steps) i:before, .header
      #navbar-toggle:checked ~ label:not(.steps) i:after  { top:  0; }
-@media (max-width: 768px)  { .navbar nav  { visibility:  hidden; opacity:  0; z-index:  2; position: 
-      fixed; top:  0px; left:  0px; width:  100%; height:  100%; transition: 
-      all 0.3s ease-out; display:  table; background:  #f5deb3; } .navbar nav ul  { margin:  0; padding:  20px 0; display:  table-cell; vertical-align:  middle; } .navbar nav li  { display:  block; text-align:  center; padding:  20px 0; text-align:  center; font-size:  50px; min-height:  50px; font-weight: 
+@media (max-width: 768px)  { .navbar nav  { visibility:  hidden; opacity:  0; z-index:  2; position:
+      fixed; top:  0px; left:  0px; width:  100%; height:  100%; transition:
+      all 0.3s ease-out; display:  table; background:  #f5deb3; } .navbar nav ul  { margin:  0; padding:  20px 0; display:  table-cell; vertical-align:  middle; } .navbar nav li  { display:  block; text-align:  center; padding:  20px 0; text-align:  center; font-size:  50px; min-height:  50px; font-weight:
       bold; cursor:  pointer; transition:  all 0.3s ease-out; } .navbar nav li:hover  { background:  #FDF6E3; } .navbar nav li:hover a  { color:  brown; transition:  all 0.3s ease-out; } .navbar nav li a  { font-family:  'Cinzel', 'Times New Roman', serif; color:  #212121; } }
-@media (min-width: 768px)  { .navbar nav ul  { margin:  0; padding:  0; display:  flex; justify-content:  space-around; text-align:  center; list-style:  none; } .navbar nav li  { flex:  1; } .navbar nav li a  { display:  block; padding:  0 8px; font-size:  16px; font-weight:  400; font-family:  'Cinzel'; line-height:  60px; color: 
+@media (min-width: 768px)  { .navbar nav ul  { margin:  0; padding:  0; display:  flex; justify-content:  space-around; text-align:  center; list-style:  none; } .navbar nav li  { flex:  1; } .navbar nav li a  { display:  block; padding:  0 8px; font-size:  16px; font-weight:  400; font-family:  'Cinzel'; line-height:  60px; color:
       #000; text-decoration:  none; } .navbar nav li.active  { background:  #555; } .navbar nav li:hover  { background:  #EEE8D5; } .navbar label  { display:  none; } }
 html { background-color:  #FDF6E3; }
-body  { width:  95%; margin:  2% auto; font-size:  14px; line-height: 
+body  { width:  95%; margin:  2% auto; font-size:  14px; line-height:
      1.4em; font-family:  'Times New Roman', serif; font-weight:  400; color:  #333; }
 @media screen and (min-width: 600px)  { body  { font-size:  18px; } }
 @media screen and (min-width: 910px)  { body  { width:  900px; } }
@@ -47,7 +47,7 @@ dl  { margin:  0 auto; }
 .title  { text-align:  center; margin:  0.8em auto; color:  black; font-family: 'Cinzel'; font-weight:  400; }
 .subtitle  { text-align:  center; font-size:  1.5em; line-height:  1.4; font-weight:  bold; margin:  1em auto; }
 .updated  { text-align:  center; }
-.abstract  { text-align:  center; margin:  auto; width:  80%; font-style: 
+.abstract  { text-align:  center; margin:  auto; width:  80%; font-style:
      italic; }
 .abstract p:last-of-type:before  { content:  "    "; white-space:  pre; }
 .status  { font-size:  90%; margin:  2em auto; }
@@ -62,7 +62,7 @@ a:hover  { color:  #003355; border-bottom:  1px dotted; }
 figure  { padding:  0px; margin:  1em auto; text-align:  center; }
 img  { max-width:  100%; vertical-align:  middle; }
 .MathJax_Display  { margin:  0!important; width:  90%!important; }
-h1,h2,h3,h4,h5,h6  { color:  #A5573E; line-height:  1em; font-weight: 
+h1,h2,h3,h4,h5,h6  { color:  #A5573E; line-height:  1em; font-weight:
      400; font-family:  'Arial', non-serif; }
 h2 a  { color:  #A5573E; }
 h3 a  { color:  #A5573E; }
@@ -97,27 +97,27 @@ kbd  { background-color:  #f7f7f7; font-size:  80%; margin:  0 .1em; padding:  .
 .priority  { color:  orange; font-family:  'Courier New', monospace; }
 #table-of-contents li  { clear:  both; }
 .tag  { font-family:  'Courier New', monospace; font-size:  0.7em; font-weight:  normal; }
-.tag span  { padding:  0.3em 0.3em; float:  right; margin-right:  .5em; border:  1px solid #bbb; border-radius:  3px; background-clip: 
+.tag span  { padding:  0.3em 0.3em; float:  right; margin-right:  .5em; border:  1px solid #bbb; border-radius:  3px; background-clip:
      padding-box; color:  #333; background-color:  #eee; line-height:  1; }
 .timestamp  { color:  #333; font-size:  90%; }
 .timestamp-kwd  { color:  #5f9ea0; }
 .org-right  { margin-left:  auto; margin-right:  0px; text-align:  right; }
 .org-left  { margin-left:  0px; margin-right:  auto; text-align:  left; }
-.org-center  { margin-left:  auto; margin-right:  auto; text-align: 
+.org-center  { margin-left:  auto; margin-right:  auto; text-align:
      center; }
 .underline  { text-decoration:  underline; }
 #postamble p, #preamble p  { font-size:  90%; margin:  .2em; }
 .copyright-container  { display:  flex; justify-content:  space-between; align-items:  center; flex-wrap:  wrap; padding:  0.4ex 1em; }
-.generated  { font-family:  'Courier New', monospace; text-align: 
+.generated  { font-family:  'Courier New', monospace; text-align:
      center; }
 p.verse  { margin-left:  3%; }
 :not(pre) > code  { padding:  2px 5px; margin:  auto 1px; border:  1px
      solid #DDD; border-radius:  3px; background-clip:  padding-box; background-color: #F5F5F5; color:  #333; font-size:  80%; }
 .org-src-container  { border:  1px solid #ccc; box-shadow:  3px 3px 3px
-     #eee; background-color: #F5E8C4; font-family:  'Courier New', monospace; font-size:  80%; margin:  1em auto; padding:  0.1em 0.5em; position: 
+     #eee; background-color: #F5E8C4; font-family:  'Courier New', monospace; font-size:  80%; margin:  1em auto; padding:  0.1em 0.5em; position:
      relative; }
 .org-src-container>pre  { overflow:  auto; }
-.org-src-container>pre:before  { display:  block; position:  absolute; background-color:  #b3b3b3; top:  0; right:  0; padding:  0 0.5em; border-bottom-left-radius:  8px; border:  0; color:  white; font-size: 
+.org-src-container>pre:before  { display:  block; position:  absolute; background-color:  #b3b3b3; top:  0; right:  0; padding:  0 0.5em; border-bottom-left-radius:  8px; border:  0; color:  white; font-size:
      80%; }
 .org-src-container>pre.src-sh:before  { content:  'sh'; }
 .org-src-container>pre.src-bash:before  { content:  'bash'; }
@@ -189,9 +189,9 @@ p.verse  { margin-left:  3%; }
 .org-src-container>pre.src-Translate translate:before  { content:  'Google'; }
 .org-src-container>pre.src-typescript:before  { content:  'Typescript'; }
 .org-src-container>pre.src-rust:before  { content:  'Rust'; }
-.inlinetask  { background:  #ffffcc; border:  2px solid gray; margin: 
+.inlinetask  { background:  #ffffcc; border:  2px solid gray; margin:
      10px; padding:  10px; }
-#org-div-home-and-up  { font-size:  70%; text-align:  right; white-space: 
+#org-div-home-and-up  { font-size:  70%; text-align:  right; white-space:
      nowrap; }
 .linenr  { font-size:  90%; }
 .code-highlighted  { background-color:  #ffff00; }

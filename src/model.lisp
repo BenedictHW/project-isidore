@@ -367,3 +367,148 @@ Bible unique ID's and a relevance score "
                                (push (cons doc score) results))
                            options)
     (nreverse results)))
+
+;; Montezuma index starts from 0. If we initialize `*unique-id*' to zero, our
+;; rucksack index will begin at 1.
+(defvar *unique-id* -1)
+(defmethod initialize-instance :after ((obj bible) &key)
+  (setf (slot-value obj 'unique-id) (incf *unique-id*)))
+
+(defun create-bible (heading text)
+  "Helper function for class `bible'. Creates an instance of object `bible' with
+the required parameters. See `parse-org-bible' for usage."
+  (rs:with-transaction ()
+    (make-instance 'bible :heading heading
+                          :text text)))
+
+
+(defun create-footnote (bible-uid text)
+  (rs:with-transaction ()
+    (rs:rucksack-map-slot rs:*rucksack* 'bible 'unique-id
+                          (lambda (obj)
+                            (setf (slot-value obj 'project-isidore/model::footnotes) text))
+                          :equal bible-uid)))
+
+(defun create-cross-reference (bible-uid text)
+  (rs:with-transaction ()
+    (rs:rucksack-map-slot rs:*rucksack* 'bible 'unique-id
+                          (lambda (obj)
+                            (setf (slot-value obj 'project-isidore/model::cross-references) text))
+                          :equal bible-uid)))
+
+
+(defun import-bible-text (file)
+  "Process USFM text to CLOS slots depending on markup tags."
+  ;; FIXME There are two Genesis fr 1:1. The later one replaces the earlier.
+  (let ((book) (chapter) (verse))
+    (loop for line in (uiop:read-file-lines file)
+          do (cond
+               ;; Book main title.
+               ((string-equal "\\h" (car (ppcre:split " " line)))
+                (setf book (bible-book-convert-dwim (ppcre:regex-replace-all "\\\\h " line ""))))
+
+               ;; Book description.
+               ((string-equal "\\im" (car (ppcre:split " " line)))
+                ;; Book descriptions are filed under verse and chapter number 0
+                ;; as text.
+                (create-bible (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK PROJECT-ISIDORE/MODEL::CHAPTER PROJECT-ISIDORE/MODEL::VERSE) (list book 0 0)))
+                              (ppcre:regex-replace-all "\\\\im " line "")))
+
+               ;; Main title.
+               ((string-equal "\\mt1" (car (ppcre:split " " line)))
+                (setf book (bible-book-convert-dwim (ppcre:regex-replace-all "\\\\mt1 " line ""))))
+
+               ;; Chapter line.
+               ((string-equal "\\cl" (car (ppcre:split " " line)))
+                ;; Special case for Psalm 9. and Sirach prologue.
+                (unless (or (ppcre:all-matches "THE PROLOGUE" line)
+                            (ppcre:all-matches "Psalm x. according to the Hebrews" line))
+                  (setf chapter (parse-integer (car (last (ppcre:split " " line)))))))
+
+               ;; Chapter description.
+               ((string-equal "\\cd" (car (ppcre:split " " line)))
+                ;; Chapter descriptions are filed under verse number 0 as text.
+                (create-bible (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK PROJECT-ISIDORE/MODEL::CHAPTER PROJECT-ISIDORE/MODEL::VERSE) (list book chapter 0)))
+                              (ppcre:regex-replace-all "\\\\cd " line "")))
+
+               ;; Verse.
+               ((string-equal "\\v" (car (ppcre:split " " line)))
+                (progn
+                  (ppcre:do-matches-as-strings (match "\\\\v [0-9]{1,3}" line) (setf verse (parse-integer (car (last (ppcre:split " " match))))))
+                  (create-bible (nreverse (pairlis '(PROJECT-ISIDORE/MODEL::BOOK PROJECT-ISIDORE/MODEL::CHAPTER PROJECT-ISIDORE/MODEL::VERSE) (list book chapter verse))) (ppcre:regex-replace-all "\\\\v [0-9]{1,3} " line ""))))))))
+
+(defun import-bible-footnotes (file)
+  (let ((book) (chapter) (verse) (text))
+    (loop for line in (uiop:read-file-lines file)
+          do (cond
+               ;; Main title.
+               ((string-equal "\\mt1" (car (ppcre:split " " line)))
+                (setf book (bible-book-convert-dwim (ppcre:regex-replace-all "\\\\mt1 " line ""))))
+
+               ;; Footnote.
+               ((string-equal "\\f" (car (ppcre:split " " line)))
+                (ppcre:do-matches-as-strings (match "\\\\fr [0-9]{1,3}:[0-9]{1,3}" line)
+                  (progn
+                    (setf chapter (parse-integer (car (cl-ppcre:split ":" (car (last (ppcre:split " " match)))))))
+                    (setf verse (parse-integer (cadr (cl-ppcre:split ":" (car (last (ppcre:split " " match)))))))
+                    (setf text (ppcre:regex-replace-all "\\\\f \\+ \\\\fr [0-9]{1,3}:[0-9]{1,3}\\ ?\\\\ft " line ""))
+                    (setf text (ppcre:regex-replace-all "\\\\f\\*" text ""))
+                    ;; If there happen to be two footnotes for 1 verse.
+                    ;; Ex. Genesis 1:1 has "Year of the World" type annotations.
+                    (if (slot-boundp (bible-obj-with-id (get-bible-uid book chapter verse)) 'footnotes)
+                        ;; Append to existing text.
+                        (create-footnote (get-bible-uid book chapter verse)
+                                         (concatenate 'string (footnotes-of (bible-obj-with-id (get-bible-uid book chapter verse))) " " text))
+                        (create-footnote (get-bible-uid book chapter verse) text))
+                    (setf text nil))))
+
+               ;; Cross-reference.
+               ((string-equal "\\x" (car (ppcre:split " " line)))
+                (ppcre:do-matches-as-strings (match "\\\\xo [0-9]{1,3}:[0-9]{1,3}" line)
+                  (progn
+                    (setf chapter (parse-integer (car (cl-ppcre:split ":" (car (last (ppcre:split " " match)))))))
+                    (setf verse (parse-integer (cadr (cl-ppcre:split ":" (car (last (ppcre:split " " match)))))))
+                    (setf text (ppcre:regex-replace-all "\\\\x \\+ \\\\xo [0-9]{1,3}:[0-9]{1,3}\\ ?\\\\xt " line ""))
+                    (setf text (ppcre:regex-replace-all "\\\\x\\*" text ""))
+                    (create-cross-reference (get-bible-uid book chapter verse) text)
+                    (setf text nil))))))))
+
+(defun create-search-index ()
+  "Run this after `migrate-data'.
+
+Montezuma index will have same indices as Rucksack class object
+bible. Therefore double check that `get-bible-uid' bible-uid and
+`montezuma:get-document *search-index*' bible-uid return the same values
+for the same input bible-uid. x = bible-uid.
+
+DO NOT CALL
+(montezuma:optimize *search-index*) as this will cause the tokens stored in
+project-isidore/data/index/ to be over 100 megabytes, the current hard
+limit to Microsoft's Github platform."
+  ;; The document fields are short so as to make end-user querying more
+  ;; efficient.
+  (loop for x from 0 to 37198
+        do (montezuma:add-document-to-index
+            *search-index* `(;; Book.
+                             ("b" . , (bible-book-convert-dwim (cdar (heading-of (bible-obj-with-id x)))))
+                             ;; Chapter.
+                             ("c"  . , (cdadr (heading-of (bible-obj-with-id x))))
+                             ;; Verse.
+                             ("v"  . , (cdaddr (heading-of (bible-obj-with-id x))))
+                             ;; Text.
+                             ("t"  . , (get-bible-text x))
+                             ;; Footnote (Haydock) text.
+                             ("f"  . , (get-footnotes-text x))
+                             ;; Cross references.
+                             ("x"  . , (get-cross-references-text x))))))
+
+(defun migrate-data (source-directory)
+  "Verses must be completely imported before footnotes and cross-references.
+
+Example:
+(migrate-data \"/home/hanshen/project-isidore/data/ENG-B-Haydock1883-pd-PSFM/\") "
+  (progn (loop for book-file in (directory (concatenate 'string source-directory "*.sfm"))
+               do (import-bible-text book-file))
+         (loop for book-file in (directory (concatenate 'string source-directory "*.sfm"))
+               do (import-bible-footnotes book-file))
+         (create-search-index)))

@@ -103,12 +103,15 @@
 ;;; IV. BUILDING
 ;; Load Application into Lisp image.
 (ql:quickload "project-isidore")
+(ql:quickload "clack-handler-hunchentoot")
+
 
 (format t "~&        ====== Build Successful | Deo Gratias ======~%")
 
 (format t "~&        ====== END OF MAKE.LISP ======~%")
 
 ;; Dump image. For details go to src/project-isidore.asd.
+
 (asdf:make "project-isidore")
 
 ;; SBCL's `save-lisp-and-die' unsurprisingly kills the lisp process at the end.

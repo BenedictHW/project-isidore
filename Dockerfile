@@ -4,6 +4,8 @@ ARG BUILDPACK_DIR=/project-isidore/bin
 ARG BUILD_DIR=/project-isidore
 ARG CACHE_DIR=/pi-build-cache
 ARG QL_DIST_VER=2021-12-30
+RUN apk update && apk upgrade && \
+    apk add --no-cache sqlite-libs
 RUN mkdir -p /project-isidore/bin/lib && \
     wget https://beta.quicklisp.org/quicklisp.lisp \
     -O $BUILDPACK_DIR/lib/quicklisp.lisp

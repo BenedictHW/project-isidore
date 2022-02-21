@@ -3,12 +3,14 @@
 
 (uiop:define-package #:project-isidore/views
   (:use #:common-lisp
-        #:project-isidore/styles
-        #:project-isidore/model)
+        #:project-isidore/model
+        #:clog)
   (:import-from #:cl-who)
   (:import-from #:parenscript)
+  (:import-from #:clog)
   ;; No package local nicknames. See commit 1962a26.
   (:export
+   #:web-page-template #:bible-page-template
    #:index-page #:about-page #:work-page #:contact-page
 
    #:subscribe-page #:subscribe-success-page
@@ -39,7 +41,7 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
-  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
+  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent nil)
      (:html :lang "en"
             (:head
              (:title, title)
@@ -55,75 +57,15 @@ all other web app pages uses this boilerplate."
                          (:label :for "navbar-toggle" (:i))
                          (:nav :class "menu"
                                (:ul
-                                (:li (:a :href "/about" "About"))
-                                (:li (:a :href "/work" "Work"))
+                                (:li (:a :href "/main?page=about" "About"))
+                                (:li (:a :href "/main?page=work" "Work"))
                                 (:li (:a :href "/blog/archive.html" "Blog"))
-                                (:li (:a :href "/contact" "Contact"))))))
+                                (:li (:a :href "/main?page=contact" "Contact"))))))
              (:div :class "main" ,@body)
              (:hr)
              (:footer
               (:div :class "copyright-container"
                     (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
-
-(defun index-page ()
-  (cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
-    (:html :lang "en"
-           (:head
-            (:title "HanshenWang.com")
-            (:meta :charset "utf-8")
-            (:meta :name "viewport"
-                   :content "width=device-width, initial-scale=1")
-            (:style (cl-who:str
-                     (index-css))))
-           (:body
-            (:ul :class "slideshow" ; background CSS3 slideshow
-                 (:li (:span "pic1.webp"))
-                 (:li (:span "pic2.webp"))
-                 (:li (:span "pic3.webp"))
-                 (:li (:span "pic4.webp"))
-                 (:li (:span "pic5.webp"))
-                 (:li (:span "pic6.webp")))
-            (:div :class "container"
-                  (:header
-                   (:div :class "portfolio-container"
-                         (:div :class "portfolio-section"
-                               (:img :src "profile.webp" :alt "Author Profile
-                               Picture"))
-                         (:div :class "portfolio-section"
-                               ;; index.js typewriter effect needs the greeting
-                               ;; to be HTML tag h1.
-                               (:h1 "Hey There!") (:br)
-                               (:h2 "I'm Hanshen.") (:br)
-                               (:h2 "Nice to meet you.")))
-                   (:hr)
-                   (:br)
-                   (:p "Welcome to my personal website! This website was built with"
-                       (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" (cl-who:htm (:s "Next.js and React")))
-                       (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" :rel "noreferrer" " Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for,and may the wind be always at your back.")
-                   (:p :class "portfolio-button"
-                       (:a :href "/about" "About")
-                       (:a :href "/work" "Work")
-                       (:a :href "/blog/archive.html" "Blog")
-                       (:a :href "/contact" "Contact"))))
-            (:script (cl-who:str
-                      ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
-                      (parenscript:ps-inline
-                          ((parenscript:chain ps-dom2-symbols:document
-                                              (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
-                                                                                  (lambda (event)
-                                                                                    (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                                                                                    (defun type-writer(text i fn-callback)
-                                                                                      (cond ((< i (length text))
-                                                                                             (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                                                                             (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                                                                            ((equal (parenscript:typeof fn-callback) "function")
-                                                                                             (ps-window-wd-symbols:set-timeout fn-callback 700))))
-                                                                                    (defun start-text-animation (i)
-                                                                                      (when (equal (parenscript:typeof (aref data-text i)) "undefined")
-                                                                                        (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
-                                                                                      (when (< i (length (aref data-text i)))
-                                                                                        (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                                                                                    (start-text-animation 0))))))))))))
 
 (defun about-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -141,7 +83,8 @@ all other web app pages uses this boilerplate."
     countless graces
     (and temptations, but that's to be expected). So please forgive my
     amateurish writing, for it is my wish that you will take away something of
-    use, and pay it forwards.")))
+    use, and pay it forwards.")
+    ))
 
 (defun work-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -161,7 +104,8 @@ all other web app pages uses this boilerplate."
     (:ul
      (:li (:a :target "_blank" :href "https://github.com/HanshenWang" "Github
      Repositories"))
-     (:li (:a :href "/blog/archive.html" "Collected Notes")))))
+     (:li (:a :href "/blog/archive.html" "Collected Notes")))
+    ))
 
 (defun contact-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -187,7 +131,8 @@ all other web app pages uses this boilerplate."
     (:p "All edits made to an article after the initial publication date can be
     found" (:a :target "_blank"
     :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
-    the version-controlled Github repository ."))))
+    the version-controlled Github repository ."))
+    ))
 
 (defun subscribe-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -216,7 +161,8 @@ all other web app pages uses this boilerplate."
            :target "_blank"
            (:label :for "mce-EMAIL" "Email Address")
            (:input :type "email" :value "" :name "EMAIL" :class "required email" :id "mce-EMAIL" :size "50")
-           (:input :type "submit" :value "Subscribe" :name "subscribe" :id "mc-embedded-subscribe" :class "button"))))
+           (:input :type "submit" :value "Subscribe" :name "subscribe" :id "mc-embedded-subscribe" :class "button"))
+    ))
 
 (defmacro bible-page-template ((&key title) &body body)
   "Template HTML for bible webpages. It removes the top banner navigation
@@ -236,15 +182,52 @@ with my name."
 (defun bible-page (bible-url)
   "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a
   string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
-  (bible-page-template (:title "Tabular Douay Rheims Bible")
-    (:h1 :class "title" "Tabular Douay Rheims Bible")
-    (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
-    (:div :style "overflow:auto"
+  (bible-page-template (:title "1859 Haydock Douay Rheims Bible")
+    (:h1 :class "title" "1859 Haydock Douay Rheims Bible")
+    (:h4 :style "text-align:center;" "Presented in tabular format for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
+    (:div :style "overflow:auto; border:1px solid grey; padding:3px;"
           ;; Present links to all books of the bible.
-          (loop for (link . title) in +bible-book-url-alist+
-                do (cl-who:htm
-                    (:div :style "width:200px;float:left"
-                          (:a :href link (:b (cl-who:str title)))))))
+          (loop for (link . title) in (subseq +bible-book-url-alist+ 0 46)
+                do (cond
+                     ;; The Pentateuch.
+                     ((= 0 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "The Pentateuch"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     ;; Historical.
+                     ((= 5 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Historical"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     ;; Didactic.
+                     ((= 19 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Didactic"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     ;; Prophetical.
+                     ((= 26 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Prophetical"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     (t
+                      (cl-who:htm
+                       (:a :href link (:b (cl-who:str title))))))))
+    (:br)
+    (:div :style "overflow:auto; border:1px solid grey; padding:3px;"
+          ;; Present links to all books of the bible.
+          (loop for (link . title) in (subseq +bible-book-url-alist+ 46 73)
+                do (cond
+                     ;; Historical.
+                     ((= 46 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Historical"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     ;; Didactic.
+                     ((= 51 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Didactic"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     ;; Prophetical.
+                     ((= 72 (position (rassoc title +bible-book-url-alist+ :test #'string-equal) +bible-book-url-alist+))
+                      (progn (cl-who:htm (:h4 "Prophetical"))
+                             (cl-who:htm (:a :href link (:b (cl-who:str title))))))
+                     (t
+                      (cl-who:htm
+                       (:a :href link (:b (cl-who:str title))))))))
     (:br)
     (:div :style "overflow:auto"
           ;; Present links to all chapters of currently selected book.
