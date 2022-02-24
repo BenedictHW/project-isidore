@@ -29,7 +29,7 @@ See VIEWS.LISP for HTML generation. "))
 (defun index-css ()
   ;; When using cl-css, \"~~\" is needed to output a single \"~\", otherwise an
   ;; error will be thrown
-  (cl-css:css
+  (cl-css:inline-css
    `(;; Load fonts.
      ("@font-face"
       :font-family "Cinzel"

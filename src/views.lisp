@@ -9,11 +9,7 @@
         #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
   (:export
-   #:index-page #:about-page #:work-page #:contact-page
-
-   #:subscribe-page #:subscribe-success-page
-   #:unsubscribe-page #:unsubscribe-success-page
-
+   #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
    #:bible-page #:bible-search-page)
   (:documentation
    "Project Isidore Web Page View Generation.
