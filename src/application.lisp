@@ -4,8 +4,8 @@
 (defpackage #:project-isidore/application
   (:use #:common-lisp
         #:project-isidore/views
-        #:project-isidore/model)
-  (:import-from #:hunchentoot)
+        #:project-isidore/model
+        #:hunchentoot)
   ;; No package local nicknames. See commit 1962a26.
   (:export :*acceptor*
            #:initialize-application
@@ -69,22 +69,26 @@ Source code repository: https://github.com/HanshenWang/project-isidore ~% ")
         *database*
         (rs:open-rucksack
          (asdf:system-relative-pathname :project-isidore "data/rucksack/"))
-   ;; Will show backtrace on status code 500 pages.
-   hunchentoot:*show-lisp-errors-p* t
-   hunchentoot:*dispatch-table*
-   `(hunchentoot:dispatch-easy-handlers
-     ;; http://localhost:PORT/example.jpg will dispatched to
-     ;; /project-isidore/assets/example.jpg
-     ;; Requires full system path.
-     ;; /app is the root on a heroku filesystem.
-     ,(hunchentoot:create-folder-dispatcher-and-handler "/" dispatch-folder)))
+        ;; Will show backtrace on status code 500 pages.
+        *show-lisp-errors-p* t
+        ;; Speed up HTML generation.
+        *print-pretty* 'nil
+        spinneret:*suppress-inserted-spaces* t
+        spinneret:*html-style* :tree
+        *dispatch-table*
+        `(dispatch-easy-handlers
+          ;; http://localhost:PORT/example.jpg will dispatched to
+          ;; /project-isidore/assets/example.jpg
+          ;; Requires full system path.
+          ;; /app is the root on a heroku filesystem.
+          ,(create-folder-dispatcher-and-handler "/" dispatch-folder)))
   (unless (equalp *acceptor* nil) ; only true upon first loading
-    (when (hunchentoot:started-p *acceptor*)
+    (when (started-p *acceptor*)
       (return-from initialize-application
         (format t "Server already listening to PORT ~A. Stop server with TERMINATE-APPLICATION" port))))
   (setf *acceptor*
-        (hunchentoot:start
-         (make-instance 'hunchentoot:easy-acceptor
+        (start
+         (make-instance 'easy-acceptor
                         :port port
                         :address "0.0.0.0"
                         :access-log-destination nil)))
@@ -115,14 +119,14 @@ gracefully shut down the web server and exit the lisp process."
        #+allegro excl:interrupt-signal
        () (progn
             (format *error-output* "~%Aborting.~&~%")
-            (hunchentoot:stop *acceptor*)
+            (stop *acceptor*)
             (format t "~%Server successfully stopped.~%")
             (uiop:quit)))
       (error (c) (format t "Whoops, an unknown error occured:~&~a~&" c))))
   (unless (equalp *acceptor* nil) ; only true upon first loading
-    (if (hunchentoot:started-p *acceptor*)
+    (if (started-p *acceptor*)
         (progn
-          (hunchentoot:stop *acceptor*)
+          (stop *acceptor*)
           (format t "~%Server successfully stopped.~%")
           (return-from terminate-application t))))
   (format t "No server running. Start server with INITIALIZE-APPLICATION"))

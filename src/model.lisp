@@ -3,10 +3,9 @@
 
 (uiop:define-package #:project-isidore/model
   (:use #:common-lisp
-        #:project-isidore/data)
-  ;; Embedded Database.
-  (:import-from #:rucksack)
-  ;; Indexing engine library.
+        #:project-isidore/data
+        ;; Embedded Database.
+        #:rucksack)
   (:import-from #:montezuma)
   ;; No package local nicknames. See commit 1962a26.
   (:export
@@ -51,7 +50,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 (in-package #:project-isidore/model)
 
 (defparameter *database*
-  (rs:open-rucksack
+  (open-rucksack
    (asdf:system-relative-pathname :project-isidore "data/rucksack/")))
 
 ;; 37199 (BIBLE-UID range = 0-37198) objects of class bible should exist. If
@@ -59,7 +58,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 ;; (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1 000 000) . The default is
 ;; 100 000.
 
-(rs:with-transaction ()
+(with-transaction ()
   (defclass bible ()
     ((unique-id :initarg :unique-id :reader unique-id-of
                 :type fixnum
@@ -90,7 +89,7 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
                    :documentation
                    "Haydock text of the object instance."))
     (:index t)
-    (:metaclass rs:persistent-class)
+    (:metaclass persistent-class)
     (:documentation
      "Each verse of the Bible is created as an object instance of class `bible',
   each with appropriate text in it's slot. FOOTNOTES however, may be
@@ -105,8 +104,8 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
   Example:
   (get-bible-uid 47 3 6) => 27917
   (get-bible-uid 12983 29394 2938498) => NIL "
-  (rs:with-transaction ()
-    (rs:rucksack-map-class
+  (with-transaction ()
+    (rucksack-map-class
      *database* 'bible (lambda (obj)
                          (if
                           (equalp (list
@@ -120,8 +119,8 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
   "Returns the instance of object class `bible' when BIBLE-UID matches
 UNIQUE-ID. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by
 calling `get-bible-uid'."
-  (rs:with-transaction ()
-    (rs:rucksack-map-slot *database* 'bible 'unique-id
+  (with-transaction ()
+    (rucksack-map-slot *database* 'bible 'unique-id
                           (lambda (obj)
                             (return-from bible-obj-with-id obj))
                           :equal bible-uid)))
