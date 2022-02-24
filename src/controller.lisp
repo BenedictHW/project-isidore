@@ -36,27 +36,34 @@ Persistent CLOS object state equals our datastore in this use case.
 ;;; maps to DOMAINNAME/HOST as such: /about maps to http://localhost:8080/about
 ;;; or https://hanshenwang.com/about
 (hunchentoot:define-easy-handler (root :uri "/") ()
-  (index-page))
+  (with-output-to-string (*standard-output*)
+    (index-page)))
 
 (hunchentoot:define-easy-handler (about :uri "/about") ()
-  (about-page))
+  (with-output-to-string (*standard-output*)
+    (about-page)))
 
 (hunchentoot:define-easy-handler (work :uri "/work") ()
-  (work-page))
+  (with-output-to-string (*standard-output*)
+    (work-page)))
 
 (hunchentoot:define-easy-handler (contact :uri "/contact") ()
-  (contact-page))
+  (with-output-to-string (*standard-output*)
+    (contact-page)))
 
 (hunchentoot:define-easy-handler (subscribe :uri "/subscribe") ()
-  (subscribe-page))
+  (with-output-to-string (*standard-output*)
+    (subscribe-page)))
 
 ;; All state is captured in the URI VERSES.
 (hunchentoot:define-easy-handler (bible :uri "/bible") (verses)
   ;; HTTP response header is needed.
   (setf (hunchentoot:content-type*) "text/html")
   ;; localhost:8080/bible?verses=1-2-3-4-5-6
-  (bible-page verses))
+  (with-output-to-string (*standard-output*)
+    (bible-page verses)))
 
 (hunchentoot:define-easy-handler (bible-search :uri "/bible-search") (query)
   (setf (hunchentoot:content-type*) "text/html")
-  (bible-search-page query))
+  (with-output-to-string (*standard-output*)
+    (bible-search-page query)))

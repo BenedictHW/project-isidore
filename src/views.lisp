@@ -4,9 +4,9 @@
 (uiop:define-package #:project-isidore/views
   (:use #:common-lisp
         #:project-isidore/styles
-        #:project-isidore/model)
-  (:import-from #:cl-who)
-  (:import-from #:parenscript)
+        #:project-isidore/model
+        #:spinneret
+        #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:index-page #:about-page #:work-page #:contact-page
@@ -39,7 +39,7 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
-  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
+  `(with-html
      (:html :lang "en"
             (:head
              (:title, title)
@@ -66,17 +66,17 @@ all other web app pages uses this boilerplate."
                     (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
 
 (defun index-page ()
-  (cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
+  (with-html
     (:html :lang "en"
            (:head
             (:title "HanshenWang.com")
             (:meta :charset "utf-8")
             (:meta :name "viewport"
                    :content "width=device-width, initial-scale=1")
-            (:style (cl-who:str
-                     (index-css))))
+            (:style (:raw (index-css))))
            (:body
-            (:ul :class "slideshow" ; background CSS3 slideshow
+            ;; background CSS3 slideshow
+            (:ul :class "slideshow"
                  (:li (:span "pic1.webp"))
                  (:li (:span "pic2.webp"))
                  (:li (:span "pic3.webp"))
@@ -98,32 +98,31 @@ all other web app pages uses this boilerplate."
                    (:hr)
                    (:br)
                    (:p "Welcome to my personal website! This website was built with"
-                       (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" (cl-who:htm (:s "Next.js and React")))
+                       (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" (:s "Next.js and React"))
                        (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" :rel "noreferrer" " Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for,and may the wind be always at your back.")
                    (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
                        (:a :href "/blog/archive.html" "Blog")
                        (:a :href "/contact" "Contact"))))
-            (:script (cl-who:str
-                      ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
-                      (parenscript:ps-inline
-                          ((parenscript:chain ps-dom2-symbols:document
-                                              (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
-                                                                                  (lambda (event)
-                                                                                    (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                                                                                    (defun type-writer(text i fn-callback)
-                                                                                      (cond ((< i (length text))
-                                                                                             (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                                                                             (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                                                                            ((equal (parenscript:typeof fn-callback) "function")
-                                                                                             (ps-window-wd-symbols:set-timeout fn-callback 700))))
-                                                                                    (defun start-text-animation (i)
-                                                                                      (when (equal (parenscript:typeof (aref data-text i)) "undefined")
-                                                                                        (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
-                                                                                      (when (< i (length (aref data-text i)))
-                                                                                        (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                                                                                    (start-text-animation 0))))))))))))
+            ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
+            (:script
+             (:raw (ps-inline
+                       (chain document (add-event-listener "DOMContentLoaded"
+                         (lambda (event)
+                           (var data-text (array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                           (defun type-writer(text i fn-callback)
+                             (cond ((< i (length text))
+                                    (setf (chain document(query-selector "h1")inner-h-t-m-l) (+(chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                    (set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                   ((equal (typeof fn-callback) "function")
+                                    (set-timeout fn-callback 700))))
+                           (defun start-text-animation (i)
+                             (when (equal (typeof (aref data-text i)) "undefined")
+                               (set-timeout (lambda () (start-text-animation 0))2000))
+                             (when (< i (length (aref data-text i)))
+                               (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                           (start-text-animation 0)))))))))))
 
 (defun about-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -223,7 +222,7 @@ all other web app pages uses this boilerplate."
 located in the `web-page-template' macro and the copyright footer. The work is
 in the public domain and frankly I think it's tacky to plaster the top navbar
 with my name."
-  `(cl-who:with-html-output-to-string (*standard-output* nil :prologue t :indent t)
+  `(with-html
      (:html :lang "en"
             (:head
              (:title, title)
@@ -236,22 +235,20 @@ with my name."
 (defun bible-page (bible-url)
   "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a
   string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
-  (bible-page-template (:title "Tabular Douay Rheims Bible")
-    (:h1 :class "title" "Tabular Douay Rheims Bible")
-    (:h4 "Presents Fr. Haydock's commentary side-by-side for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
+  (bible-page-template (:title "1883 Haydock Douay Rheims Bible")
+    (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
+    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
           (loop for (link . title) in +bible-book-url-alist+
-                do (cl-who:htm
-                    (:div :style "width:200px;float:left"
-                          (:a :href link (:b (cl-who:str title)))))))
+                do (:div :style "width:200px;float:left"
+                         (:a :href link (:b title)))))
     (:br)
     (:div :style "overflow:auto"
           ;; Present links to all chapters of currently selected book.
           (loop for (link . title) in (make-bible-chapter-url-list bible-url)
-                do (cl-who:htm
-                    (:div :style "width:200px;float:left"
-                          (:a :href link (:b (cl-who:str title)))))))
+                do (:div :style "width:200px;float:left"
+                         (:a :href link (:b title)))))
     (:br)
     ;; Present search form for bible and haydock text.
     (:div :id "query-form" :style "text-align:center;"
@@ -264,26 +261,25 @@ with my name."
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
                    (:option :value "Times New Roman" :selected "selected" "Times New Roman")
                    (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
-                         do (cl-who:htm
-                             (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
-          (:script (cl-who:str
-                    (parenscript:ps-inline
+                         do (:option :value font-name font-name)))
+          (:script (:raw (ps-inline
                         (defun change-to-font (font)
-                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
+                          (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
     (:table :id "main-content"
      ;; Present tabular view of bible text.
      (loop for bible-uid from (car (bible-url-to-uid bible-url))
              to (cadr (bible-url-to-uid bible-url))
-           do (cl-who:htm
-               (:tr
-                (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
-                (:td (cl-who:htm
-                      (progn
-                        (cl-who:str (get-bible-text bible-uid))
-                        (cl-who:htm (:br)
-                                    (:br))
-                        (cl-who:str (get-cross-references-text-with-links bible-uid)))))
-                (:td :width "55%" (cl-who:htm (cl-who:str (get-footnotes-text-with-links bible-uid))))))))))
+           do (:tr :style "line-height: 1.5em;"
+               (:td (:raw (get-heading-text bible-uid)))
+               (:td (progn
+                      (:raw (get-bible-text bible-uid))
+                      (:br)
+                      (:br)
+                      (when (get-cross-references-text-with-links bible-uid)
+                        (:raw (get-cross-references-text-with-links bible-uid)))))
+               (:td :width "55%"
+                    (when (get-footnotes-text-with-links bible-uid)
+                      (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -293,19 +289,18 @@ DIV ID's
 query-syntax
 query-tutorial
 query-form"
-  (bible-page-template (:title "Tabular Douay Rheims Bible")
-    (:h1 :class "title" "Tabular Douay Rheims Bible")
+  (bible-page-template (:title "1883 Haydock Douay Rheims Bible")
+    (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
     (:h2 :onclick "toggleDivWithId(\"query-syntax\")" :style "text-align:center;" "Query
     Syntax (click to toggle)")
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
-    (:script (cl-who:str
-              (parenscript:ps-inline
-                  (defun toggle-div-with-id (div-id)
-                    (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
-                      (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
-                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "block")
-                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")))))))
+    (:script (ps-inline
+                 (defun toggle-div-with-id (div-id)
+                   (let ((syntax-help-div (chain document (get-element-by-id div-id))))
+                     (if (equal (@ syntax-help-div style display) "none")
+                         (setf (@ syntax-help-div style display) "block")
+                         (setf (@ syntax-help-div style display) "none"))))))
     (:div :id "query-syntax" :style "display:none;"
 
           (:h2 "1. FIELDS")
@@ -407,38 +402,36 @@ query-form"
                 (:blockquote" Avner: There's no peace at the end of this no matter what you believe. You know this is true.")
                 (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. The proof is left as an exercise to the reader. More importantly, have a great rest of the day!")))
     (:p :style "text-align:center;"
-    (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
+        (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
-                   (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
-                         do (cl-who:htm
-                             (:option :value font-name (cl-who:htm (cl-who:str font-name))))))
-          (:script (cl-who:str
-                    (parenscript:ps-inline
-                        (defun change-to-font (font)
-                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
+            (:option :value "Times New Roman" :selected "selected" "Times New Roman")
+            (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
+                  do (:option :value font-name font-name)))
+          (:script (:raw (ps-inline
+                             (defun change-to-font (font)
+                               (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
     (:div :id "query-form" :style "text-align:center;"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
                  (:input :name "query" :id "query" :size "50" :type "text"
-                         :value (princ (cl-who:esc query)) :required "required")
+                         :value query :required "required")
                  (:input :type "submit" :value "Submit")))
     (:table :id "main-content"
-     ;; 37199 includes all verses of the bible. The extra are from chapter/book
-     ;; descriptions etc. BIBLE-UID is a lie here, it ought to be named
-     ;; MONTEZUMA-UID. They should be the same, but be careful with behaviour.
-     (loop for (bible-uid . score) in (search-bible query '(:num-docs 37199))
-           do (cl-who:htm
-               (:tr
-                ;; HACK Score of 1.37 > 137. Coerce double float to string with precision of 2.
-                (:td (cl-who:htm (cl-who:str (write-to-string (floor score 0.01)))))
-                (:td (cl-who:htm (cl-who:str (get-heading-text bible-uid))))
-                (:td (cl-who:htm
-                      (progn
-                        (cl-who:str (get-bible-text bible-uid))
-                        (cl-who:htm (:br)
-                                    (:br))
-                        (cl-who:str (get-cross-references-text-with-links bible-uid)))))
-                (:td :width "50%" (cl-who:htm (cl-who:str (get-footnotes-text-with-links bible-uid))))))))))
+            ;; 37199 includes all verses of the bible. The extra are from chapter/book
+            ;; descriptions etc. BIBLE-UID is a lie here, it ought to be named
+            ;; MONTEZUMA-UID. They should be the same, but be careful with behaviour.
+            (loop for (bible-uid . score) in (search-bible query '(:num-docs 37199))
+                  do (:tr :style "line-height: 1.5em;"
+                          ;; HACK Score of 1.37 > 137.
+                          ;; Coerce double float to string with precision of 2.
+                          (:td (write-to-string (floor score 0.01)))
+                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (progn
+                                 (:raw (get-bible-text bible-uid))
+                                 (:br) (:br)
+                                 (when (get-cross-references-text-with-links bible-uid)
+                                   (:raw (get-cross-references-text-with-links bible-uid)))))
+                          (:td :width "50%" (when (get-footnotes-text-with-links bible-uid)
+                                              (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
