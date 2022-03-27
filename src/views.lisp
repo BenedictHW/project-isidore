@@ -291,12 +291,12 @@ query-form"
     Syntax (click to toggle)")
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
-    (:script (ps-inline
-                 (defun toggle-div-with-id (div-id)
-                   (let ((syntax-help-div (chain document (get-element-by-id div-id))))
-                     (if (equal (@ syntax-help-div style display) "none")
-                         (setf (@ syntax-help-div style display) "block")
-                         (setf (@ syntax-help-div style display) "none"))))))
+    (:script (:raw (ps-inline
+                  (defun toggle-div-with-id (div-id)
+                    (let ((syntax-help-div (chain document (get-element-by-id div-id))))
+                      (if (equal (@ syntax-help-div style display) "none")
+                          (setf (@ syntax-help-div style display) "block")
+                          (setf (@ syntax-help-div style display) "none")))))))
     (:div :id "query-syntax" :style "display:none;"
 
           (:h2 "1. FIELDS")
