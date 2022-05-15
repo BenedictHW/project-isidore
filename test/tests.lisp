@@ -63,7 +63,8 @@ test suite is run prior to the build process. See MAKE.LISP."))
   :description "Check that `bible-page' and `bible-search-page' finishes."
   :parent master-suite
   (parachute:finish (progn
-                      (project-isidore:bible-page "1-1-1-73-22-21")
+                      (project-isidore:bible-page (list (project-isidore:get-bible-uid 1 1 1)
+                                                        (project-isidore:get-bible-uid 73 22 21)))
                       (project-isidore:bible-search-page "water"))))
 
 (parachute:define-test regex-validity
