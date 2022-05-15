@@ -92,7 +92,7 @@ jobs:
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
         echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2022-04-05" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -136,7 +136,7 @@ jobs:
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
         echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2022-04-05" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -187,7 +187,7 @@ jobs:
         git config --global core.autocrlf false;
         echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "QL_DIST_VER=2022-04-05" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2022-04-01" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "CL_IMPL_VER=2.2.4" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it

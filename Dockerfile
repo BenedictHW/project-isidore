@@ -2,7 +2,7 @@ FROM clfoundation/sbcl:2.2.4-slim as build
 COPY . /project-isidore/
 ARG BUILD_DIR=/project-isidore
 ARG CACHE_DIR=/pi-build-cache
-ARG QL_DIST_VER=2022-04-05
+ARG QL_DIST_VER=2022-04-01
 RUN apt-get update && apt-get install -y curl \
     && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp \
     && sbcl --dynamic-space-size 512 --load $BUILD_DIR/src/make.lisp \
