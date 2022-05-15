@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-16 Wed 14:35 -->
+<!-- 2022-05-14 Sat 21:46 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Installation of Spacemacs on Windows 10 via WSL2</title>
+<title>Installation of Spacemacs on Windows via WSL2</title>
 <meta name="author" content="Site Admin." />
 <meta name="generator" content="Org Mode" />
 
@@ -47,18 +47,22 @@
                                           <ul>
                                             <li><a href="/about">About</a></li>
                                             <li><a href="/work">Work</a></li>
-                                            <li><a href="/blog/archive.html">Blog</a></li>
+                                            <li><a href="/public/blog/archive.html">Blog</a></li>
                                             <li><a href="/contact">Contact</a></li>
                                           </ul>
                                         </nav>
                                       </div>
                                     </div>
-                                    <h1 class="title">Installation of Spacemacs on Windows 10 via WSL2</h1>
+                                    <h1 class="title">Installation of Spacemacs on Windows via WSL2</h1>
                                     <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-01-19 Wed 01:55</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-14 Sat 21:20</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgf621841">
+<div class="abstract" id="org5d6ec71">
+<p>
+
+</p>
+
 <p>
 Take advantage of the unparalleled, extensible, and powerful text editing
 capabilities of GNU Emacs from within Windows OS.
@@ -73,11 +77,27 @@ capabilities of GNU Emacs from within Windows OS.
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#Introduction">1. Introduction</a></li>
-<li><a href="#Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">2. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
-<li><a href="#Install-X-Server">3. Install X Server</a></li>
+<li><a href="#orgff8dc6b">2. Windows 10 Installation</a>
+<ul>
+<li><a href="#Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">2.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
+<li><a href="#Install-X-Server">2.2. Install X Server</a></li>
+<li><a href="#org0aeae80">2.3. Install Emacs</a></li>
+</ul>
+</li>
+<li><a href="#orgf07945b">3. Windows 11 Installation</a>
+<ul>
+<li><a href="#org0427d6f">3.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
+<li><a href="#org6aa2352">3.2. Install Emacs from official Debian package distribution</a></li>
+<li><a href="#org5e12722">3.3. Install Emacs from source</a></li>
+</ul>
+</li>
 <li><a href="#Install-Spacemacs">4. Install Spacemacs</a>
 <ul>
-<li><a href="#Fixing-the-Font">4.1. Fixing the Font</a></li>
+<li>
+<ul>
+<li><a href="#Fixing-the-Font">4.0.1. Fixing the Font</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#How-WSL-Ubuntu-files-are-treated-by-Windows">5. How WSL (Ubuntu) files are treated by Windows</a>
@@ -105,20 +125,71 @@ capabilities of GNU Emacs from within Windows OS.
 <h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
-Is it possible to judge whether or not a piece of music is objectively good,
-perfect and beautiful? The word "objectively" must sound a bit old fashioned,
-after all, every man is doing what is right in his own eyes in these times<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
-But we can be reasonably certain that a song which has been well loved
-generation after generation has a quality absent from a yet untested,
-recently released album. Yes, I'm talking about Emacs here. 40 odd years is a
-terribly long time in the world of software. We have reason to be grateful as
-Spacemacs has done its part in flattening the notorious Emacs learning curve.
-But enough evangelizing. This comprehensive tutorial can be said to be
-directed towards non-programmers who are comfortable with computing (as this
-write-up originally existed as personal notes of mine). I hope you take away
-something useful!
+<span class="dropcap">I</span>s it possible to judge whether
+or not a piece of music is objectively good, perfect and beautiful? The word
+"objectively" must sound a bit old fashioned, after all, every man is doing what
+is right in his own eyes in these times<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>. But we can be reasonably certain
+that a song which has been well loved generation after generation has a quality
+absent from a yet untested, recently released album. Yes, I'm talking about
+Emacs here. 40 odd years is a terribly long time in the world of software. We
+have reason to be grateful as Spacemacs has done its part in flattening the
+notorious Emacs learning curve. But enough evangelizing. This comprehensive
+tutorial can be said to be directed towards non-programmers who are comfortable
+with computing (as this write-up originally existed as personal notes of mine).
+I hope you take away something useful!
 </p>
 
+<p>
+I feel obliged to point out that there exist multiple popular ways of installing
+Emacs on a Windows machine. You may compile Emacs source code and run it
+"natively" through <a href="https://www.cygwin.com/">Cygwin</a>. Another option is to run a virtual linux machine and
+install Emacs from there. Because installing natively would mean more
+workarounds in the future when dealing with external software and also because
+Windows Subsystem for Linux (WSL) offers better system call compatibility, I
+elected to go down the more well trodden path of running Emacs on Ubuntu through
+WSL. In the simplest terms, WSL is a very lightweight virtual machine that
+allows you to use linux kernels to run linux applications in Windows <i>without</i>
+dual booting.
+</p>
+
+<p>
+Originally there existed limitations around graphical linux applications. <a href="https://devblogs.microsoft.com/commandline/whats-new-in-the-windows-subsystem-for-linux-september-2020/#gui-apps">One of
+my first updates to this article was to note the coming of built-in graphical
+support without the need for an external X server.</a> The future has come to pass,
+and the changes (in the form of WSLg) have landed in Windows 11. Those hoping
+for a backporting of WSLg to Windows 10 are being told to <a href="https://github.com/microsoft/wslg/issues/347#issuecomment-971126353%20">"wait one"</a>. A <a href="https://devblogs.microsoft.com/commandline/a-preview-of-wsl-in-the-microsoft-store-is-now-available/">preview
+of WSL in the Microsoft store</a> also states a Windows 11 requirement. Not feeling
+very optimistic about the time-frame for Windows 10 WSLg, I decided to go ahead
+and upgrade to Windows 11.
+</p>
+
+<p>
+I am currently using a Thinkpad T470s that met all the Windows 11 requirements
+with the exception of a greater than 8th generation Intel CPU. Despite the
+official Windows 11 upgrade assistant refusing to allow an upgrade, using <a href="https://rufus.ie/en/">Rufus</a>
+to create a Windows 11 installation media worked flawlessly. The usual caveats
+apply. Backup any personal data, backup your Windows 10 product key, and check
+that the OEM has Windows 11 drivers for your model etc. Here I'd like to take a
+moment to thank Intel and Lenovo's Thinkpad group for providing Windows 11
+drivers for the 5 year old T470s with the Intel i5 6300-U. Support for your
+machine may vary. Please be careful.
+</p>
+
+<p>
+I have kept the old Windows 10 WSL installation walk through and have added my
+experience on setting up WSL on Windows 11.
+</p>
+
+<p>
+<a href="#orgff8dc6b">2</a>
+<a href="#orgf07945b">3</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgff8dc6b" class="outline-2">
+<h2 id="orgff8dc6b"><span class="section-number-2">2.</span> Windows 10 Installation</h2>
+<div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
 Prerequisites
@@ -144,31 +215,19 @@ Compare your Windows version with the below
 </ul></li>
 </ol>
 </div>
-</div>
 
-<div id="outline-container-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution" class="outline-2">
-<h2 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-2">2.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h2>
-<div class="outline-text-2" id="text-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">
+<div id="outline-container-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution" class="outline-3">
+<h3 id="Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution"><span class="section-number-3">2.1.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h3>
+<div class="outline-text-3" id="text-Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">
 <p>
-I feel obliged to point out that there exist multiple popular ways of
-installing Emacs on a Windows machine. You may compile Emacs source code and
-run it "natively" through <a href="https://www.cygwin.com/">Cygwin</a>. Another option is to run a virtual linux
-machine and install Emacs from there. Because installing natively would mean
-more workarounds in the future when dealing with external software and also
-because WSL offers better system call compatibility, I elected to go down
-the more well trodden path of running Emacs on Ubuntu through WSL. In the
-simplest terms, WSL is a very lightweight virtual machine that allows you to
-use linux kernels to run linux apps in Windows <i>without</i> dual booting.
-</p>
-
-<p>
-First, install the Microsoft Windows Subsystem for Linux version 2. WSL 2 is
-recommended over WSL 1 Unless you plan on using Linux commandline on files
-stored in the Native Windows file system instead of the WSL filesystem. I
-will go into more detail later, but the WSL filesystem is accessible in
-Windows Explorer and shows up as a network drive. If you are unsure, go with
-WSL2. <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-1---enable-the-windows-subsystem-for-linux">This process is already documented by Microsoft (includes
-troubleshooting guidelines).</a> Repeated here for completion's sake:
+First, install the Microsoft Windows Subsystem for Linux version 2. Unless
+explicitly mentioned as WSL1, WSL refers to WSL version 2. WSL2 is recommended
+over WSL1 Unless you plan on using Linux commandline on files stored in the
+Native Windows file system instead of the WSL filesystem. I will go into more
+detail later, but the WSL filesystem is accessible in Windows Explorer and shows
+up as a network drive. If you are unsure, go with WSL2. <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-1---enable-the-windows-subsystem-for-linux">This process is already
+documented by Microsoft (includes troubleshooting guidelines).</a> Repeated here for
+completion's sake:
 </p>
 
 <p>
@@ -209,7 +268,7 @@ Open the powershell and run:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">wsl --set-default-version <span class="org-highlight-numbers-number">2</span>
+<pre class="src src-sh">wsl --set-default-version 2
 </pre>
 </div>
 
@@ -235,9 +294,9 @@ username and password for your superuser account.
 </div>
 </div>
 
-<div id="outline-container-Install-X-Server" class="outline-2">
-<h2 id="Install-X-Server"><span class="section-number-2">3.</span> Install X Server</h2>
-<div class="outline-text-2" id="text-Install-X-Server">
+<div id="outline-container-Install-X-Server" class="outline-3">
+<h3 id="Install-X-Server"><span class="section-number-3">2.2.</span> Install X Server</h3>
+<div class="outline-text-3" id="text-Install-X-Server">
 <p>
 This is the software that allows Linux to display GUI elements. You have
 many options here:
@@ -274,27 +333,32 @@ the WSL terminal, export the DISPLAY variable.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">$ export <span class="org-variable-name">DISPLAY</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">awk</span> <span class="org-string">'/nameserver / {print $2; exit}'</span> /etc/resolv.conf <span class="org-highlight-numbers-number">2</span>&gt;/dev/null<span class="org-rainbow-delimiters-depth-1">)</span>:0
-$ export <span class="org-variable-name">LIBGL_ALWAYS_INDIRECT</span>=<span class="org-highlight-numbers-number">1</span>
+<pre class="src src-bash">$ export <span class="org-variable-name">DISPLAY</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2&gt;/dev/null</span><span class="org-rainbow-delimiters-depth-1">)</span>:0
+$ export <span class="org-variable-name">LIBGL_ALWAYS_INDIRECT</span>=1
 </pre>
 </div>
 
 <p>
-The reason for the above is because the internal IP address of the WSL (2) server changes on reboot. Don't worry, the team at WSL has ensured that connections to WSL from Windows (Ex. localhost:8000) require no extra configuration. The snippet above for is for WSL to Windows 10 GUI applications. <a href="https://devblogs.microsoft.com/commandline/whats-new-in-the-windows-subsystem-for-linux-september-2020/#gui-apps">And WSL may be supporting GUI apps in the near future, so no X server would be needed.</a> You will probably want to put the two export commands into your .bashrc file, located in ~/home/$USER$/ folder. We can do this after completing the steps below.
+The reason for the above is because the internal IP address of the WSL (2)
+server changes on reboot. Don't worry, the team at WSL has ensured that
+connections to WSL from Windows (Ex. localhost:8000) require no extra
+configuration. The snippet above for is for WSL to Windows 10 GUI applications.
+You will probably want to put the two export commands into your .bashrc file,
+located in '~/home/$USER$/' folder. We can do this after completing the steps
+below.
 </p>
 </div>
 </div>
 
-<div id="outline-container-Install-Spacemacs" class="outline-2">
-<h2 id="Install-Spacemacs"><span class="section-number-2">4.</span> Install Spacemacs</h2>
-<div class="outline-text-2" id="text-Install-Spacemacs">
+<div id="outline-container-org0aeae80" class="outline-3">
+<h3 id="org0aeae80"><span class="section-number-3">2.3.</span> Install Emacs</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
-Spacemacs is a preset configuration of Emacs, so we must first make sure
-Emacs is installed properly. The default Emacs build that comes with Ubuntu
-on WSL doesn't support XWindows (the X Server we just installed). To fix
-this we are going to add Kevin Kelley's builds of Emacs with XWindows
-supports, simply by adding Kevin's PPA to WSL. Enter the following in the
-WSL Terminal.
+Spacemacs is a preset configuration of Emacs, so we must first make sure Emacs
+is installed properly. The default Emacs build that comes with Ubuntu 20.04 on
+WSL doesn't support XWindows (the X Server we just installed). To fix this we
+are going to add Kevin Kelley's builds of Emacs with XWindows supports, simply
+by adding Kevin's PPA to WSL. Enter the following in the WSL Terminal.
 </p>
 
 <div class="org-src-container">
@@ -305,6 +369,208 @@ sudo apt install emacs27
 </pre>
 </div>
 
+<p>
+Now we are ready to proceed to <a href="#Install-Spacemacs">4</a>
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf07945b" class="outline-2">
+<h2 id="orgf07945b"><span class="section-number-2">3.</span> Windows 11 Installation</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+If the Windows 10 installation process seems replete with hacks and workarounds,
+then let us rejoice at the new features added to WSL in the form of WSLg. WSLg
+has built-in support for graphical applications &#x2013; both the Wayland protocol and
+the X window system &#x2013; and pulseaudio. This simplifies the process considerably.
+</p>
+</div>
+
+<div id="outline-container-org0427d6f" class="outline-3">
+<h3 id="org0427d6f"><span class="section-number-3">3.1.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The following inside Windows Powershell (run as Admin) will enable WSL,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">Installs WSL and sets the default distribution to Debian.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Use wsl --list --online to list available Linux distributions.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">See https://docs.microsoft.com/en-us/windows/wsl/install for more.</span>
+wsl --install -d Debian
+</pre>
+</div>
+
+<p>
+Ubuntu 22.04 and above should work with WSLg out of the box. The upgrade process
+is only relevant if you have selected Debian as your WSL Linux distribution. The
+beginner friendly Ubuntu is derived from Debian, so all commands ought to work
+the same. After restarting your machine and creating a new WSL user check the OS
+version in the WSL bash shell,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">cat /etc/os-release
+</pre>
+</div>
+
+<p>
+If VERSION is not equal to the latest Debain stable release, we must upgrade.
+Debian <code>VERSION=9 (stretch)</code> is too old for WSLg.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">The following reproduced from https://wiki.debian.org/DebianUpgrade.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">First, ensure your system is up-to-date in it's current release.</span>
+$ sudo apt update
+$ sudo apt upgrade
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">If you haven't already, ensure all backups are up-to-date.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">In a text editor, replace the codename of your release with that of the next release in APT's package sources</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">For instance, the line</span>
+<span class="org-comment-delimiter">#    </span><span class="org-comment">deb https://deb.debian.org/debian/ stretch main</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">should be replaced with</span>
+<span class="org-comment-delimiter">#    </span><span class="org-comment">deb https://deb.debian.org/debian/ bullseye main</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Below is an example of a sources.list for Debian 11/Bullseye.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian bullseye main</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian-security/ bullseye-security main</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian bullseye-updates main</span>
+$ sudo nano /etc/apt/sources.list /etc/apt/sources.list.d/*
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Clean and update package lists</span>
+$ sudo apt clean
+$ sudo apt update
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Perform the major release upgrade, removing packages if required</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Interrupting this step after downloading has completed is an excellent way to stress-test your backups</span>
+$ sudo apt full-upgrade
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Remove packages that are not required anymore</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Be sure to review this list: you may want to keep some of them</span>
+$ sudo apt autoremove
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Reboot to make changes effective (optional, but recommended)</span>
+$ sudo shutdown -r now
+
+</pre>
+</div>
+
+<p>
+Now back in Powershell we update WSL to successfully install WSLg.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">wsl --update
+wsl --shutdown
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6aa2352" class="outline-3">
+<h3 id="org6aa2352"><span class="section-number-3">3.2.</span> Install Emacs from official Debian package distribution</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+No nonsense, no fuss. Inside your WSL bash shell,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install emacs
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5e12722" class="outline-3">
+<h3 id="org5e12722"><span class="section-number-3">3.3.</span> Install Emacs from source</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+I wrote the initial tutorial for Windows 10, for Emacs was also my introduction
+into the world of UNIX and Lisp. That, combined with the desire to remind my
+future forgetful self was the reason for the surface-level depth and hand
+holding steps. Now if you count yourself comfortable in such an environment, I
+can think of a few good reasons to install Emacs from source at this point in
+time.
+</p>
+
+<ol class="org-ol">
+<li>When Emacs 28+ is configured with the flag <code>--with-native-compilation</code> Emacs
+Lisp bytecode is translated to C and then machine code, yielding performance
+benefits.</li>
+
+<li>WSLg uses Wayland and Emacs 29.0.50 master has the pure GTK feature instead
+of relying on the older X window system.</li>
+
+<li>Debian does not build emacs with the flag <code>--with-xwidgets</code> for security
+reasons. With this feature enabled, Emacs is able to embed a <a href="https://en.wikipedia.org/wiki/Webkit">Webkit</a> browser
+widget inside a buffer. Compared to Emacs EWW which has HTML and limited CSS
+support, xwidget-webkit renders HTML, CSS and Javascript. Currently the
+xwidgets-webkit browser crashes to desktop on websites like Reddit or
+Youtube.</li>
+</ol>
+
+<p>
+Currently Debian bullseye packages Emacs 27.1. And for the record, I find such
+attention to stability perfectly reasonable. I am not familiar at all with the
+typical C build process, so <a href="https://batsov.com/articles/2021/12/19/building-emacs-from-source-with-pgtk/%20">Mr. Batsov's advice helped.</a> Onto the build process,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt update
+<span class="org-comment-delimiter"># </span><span class="org-comment">Install build dependencies ./configure will tell you if a build dependency is missing.</span>
+sudo apt install git build-essential libgtk-3-dev libgnutls28-dev <span class="org-sh-escaped-newline">\</span>
+ libtiff5-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev <span class="org-sh-escaped-newline">\</span>
+ libncurses-dev texinfo autoconf libxml2-dev libwebp-dev <span class="org-sh-escaped-newline">\</span>
+ librsvg2-dev libsqlite3-dev liblcms2-dev libgpm-dev libotf-dev <span class="org-sh-escaped-newline">\</span>
+ libacl1-dev libjansson4 libjansson-dev libgccjit0 libgccjit-10-dev <span class="org-sh-escaped-newline">\</span>
+ gcc-10 g++-10 libwebkit2gtk-4.0-dev
+<span class="org-builtin">export</span> <span class="org-variable-name">CC</span>=/usr/bin/gcc-10 <span class="org-variable-name">CXX</span>=/usr/bin/gcc-10
+sudo git clone git://git.sv.gnu.org/emacs.git /usr/local/src/emacs
+<span class="org-builtin">cd</span> /usr/local/src/emacs
+sudo ./autogen.sh
+<span class="org-comment-delimiter"># </span><span class="org-comment">See ./configure --help for more options. "C-h v"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">'system-configuration-options' to see what your Emacs is built with.</span>
+sudo ./configure --with-mailutils --with-wide-int --with-pgtk <span class="org-sh-escaped-newline">\</span>
+            --with-native-compilation --with-json --with-xwidgets
+<span class="org-comment-delimiter"># </span><span class="org-comment">gconf is deprecated in favour of gsettings.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">I have 4 threads.</span>
+sudo make -j4
+<span class="org-comment-delimiter"># </span><span class="org-comment">Default install in /usr/local/ and emacs-29.0.50 binary under</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">/usr/local/bin.</span>
+sudo make install
+<span class="org-comment-delimiter"># </span><span class="org-comment">If you keep your Emacs source folder around, it will know how to uninstall</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">or to git pull from master and rebuild.</span>
+sudo make uninstall
+<span class="org-comment-delimiter"># </span><span class="org-comment">git clean -dfX in case of rebuild.</span>
+</pre>
+</div>
+
+<p>
+Installing with a utility like <code>checkinstall</code> does package a <code>.deb</code>, allowing
+you to remove the Emacs source folder and then at a later point in time call
+<code>sudo apt purge emacs</code>. However running <code>sudo checkinstall</code> inside <code>M-x shell</code>
+while compiling <a href="https://github.com/djcb/mu">mu</a> (while it worked fine for Emacs?) broke my old Windows
+10/WSL2 Ubuntu 20.04 system badly. I did not press Ctrl-C or interrupt the
+install in any way, but the outcome was the same. I regret not being able to
+give a more detailed bug report, for it screwed my system good and proper. See
+</p>
+
+<ul class="org-ul">
+<li><a href="https://bugs.launchpad.net/ubuntu/+source/checkinstall/+bug/1847582">Bug #1847582 “checkinstall leaves root filesystem unusable if in&#x2026;” : Bugs :&#x2026;</a></li>
+<li><a href="https://github.com/giuliomoro/checkinstall/issues/4">giuliomoro/checkinstall#4 `checkinstall` breaks `/lib` if interrupted by Ctrl-C</a></li>
+</ul>
+
+<p>
+Perhaps a symptom of WSL system not having systemd?
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-Install-Spacemacs" class="outline-2">
+<h2 id="Install-Spacemacs"><span class="section-number-2">4.</span> Install Spacemacs</h2>
+<div class="outline-text-2" id="text-Install-Spacemacs">
 <p>
 Enter the following in your WSL terminal to install Spacemacs from the develop
 branch. It is strongly recommended to use develop over master as bugs get fixed
@@ -338,12 +604,13 @@ download is completed, you will have successfully installed Spacemacs.
 </p>
 </div>
 
-<div id="outline-container-Fixing-the-Font" class="outline-3">
-<h3 id="Fixing-the-Font"><span class="section-number-3">4.1.</span> Fixing the Font</h3>
-<div class="outline-text-3" id="text-Fixing-the-Font">
+<div id="outline-container-Fixing-the-Font" class="outline-4">
+<h4 id="Fixing-the-Font"><span class="section-number-4">4.0.1.</span> Fixing the Font</h4>
+<div class="outline-text-4" id="text-Fixing-the-Font">
 <p>
 If you get a message informing you that "adobe source code pro" cannot be
-found, you can install it with the following WSL bash commands<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>,
+found, you can install it with the following WSL bash commands<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>, or
+manually after having consulted: <a href="https://wiki.debian.org/Fonts#Manually">Fonts - Debian Wiki</a>
 </p>
 
 <div class="org-src-container">
@@ -686,10 +953,25 @@ org-babel. I hope this tutorial has helped you, and have a wonderful day.
 </div>
 </div>
 
-
 <div id="outline-container-Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep" class="outline-2">
 <h2 id="Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep"><span class="section-number-2">8.</span> Bonus! Why is my GUI Spacemacs interrupted by Sleep?</h2>
 <div class="outline-text-2" id="text-Bonus-Why-is-my-GUI-Spacemacs-interrupted-by-Sleep">
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">Allows us to open links in Spacemacs to our Windows 10 browser</span>
+<span class="org-function-name">fix_wsl2_interop</span><span class="org-rainbow-delimiters-depth-1">()</span> <span class="org-rainbow-delimiters-depth-1">{</span>
+    <span class="org-keyword">for</span> i<span class="org-keyword"> in</span> $<span class="org-rainbow-delimiters-depth-2">(</span><span class="org-sh-quoted-exec">pstree -np -s $$ | grep -o -E '[0-9]+'</span><span class="org-rainbow-delimiters-depth-2">)</span>; <span class="org-keyword">do</span>
+        <span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-2">[</span><span class="org-rainbow-delimiters-depth-3">[</span> -e <span class="org-string">"/run/WSL/${i}_interop"</span> <span class="org-rainbow-delimiters-depth-3">]</span><span class="org-rainbow-delimiters-depth-2">]</span>; <span class="org-keyword">then</span>
+            <span class="org-builtin">export</span> <span class="org-variable-name">WSL_INTEROP</span>=/run/WSL/$<span class="org-rainbow-delimiters-depth-2">{</span><span class="org-variable-name">i</span><span class="org-rainbow-delimiters-depth-2">}</span>_interop
+        <span class="org-keyword">fi</span>
+    <span class="org-keyword">done</span>
+<span class="org-rainbow-delimiters-depth-1">}</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">Call the function</span>
+<span class="org-builtin">export</span> -f fix_wsl2_interop
+fix_wsl2_interop
+</pre>
+</div>
+
 <p>
 I have kept this for last because this adds quite a bit of complexity to the
 installation process. It's best to make sure the above is familiar before
@@ -821,40 +1103,9 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
                               <hr/>
                               <footer>
                                 <div class="copyright-container">
-                                  <div class="copyright">
-                                    Comments? Corrections? <a
-                                href="https://hanshenwang.com/contact">
-                                Please do reach out.</a><a
-                                href="https://hanshenwang.com/blog/rss.xml">
-                                RSS Feed. </a><a
-                                href="https://hanshenwang.com/subscribe">
-                                Mailing List. </a><br/>
-                                    Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
-                                    Blog content is available under
-                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                                      CC-BY-SA 4.0
-                                    </a> unless otherwise noted.
-                                  </div>
-                                  <div class="cc-badge">
-                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                                      <img alt="Creative Commons License"
-                                           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
-                                           height="31"
-                                           width="88">
-                                    </a>
-                                  </div>
-                                  <div class="rss-badge">
-                                    <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
-                                      <img alt="Really Simple Syndication - RSS"
-                                           src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png"
-                                           height="50"
-                                           width="50">
-                                    </a>
-                                  </div>
-                                </div>
-
-                                <div class="generated">
-                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                    Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><a href="https://hanshenwang.com/subscribe"> Mailing List. </a><br/>
+                                    Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/> Blog content is available under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> CC-BY-SA 4.0 </a> unless otherwise noted.<br/>
+                                    Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.0.50 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a><br/>
                                 </div>
                               </footer>
 </div>

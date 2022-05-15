@@ -1,4 +1,5 @@
-@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/cinzel-v11-latin-regular.woff2') format('woff2'); }
+@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/public/cinzel-v11-latin-regular.woff2') format('woff2'); }
+@font-face { font-family: RoyalInitialen; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/public/RoyalInitialen.woff2') format('woff2'); }
 .header-fixed  { position:  relative; left:  0; top:  0; z-index:  1; width:  100%; margin:  0; background-color:  #FDF6E3; }
 .navbar  { display:  flex; justify-content:  space-between; align-items:
      center; color:  #fff; line-height:  60px; }
@@ -106,7 +107,7 @@ kbd  { background-color:  #f7f7f7; font-size:  80%; margin:  0 .1em; padding:  .
      center; }
 .underline  { text-decoration:  underline; }
 #postamble p, #preamble p  { font-size:  90%; margin:  .2em; }
-.copyright-container  { display:  flex; justify-content:  space-between; align-items:  center; flex-wrap:  wrap; padding:  0.4ex 1em; }
+.copyright-container  { align-items:  center; padding:  0.4ex 1em; }
 .generated  { font-family:  'Courier New', monospace; text-align:
      center; }
 p.verse  { margin-left:  3%; }
@@ -200,3 +201,12 @@ p.verse  { margin-left:  3%; }
 @media screen and (min-width: 600px)  { .creator  { display:  inline; float:  right; } }
 .cryptedmail:after  { font-family:  'Times New Roman',serif; font-size: 1.2 rem; content:  attr(data-name) "@" attr(data-domain) "."
      attr(data-tld); }
+.dropcap{
+    float: left;
+    font-family: RoyalInitialen;
+    font-size: 4.68rem;
+    line-height: 3.75rem;
+    padding-top: 0.25rem;
+    padding-right: 0.5rem;
+    padding-left: 0.18rem;
+}

@@ -7,6 +7,7 @@
         #:project-isidore/model
         #:spinneret
         #:parenscript)
+  (:import-from #:series)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
@@ -30,19 +31,24 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
 #+end_src "))
 
 (in-package #:project-isidore/views)
+
+;; Do not :use both "series" and "parenscript" as they will conflict and the
+;; generated javascript will be borked.
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (series::install :implicit-map t))
 
 (defmacro web-page-template ((&key title) &body body)
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
-  `(with-html
+  `(with-html-string
      (:html :lang "en"
             (:head
              (:title, title)
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :type "text/css" :href "global.css" :rel "stylesheet"))
+             (:link :type "text/css" :href "/public/global.css" :rel "stylesheet"))
             (:body
              (:div :class "header header-fixed"
                    (:div :class "navbar container"
@@ -53,7 +59,7 @@ all other web app pages uses this boilerplate."
                                (:ul
                                 (:li (:a :href "/about" "About"))
                                 (:li (:a :href "/work" "Work"))
-                                (:li (:a :href "/blog/archive.html" "Blog"))
+                                (:li (:a :href "/public/blog/archive.html" "Blog"))
                                 (:li (:a :href "/contact" "Contact"))))))
              (:div :class "main" ,@body)
              (:hr)
@@ -62,7 +68,7 @@ all other web app pages uses this boilerplate."
                     (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
 
 (defun index-page ()
-  (with-html
+  (with-html-string
     (:html :lang "en"
            (:head
             (:title "HanshenWang.com")
@@ -73,17 +79,17 @@ all other web app pages uses this boilerplate."
            (:body
             ;; background CSS3 slideshow
             (:ul :class "slideshow"
-                 (:li (:span "pic1.webp"))
-                 (:li (:span "pic2.webp"))
-                 (:li (:span "pic3.webp"))
-                 (:li (:span "pic4.webp"))
-                 (:li (:span "pic5.webp"))
-                 (:li (:span "pic6.webp")))
+                 (:li (:span "/public/pic1.webp"))
+                 (:li (:span "/public/pic2.webp"))
+                 (:li (:span "/public/pic3.webp"))
+                 (:li (:span "/public/pic4.webp"))
+                 (:li (:span "/public/pic5.webp"))
+                 (:li (:span "/public/pic6.webp")))
             (:div :class "container"
                   (:header
                    (:div :class "portfolio-container"
                          (:div :class "portfolio-section"
-                               (:img :src "profile.webp" :alt "Author Profile
+                               (:img :src "public/profile.webp" :alt "Author Profile
                                Picture"))
                          (:div :class "portfolio-section"
                                ;; index.js typewriter effect needs the greeting
@@ -99,26 +105,29 @@ all other web app pages uses this boilerplate."
                    (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
-                       (:a :href "/blog/archive.html" "Blog")
+                       (:a :href "/public/blog/archive.html" "Blog")
                        (:a :href "/contact" "Contact"))))
             ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
             (:script
-             (:raw (ps-inline
-                       (chain document (add-event-listener "DOMContentLoaded"
-                         (lambda (event)
-                           (var data-text (array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                           (defun type-writer(text i fn-callback)
-                             (cond ((< i (length text))
-                                    (setf (chain document(query-selector "h1")inner-h-t-m-l) (+(chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                    (set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                   ((equal (typeof fn-callback) "function")
-                                    (set-timeout fn-callback 700))))
-                           (defun start-text-animation (i)
-                             (when (equal (typeof (aref data-text i)) "undefined")
-                               (set-timeout (lambda () (start-text-animation 0))2000))
-                             (when (< i (length (aref data-text i)))
-                               (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                           (start-text-animation 0)))))))))))
+             (:raw
+              (ps-inline
+                  (chain document
+                         (add-event-listener
+                          "DOMContentLoaded"
+                          (lambda (event)
+                            (var data-text (array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                            (defun type-writer(text i fn-callback)
+                              (cond ((< i (length text))
+                                     (setf (chain document(query-selector "h1")inner-h-t-m-l) (+(chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                     (set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                    ((equal (typeof fn-callback) "function")
+                                     (set-timeout fn-callback 700))))
+                            (defun start-text-animation (i)
+                              (when (equal (typeof (aref data-text i)) "undefined")
+                                (set-timeout (lambda () (start-text-animation 0))2000))
+                              (when (< i (length (aref data-text i)))
+                                (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                            (start-text-animation 0)))))))))))
 
 (defun about-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -143,7 +152,7 @@ all other web app pages uses this boilerplate."
     (:h1 :class "title" "Work")
     (:h1 "Professional Portfolio ")
     (:a :target "_blank"
-    :href "https://drive.google.com/file/d/1-D_CkQhgazvBCNr5v3CyxEbHZRXFYXKy/view?usp=sharing" "Click
+        :href "https://drive.google.com/file/d/1-D_CkQhgazvBCNr5v3CyxEbHZRXFYXKy/view?usp=sharing" "Click
     this link to view or download my resume (link to Google Drive).")
     (:br)
     (:p "Please kindly" (:a :href "/contact" "shoot me an email") "should the
@@ -156,7 +165,7 @@ all other web app pages uses this boilerplate."
     (:ul
      (:li (:a :target "_blank" :href "https://github.com/HanshenWang" "Github
      Repositories"))
-     (:li (:a :href "/blog/archive.html" "Collected Notes")))))
+     (:li (:a :href "/public/blog/archive.html" "Collected Notes")))))
 
 (defun contact-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -165,23 +174,23 @@ all other web app pages uses this boilerplate."
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
     (:p "Questions, comments, death threats? Don't hesitate to reach out to me
     via email at:" (:a :class "cryptedmail" :data-name "hanshen"
-    :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href =
+                       :data-domain "hanshenwang" :data-tld "com" :onclick "window.location.href =
     'mailto:' + this.dataset.name + '@' + this.dataset.domain + '.' +
     this.dataset.tld; return false;" :href "#"))
     (:p "My PGP Key Fingerprint: 06DD A936 90F7 75E3 715B 628C CA94 9A6D 46BC
     2BBE")
     (:p "My PGP Public Key is available" (:a :target "_blank"
-    :href "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a
+                                             :href "0x06DDA93690F775E3715B628CCA949A6D46BC2BBE.asc" "here") "and as a
     secondary source, at" (:a :target "_blank"
-    :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
+                              :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
     (:p "To receive blog article updates please use" (:a :target "_blank" :href
-  "https://hanshenwang.com/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
-  "_blank" :href "https://hanshenwang.com/subscribe" "Subscribe to the Mailing
+                                                         "https://hanshenwang.com/public/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
+                                                         "_blank" :href "https://hanshenwang.com/subscribe" "Subscribe to the Mailing
   List."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
     (:p "All edits made to an article after the initial publication date can be
     found" (:a :target "_blank"
-    :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
+               :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
     the version-controlled Github repository ."))))
 
 (defun subscribe-page ()
@@ -194,9 +203,9 @@ all other web app pages uses this boilerplate."
   primarily businesses in advertising and data harvesting.")
     (:a :target "_blank"
         :href "https://www.wired.com/story/rss-readers-feedly-inoreader-old-reader/"
-  "Further information on getting started with RSS can be found here.")
+        "Further information on getting started with RSS can be found here.")
     (:a :target "_blank"
-        :href "http://hanshenwang.com/blog/rss.xml"
+        :href "http://hanshenwang.com/public/blog/rss.xml"
         "My blog RSS is here.")
     (:p "I highly recommend the use of RSS for newsgroups and news reading.
   Still, an option exists to receive new blog articles by E-mail. This mailing
@@ -218,33 +227,40 @@ all other web app pages uses this boilerplate."
 located in the `web-page-template' macro and the copyright footer. The work is
 in the public domain and frankly I think it's tacky to plaster the top navbar
 with my name."
-  `(with-html
+  `(with-html-string
      (:html :lang "en"
             (:head
              (:title, title)
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :type "text/css" :href "global.css" :rel "stylesheet"))
+             (:link :type "text/css" :href "/public/global.css" :rel "stylesheet"))
             (:body (:div :class "main" ,@body)))))
 
-(defun bible-page (bible-url)
-  "127.0.0.1:8080/bible?verses=1-2-3-4-5-6 where BIBLE-URL \"1-2-3-4-5-6\" is a
-  string with BEGINNINGbook-chapter-verse-ENDINGbook-chapter-verse."
+(defun bible-page (uid-list)
+  "Serializes into HTML view all objects of class `bible' apropos each
+`unique-id-of' in UID-LIST. UID-LIST validation is done by the URL route handler
+`bible'
+
+CL-USER> (bible-page '(1 2 3 37198))
+
+"
   (bible-page-template (:title "1883 Haydock Douay Rheims Bible")
     (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
-    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/blog/tabular-douay-rheims.html" "Click to learn more."))
+    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/public/blog/tabular-douay-rheims.html" "Click to learn more."))
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
-          (loop for (link . title) in +bible-book-url-alist+
-                do (:div :style "width:200px;float:left"
-                         (:a :href link (:b title)))))
+          (series:collect
+              (series:mapping (((link title) (series:scan-alist +bible-book-url-alist+)))
+                              (:div :style "width:200px;float:left"
+                                    (:a :href link title)))))
     (:br)
     (:div :style "overflow:auto"
           ;; Present links to all chapters of currently selected book.
-          (loop for (link . title) in (make-bible-chapter-url-list bible-url)
-                do (:div :style "width:200px;float:left"
-                         (:a :href link (:b title)))))
+          (series:collect
+              (series:mapping (((link title) (series:scan-alist (make-bible-chapter-url-list uid-list))))
+                              (:div :style "width:200px;float:left"
+                                    (:a :href link title)))))
     (:br)
     ;; Present search form for bible and haydock text.
     (:div :id "query-form" :style "text-align:center;"
@@ -255,27 +271,27 @@ with my name."
                  (:input :type "submit" :value "Submit")))
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
-                   (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-                   (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
-                         do (:option :value font-name font-name)))
+            (:option :value "Times New Roman" :selected "selected" "Times New Roman")
+            (series:iterate
+              ((font-name (series:scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
+              (:option :value font-name font-name)))
           (:script (:raw (ps-inline
-                        (defun change-to-font (font)
-                          (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
+                             (defun change-to-font (font)
+                               (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
     (:table :id "main-content"
-     ;; Present tabular view of bible text.
-     (loop for bible-uid from (car (bible-url-to-uid bible-url))
-             to (cadr (bible-url-to-uid bible-url))
-           do (:tr :style "line-height: 1.5em;"
-               (:td (:raw (get-heading-text bible-uid)))
-               (:td (progn
-                      (:raw (get-bible-text bible-uid))
-                      (:br)
-                      (:br)
-                      (when (get-cross-references-text-with-links bible-uid)
-                        (:raw (get-cross-references-text-with-links bible-uid)))))
-               (:td :width "55%"
-                    (when (get-footnotes-text-with-links bible-uid)
-                      (:raw (get-footnotes-text-with-links bible-uid)))))))))
+            ;; Present tabular view of bible text.
+            (loop for bible-uid in uid-list
+                  do (:tr :style "line-height: 1.5em;"
+                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (progn
+                                 (:raw (get-bible-text bible-uid))
+                                 (:br)
+                                 (:br)
+                                 (when (get-cross-references-text-with-links bible-uid)
+                                   (:raw (get-cross-references-text-with-links bible-uid)))))
+                          (:td :width "55%"
+                               (when (get-footnotes-text-with-links bible-uid)
+                                 (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -291,12 +307,12 @@ query-form"
     Syntax (click to toggle)")
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
-    (:script (ps-inline
-                 (defun toggle-div-with-id (div-id)
-                   (let ((syntax-help-div (chain document (get-element-by-id div-id))))
-                     (if (equal (@ syntax-help-div style display) "none")
-                         (setf (@ syntax-help-div style display) "block")
-                         (setf (@ syntax-help-div style display) "none"))))))
+    (:script (:raw (ps-inline
+                  (defun toggle-div-with-id (div-id)
+                    (let ((syntax-help-div (chain document (get-element-by-id div-id))))
+                      (if (equal (@ syntax-help-div style display) "none")
+                          (setf (@ syntax-help-div style display) "block")
+                          (setf (@ syntax-help-div style display) "none")))))))
     (:div :id "query-syntax" :style "display:none;"
 
           (:h2 "1. FIELDS")
@@ -398,12 +414,13 @@ query-form"
                 (:blockquote" Avner: There's no peace at the end of this no matter what you believe. You know this is true.")
                 (:p " \"Live by the sword, die by the sword.\" I know for sure that's in the Bible somewhere. The proof is left as an exercise to the reader. More importantly, have a great rest of the day!")))
     (:p :style "text-align:center;"
-        (:a :href "/bible?verses=1-1-1-1-1-31" "Return to tabular view."))
+        (:a :href "/bible/1-1-1/1-1-31" "Return to tabular view."))
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
             (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-            (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
-                  do (:option :value font-name font-name)))
+            (series:iterate
+              ((font-name (series:scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
+              (:option :value font-name font-name)))
           (:script (:raw (ps-inline
                              (defun change-to-font (font)
                                (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
@@ -411,7 +428,7 @@ query-form"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
                  (:input :name "query" :id "query" :size "50" :type "text"
-                         :value query :required "required")
+                         :value (string-downcase query) :required "required")
                  (:input :type "submit" :value "Submit")))
     (:table :id "main-content"
             ;; 37199 includes all verses of the bible. The extra are from chapter/book

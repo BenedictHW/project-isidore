@@ -7,16 +7,13 @@
   ;; Testing framework.
   (:import-from #:parachute)
   ;; HTTP client library.
-  (:import-from #:drakma)
+  (:import-from #:dexador)
   (:export #:master-suite)
   (:documentation
    "Project Isidore Regression Tests.
 
-To run locally evaluate in the listener,
-
-(asdf:test-system :project-isidore)
-
-The test suite is run prior to the build process. See MAKE.LISP."))
+To run locally evaluate in the listener, (asdf:test-system :project-isidore) The
+test suite is run prior to the build process. See MAKE.LISP."))
 
 (in-package #:project-isidore-test/tests)
 
@@ -57,10 +54,10 @@ The test suite is run prior to the build process. See MAKE.LISP."))
   See https://httpstatuses.com/ for a list of HTTP status codes."
   :parent master-suite
   (parachute:true
-   (if (= 200 (nth-value 1 (drakma:http-request "https://www.HanshenWang.com/")))
-       (= 200 (nth-value 1 (drakma:http-request "https://www.HanshenWang.com/")))
+   (if (= 200 (nth-value 1 (dex:get "https://www.HanshenWang.com/")))
+       (= 200 (nth-value 1 (dex:get "https://www.HanshenWang.com/")))
        ;; Secondary URL is a fallback if the HanshenWang.com domain expires.
-       (= 200 (nth-value 1 (drakma:http-request "https://project-isidore.fly.dev/"))))))
+       (= 200 (nth-value 1 (dex:get "https://project-isidore.fly.dev/"))))))
 
 (parachute:define-test generate-data-finish
   :description "Check that `bible-page' and `bible-search-page' finishes."

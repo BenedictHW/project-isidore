@@ -3,7 +3,7 @@
 
 # manual.texi is updated on every commit. Changes are already committed in
 # manual.html.
-/assets/reference/manual.texi
+/assets/reference-manual.texi
 
 # Ignore all HTML files. manual.html and project-isidore-doc.html contain
 # duplicates of the source code.

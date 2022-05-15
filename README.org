@@ -3,18 +3,19 @@
 [[https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml/badge.svg?branch=master]]
 
 The third iteration of my personal website. It was quite fun building this with
-Common Lisp. Pull requests and patches -- see "src/project-isidore.asd" for the
+Common Lisp. Pull requests and patches -- see "project-isidore.asd" for the
 correct mailing address -- are most welcome.
 
-Copyright (c) 2021 Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/agpl-3.0-standalone.html][GNU-AGPL-3.0 License]].
-Blog content is available under the [[https://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0 License]] unless otherwise noted.
+Copyright (c) 2021 Benedict Hanshen Wang. Source code is under the [[https://www.gnu.org/licenses/agpl-3.0-standalone.html][GNU-AGPL-3.0
+License]]. Blog content is available under the [[https://creativecommons.org/licenses/by-sa/4.0/][CC-BY-SA 4.0 License]] unless
+otherwise noted.
 
 ** Development Quick Start
 
 Prerequisite(s):
 
-An ANSI Common Lisp implementation. The development platform is x86_64 GNU/Linux
-with [[http://www.sbcl.org/][SBCL.]]
+An ANSI Common Lisp implementation. The development platform is x86_64 Debian
+GNU/Linux with [[http://www.sbcl.org/][SBCL.]]
 
 #+begin_src bash
 $ sudo apt install sbcl
@@ -30,17 +31,17 @@ $ sbcl --load quicklisp.lisp
 ,* (quit)
 #+end_src
 
-1. Clone the repository
+1. Clone the repository,
 
    #+begin_src bash
-   $ cd ~/quicklisp/local-projects
-   $ git clone https://github.com/HanshenWang/project-isidore.git
+   $ git clone https://github.com/BenedictHW/project-isidore.git /home/$USER/quicklisp/local-projects/
    #+end_src
 
-2. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) buffer with =M-x sly=. Depending
-   on the current working directory, =M-x sly-mrepl-set-directory= to Project
-   Isidore root directory may be needed. [[https://lispcookbook.github.io/cl-cookbook/editor-support.html#vscode][Here are some Non-Emacs Common Lisp IDE
-   options.]]
+2. Within [[https://www.gnu.org/software/emacs/][Emacs]], start a Common Lisp IDE ([[https://github.com/joaotavora/sly][SLY]]) REPL buffer with =M-x sly=.
+   Depending on the current working directory, =M-x sly-mrepl-set-directory= to
+   Project Isidore root directory may be needed. [[https://lispcookbook.github.io/cl-cookbook/editor-support.html#vscode][Here are some Non-Emacs Common
+   Lisp IDE options.]] Or you may use the REPL inside your shell, as outlined in
+   the Quicklisp installation steps.
 
 3. Load Project Isidore & start local development server.
 
@@ -53,26 +54,25 @@ $ sbcl --load quicklisp.lisp
      PROJECT-ISIDORE> (terminate-application)
    #+end_src
 
-4. To build a standalone exectuable binary locally,
+4. To build a standalone executable binary locally,
 
    #+begin_src bash
-     $ cd ~/quicklisp/local-projects/project-isidore/bin/
-     $ sbcl --dynamic-space-size 512 --load make.lisp
+     $ sbcl --dynamic-space-size 512 --load /home/$USER/quicklisp/local-projects/project-isidore/src/make.lisp
    #+end_src
 
 5. To build a docker image,
 
    #+begin_src sh
-     $ cd ~/quicklisp/local-projects/project-isidore/
      $ sudo dockerd
-     $ docker build -t project-isidore-image .
+     $ docker build -t project-isidore-image /home/$USER/quicklisp/local-projects/project-isidore/
      $ docker run -dp 8080:8080 project-isidore-image
      $ docker stop $(docker ps -a -q)
      $ docker system prune
      $ sudo pkill -9 dockerd
    #+end_src
 
-Full documentation available here:
-https://www.hanshenwang.com/blog/project-isidore-doc.html
+Please visit https://hanshenwang.com/blog/project-isidore-doc.html for online
+documentation. The same document can be found locally at
+"/assets/blog/project-isidore-doc.html".
 
 [[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]

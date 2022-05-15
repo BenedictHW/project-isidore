@@ -10,8 +10,9 @@
   ;; No package local nicknames. See commit 1962a26.
   (:export
    :*database* :bible
+   :unique-id-of :heading-of :text-of :cross-references-of :footnotes-of
 
-   #:get-bible-uid
+   #:get-bible-uid #:bible-obj-with-id #:unique-id-valid-p
 
    #:get-bible-text #:get-heading-text
    #:get-footnotes-text #:get-cross-references-text
@@ -66,7 +67,7 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
                 :unique t)
 
      ;; Having the heading information in one slot instead of three prevents
-     ;; mapping over class BIBLE thrice in `get-bible-uid' to locate a
+     ;; mapping over class BIBLE thrice in `get-bible-uid' to locate an
      ;; UNIQUE-ID.
      (heading :initarg :heading :reader heading-of
               :type cons
@@ -124,6 +125,11 @@ calling `get-bible-uid'."
                           (lambda (obj)
                             (return-from bible-obj-with-id obj))
                           :equal bible-uid)))
+
+(defun unique-id-valid-p (test-uid)
+  (if (eql nil (bible-obj-with-id test-uid))
+      nil
+      t))
 
 (defun bible-book-convert-dwim (book)
   "Given a Bible book string name or integer, convert to the opposite format.
@@ -198,13 +204,11 @@ where C. is short form for chapter. "
                       (return-from bible-ref-to-url
                         (if (not book)
                             nil
-                        (concatenate 'string "/bible?verses="
-                                     (write-to-string book) "-"
-                                     (write-to-string chapter) "-"
-                                     (write-to-string verse) "-"
-                                     (write-to-string book) "-"
-                                     (write-to-string chapter) "-"
-                                     (write-to-string verse))))))))))
+                            (concatenate
+                             'string "/bible/"
+                             (write-to-string book) "-"
+                             (write-to-string chapter) "-"
+                             (write-to-string verse))))))))))
 
 (defparameter *reference-regex*
   (ppcre:create-scanner "([1-4]?\\s?[a-zA-Z]{1,15}\\s[0-9]{1,3}\\:[0-9]{1,3})")
@@ -262,89 +266,64 @@ Example:
          (get-bible-uid start-book start-chapter start-verse)
          (get-bible-uid end-book end-chapter end-verse)))))
 
-(defun make-bible-chapter-url-list (bible-url)
-  "Selects the right links from `+bible-chapter-url-alist+' based on the
-BIBLE-URL
+(defun make-bible-chapter-url-list (uid-list)
+  "Selects the right links from `+bible-chapter-url-alist+' based on the interval
+created from the first and last elements of list UID-LIST. Note that for an
+interval that is within a single book or single chapter, the function is
+recursed to cover all chapters within the book. If this is not done during the
+former case of a single book, then the last chapter will be cut off as a result
+of an off by one error.
 
 Example:
 
-(project-isidore/model:make-bible-chapter-url-list \"1-1-1-1-3-1\") =>
+(project-isidore/model:make-bible-chapter-url-list '(10 91)) =>
 
-((\"/bible?verses=1-1-1-1-1-31\" . \"Genesis 1\")
- (\"/bible?verses=1-2-1-1-2-25\" . \"Genesis 2\")
- (\"/bible?verses=1-3-1-1-3-24\" . \"Genesis 3\"))"
-  (let* ((beginning-uid
-          (position (rassoc (concatenate 'string
-                                         (bible-book-convert-dwim
-                                          (cdar
-                                           (heading-of (bible-obj-with-id (car (bible-url-to-uid bible-url))))))
-                                         " "
-                                         (write-to-string
-                                          (cdadr
-                                           (heading-of (bible-obj-with-id
-                                                      (car (bible-url-to-uid bible-url)))))))
-                            +bible-chapter-url-alist+ :test #'string-equal)
-                    +bible-chapter-url-alist+))
-        (ending-uid
-          (position (rassoc (concatenate 'string
-                                         (bible-book-convert-dwim
-                                          (cdar
-                                           (heading-of (bible-obj-with-id
-                                                      (cadr (bible-url-to-uid bible-url))))))
-                                         " "
-                                         (write-to-string
-                                          (cdadr
-                                           (heading-of (bible-obj-with-id
-                                                      (cadr (bible-url-to-uid bible-url)))))))
-                            +bible-chapter-url-alist+ :test #'string-equal)
-                    +bible-chapter-url-alist+)))
-    ;; If in chapter view, resubmit book url to this function
-    ;; to generate persistent chapter links.
+((\"/bible/1-1-1/1-1-31\" . \"Genesis 1\")
+ (\"/bible/1-2-1/1-2-25\" . \"Genesis 2\")
+ (\"/bible/1-3-1/1-3-24\" . \"Genesis 3\"))"
+  (let ((beginning-uid (first uid-list))
+        (ending-uid (first (last uid-list))))
     ;; Special case: last book of the bible.
-    (cond ((equalp 73 (parse-integer (first (cl-ppcre:split "-" bible-url))))
+    (cond ((<= (get-bible-uid 73 0 0) beginning-uid)
            (nthcdr 1312 +bible-chapter-url-alist+))
-          ;; Special case: books with one chapter.
-          ((or (equalp 36 (parse-integer
-                           (first (cl-ppcre:split "-" bible-url))))
-               (equalp 64 (parse-integer
-                           (first (cl-ppcre:split "-" bible-url))))
-               (equalp 70 (parse-integer
-                           (first (cl-ppcre:split "-" bible-url))))
-               (equalp 71 (parse-integer
-                           (first (cl-ppcre:split "-" bible-url))))
-               (equalp 72 (parse-integer
-                           (first (cl-ppcre:split "-" bible-url)))))
-           (reverse
-            (set-difference
-             (nthcdr beginning-uid
-                     +bible-chapter-url-alist+)
-             ;; HACK KLUDGE FIXME
-             ;; otherwise last chapter gets cut off.
-             ;; this will give a nil error if the last
-             ;; verse/chapter of the bible is inputted.
-             ;; (+ 1 ending-uid)
-             (nthcdr (+ 1 ending-uid) +bible-chapter-url-alist+))))
-          ((equalp (parse-integer (second (ppcre:split "-" bible-url)))
-                   (parse-integer (fifth (ppcre:split "-" bible-url))))
+          ((= (cdar (heading-of (bible-obj-with-id beginning-uid)))
+              (cdar (heading-of (bible-obj-with-id ending-uid))))
            (make-bible-chapter-url-list
-            (cadr (cl-ppcre:split
-                   "=" (car (rassoc (bible-book-convert-dwim
-                                     (parse-integer (first
-                                                     (cl-ppcre:split
-                                                      "-" bible-url))))
-                                    +bible-book-url-alist+
-                                    :test #'string-equal))))))
+            (list (get-bible-uid
+                   (cdar (heading-of (bible-obj-with-id beginning-uid)))
+                   ;; call with 1, as `+bible-chapter-url-alist+' has no chapter 0's.
+                   1 1)
+                  (get-bible-uid
+                   (+ 1 (cdar (heading-of (bible-obj-with-id ending-uid))))
+                   1 1))))
+          ((and (= (cdar (heading-of (bible-obj-with-id beginning-uid)))
+                   (cdar (heading-of (bible-obj-with-id ending-uid))))
+                (= (cdadr (heading-of (bible-obj-with-id beginning-uid)))
+                   (cdadr (heading-of (bible-obj-with-id ending-uid)))))
+           (make-bible-chapter-url-list
+            (list (get-bible-uid
+                   (cdar (heading-of (bible-obj-with-id beginning-uid)))
+                   1 1)
+                  (get-bible-uid
+                   (+ 1 (cdar (heading-of (bible-obj-with-id ending-uid))))
+                   1 1))))
           (t
            (reverse
             (set-difference
-             (nthcdr beginning-uid
-                     +bible-chapter-url-alist+)
-             ;; HACK KLUDGE FIXME
-             ;; otherwise last chapter gets cut off.
-             ;; this will give a nil error if the last
-             ;; verse/chapter of the bible is inputted.
-             ;; (+ 1 ending-uid)
-             (nthcdr (+ 1 ending-uid) +bible-chapter-url-alist+)))))))
+             (nthcdr
+              (position
+               (rassoc (car (ppcre:split ":" (get-heading-text beginning-uid)))
+                       +bible-chapter-url-alist+
+                       :test #'string-equal)
+               +bible-chapter-url-alist+)
+              +bible-chapter-url-alist+)
+             (nthcdr
+              (position
+               (rassoc (car (ppcre:split ":" (get-heading-text ending-uid)))
+                       +bible-chapter-url-alist+
+                       :test #'string-equal)
+               +bible-chapter-url-alist+)
+              +bible-chapter-url-alist+)))))))
 
 (defparameter *search-index*
   (make-instance 'montezuma:index
@@ -366,3 +345,17 @@ Bible unique ID's and a relevance score "
                                (push (cons doc score) results))
                            options)
     (nreverse results)))
+
+;; https://gist.github.com/carboleum/cf03b4c16655f257d96bda8f41f51471
+;; Gmail is limited to 500 emails a day.
+;; (ql:quickload "cl-smtp")
+;; (let ((from "placeholder@gmail.com")
+;;       (to "placeholder@gmail.com")
+;;       (subject "test")
+;;       (message "Hello ;-) from cl-smtp")
+;;       (login "placeholder@gmail.com")
+;;       ;; Generate an application password via google account settings.
+;;       ;; Use fly.io secrets for production deployments.
+;;       (passwd "replace-me-with-app-pwd"))
+;;   (cl-smtp:send-email "smtp.gmail.com" from to subject message
+;;                       :ssl :tls :authentication `(,login ,passwd)))
