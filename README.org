@@ -46,7 +46,8 @@ $ sbcl --load quicklisp.lisp
 3. Load Project Isidore & start local development server.
 
    #+begin_src lisp
-     CL-USER> (ql:quickload :project-isidore)
+     CL-USER> (ql:quickload "project-isidore-test")
+     CL-USER> (asdf:test-system "project-isidore")
      ;; Switch to package namespace.
      CL-USER> (in-package :project-isidore)
      ;; Starts web server at http://localhost:8080.
@@ -58,12 +59,18 @@ $ sbcl --load quicklisp.lisp
 
    #+begin_src bash
      $ sbcl --dynamic-space-size 512 --load /home/$USER/quicklisp/local-projects/project-isidore/src/make.lisp
+     # Run the executable.
+     $ /home/$USER/quicklisp/local-projects/project-isidore/bin/ProjectIsidore
    #+end_src
 
-5. To build a docker image,
+   Or download pre-built binaries from [[https://github.com/BenedictHW/project-isidore/releases/][the project release page.]]
+
+5. To build a docker image first create a Dockerfile at the repository root.
+   See .github/workflows/CICD.yml for a working Dockerfile.
 
    #+begin_src sh
      $ sudo dockerd
+     # After creating said Dockerfile.
      $ docker build -t project-isidore-image /home/$USER/quicklisp/local-projects/project-isidore/
      $ docker run -dp 8080:8080 project-isidore-image
      $ docker stop $(docker ps -a -q)
@@ -71,7 +78,9 @@ $ sbcl --load quicklisp.lisp
      $ sudo pkill -9 dockerd
    #+end_src
 
-Please visit https://hanshenwang.com/blog/project-isidore-doc.html for online
+   Or download a tagged docker container image from [[https://github.com/BenedictHW/project-isidore/pkgs/container/project-isidore][the project packages page.]]
+
+Please visit https://hanshenwang.com/assets/blog/project-isidore-doc.html for online
 documentation. The same document can be found locally at
 "/assets/blog/project-isidore-doc.html".
 

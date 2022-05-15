@@ -347,6 +347,7 @@ query-form"
           (:li"principalities !c:2")
           (:li"compare 'exact*' with 'exacteth'")
           (:li"no greater love lay down")
+          (:li"romans 3 23")
           (:li"+b:john +c:3 +v:15")
           (:h2 :onclick "toggleDivWithId(\"query-tutorial\")" :style "text-align:center;" "Tutorial: (click to toggle)")
           (:div :id "query-tutorial" :style "display:none;"
@@ -496,6 +497,5 @@ function PARSE-UID-SYM) " ) "or " (:a :href "/contact" "contact me for more info
     (:h1 :class "title" "404. That's an error.")
     (:h4 :style "text-align:center;" "The requested URL " (:code wanted-dead-or-alive) "was not found on this server. But that's not all we know..." )
     (:div :id "main-content" "Please validate the URL. " (:a :href "https://www.w3.org/Provider/Style/URI" "Although I try my best to keep permanent, eternal, everlasting URLs,") " I am most certainly not Moses or the Writer behind what is etched in stone. Mea culpa.
-Even as we all fall short, if you have even a vague certainty that something
-should be here but isn't; "
+If you have even a vague certainty that something should be here but isn't; "
           (:a :href "https://github.com/BenedictHW/project-isidore/" "please browse the source repository " ) "or " (:a :href "/contact" "contact me for more information."))))
