@@ -15,13 +15,11 @@
   :source-control (:git "https://github.com/HanshenWang/project-isidore.git")
   :class :package-inferred-system
   :pathname "src"
-  :depends-on ("project-isidore/packages")
+  :depends-on ("project-isidore/packages" "deploy")
   :in-order-to ((asdf:test-op (asdf:test-op "project-isidore-test")))
-  ;; Documentation of "program-op" here,
-  ;; https://common-lisp.net/project/asdf/asdf.html#Predefined-operations-of-ASDF
-  :build-operation "program-op"
+  :defsystem-depends-on (:deploy)
+  :build-operation "deploy-op"
   :build-pathname "ProjectIsidore"
-  ;; Defined in src/application.lisp.
   :entry-point "project-isidore:application-toplevel")
 
 (register-system-packages "project-isidore/packages" '(:project-isidore))

@@ -19,7 +19,7 @@ See VIEWS.LISP for HTML generation. "))
 ;;; Generate global.css static asset
 (defun bg-slideshow-span (image delay)
   "Boilerplate function to specify background IMAGE and duration DELAY in seconds"
-  `(:background-image ,(format nil "url(pic~a.webp)" image) :animation-delay
+  `(:background-image ,(format nil "url(/public/pic~a.webp)" image) :animation-delay
                       ,(format nil "~a" delay)))
 
 (defun bg-slideshow-div (delay)
@@ -49,7 +49,7 @@ See VIEWS.LISP for HTML generation. "))
                            :z-index" 0" :backface-visibility" hidden" :animation" imageAnimation 36s
      linear infinite 0s")
 
-     (".slideshow li:nth-child(1) span" :background-image "url(pic1.webp)")
+     (".slideshow li:nth-child(1) span" :background-image "url(/public/pic1.webp)")
      (".slideshow li:nth-child(2) span" ,@(bg-slideshow-span 2 "6s"))
      (".slideshow li:nth-child(3) span" ,@(bg-slideshow-span 3 "12s"))
      (".slideshow li:nth-child(4) span" ,@(bg-slideshow-span 4 "18s"))

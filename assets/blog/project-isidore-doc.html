@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-02-16 Wed 14:35 -->
+<!-- 2022-05-14 Sat 22:15 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -47,7 +47,7 @@
                                           <ul>
                                             <li><a href="/about">About</a></li>
                                             <li><a href="/work">Work</a></li>
-                                            <li><a href="/blog/archive.html">Blog</a></li>
+                                            <li><a href="/public/blog/archive.html">Blog</a></li>
                                             <li><a href="/contact">Contact</a></li>
                                           </ul>
                                         </nav>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-02-10 Thu 13:16</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-14 Sat 22:14</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgda29c95">
+<div class="abstract" id="org23fcf0f">
 <p>
 
 </p>
@@ -91,7 +91,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <li><a href="#Org-Publish-Pipeline">4. Org Publish Pipeline</a></li>
 <li><a href="#Development-Operations">5. Development Operations</a>
 <ul>
-<li><a href="#org0648145">5.1. Continous Integration</a>
+<li><a href="#orgc654a71">5.1. Continous Integration</a>
 <ul>
 <li><a href="#Testing">5.1.1. Testing</a>
 <ul>
@@ -103,8 +103,8 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 </ul>
 </li>
-<li><a href="#org8719e15">5.2. Continous Delivery</a></li>
-<li><a href="#org05d9781">5.3. Continous Deployment</a></li>
+<li><a href="#org7c90b58">5.2. Continous Delivery</a></li>
+<li><a href="#org70ab3f9">5.3. Continous Deployment</a></li>
 <li><a href="#Benchmarking-Profiling">5.4. Basic Benchmarks</a></li>
 </ul>
 </li>
@@ -137,10 +137,16 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
 <p>
-Welcome! This is the documentation webpage of my personal website. The canonical
-source code is located at <a href="https://github.com/HanshenWang/project-isidore">GitHub - HanshenWang/project-isidore: Personal Web
-Application.</a> For usage, please see the <a href="#User-Manual">user manual</a> and the navigation bar
-located at the top of the website.
+<a href="https://news.ycombinator.com/item?id=30642632">https://news.ycombinator.com/item?id=30642632</a>
+<a href="https://news.ycombinator.com/item?id=30633670">https://news.ycombinator.com/item?id=30633670</a>
+</p>
+
+<p>
+<span class="dropcap">W</span>elcome! This is the
+documentation webpage of my personal website. The canonical source code is
+located at <a href="https://github.com/HanshenWang/project-isidore">GitHub - HanshenWang/project-isidore: Personal Web Application.</a> For
+usage, please see the <a href="#User-Manual">user manual</a> and the navigation bar located at the top of
+the website.
 </p>
 
 <ul class="org-ul">
@@ -207,7 +213,9 @@ Below are the steps I have taken to setup a Common Lisp environment inside Space
 
 <ul class="org-ul">
 <li>CL the Language = <a href="http://www.lispworks.com/documentation/common-lisp.html">ANSI INCITS 226-1994</a></li>
-<li>CL Implementation = <a href="http://www.sbcl.org/">Steel Bank Common Lisp</a></li>
+<li>CL Implementation = <a href="http://www.sbcl.org/">Steel Bank Common Lisp</a>
+If you've deep pockets or love reading about the history of Lisp implementations:
+<a href="https://ieeexplore.ieee.org/document/9740557">The History of Franz and Lisp | IEEE Journals &amp; Magazine | IEEE Xplore</a></li>
 <li>CL Library/Package Manager = <a href="https://www.quicklisp.org/beta/#installation">Quicklisp</a></li>
 <li>CL System Manager/Build Tooling = <a href="https://common-lisp.net/project/asdf/">Another System Definition Facility (comes bundled with SBCL)</a></li>
 <li>CL IDE = <a href="https://www.spacemacs.org/">Spacemacs</a> with <a href="https://joaotavora.github.io/sly/">SLY</a></li>
@@ -238,7 +246,7 @@ building from source are options for later discretion. In the shell,
 
 <div class="org-src-container">
 <pre class="src src-bash">sbcl
-<span class="org-rainbow-delimiters-depth-1">(</span>+ <span class="org-highlight-numbers-number">2</span> <span class="org-highlight-numbers-number">3</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>+ 2 3<span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
@@ -297,7 +305,7 @@ Not of primary importance yet is a definitions of what entails a lisp
 introduction to the language, to be more specific it is covered in <a href="https://gigamonkeys.com/book/programming-in-the-large-packages-and-symbols.html">Peter
 Seibel's excellent pedagogical work, Practical Common Lisp</a> and other
 guides are located <a href="https://github.com/fare/asdf/blob/master/doc/best_practices.md#trivial-system-definition">here</a> and <a href="https://ashok-khanna.medium.com/an-introduction-to-lisp-packages-7a9ee352006e">here.</a> N.B. that <code>(ql:quickload
-   :your-local-project)</code> also calls <code>(asdf:load-system :your-local-project)</code>.
+  :your-local-project)</code> also calls <code>(asdf:load-system :your-local-project)</code>.
 The difference is <code>(ql:quickload)</code> will download any missing system
 dependencies.
 </p></li>
@@ -482,14 +490,14 @@ needed a code base. In Common Lisp, it is the <code>.asd</code> file.
 <p>
 Project Isidore follows the common <a href="https://wiki.c2.com/?ModelViewController">Model-view-controller (MVC) design pattern.</a>
 It entails encapsulating data together with its processing (the model) and
-isolate it from the manipulation (the controller) and presentation (the view)
+isolating it from the manipulation (the controller) and presentation (the view)
 part that has to be done on a user interface.
 </p>
 
 <p>
 The project follows the <a href="https://common-lisp.net/project/asdf/asdf/The-package_002dinferred_002dsystem-extension.html">ASDF package inferred system</a> style of using <code>defpackage</code>
 forms to specify file inter-dependencies. The entry point of dependency graph is
-<a href="https://www.hanshenwang.com/reference/manual.html#The-project_002disidore_002fpackages-package">packages.lisp</a>. To understand the code base, the files are named after the MVC
+<a href="https://www.hanshenwang.com/public/reference-manual.html#The-project_002disidore_002fpackages-package">packages.lisp</a>. To understand the code base, the files are named after the MVC
 design pattern.
 </p>
 
@@ -543,118 +551,33 @@ together. He takes this burden upon himself so the end users might avoid
 <li><a href="https://github.com/40ants/lisp-project-of-the-day">GitHub - 40ants/lisp-project-of-the-day: Here I'll post notes about Quicklisp&#x2026;</a></li>
 </ul></li>
 <li><p>
-Common Lisp Dependencies
+System Dependency graph
 </p>
 
 <p>
-Direct dependencies from ASDF:DEPENDS-ON
+Call <code>sly-eval-buffer</code> on the following code block to update the graph.
 </p>
 
-<table>
+<div class="org-src-container">
+<pre class="src src-lisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">https://40ants.com/lisp-project-of-the-day/2020/05/0063-asdf-viz.html</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Inside shell "sudo apt install graphviz".</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:cl-dot</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Not present in quicklisp, retrieve from https://github.com/guicho271828/asdf-viz</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:asdf-viz</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; also loads cl-ppcre.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>setf cl-dot:*dot-path* <span class="org-rainbow-delimiters-depth-2">(</span>string-trim '<span class="org-rainbow-delimiters-depth-3">(</span>#\space #\newline<span class="org-rainbow-delimiters-depth-3">)</span> <span class="org-rainbow-delimiters-depth-3">(</span>second <span class="org-rainbow-delimiters-depth-4">(</span>ppcre:split <span class="org-string">" "</span><span class="org-rainbow-delimiters-depth-5">(</span>nth-value 0 <span class="org-rainbow-delimiters-depth-6">(</span>uiop:run-program <span class="org-string">"whereis -b dot"</span> <span class="org-builtin">:output</span> <span class="org-builtin">:string</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">Tilde char "~" in destination pathname throws an error.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>asdf-viz:visualize-asdf-hierarchy <span class="org-rainbow-delimiters-depth-2">(</span>asdf:system-relative-pathname <span class="org-string">"project-isidore"</span> <span class="org-string">"assets/project-isidore-dependency-graph.png"</span><span class="org-rainbow-delimiters-depth-2">)</span> <span class="org-rainbow-delimiters-depth-2">(</span>list <span class="org-rainbow-delimiters-depth-3">(</span>asdf:find-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">"asdf-viz" also can draw class hierarchies and call graphs.</span>
+</pre>
+</div>
 
 
-<colgroup>
-<col  class="org-left">
+<figure id="orgc6addda">
+<img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
-<col  class="org-left">
-
-<col  class="org-left">
-
-<col  class="org-left">
-
-<col  class="org-left">
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">Library</th>
-<th scope="col" class="org-left">Author</th>
-<th scope="col" class="org-left">Function</th>
-<th scope="col" class="org-left">License</th>
-<th scope="col" class="org-left">Runtime</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left"><a href="https://github.com/edicl/hunchentoot">Hunchentoot</a></td>
-<td class="org-left">Edmund Weitz</td>
-<td class="org-left">Web Server</td>
-<td class="org-left">BSD-2-Clause</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/edicl/cl-who">CL-WHO</a></td>
-<td class="org-left">Edmund Weitz</td>
-<td class="org-left">Generate (X)HTML</td>
-<td class="org-left">BSD-2-Clause</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/inaimathi/cl-css">CL-CSS</a></td>
-<td class="org-left">Leo Zovic</td>
-<td class="org-left">Generate CSS</td>
-<td class="org-left">MIT/Expat</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://gitlab.common-lisp.net/parenscript/parenscript">Parenscript</a></td>
-<td class="org-left">Manuel Odendahl</td>
-<td class="org-left">CL to ES5 (JS)</td>
-<td class="org-left">BSD-3-Clause</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/Shinmera/parachute">Parachute</a></td>
-<td class="org-left">Nicolas Hafner</td>
-<td class="org-left">Testing Framework</td>
-<td class="org-left">Zlib</td>
-<td class="org-left">No</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/marijnh/Postmodern">Postmodern</a></td>
-<td class="org-left">Marijn Haverbeke</td>
-<td class="org-left">Postgres Wrapper</td>
-<td class="org-left">Zlib</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/sharplispers/log4cl">Log4CL</a></td>
-<td class="org-left">Max Mikhanosha</td>
-<td class="org-left">Logging</td>
-<td class="org-left">Apache-2.0</td>
-<td class="org-left">Yes</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/didierverna/declt">Declt</a></td>
-<td class="org-left">Didier Verna</td>
-<td class="org-left">Documentation</td>
-<td class="org-left">ISC</td>
-<td class="org-left">No</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/edicl/drakma">Drakma</a></td>
-<td class="org-left">Edmund Weitz</td>
-<td class="org-left">HTTP Client</td>
-<td class="org-left">BSD-2-Clause</td>
-<td class="org-left">No</td>
-</tr>
-
-<tr>
-<td class="org-left"><a href="https://github.com/deepfire/cl-org-mode">CL-Org-Mode</a></td>
-<td class="org-left">Drew Crampsie</td>
-<td class="org-left">Org-mode Parser</td>
-<td class="org-left">Unspecified</td>
-<td class="org-left">No</td>
-</tr>
-</tbody>
-</table>
+<figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
+</figure>
 
 <p>
 Transitive dependencies &amp; Lines of Code from running,
@@ -701,7 +624,17 @@ find . -name <span class="org-string">'*.lisp'</span> | xargs wc -l
 <td class="org-right">264852</td>
 </tr>
 </tbody>
-</table>
+</table></li>
+<li>Javascript Dependencies
+<ul class="org-ul">
+<li>Highlight.js 11.2.0
+Upgrade via editing <code>:head</code> under <code>org-publish-project-alist</code>.</li>
+<li>Mathjax 2.7.0
+See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-template</code>.</li>
+</ul></li>
+<li><p>
+Lisp Web Example Projects &amp; Misc. Resources
+</p>
 
 <p>
 Cool libraries to check out:
@@ -749,15 +682,8 @@ Cool libraries to check out:
 <td class="org-left">Dataflow (GUI)</td>
 </tr>
 </tbody>
-</table></li>
-<li>Javascript Dependencies
-<ul class="org-ul">
-<li>Highlight.js 11.2.0
-Upgrade via editing <code>:head</code> under <code>org-publish-project-alist</code>.</li>
-<li>Mathjax 2.7.0
-See <code>C-h v org-html-mathjax-options</code> and <code>org-html-mathjax-template</code>.</li>
-</ul></li>
-<li>Lisp Web Example Projects &amp; Misc. Resources
+</table>
+
 <ul class="org-ul">
 <li><a href="https://www.ic.unicamp.br/~meidanis/courses/mc336/problemas-lisp/L-99_Ninety-Nine_Lisp_Problems.html">L-99: Ninety-Nine Lisp Problems</a></li>
 <li><a href="https://cells-gtk.common-lisp.dev/cgtk-primer.html">https://cells-gtk.common-lisp.dev/cgtk-primer.html</a></li>
@@ -783,6 +709,8 @@ Used as a base template.</li>
 <li><a href="https://github.com/mmontone/cl-forms/">GitHub - mmontone/cl-forms: Web forms handling library for Common lisp</a></li>
 <li><a href="https://old.reddit.com/r/programming/comments/8gc5ef/steel_bank_common_lisp_sbcl_147_released/dybb8es/">lispm comments on Steel Bank Common Lisp (SBCL) 1.4.7 released</a></li>
 <li><a href="https://readevalprint.tumblr.com/post/101841449553/its-alive">READ EVAL PRINT — It's alive! The path from library to web-app.</a></li>
+<li><a href="https://github.com/no-defun-allowed/nqthm">GitHub - no-defun-allowed/nqthm: nqthm - the original(ish) Boyer-Moore theore&#x2026;</a></li>
+<li><a href="https://github.com/urweb/urweb">GitHub - urweb/urweb: The Ur/Web programming language</a></li>
 </ul></li>
 </ol>
 </div>
@@ -823,7 +751,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org79add47"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
+<pre class="src src-emacs-lisp" id="org88b79cb"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">*** Org Ox Publish Config</span>
 <span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">ox-rss</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -843,7 +771,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my/org-sitemap-date-entry-format</span> <span class="org-rainbow-delimiters-depth-2">(</span>entry style project<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Format ENTRY in org-publish PROJECT Sitemap format ENTRY ENTRY STYLE format that includes date."</span>
   <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-rainbow-delimiters-depth-4">(</span>filename <span class="org-rainbow-delimiters-depth-5">(</span>org-publish-find-title entry project<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span>
-    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>= <span class="org-rainbow-delimiters-depth-5">(</span>length filename<span class="org-rainbow-delimiters-depth-5">)</span> <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-4">)</span>
+    <span class="org-rainbow-delimiters-depth-3">(</span><span class="org-keyword">if</span> <span class="org-rainbow-delimiters-depth-4">(</span>= <span class="org-rainbow-delimiters-depth-5">(</span>length filename<span class="org-rainbow-delimiters-depth-5">)</span> 0<span class="org-rainbow-delimiters-depth-4">)</span>
         <span class="org-rainbow-delimiters-depth-4">(</span>format <span class="org-string">"*%s*"</span> entry<span class="org-rainbow-delimiters-depth-4">)</span>
       <span class="org-rainbow-delimiters-depth-4">(</span>format <span class="org-string">"{{{timestamp(%s)}}} [[file:%s][%s]]"</span>
               <span class="org-rainbow-delimiters-depth-5">(</span>format-time-string <span class="org-string">"%Y-%m-%d"</span>
@@ -909,7 +837,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 <span class="org-string">                              const headers = Array.from( document.querySelectorAll('h2, h3, h4, h5, h6') );</span>
 
 <span class="org-string">                              headers.forEach( header =&gt; {</span>
-<span class="org-string">                                header.insertAdjacentHTML('afterbegin',</span>
+<span class="org-string">                                header.insertAdjacentHTML('</span><span class="org-string"><span class="org-constant">afterbegin</span></span><span class="org-string">',</span>
 <span class="org-string">                                 '&lt;a href=\"#table-of-contents\"&gt;&amp;#8689;&lt;/a&gt;'</span>
 <span class="org-string">                                );</span>
 <span class="org-string">                              });</span>
@@ -975,7 +903,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 <span class="org-comment-delimiter">;; </span><span class="org-comment">https://alhassy.github.io/AlBasmala#Clickable-Headlines</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defun</span> <span class="org-function-name">my/ensure-headline-ids</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-type">&amp;rest</span> _<span class="org-rainbow-delimiters-depth-2">)</span>
   <span class="org-doc">"Org trees without a custom ID will have</span>
-<span class="org-doc">                              All non-alphanumeric characters are cleverly replaced with &#8216;-&#8217;.</span>
+<span class="org-doc">                              All non-alphanumeric characters are cleverly replaced with &#8216;</span><span class="org-doc"><span class="org-constant">-</span></span><span class="org-doc">&#8217;.</span>
 
 <span class="org-doc">                              If multiple trees end-up with the same id property, issue a</span>
 <span class="org-doc">                              message and undo any property insertion thus far.</span>
@@ -990,7 +918,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
        <span class="org-rainbow-delimiters-depth-5">(</span><span class="org-keyword">org-with-point-at</span> <span class="org-rainbow-delimiters-depth-6">(</span>point<span class="org-rainbow-delimiters-depth-6">)</span>
          <span class="org-rainbow-delimiters-depth-6">(</span><span class="org-keyword">let</span> <span class="org-rainbow-delimiters-depth-7">(</span><span class="org-rainbow-delimiters-depth-8">(</span>id <span class="org-rainbow-delimiters-depth-9">(</span>org-entry-get nil <span class="org-string">"CUSTOM_ID"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span>
            <span class="org-rainbow-delimiters-depth-7">(</span><span class="org-keyword">unless</span> id
-             <span class="org-rainbow-delimiters-depth-8">(</span><span class="org-keyword">thread-last</span> <span class="org-rainbow-delimiters-depth-9">(</span>nth <span class="org-highlight-numbers-number">4</span> <span class="org-rainbow-delimiters-depth-1">(</span>org-heading-components<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-depth-9">)</span>
+             <span class="org-rainbow-delimiters-depth-8">(</span><span class="org-keyword">thread-last</span> <span class="org-rainbow-delimiters-depth-9">(</span>nth 4 <span class="org-rainbow-delimiters-depth-1">(</span>org-heading-components<span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-depth-9">)</span>
                <span class="org-rainbow-delimiters-depth-9">(</span>s-replace-regexp <span class="org-string">"[</span><span class="org-string"><span class="org-negation-char">^</span></span><span class="org-string">[:alnum:]']"</span> <span class="org-string">"-"</span><span class="org-rainbow-delimiters-depth-9">)</span>
                <span class="org-rainbow-delimiters-depth-9">(</span>s-replace-regexp <span class="org-string">"-+"</span> <span class="org-string">"-"</span><span class="org-rainbow-delimiters-depth-9">)</span>
                <span class="org-rainbow-delimiters-depth-9">(</span>s-chop-prefix <span class="org-string">"-"</span><span class="org-rainbow-delimiters-depth-9">)</span>
@@ -1055,8 +983,8 @@ The result of automating all 3 subheading tasks can be found in <a href="https:/
 </p>
 </div>
 
-<div id="outline-container-org0648145" class="outline-3">
-<h3 id="org0648145"><span class="section-number-3">5.1.</span> Continous Integration</h3>
+<div id="outline-container-orgc654a71" class="outline-3">
+<h3 id="orgc654a71"><span class="section-number-3">5.1.</span> Continous Integration</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Some measure of quality assurance through unit, integration and regression
@@ -1298,28 +1226,22 @@ stains.
 <span class="org-rainbow-delimiters-depth-1">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML report output location</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>sb-cover:report <span class="org-string">"../assets/code-coverage-report/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-2">(</span>optimize <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:store-coverage-data <span class="org-highlight-numbers-number">0</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-unmatched">))</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-2">(</span>optimize <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:store-coverage-data 0<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-unmatched">))</span>
 </pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-org8719e15" class="outline-3">
-<h3 id="org8719e15"><span class="section-number-3">5.2.</span> Continous Delivery</h3>
+<div id="outline-container-org7c90b58" class="outline-3">
+<h3 id="org7c90b58"><span class="section-number-3">5.2.</span> Continous Delivery</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Building an executable binary for all 3 major operating system platforms on the
 x86-64 architecture. Binaries built this way may <a href="https://github.com/HanshenWang/project-isidore/releases">be downloaded through the
 Github release interface.</a> This is done as the final step of <a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">MAKE.LISP</a> by calling
-<code>(asdf:make "system-name")</code>. To do this locally,
+<code>(asdf:make "system-name")</code>.
 </p>
-
-<div class="org-src-container">
-<pre class="src src-sh">$ cd ~/quicklisp/local-projects/project-isidore/bin/
-$ sbcl --dynamic-space-size <span class="org-highlight-numbers-number">512</span> --load make.lisp
-</pre>
-</div>
 
 <p>
 Lisp being amenable to image based development means an executable binary in
@@ -1329,8 +1251,8 @@ and SBCL runtime included.
 </div>
 </div>
 
-<div id="outline-container-org05d9781" class="outline-3">
-<h3 id="org05d9781"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
+<div id="outline-container-org70ab3f9" class="outline-3">
+<h3 id="org70ab3f9"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Build a <a href="https://opencontainers.org/">container</a> image to easily deploy said executable binary on servers,
@@ -1903,11 +1825,17 @@ they have great support too. Allegrocache was originally based on ObjectStore
 (Dan Weinreb of Symbolics fame + others). <a href="https://web.archive.org/web/20110715000000*/https://www.danweinreb.org/blog/object-oriented-database-management-systems-succeeded">Dan does a fair job at defending
 object oriented database management systems here.</a> I would like to point out that
 <a href="https://www.youtube.com/watch?v=MplVyKN0lHg">Glenn D. House of 2Is (DoD contractor) testifies (21:30)</a> to the conclusions
-found in Prechault and Garret when comparing Lisp v. Java v. C/C++.
+found in Prechault and Garret when comparing Lisp v. Java v. C/C++. <a href="https://github.com/GrammaTech/sel">Grammatech
+is also a DARPA funded shop that uses Common Lisp.</a> I would also be remiss if I
+did not mention the <a href="https://github.com/clasp-developers/clasp/releases/tag/1.0.0">recent milestone of CLASP</a> (Common Lisp implementation with
+C++ interop) version 1.0. The geriatric IP of Symbolics is still closed source;
+rumor is there are still legacy DoD contracts and that American Express's fraud
+detection used to (up until the mid 2000's?) use Open Genera.
 </p>
 </div>
 </div>
 </div>
+
 <div id="outline-container-Case-Study-Profiling-and-Performance" class="outline-2">
 <h2 id="Case-Study-Profiling-and-Performance"><span class="section-number-2">7.</span> Case Study: Profiling and Performance</h2>
 <div class="outline-text-2" id="text-Case-Study-Profiling-and-Performance">
@@ -2105,7 +2033,7 @@ system, I would try a library like <a href="https://gitlab.common-lisp.net/dkoch
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Includes COMMON LISP USER package symbols as defined in the Hyperspec.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:profile-call-counts <span class="org-string">"CL-USER"</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Profile and output both graph and flat formats.</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>sb-sprof:with-profiling <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> <span class="org-highlight-numbers-number">5000</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">sb-sprof:with-profiling</span> <span class="org-rainbow-delimiters-depth-2">(</span><span class="org-builtin">:max-samples</span> 5000
                           <span class="org-builtin">:report</span> <span class="org-builtin">:graph</span>
                           <span class="org-builtin">:loop</span> t
                           <span class="org-builtin">:show-progress</span> t<span class="org-rainbow-delimiters-depth-2">)</span>
@@ -2383,6 +2311,21 @@ commits I have done. Current result for version 1.2.1,
   10,191,536 bytes consed
 </pre>
 </div>
+
+<p>
+After the addition of regex generated cross-references in version 1.2.2,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">Evaluation took:
+  0.840 seconds of real time
+  0.833305 seconds of total run time (0.813444 user, 0.019861 system)
+  [ Run times consist of 0.002 seconds GC time, and 0.832 seconds non-GC time. ]
+  99.17% CPU
+  2,078,095,375 processor cycles
+  80,577,968 bytes consed
+</pre>
+</div>
 </div>
 </div>
 
@@ -2424,7 +2367,7 @@ from the project release page. <a href="https://github.com/HanshenWang/project-i
 <p>
 Find the appropriate exectuable matching both your computer's processor
 architecture and the operating system. Currently only the x86-64 architecture is
-supported on Linux, MacOS and Windows operating systems.
+supported on Ubuntu, MacOS and Windows operating systems.
 </p>
 
 <p>
@@ -2476,7 +2419,7 @@ Manual</a>.
 </p>
 
 <p>
-<a href="https://www.hanshenwang.com/reference/manual.html">The Project Isidore Reference Manual</a> is complete with cross-references to ASDF
+<a href="https://www.hanshenwang.com/public/reference-manual.html">The Project Isidore Reference Manual</a> is complete with cross-references to ASDF
 component dependencies, parents and children, classes' direct methods, super and
 subclasses, slot readers and writers, setf expanders access and update functions
 etc. The reference manual also includes exhaustive and multiple-entry indexes
@@ -2540,7 +2483,7 @@ is nice to have an auto-generated manual though.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="org7419091"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+<pre class="src src-sh" id="orgf7398c0"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
 <span class="org-comment-delimiter">#</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">An example hook script to verify what is about to be committed.</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Called by "git commit" with no arguments.  The hook should</span>
@@ -2549,39 +2492,39 @@ is nice to have an auto-generated manual though.
 <span class="org-comment-delimiter">#</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">To enable this hook, rename this file to "pre-commit".</span>
 
-<span class="org-keyword">if</span> git rev-parse --verify HEAD &gt;/dev/null <span class="org-highlight-numbers-number">2</span>&gt;&amp;<span class="org-highlight-numbers-number">1</span>
+<span class="org-keyword">if</span> git rev-parse --verify HEAD &gt;/dev/null 2&gt;&amp;1
 <span class="org-keyword">then</span>
     <span class="org-variable-name">against</span>=HEAD
 <span class="org-keyword">else</span>
     <span class="org-comment-delimiter"># </span><span class="org-comment">Initial commit: diff against an empty tree object</span>
-    <span class="org-variable-name">against</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">git</span> hash-object -t tree /dev/null<span class="org-rainbow-delimiters-depth-1">)</span>
+    <span class="org-variable-name">against</span>=$<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-sh-quoted-exec">git hash-object -t tree /dev/null</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-keyword">fi</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Redirect output to stderr.</span>
-<span class="org-keyword">exec</span> <span class="org-highlight-numbers-number">1</span>&gt;&amp;<span class="org-highlight-numbers-number">2</span>
+<span class="org-keyword">exec</span> 1&gt;&amp;2
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Generate updated manual. SBCL must be installed. See documentation for</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">environment setup</span>
-sbcl --script doc/generate-doc.lisp
+sbcl --script src/generate-doc.lisp
 <span class="org-comment-delimiter"># </span><span class="org-comment">Add updated manual.html to commit</span>
 git add assets/reference/manual.html
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lisp" id="orga05451e"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">generate-doc.lisp</span>
+<pre class="src src-lisp" id="orgffab2bd"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">generate-doc.lisp</span>
 <span class="org-comment-delimiter">;;; </span><span class="org-comment">See subheading 'Generate Reference Manual' at</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.hanshenwang.com/blog/project-isidore-doc.html/</span>
+<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.hanshenwang.com/public/blog/project-isidore-doc.html/</span>
 
 <span class="org-rainbow-delimiters-depth-1">(</span>load <span class="org-string">"~/quicklisp/setup.lisp"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; Quicklisp is installed in default location</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; If you need to download dependencies</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:net.didierverna.declt</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Generate 'project-isidore.texi' in TEXI-DIRECTORY</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>net.didierverna.declt:declt <span class="org-builtin">:project-isidore</span>
-                             <span class="org-builtin">:texi-name</span> <span class="org-string">"manual"</span>
+                             <span class="org-builtin">:texi-name</span> <span class="org-string">"reference-manual"</span>
                              <span class="org-builtin">:texi-directory</span>
                              <span class="org-rainbow-delimiters-depth-2">(</span>asdf:system-relative-pathname
-                              <span class="org-builtin">:project-isidore</span> <span class="org-string">"../assets/reference/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+                              <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
                              <span class="org-builtin">:library-name</span> <span class="org-string">"Project Isidore"</span>
                              <span class="org-comment-delimiter">;; </span><span class="org-comment">links are machine specific</span>
                              <span class="org-builtin">:hyperlinks</span> nil
@@ -2596,16 +2539,15 @@ git add assets/reference/manual.html
                              'string <span class="org-string">"cd "</span>
                              <span class="org-rainbow-delimiters-depth-3">(</span>namestring
                               <span class="org-rainbow-delimiters-depth-4">(</span>asdf:system-relative-pathname
-                               <span class="org-builtin">:project-isidore</span> <span class="org-string">"../assets/reference/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+                               <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>write-line *manual-path* <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">Convert .texi to .html</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>write-line
    <span class="org-comment-delimiter">;; </span><span class="org-comment">For makeinfo flags, see</span>
    <span class="org-comment-delimiter">;; </span><span class="org-comment">https://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html#HTML-CSS</span>
- <span class="org-string">"makeinfo --html 'manual.texi' --no-split --css-include='../global.css'"</span>
+ <span class="org-string">"makeinfo --html 'reference-manual.texi' --no-split --css-include='global.css'"</span>
  <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>force-output <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-
 </pre>
 </div>
 </div>
@@ -2629,7 +2571,7 @@ without,
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
 <li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
-<li>Cloudflare, Fly.io and Github.</li>
+<li>Cloudflare, Fly.io, Github and Debian.</li>
 </ul>
 
 <p>
@@ -2670,40 +2612,9 @@ Scott Chacon.
                               <hr/>
                               <footer>
                                 <div class="copyright-container">
-                                  <div class="copyright">
-                                    Comments? Corrections? <a
-                                href="https://hanshenwang.com/contact">
-                                Please do reach out.</a><a
-                                href="https://hanshenwang.com/blog/rss.xml">
-                                RSS Feed. </a><a
-                                href="https://hanshenwang.com/subscribe">
-                                Mailing List. </a><br/>
-                                    Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/>
-                                    Blog content is available under
-                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                                      CC-BY-SA 4.0
-                                    </a> unless otherwise noted.
-                                  </div>
-                                  <div class="cc-badge">
-                                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-                                      <img alt="Creative Commons License"
-                                           src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
-                                           height="31"
-                                           width="88">
-                                    </a>
-                                  </div>
-                                  <div class="rss-badge">
-                                    <a rel="license" href="http://hanshenwang.com/blog/rss.xml">
-                                      <img alt="Really Simple Syndication - RSS"
-                                           src="https://upload.wikimedia.org/wikipedia/en/thumb/4/43/Feed-icon.svg/50px-Feed-icon.svg.png"
-                                           height="50"
-                                           width="50">
-                                    </a>
-                                  </div>
-                                </div>
-
-                                <div class="generated">
-                                  Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a>
+                                    Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><a href="https://hanshenwang.com/subscribe"> Mailing List. </a><br/>
+                                    Copyright &copy; 2021 Hanshen Wang. Some Rights Reserved.<br/> Blog content is available under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> CC-BY-SA 4.0 </a> unless otherwise noted.<br/>
+                                    Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.0.50 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a><br/>
                                 </div>
                               </footer>
 </div>

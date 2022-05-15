@@ -1,12 +1,10 @@
-##########################################
-# Continous Integration and Delivery.yml #
-##########################################
+# Continous Integration and Delivery.yml
 
 # Continous Integration and Continous Delivery are combined. This is done in the
-# file ../../bin/make.lisp where the seperate system 'project-isidore-test' is
-# loaded and 'asdf:test-system' is ran prior to building the application as a
-# standalone binary. This does mean both 'project-isidore' and
-# 'project-isidore-test' are loaded into the lisp image.
+# file make.lisp where the seperate system 'project-isidore-test' is loaded and
+# 'asdf:test-system' is ran prior to building the application as a standalone
+# binary. This does mean both 'project-isidore' and 'project-isidore-test' are
+# loaded into the lisp image.
 
 name: CICD
 
@@ -14,6 +12,7 @@ name: CICD
 # request to 'master branch' OR Trigger workflow manually through
 # Github Actions repo website. Upon tag starting with 'v', job named
 # 'create_release' is run.
+
 on:
   push:
     branches: [ master ]
@@ -24,7 +23,9 @@ on:
   workflow_dispatch:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
   build_docker_image:
     name: Docker Image Build
@@ -89,15 +90,13 @@ jobs:
 
     - name: Setup GNU/Linux Environment
       run: |
-        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
-        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-04-05" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
-        sudo apt install sbcl
-        sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
+        sudo apt install sbcl zlib1g-dev && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp
 
     # If Packages.lisp changes, the cache will be invalidated.
     # Github policy also invalidates caches not accessed in 7 days.
@@ -108,10 +107,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 512 --load $BUILDPACK_DIR/make.lisp
-
-    - name: Move Project Isidore Executable
-      run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
+      run: sbcl --dynamic-space-size 512 --load $BUILD_DIR/src/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
@@ -119,11 +115,10 @@ jobs:
       with:
         name: pi-build-Linux
         path: |
-          ${{ github.workspace }}/ProjectIsidore
+          ${{ github.workspace }}/bin/
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/data/
           ${{ github.workspace }}/COPYING.txt
-
 
   build_executable_macOS:
     name: Darwin Build
@@ -139,15 +134,13 @@ jobs:
 
     - name: Setup MacOS Environment
       run: |
-        echo "BUILDPACK_DIR=${{ github.workspace }}/bin/" >> $GITHUB_ENV
-        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2021-12-30" >> $GITHUB_ENV
+        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-04-05" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
-        brew install sbcl
-        sudo mkdir $BUILDPACK_DIR/lib/ && sudo curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILDPACK_DIR/lib/quicklisp.lisp
+        brew install sbcl zlib && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp
 
     # If Packages.lisp changes, the cache will be invalidated.
     # Github policy also invalidates caches not accessed in 7 days.
@@ -158,10 +151,7 @@ jobs:
         key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 512 --load $BUILDPACK_DIR/make.lisp
-
-    - name: Move Project Isidore Executable
-      run: mv -v ${{ github.workspace }}/src/ProjectIsidore ${{ github.workspace }}/ProjectIsidore
+      run: sbcl --dynamic-space-size 512 --load $BUILD_DIR/src/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -169,7 +159,7 @@ jobs:
       with:
         name: pi-build-macOS
         path: |
-          ${{ github.workspace }}/ProjectIsidore
+          ${{ github.workspace }}/bin/
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/data/
           ${{ github.workspace }}/COPYING.txt
@@ -195,11 +185,10 @@ jobs:
       shell: pwsh
       run:
         git config --global core.autocrlf false;
-        echo "BUILDPACK_DIR=${{ github.workspace }}\bin\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "QL_DIST_VER=2021-12-30" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "CL_IMPL_VER=2.2.0" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2022-04-05" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "CL_IMPL_VER=2.2.4" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
@@ -215,8 +204,7 @@ jobs:
         Invoke-WebRequest -UserAgent "Wget" -uri " https://sourceforge.net/projects/sbcl/files/sbcl/${{ Env.CL_IMPL_VER }}/sbcl-${{ Env.CL_IMPL_VER }}-x86-64-windows-binary.msi/download " -Method "GET" -OutFile "${{ Env.CACHE_DIR }}sbcl-bin.msi";
         mkdir "${{ Env.CACHE_DIR }}sbcl\";
         Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
-        mkdir "${{ Env.BUILDPACK_DIR }}lib\";
-        Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILDPACK_DIR }}lib\quicklisp.lisp";
+        Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILD_DIR }}\quicklisp.lisp";
 
     # If Packages.lisp changes, the cache will be invalidated.
     # Github policy also invalidates caches not accessed in 7 days.
@@ -229,12 +217,7 @@ jobs:
     - name: Build Project Isidore
       shell: pwsh
       run:
-        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 512 --load "${{ Env.BUILDPACK_DIR }}make.lisp"
-
-    # Powershell command is seperate as it needs to be exectued sequentially.
-    - name: Move Project Isidore Executable
-      shell: pwsh
-      run: Move-Item -Path "${{ Env.BUILD_DIR }}src\ProjectIsidore.exe" -Destination "${{ Env.BUILD_DIR}}ProjectIsidore.exe"
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 512 --load "${{ Env.BUILD_DIR }}\src\make.lisp"
 
     - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
@@ -242,7 +225,7 @@ jobs:
         name: pi-build-Windows
         path: |
           # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
-          ${{ github.workspace }}/ProjectIsidore.exe
+          ${{ github.workspace }}/bin/
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/data/
           ${{ github.workspace }}/COPYING.txt
