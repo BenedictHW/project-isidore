@@ -289,7 +289,6 @@ jobs:
       with:
         name: pi-build-Windows
         path: |
-          # NOTE THE .EXE REQUIRED FOR WINDOWS BUILDS
           ${{ github.workspace }}/bin/
           ${{ github.workspace }}/assets/
           ${{ github.workspace }}/data/
