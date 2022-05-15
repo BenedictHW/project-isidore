@@ -3,6 +3,7 @@
 
 (uiop:define-package #:project-isidore/model
   (:use #:common-lisp
+        #:series
         #:project-isidore/data
         ;; Embedded Database.
         #:rucksack)

@@ -1,10 +1,11 @@
 ;;;; SPDX-FileCopyrightText: 2021 Hanshen Wang <Hanshen@HanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
+
 (defpackage #:project-isidore/controller
   (:use #:common-lisp
+        #:series
         #:project-isidore/views
         #:project-isidore/model)
-  (:import-from #:series)
   (:import-from #:alexandria)
   (:import-from #:hunchensocket)
   (:import-from #:snooze)
