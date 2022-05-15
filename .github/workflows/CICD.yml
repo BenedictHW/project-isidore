@@ -67,7 +67,7 @@ jobs:
     - name: Deploy Image on Fly.io
       uses: superfly/flyctl-actions@1.1
       with:
-        args: "deploy --app project-isidore --image ghcr.io/hanshenwang/project-isidore:latest"
+        args: "deploy --app project-isidore --image ghcr.io/benedicthw/project-isidore:latest"
 
     - name: Prune Github Container Registry
       uses: vlaurin/action-ghcr-prune@main
