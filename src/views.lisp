@@ -3,11 +3,11 @@
 
 (uiop:define-package #:project-isidore/views
   (:use #:common-lisp
+        #:series
         #:project-isidore/styles
-        #:project-isidore/model
-        #:spinneret
-        #:parenscript)
-  (:import-from #:series)
+        #:project-isidore/model)
+  (:import-from #:spinneret)
+  (:import-from #:parenscript)
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
@@ -31,17 +31,12 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
 #+end_src "))
 
 (in-package #:project-isidore/views)
-
-;; Do not :use both "series" and "parenscript" as they will conflict and the
-;; generated javascript will be borked.
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (series::install :implicit-map t))
 
 (defmacro web-page-template ((&key title) &body body)
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
-  `(with-html-string
+  `(spinneret:with-html-string
      (:html :lang "en"
             (:head
              (:title, title)
@@ -68,7 +63,7 @@ all other web app pages uses this boilerplate."
                     (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
 
 (defun index-page ()
-  (with-html-string
+  (spinneret:with-html-string
     (:html :lang "en"
            (:head
             (:title "HanshenWang.com")
@@ -110,24 +105,24 @@ all other web app pages uses this boilerplate."
             ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
             (:script
              (:raw
-              (ps-inline
-                  (chain document
-                         (add-event-listener
-                          "DOMContentLoaded"
-                          (lambda (event)
-                            (var data-text (array "Hey there," "Bonjour." "¡Hola!" "Привет." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                            (defun type-writer(text i fn-callback)
-                              (cond ((< i (length text))
-                                     (setf (chain document(query-selector "h1")inner-h-t-m-l) (+(chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                     (set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                    ((equal (typeof fn-callback) "function")
-                                     (set-timeout fn-callback 700))))
-                            (defun start-text-animation (i)
-                              (when (equal (typeof (aref data-text i)) "undefined")
-                                (set-timeout (lambda () (start-text-animation 0))2000))
-                              (when (< i (length (aref data-text i)))
-                                (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                            (start-text-animation 0)))))))))))
+              (parenscript:ps-inline
+                  ((parenscript:chain ps-dom2-symbols:document
+                                      (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
+                                                                          (lambda (event)
+                                                                            (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "??????." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                                                                            (defun type-writer(text i fn-callback)
+                                                                              (cond ((< i (length text))
+                                                                                     (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                                                                     (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                                                                    ((equal (parenscript:typeof fn-callback) "function")
+                                                                                     (ps-window-wd-symbols:set-timeout fn-callback 700))))
+                                                                            (defun start-text-animation (i)
+                                                                              (when (equal (parenscript:typeof (aref data-text i)) "undefined")
+                                                                                (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
+                                                                              (when (< i (length (aref data-text i)))
+                                                                                (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                                                                            (start-text-animation 0))))))))))))
+
 
 (defun about-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -227,7 +222,7 @@ all other web app pages uses this boilerplate."
 located in the `web-page-template' macro and the copyright footer. The work is
 in the public domain and frankly I think it's tacky to plaster the top navbar
 with my name."
-  `(with-html-string
+  `(spinneret:with-html-string
      (:html :lang "en"
             (:head
              (:title, title)
@@ -275,9 +270,10 @@ CL-USER> (bible-page '(1 2 3 37198))
             (series:iterate
               ((font-name (series:scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
               (:option :value font-name font-name)))
-          (:script (:raw (ps-inline
-                             (defun change-to-font (font)
-                               (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
+          (:script (:raw
+                    (parenscript:ps-inline
+                        (defun change-to-font (font)
+                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:table :id "main-content"
             ;; Present tabular view of bible text.
             (loop for bible-uid in uid-list
@@ -307,12 +303,13 @@ query-form"
     Syntax (click to toggle)")
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
-    (:script (:raw (ps-inline
+    (:script (:raw
+              (parenscript:ps-inline
                   (defun toggle-div-with-id (div-id)
-                    (let ((syntax-help-div (chain document (get-element-by-id div-id))))
-                      (if (equal (@ syntax-help-div style display) "none")
-                          (setf (@ syntax-help-div style display) "block")
-                          (setf (@ syntax-help-div style display) "none")))))))
+                    (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
+                      (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "block")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")))))))
     (:div :id "query-syntax" :style "display:none;"
 
           (:h2 "1. FIELDS")
@@ -421,9 +418,10 @@ query-form"
             (series:iterate
               ((font-name (series:scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
               (:option :value font-name font-name)))
-          (:script (:raw (ps-inline
+          (:script (:raw
+                    (parenscript:ps-inline
                              (defun change-to-font (font)
-                               (setf (chain document (get-element-by-id "main-content") style font-family) (@ font value)))))))
+                               (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:div :id "query-form" :style "text-align:center;"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")

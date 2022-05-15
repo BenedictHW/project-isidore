@@ -52,11 +52,6 @@ Work-in-progress.
 "))
 
 (in-package #:project-isidore/controller)
-
-;; Do not :use both "series" and "parenscript" as they will conflict and the
-;; generated javascript will be borked.
-(eval-when (:compile-toplevel :load-toplevel :execute)
-  (series::install :implicit-map t))
 
 (defclass snooze-acceptor (hunchensocket:websocket-acceptor
                            hunchentoot:easy-acceptor) ())
