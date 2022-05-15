@@ -38,9 +38,66 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
+      uses: actions/checkout@v3
+
+    - name: Create Fly.io Configuration
+      run: |
+        FLY_CONFIG=$(cat << EOF
+        app = "project-isidore"
+
+        kill_signal = "SIGINT"
+        kill_timeout = 5
+        processes = []
+
+        [env]
+
+        [experimental]
+          allowed_public_ports = []
+          auto_rollback = true
+
+        [[services]]
+          http_checks = []
+          internal_port = 8080
+          processes = ["app"]
+          protocol = "tcp"
+          script_checks = []
+
+          [services.concurrency]
+            hard_limit = 100
+            soft_limit = 20
+            type = "connections"
+
+          [[services.ports]]
+            handlers = ["http"]
+            port = 80
+
+          [[services.ports]]
+            handlers = ["tls", "http"]
+            port = 443
+
+          [[services.tcp_checks]]
+            grace_period = "1s"
+            interval = "15s"
+            restart_limit = 0
+            timeout = "2s"
+
+        [mounts]
+          source = "project_isidore_database"
+          destination = "/project-isidore-database"
+
+        [[statics]]
+          guest_path = "/project-isidore/assets"
+          url_prefix = "/"
+        EOF
+        )
+        echo "FLY_CONFIG<<EOF" >> $GITHUB_ENV
+        echo "$FLY_CONFIG" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+      id: fly_config
+
+    - name: Write Fly.io Configuration
+      run: |
+        echo '${{ env.FLY_CONFIG }}' >> ${{ github.workspace }}/fly.toml
 
     - name: Build Container Image
       run: docker build . --file Dockerfile --tag project-isidore --label "runnumber=${GITHUB_RUN_ID}"
@@ -86,7 +143,7 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup GNU/Linux Environment
       run: |
@@ -130,7 +187,7 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup MacOS Environment
       run: |
@@ -193,7 +250,7 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     # No convenient apt or brew package managers.
     # Download and unzip binary from official SBCL repository.
@@ -242,7 +299,7 @@ jobs:
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it
     # $GITHUB_WORKSPACE may vary under $MATRIX.OS
     - name: Clone Project Isidore Repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: '0'
 
