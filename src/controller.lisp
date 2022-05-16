@@ -227,15 +227,26 @@ Navigate to http://localhost:~A to continue... ~%" port)
 (rip:defroute bible (:get "text/html" (beginning-uid integer) &optional ending-uid)
   (unless ending-uid
     (setf ending-uid beginning-uid))
-  (cond ((> beginning-uid ending-uid)
-         (signal 'negative-range :endpoints (list ending-uid beginning-uid)))
-        ((or (not (unique-id-valid-p beginning-uid))
-             (not (unique-id-valid-p ending-uid)))
-         (signal 'rip:no-such-resource))
-        ((<= beginning-uid ending-uid)
-         (bible-page (alexandria:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
-        (t
-         (signal 'rip:http-error))))
+  (cond
+    ;; FIXME This cond subform is accidental complexity due to improper
+    ;; semantics in class `bible'. `bible-obj-with-id' with an id of 0 to 7
+    ;; shows the heading slot has the value of book as NIL. I need to decide
+    ;; what to do with the preface before `bible-obj-with-id' with id 8. This is
+    ;; less likely in the defroute below, as I can imagine much more readily
+    ;; /bible/0 as a curious GET request whereas a mix of alphanumeric like
+    ;; /bible/fo0b3r will select the symbol defroute below.
+    ((and (<= 0 beginning-uid)
+          (>= 7 beginning-uid))
+     (signal 'rip:invalid-resource-arguments))
+    ((> beginning-uid ending-uid)
+     (signal 'negative-range :endpoints (list beginning-uid ending-uid)))
+    ((or (not (unique-id-valid-p beginning-uid))
+         (not (unique-id-valid-p ending-uid)))
+     (signal 'rip:invalid-resource-arguments))
+    ((<= beginning-uid ending-uid)
+     (bible-page (alexandria:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
+    (t
+     (signal 'rip:http-error))))
 
 (defun parse-uid-sym (uid-sym)
   "Human readable call to `bible-page'. UID-SYM must be of the following format,
@@ -255,25 +266,28 @@ Ex. /bible/genesis-2-10,/bible/47~4~2 etc.
 > (parse-uid-sym '1.2-10)
 ARG-COUNT-ERROR
 "
-  (destructuring-bind
-      (book chapter verse)
-      (alexandria:extremum (mapcar #'(lambda (unreserved-char)
+  (let ((list (alexandria:extremum
+                (mapcar #'(lambda (unreserved-char)
                             (ppcre:split unreserved-char (string uid-sym)))
                         '("-" "\\." "_" "~"))
-                           #'> :key #'length)
-    (get-bible-uid
-     (if (parse-integer book :junk-allowed t)
-         ;; It has a number, but is it a prefix or by its lonesome?
-         (if (ppcre:scan "[0-9]{1}[a-zA-Z]" book)
-             (bible-book-convert-dwim
-              (concatenate 'string
-                           (subseq book 0 1) ; IV Kings will not work.
-                           " "
-                           (cadr (ppcre:split "[0-9]" book))))
-             (parse-integer book))
-         (bible-book-convert-dwim book))
-     (parse-integer chapter)
-     (parse-integer verse))))
+                #'> :key #'length)))
+    (if (= 3 (length list)) ; Assume a sublist of 3 is properly parsed.
+        (destructuring-bind (book chapter verse)
+            list
+          (get-bible-uid
+           (if (parse-integer book :junk-allowed t)
+               ;; It has a number, but is it a prefix or by its lonesome?
+               (if (ppcre:scan "[0-9]{1}[a-zA-Z]" book)
+                   (bible-book-convert-dwim
+                    (concatenate 'string
+                                 (subseq book 0 1) ; IV Kings will not work.
+                                 " "
+                                 (cadr (ppcre:split "[0-9]" book))))
+                   (parse-integer book))
+               (bible-book-convert-dwim book))
+           (parse-integer chapter)
+           (parse-integer verse)))
+        (signal 'rip:invalid-resource-arguments))))
 
 (rip:defroute bible (:get "text/html" (beginning-sym symbol) &optional ending-sym)
   (unless ending-sym
