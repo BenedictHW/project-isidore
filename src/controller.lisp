@@ -87,9 +87,16 @@ Work-in-progress.
 (setf hunchensocket:*websocket-dispatch-table*
       (list 'find-room))
 
+
 (setf hunchentoot:*dispatch-table*
-      (list (hunchentoot:create-folder-dispatcher-and-handler
-             "/public/" (asdf:system-relative-pathname :project-isidore "assets/"))
+      (list (hunchentoot:create-static-file-dispatcher-and-handler
+             "/favicon.ico"
+             (asdf:system-relative-pathname
+              :project-isidore "assets/favicon.ico"))
+            (hunchentoot:create-folder-dispatcher-and-handler
+             "/public/"
+             (asdf:system-relative-pathname
+              :project-isidore "assets/"))
             (rip:make-hunchentoot-app '((rip:*home-resource* . homepage)))))
 
 (defvar *server* nil "To be used in `initialize-application' to create an
