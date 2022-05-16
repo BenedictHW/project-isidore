@@ -12,7 +12,10 @@
   ;; No package local nicknames. See commit 1962a26.
   (:export
    #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
-   #:bible-page #:bible-search-page)
+
+   #:bible-page #:bible-search-page
+
+   #:negative-range-condition-page #:400-condition-page #:404-condition-page)
   (:documentation
    "Project Isidore Web Page View Generation.
 
@@ -448,3 +451,51 @@ query-form"
                               (:td :width "50%" (when (get-footnotes-text-with-links bible-uid)
                                                   (:raw (get-footnotes-text-with-links bible-uid))))))))))
 
+;;; Conditional and Error handling pages.
+
+(defun negative-range-condition-page (invalid-range)
+  "See the appropriate `rip:explain-condition' method. INVALID-RANGE is a list of
+two numbers representing the first and last BIBLE-UID present in invalid GET
+request. In the interest of adhering to the principle of least surprise, a
+condition is thrown instead of silently swapping the two numbers."
+  (let ((bi (car invalid-range))
+        (ei (cadr invalid-range))
+        (corrected-link
+          (if (symbolp (car invalid-range))
+              (concatenate 'string
+                           "/bible/"
+                           (string-downcase (string (cadr invalid-range))) "/"
+                           (string-downcase (string (car invalid-range))) "/")
+              (concatenate 'string
+                           "/bible/"
+                           (write-to-string (cadr invalid-range)) "/"
+                           (write-to-string (car invalid-range)) "/"))))
+    (web-page-template (:title "BHW - 416")
+      (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
+      (:h4 :style "text-align:center;" "Error Code 416 - Range Not Specifiable")
+      (:div :id "main-content" "Please validate the URL. The beginning input" (:code bi) "subtracted from the ending input" (:code ei) "results in a negative interval range. Perhaps swapping the values will provide a valid URL: " (:a :href corrected-link corrected-link))
+      (:br)
+      (:div "An example of a valid URL is " (:code "/bible/matthew-4-14/john-3-15" ) "where the ending input is optional. Instead of " (:code "matthew") "the number 47 may be used instead. This does not hold true for the chapter or verse which must be numeric."
+            (:a :href "https://github.com/BenedictHW/project-isidore/blob/master/src/controller.lisp" "Consult the source repository on what constitutes a valid URL (N.B. the
+function PARSE-UID-SYM) " ) "or " (:a :href "/contact" "contact me for more information.")))))
+
+(defun 400-condition-page ()
+  "See the appropriate `rip:explain-condition' method."
+  (web-page-template (:title "BHW - 400")
+    (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
+    (:h4 :style "text-align:center;" "Error Code 400 - Bad Request")
+    (:div :id "main-content" "Please validate the URL. Resource exists but invalid arguments passed.")
+    (:br)
+    (:div "An example of a valid URL is " (:code "/bible/matthew-4-14/john-3-15" ) "where the ending input is optional. Instead of " (:code "matthew") "the number 47 may be used instead. This does not hold true for the chapter or verse which must be numeric."
+          (:a :href "https://github.com/BenedictHW/project-isidore/blob/master/src/controller.lisp" "Consult the source repository on what constitutes a valid URL (N.B. the
+function PARSE-UID-SYM) " ) "or " (:a :href "/contact" "contact me for more information."))))
+
+(defun 404-condition-page (wanted-dead-or-alive)
+  "See the appropriate `rip:explain-condition' method."
+  (web-page-template (:title "BHW - 404")
+    (:h1 :class "title" "404. That's an error.")
+    (:h4 :style "text-align:center;" "The requested URL " (:code wanted-dead-or-alive) "was not found on this server. But that's not all we know..." )
+    (:div :id "main-content" "Please validate the URL. " (:a :href "https://www.w3.org/Provider/Style/URI" "Although I try my best to keep permanent, eternal, everlasting URLs,") " I am most certainly not Moses or the Writer behind what is etched in stone. Mea culpa.
+Even as we all fall short, if you have even a vague certainty that something
+should be here but isn't; "
+          (:a :href "https://github.com/BenedictHW/project-isidore/" "please browse the source repository " ) "or " (:a :href "/contact" "contact me for more information."))))

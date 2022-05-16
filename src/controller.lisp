@@ -212,21 +212,17 @@ Navigate to http://localhost:~A to continue... ~%" port)
 (defmethod rip:explain-condition ((condition negative-range)
                                   (resource (eql #'bible))
                                   (ct snooze-types:text/html))
-  (with-output-to-string (s)
-    (format s "<h1>Terribl sorry 416</h1><p>You might have made a mistake, I'm afraid</p>")
-    (format s "<p>~a</p>" (car (endpoints-of condition)))))
+  (negative-range-condition-page (endpoints-of condition)))
 
 (defmethod rip:explain-condition ((condition rip:no-such-resource)
-                                  (resource (eql #'bible))
+                                  resource ; Generic 404 page.
                                   (ct snooze-types:text/html))
-  (with-output-to-string (s)
-    (format s "<h1>Terribl sorry 404</h1><p>You might have made a mistake, I'm afraid</p>")))
+    (404-condition-page (hunchentoot:script-name*)))
 
 (defmethod rip:explain-condition ((condition rip:invalid-resource-arguments)
                                   (resource (eql #'bible))
                                   (ct snooze-types:text/html))
-  (with-output-to-string (s)
-    (format s "<h1>Terribl sorry 4000</h1><p>You might have made a mistake, I'm afraid</p>")))
+  (400-condition-page))
 
 (rip:defroute bible (:get "text/html" (beginning-uid integer) &optional ending-uid)
   (unless ending-uid
@@ -285,10 +281,10 @@ ARG-COUNT-ERROR
   (let ((beginning-uid (parse-uid-sym beginning-sym))
         (ending-uid (parse-uid-sym ending-sym)))
     (cond ((> beginning-uid ending-uid)
-           (signal 'negative-range :endpoints (list ending-uid beginning-uid)))
+           (signal 'negative-range :endpoints (list beginning-sym ending-sym)))
           ((or (not (unique-id-valid-p beginning-uid))
                (not (unique-id-valid-p ending-uid)))
-           (signal 'rip:no-such-resource))
+           (signal 'rip:invalid-resource-arguments))
           ((<= beginning-uid ending-uid)
            (bible-page (alexandria:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
           (t
