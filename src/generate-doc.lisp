@@ -21,12 +21,12 @@
 (defparameter *shell* (uiop:launch-program "bash" :input :stream
                                                   :output :stream))
 ;; Change to proper directory
-(defparameter *manual-path* (concatenate
+(defparameter *reference-manual-path* (concatenate
                              'string "cd "
                              (namestring
                               (asdf:system-relative-pathname
                                :project-isidore "assets/"))))
-(write-line *manual-path* (uiop:process-info-input *shell*))
+(write-line *reference-manual-path* (uiop:process-info-input *shell*))
 ;; Convert .texi to .html
 (write-line
    ;; For makeinfo flags, see

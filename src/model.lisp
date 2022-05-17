@@ -13,7 +13,7 @@
    :*database* :bible
    :unique-id-of :heading-of :text-of :cross-references-of :footnotes-of
 
-   #:get-bible-uid #:bible-obj-with-id #:unique-id-valid-p
+   #:get-bible-uid #:bible-obj-with-id #:valid-bible-uid-p
 
    #:get-bible-text #:get-heading-text
    #:get-footnotes-text #:get-cross-references-text
@@ -127,7 +127,18 @@ calling `get-bible-uid'."
                             (return-from bible-obj-with-id obj))
                           :equal bible-uid)))
 
-(defun unique-id-valid-p (test-uid)
+(defun valid-bible-uid-p (test-uid)
+  "If instance of object class `bible' has slot `unique-id-of' that matches with
+provided TEST-UID return TRUE, else return NIL. TEST-UID must be of type INTEGER.
+
+> (valid-bible-uid-p 1234)
+T
+> (valid-bible-uid-p 23898389)
+NIL
+> (valid-bible-uid-p '98fj)
+SIMPLE-TYPE-ERROR
+"
+  (check-type test-uid integer)
   (if (eql nil (bible-obj-with-id test-uid))
       nil
       t))
