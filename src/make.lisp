@@ -73,7 +73,7 @@
                  (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" ql-dist-version)
                  :replace t :prompt nil))))
 
-;; (push :hunchentoot-no-ssl *features*)
+(push :hunchentoot-no-ssl *features*)
 ;;; IV. TESTING & BUILDING
 (ql:quickload "project-isidore-test")
 (asdf:test-system "project-isidore")
