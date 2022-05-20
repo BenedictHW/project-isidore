@@ -90,6 +90,10 @@ Work-in-progress.
 
 (setf hunchentoot:*dispatch-table*
       (list (hunchentoot:create-static-file-dispatcher-and-handler
+             "/loaderio-0b1416fb6bbda1cac4cbf506cbb6f779.txt"
+             (asdf:system-relative-pathname
+              :project-isidore "assets/loaderio-0b1416fb6bbda1cac4cbf506cbb6f779.txt"))
+            (hunchentoot:create-static-file-dispatcher-and-handler
              "/favicon.ico"
              (asdf:system-relative-pathname
               :project-isidore "assets/favicon.ico"))
