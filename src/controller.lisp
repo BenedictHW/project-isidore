@@ -98,7 +98,7 @@ Work-in-progress.
              (asdf:system-relative-pathname
               :project-isidore "assets/favicon.ico"))
             (hunchentoot:create-folder-dispatcher-and-handler
-             "/public/"
+             "/assets/"
              (asdf:system-relative-pathname
               :project-isidore "assets/"))
             (rip:make-hunchentoot-app '((rip:*home-resource* . homepage)))))
@@ -170,7 +170,7 @@ Version 3, 19 November 2007 You are welcome to redistribute the program or any
 parts hereof under certain conditions. Please visit
 https://www.gnu.org/licenses/agpl-3.0.html for License details.
 
-Homepage: https://www.hanshenwang.com/public/blog/project-isidore-doc.html
+Homepage: https://www.hanshenwang.com/assets/blog/project-isidore-doc.html
 
 Source code repository: https://github.com/HanshenWang/project-isidore
 

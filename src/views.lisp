@@ -47,7 +47,7 @@ all other web app pages uses this boilerplate."
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :type "text/css" :href "/public/global.css" :rel "stylesheet"))
+             (:link :type "text/css" :href "/assets/global.css" :rel "stylesheet"))
             (:body
              (:div :class "header header-fixed"
                    (:div :class "navbar container"
@@ -58,7 +58,7 @@ all other web app pages uses this boilerplate."
                                (:ul
                                 (:li (:a :href "/about" "About"))
                                 (:li (:a :href "/work" "Work"))
-                                (:li (:a :href "/public/blog/archive.html" "Blog"))
+                                (:li (:a :href "/assets/blog/archive.html" "Blog"))
                                 (:li (:a :href "/contact" "Contact"))))))
              (:div :class "main" ,@body)
              (:hr)
@@ -78,17 +78,17 @@ all other web app pages uses this boilerplate."
            (:body
             ;; background CSS3 slideshow
             (:ul :class "slideshow"
-                 (:li (:span "/public/pic1.webp"))
-                 (:li (:span "/public/pic2.webp"))
-                 (:li (:span "/public/pic3.webp"))
-                 (:li (:span "/public/pic4.webp"))
-                 (:li (:span "/public/pic5.webp"))
-                 (:li (:span "/public/pic6.webp")))
+                 (:li (:span "/assets/pic1.webp"))
+                 (:li (:span "/assets/pic2.webp"))
+                 (:li (:span "/assets/pic3.webp"))
+                 (:li (:span "/assets/pic4.webp"))
+                 (:li (:span "/assets/pic5.webp"))
+                 (:li (:span "/assets/pic6.webp")))
             (:div :class "container"
                   (:header
                    (:div :class "portfolio-container"
                          (:div :class "portfolio-section"
-                               (:img :src "public/profile.webp" :alt "Author Profile
+                               (:img :src "assets/profile.webp" :alt "Author Profile
                                Picture"))
                          (:div :class "portfolio-section"
                                ;; index.js typewriter effect needs the greeting
@@ -104,7 +104,7 @@ all other web app pages uses this boilerplate."
                    (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")
-                       (:a :href "/public/blog/archive.html" "Blog")
+                       (:a :href "/assets/blog/archive.html" "Blog")
                        (:a :href "/contact" "Contact"))))
             ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
             (:script
@@ -164,7 +164,7 @@ all other web app pages uses this boilerplate."
     (:ul
      (:li (:a :target "_blank" :href "https://github.com/HanshenWang" "Github
      Repositories"))
-     (:li (:a :href "/public/blog/archive.html" "Collected Notes")))))
+     (:li (:a :href "/assets/blog/archive.html" "Collected Notes")))))
 
 (defun contact-page ()
   (web-page-template (:title "HanshenWang.com")
@@ -183,7 +183,7 @@ all other web app pages uses this boilerplate."
     secondary source, at" (:a :target "_blank"
                               :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
     (:p "To receive blog article updates please use" (:a :target "_blank" :href
-                                                         "https://hanshenwang.com/public/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
+                                                         "https://hanshenwang.com/assets/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
                                                          "_blank" :href "https://hanshenwang.com/subscribe" "Subscribe to the Mailing
   List."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
@@ -204,7 +204,7 @@ all other web app pages uses this boilerplate."
         :href "https://www.wired.com/story/rss-readers-feedly-inoreader-old-reader/"
         "Further information on getting started with RSS can be found here.")
     (:a :target "_blank"
-        :href "http://hanshenwang.com/public/blog/rss.xml"
+        :href "http://hanshenwang.com/assets/blog/rss.xml"
         "My blog RSS is here.")
     (:p "I highly recommend the use of RSS for newsgroups and news reading.
   Still, an option exists to receive new blog articles by E-mail. This mailing
@@ -233,7 +233,7 @@ with my name."
              (:meta :charset "utf-8")
              (:meta :name "viewport"
                     :content "width=device-width, initial-scale=1")
-             (:link :type "text/css" :href "/public/global.css" :rel "stylesheet"))
+             (:link :type "text/css" :href "/assets/global.css" :rel "stylesheet"))
             (:body (:div :class "main" ,@body)))))
 
 (defun bible-page (uid-list)
@@ -246,7 +246,7 @@ CL-USER> (bible-page '(1 2 3 37198))
 "
   (bible-page-template (:title "1883 Haydock Douay Rheims Bible")
     (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
-    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/public/blog/tabular-douay-rheims.html" "Click to learn more."))
+    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/assets/blog/tabular-douay-rheims.html" "Click to learn more."))
     (:div :style "overflow:auto"
           ;; Present links to all books of the bible.
           (collect

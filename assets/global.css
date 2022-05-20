@@ -1,5 +1,5 @@
-@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/public/cinzel-v11-latin-regular.woff2') format('woff2'); }
-@font-face { font-family: RoyalInitialen; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/public/RoyalInitialen.woff2') format('woff2'); }
+@font-face { font-family: Cinzel; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/assets/cinzel-v11-latin-regular.woff2') format('woff2'); }
+@font-face { font-family: RoyalInitialen; font-style: normal; font-weight: 400; font-display: swap; src: local(''), url('/assets/RoyalInitialen.woff2') format('woff2'); }
 .header-fixed  { position:  relative; left:  0; top:  0; z-index:  1; width:  100%; margin:  0; background-color:  #FDF6E3; }
 .navbar  { display:  flex; justify-content:  space-between; align-items:
      center; color:  #fff; line-height:  60px; }
