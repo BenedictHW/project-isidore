@@ -131,7 +131,7 @@ gracefully shut down the web server and exit the lisp process."
     (format t "~%Server successfully stopped.~%")
     (return-from terminate-application t)))
 
-(defun initialize-application (&key (port 8080)
+(defun initialize-application (&key (port 80)
                                  (cmd-user-interface nil))
   "Start a web server at PORT. Takes a PORT parameter as Heroku assigns a
 different PORT per dyno/environment. CMD-USER-INTERFACE when set to true will
@@ -180,10 +180,10 @@ Navigate to http://localhost:~A to continue... ~%" port)
 (defun application-toplevel ()
   "Application entry point. Emulate a \"main\" function. Used in
   SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
-  argument that defaults to 8080. Heroku dynamically sets the PORT variable to
+  argument that defaults to 80. Heroku dynamically sets the PORT variable to
   be binded."
   (initialize-application :port (if (equalp NIL (uiop:getenv "PORT"))
-                                    8080
+                                    80
                                     (parse-integer (uiop:getenv "PORT")))
                           :cmd-user-interface t)
   ;; Sleep forever.

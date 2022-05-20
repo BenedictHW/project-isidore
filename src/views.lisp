@@ -294,7 +294,7 @@ CL-USER> (bible-page '(1 2 3 37198))
                           (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
 (defun bible-search-page (query)
-  "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
+  "127.0.0.1:80/bible?query=chicken where QUERY \"chicken\" is a string.
 
 DIV ID's
 --------

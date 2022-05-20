@@ -49,7 +49,7 @@ $ sbcl --load quicklisp.lisp
      CL-USER> (ql:quickload :project-isidore)
      ;; Switch to package namespace.
      CL-USER> (in-package :project-isidore)
-     ;; Starts web server at http://localhost:8080.
+     ;; Starts web server at http://localhost:80.
      PROJECT-ISIDORE> (initialize-application)
      PROJECT-ISIDORE> (terminate-application)
    #+end_src
@@ -65,7 +65,7 @@ $ sbcl --load quicklisp.lisp
    #+begin_src sh
      $ sudo dockerd
      $ docker build -t project-isidore-image /home/$USER/quicklisp/local-projects/project-isidore/
-     $ docker run -dp 8080:8080 project-isidore-image
+     $ docker run -dp 80:80 project-isidore-image
      $ docker stop $(docker ps -a -q)
      $ docker system prune
      $ sudo pkill -9 dockerd
