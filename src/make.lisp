@@ -73,10 +73,11 @@
                  (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" ql-dist-version)
                  :replace t :prompt nil))))
 
+;; Nginx is used for SSL Termination and as a Reverse Proxy.
 (push :hunchentoot-no-ssl *features*)
-;;; IV. TESTING & BUILDING
-(ql:quickload "project-isidore-test")
-(asdf:test-system "project-isidore")
+;;; IV. BUILDING
+(ql:quickload "project-isidore")
+;; (asdf:test-system "project-isidore")
 ;; Attempt to prune LISP image of testing artifacts to save space?
 ;; More prudent to ensure tests are side effect free...
 ;; (loop for system in

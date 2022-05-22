@@ -28,7 +28,7 @@ test suite is run prior to the build process. See MAKE.LISP."))
   :parent master-suite
   (parachute:skip-on (win32) "Hunchentoot has poor Microsoft Windows support."
                      (parachute:true (progn
-                                       (project-isidore:initialize-application)
+                                       (project-isidore:initialize-application :port 3510)
                                        (project-isidore:terminate-application)))))
 
 (parachute:define-test does-global-css-exist

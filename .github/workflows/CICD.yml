@@ -27,9 +27,53 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
 jobs:
+  deploy_on_production:
+    name: Deploy to Production Machine
+    runs-on: [ubuntu-latest]
+
+    steps:
+    - name: Configure SSH
+      env:
+        SSH_HOST: ${{ secrets.SSH_HOST }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ Env.SSH_PRIVATE_KEY }}" > ~/.ssh/oracle-vm-key
+        chmod 600 ~/.ssh/oracle-vm-key
+        cat >>~/.ssh/config <<END
+        Host remote-prod
+          HostName              ${{ Env.SSH_HOST }}
+          User                  debian
+          IdentityFile          ~/.ssh/oracle-vm-key
+          StrictHostKeyChecking no
+        END
+
+    # Should you encounter,
+    # insufficient permission for adding an object to repository database
+    # Run the command EXACTLY as written: sudo chown -R "${USER:-$(id -un)}" .
+    # in the root of the remote-prod git repo.
+    - name: Run Test Suite
+      run: |
+        ssh remote-prod 'cd /home/debian/quicklisp/local-projects/project-isidore && \
+          git fetch && git reset --hard origin/master && \
+          sbcl --eval "(ql:quickload :project-isidore-test)" \
+          --eval "(parachute:test-toplevel :project-isidore-test/tests)"'
+
+    - name: Build Project Isidore
+      run: |
+        ssh remote-prod 'sbcl --dynamic-space-size 20480 \
+          --load /home/debian/quicklisp/local-projects/project-isidore/src/make.lisp'
+
+    - name: Restart the Application
+      run: ssh remote-prod 'sudo systemctl restart project-isidore.service'
+
   build_docker_image:
     name: Docker Image Build
+    # Only run create_release if the tag starts with 'v'
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
+    # Following jobs must succeed
+    needs: [deploy_on_production]
     permissions:
       packages: write
       contents: read
@@ -40,54 +84,24 @@ jobs:
     - name: Clone Project Isidore Repository
       uses: actions/checkout@v3
 
-    - name: Create Fly.io Configuration
+    - name: Create Dockerfile
       run: |
         FLY_CONFIG=$(cat << EOF
-        app = "project-isidore"
-
-        kill_signal = "SIGINT"
-        kill_timeout = 5
-        processes = []
-
-        [env]
-
-        [experimental]
-          allowed_public_ports = []
-          auto_rollback = true
-
-        [[services]]
-          http_checks = []
-          internal_port = 8080
-          processes = ["app"]
-          protocol = "tcp"
-          script_checks = []
-
-          [services.concurrency]
-            hard_limit = 100
-            soft_limit = 20
-            type = "connections"
-
-          [[services.ports]]
-            handlers = ["http"]
-            port = 80
-
-          [[services.ports]]
-            handlers = ["tls", "http"]
-            port = 443
-
-          [[services.tcp_checks]]
-            grace_period = "1s"
-            interval = "15s"
-            restart_limit = 0
-            timeout = "2s"
-
-        [mounts]
-          source = "project_isidore_database"
-          destination = "/project-isidore-database"
-
-        [[statics]]
-          guest_path = "/project-isidore/assets"
-          url_prefix = "/"
+        FROM clfoundation/sbcl:2.2.4-slim as build
+        COPY . /project-isidore/
+        ARG BUILD_DIR=/project-isidore
+        ARG CACHE_DIR=/pi-build-cache
+        ARG QL_DIST_VER=2022-04-01
+        RUN apt-get update && apt-get install -y curl \
+            && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp \
+            && sbcl --dynamic-space-size 512 --load $BUILD_DIR/src/make.lisp \
+            && chmod a+x $BUILD_DIR/bin/ProjectIsidore
+        FROM gcr.io/distroless/base-debian11
+        COPY --from=build /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
+        COPY --from=build /project-isidore/bin/ /project-isidore/bin/
+        COPY --from=build /project-isidore/assets/ /project-isidore/assets/
+        COPY --from=build /project-isidore/data/ /project-isidore/data/
+        CMD ["/project-isidore/bin/ProjectIsidore"]
         EOF
         )
         echo "FLY_CONFIG<<EOF" >> $GITHUB_ENV
@@ -95,9 +109,9 @@ jobs:
         echo "EOF" >> $GITHUB_ENV
       id: fly_config
 
-    - name: Write Fly.io Configuration
+    - name: Write Dockerfile Configuration
       run: |
-        echo '${{ env.FLY_CONFIG }}' >> ${{ github.workspace }}/fly.toml
+        echo '${{ env.FLY_CONFIG }}' >> ${{ github.workspace }}/Dockerfile
 
     - name: Build Container Image
       run: docker build . --file Dockerfile --tag project-isidore --label "runnumber=${GITHUB_RUN_ID}"
@@ -121,22 +135,12 @@ jobs:
         docker tag project-isidore $IMAGE_ID:$VERSION
         docker push $IMAGE_ID:$VERSION
 
-    - name: Deploy Image on Fly.io
-      uses: superfly/flyctl-actions@1.1
-      with:
-        args: "deploy --app project-isidore --image ghcr.io/benedicthw/project-isidore:latest"
-
-    - name: Prune Github Container Registry
-      uses: vlaurin/action-ghcr-prune@main
-      with:
-        token: ${{ secrets.DEL_OLD_PKG }}
-        container: project-isidore
-        untagged: true
-
   build_executable_linux:
     name: GNU/Linux Build
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    # Following jobs must succeed
+    needs: [deploy_on_production]
     runs-on: [ubuntu-latest]
 
     steps:
@@ -181,6 +185,8 @@ jobs:
     name: Darwin Build
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    # Following jobs must succeed
+    needs: [deploy_on_production]
     runs-on: [macos-latest]
 
     steps:
@@ -225,6 +231,8 @@ jobs:
     name: MSWindows Build
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    # Following jobs must succeed
+    needs: [deploy_on_production]
     runs-on: [windows-latest]
 
     steps:
