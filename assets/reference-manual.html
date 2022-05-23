@@ -512,6 +512,7 @@ Next: <a href="#The-project_002disidore_002fviews-system" accesskey="n" rel="nex
 </li><li> <tt>hunchensocket</tt>
 </li><li> <tt>cl-gserver</tt>
 </li><li> <tt>snooze</tt>
+</li><li> <tt>slynk</tt>
 </li></ul>
 </dd>
 <dt><strong>Component</strong></dt>
@@ -1834,8 +1835,11 @@ The bible-uid can be found by calling &lsquo;get-bible-uid&rsquo; with valid arg
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER_2236_2236INITIALIZE_002dAPPLICATION-function"></span><span id="index-Function_002c-initialize_002dapplication"></span>
 <p>Start a web server at PORT. Takes a PORT parameter as Heroku assigns a
 different PORT per dyno/environment. CMD-USER-INTERFACE when set to true will
-determine if C-c will exit. See APPLICATION-TOPLEVEL for the main function or
-entry point in MAKE.LISP. 
+determine cause C-c (control+c) to exit.<br>
+</p>
+<p>Slynk server is used to connect to a running production LISP image.<br>
+</p>
+<p>See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. 
 </p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>

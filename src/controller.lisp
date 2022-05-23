@@ -12,6 +12,7 @@
   (:import-from #:hunchensocket)
   (:import-from #:cl-gserver)
   (:import-from #:snooze)
+  (:import-from #:slynk)
   ;; No package local nicknames. See commit 1962a26.
   (:export :*server*
            #:initialize-application
@@ -163,6 +164,7 @@ gracefully shut down the web server and exit the lisp process."
        #+allegro excl:interrupt-signal
        () (progn
             (format *error-output* "~%Aborting.~&~%")
+            (slynk:stop-server :port 4005)
             (hunchentoot:stop *server*)
             (format t "~%Server successfully stopped.~%")
             (uiop:quit)))
@@ -177,13 +179,17 @@ gracefully shut down the web server and exit the lisp process."
                                  (cmd-user-interface nil))
   "Start a web server at PORT. Takes a PORT parameter as Heroku assigns a
 different PORT per dyno/environment. CMD-USER-INTERFACE when set to true will
-determine if C-c will exit. See APPLICATION-TOPLEVEL for the main function or
-entry point in MAKE.LISP. "
+determine cause C-c (control+c) to exit.
+
+Slynk server is used to connect to a running production LISP image.
+
+See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
   (terminate-application)
-  ;; To create an executable binary, MAKE.LISP calls `sb-ext:save-lisp-and-die',
-  ;; which closes all open file streams. We open `*search-index*' and
-  ;; `*database*' again upon application start.
-  (setf *search-index* (make-instance 'montezuma:index
+  (setf slynk:*use-dedicated-output-stream* nil
+        ;; To create an executable binary, MAKE.LISP calls
+        ;; `sb-ext:save-lisp-and-die', which closes all open file streams. We
+        ;; open `*search-index*' and `*database*' again upon application start.
+        *search-index* (make-instance 'montezuma:index
                                       :path (asdf:system-relative-pathname
                                              :project-isidore "data/montezuma/")
                                       :default-field "*"
@@ -225,6 +231,7 @@ Navigate to http://localhost:~A to continue... ~%" port)
   SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
   argument that defaults to 8080. Heroku dynamically sets the PORT variable to
   be binded."
+  (slynk:create-server :port 4005 :dont-close t)
   (initialize-application :port (if (equalp NIL (uiop:getenv "PORT"))
                                     8080
                                     (parse-integer (uiop:getenv "PORT")))
