@@ -199,7 +199,7 @@ See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
         rip:*catch-errors* :verbose
         *server* (hunchentoot:start (make-instance 'snooze-acceptor
                                                    :port port
-                                                   :address "0.0.0.0"
+                                                   :address "127.0.0.1"
                                                    :taskmaster (make-instance 'gserver-tmgr)
                                                    :access-log-destination nil)))
   (format t "~%
@@ -236,8 +236,11 @@ Navigate to http://localhost:~A to continue... ~%" port)
                                     8080
                                     (parse-integer (uiop:getenv "PORT")))
                           :cmd-user-interface t)
-  ;; Sleep forever.
-  (loop (sleep 600)))
+  (sb-thread:join-thread (find-if
+                          (lambda (th)
+                            (string= (sb-thread:thread-name th)
+                                     "hunchentoot-listener-127.0.0.1:8080"))
+                          (sb-thread:list-all-threads))))
 
 (rip:defroute homepage (:get "text/html")
   (index-page))
