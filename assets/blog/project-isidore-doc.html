@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-05-20 Fri 16:25 -->
+<!-- 2022-05-23 Mon 16:30 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-20 Fri 16:25</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-23 Mon 16:11</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org132b361">
+<div class="abstract" id="org807029a">
 <p>
 
 </p>
@@ -78,24 +78,22 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#Introduction">1. Introduction</a></li>
-<li><a href="#org3ae5672">2. <span class="todo TODO">TODO</span> Add SSL, port 443 instead.</a>
+<li><a href="#Common-Lisp-Environment-Setup">2. Common Lisp Environment Setup</a>
 <ul>
-<li><a href="#Common-Lisp-Environment-Setup">2.1. Common Lisp Environment Setup</a>
-<ul>
-<li><a href="#Literate-Programming">2.1.1. Literate Programming</a></li>
+<li><a href="#Literate-Programming">2.1. Literate Programming</a></li>
 </ul>
 </li>
-<li><a href="#Project-Isidore-System-Definition">2.2. Project Isidore System Definition</a>
+<li><a href="#Project-Isidore-System-Definition">3. Project Isidore System Definition</a>
 <ul>
-<li><a href="#Libraries-System-dependencies">2.2.1. Libraries &amp; System dependencies</a></li>
+<li><a href="#Libraries-System-dependencies">3.1. Libraries &amp; System dependencies</a></li>
 </ul>
 </li>
-<li><a href="#Org-Publish-Pipeline">2.3. Org Publish Pipeline</a></li>
-<li><a href="#Development-Operations">2.4. Development Operations</a>
+<li><a href="#Org-Publish-Pipeline">4. Org Publish Pipeline</a></li>
+<li><a href="#Development-Operations">5. Development Operations</a>
 <ul>
-<li><a href="#orgc654a71">2.4.1. Continous Integration</a>
+<li><a href="#orgc654a71">5.1. Continous Integration</a>
 <ul>
-<li><a href="#Testing">Testing</a>
+<li><a href="#Testing">5.1.1. Testing</a>
 <ul>
 <li><a href="#Notes-on-Drakma">Notes on Drakma</a></li>
 <li><a href="#Debugging">Debugging</a></li>
@@ -105,47 +103,39 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 </ul>
 </li>
-<li><a href="#org7c90b58">2.4.2. Continous Delivery</a></li>
-<li><a href="#org70ab3f9">2.4.3. Continous Deployment</a></li>
-<li><a href="#orgb296bc9">2.4.4. Oracle Cloud Infrastructure (OCI)</a></li>
-<li><a href="#Benchmarking-Profiling">2.4.5. Micro Benchmarks</a></li>
+<li><a href="#org7c90b58">5.2. Continous Delivery</a></li>
+<li><a href="#org70ab3f9">5.3. Continous Deployment</a></li>
+<li><a href="#Benchmarking-Profiling">5.4. Micro Benchmarks</a></li>
 </ul>
 </li>
-<li><a href="#Data-Persistence">2.5. Data Persistence</a>
+<li><a href="#Data-Persistence">6. Data Persistence</a>
 <ul>
-<li><a href="#PostgreSQL">2.5.1. PostgreSQL</a></li>
-<li><a href="#In-Memory-Datastore">2.5.2. In-Memory Datastore</a></li>
-<li><a href="#BKNR-Datastore-vs-Rucksack-vs-Postmodern">2.5.3. BKNR.Datastore vs Rucksack vs Postmodern</a></li>
+<li><a href="#PostgreSQL">6.1. PostgreSQL</a></li>
+<li><a href="#In-Memory-Datastore">6.2. In-Memory Datastore</a></li>
+<li><a href="#BKNR-Datastore-vs-Rucksack-vs-Postmodern">6.3. BKNR.Datastore vs Rucksack vs Postmodern</a></li>
 </ul>
 </li>
-<li><a href="#Case-Study-Profiling-and-Performance">2.6. Case Study: Profiling and Performance</a></li>
-<li><a href="#User-Manual">2.7. User Manual</a>
+<li><a href="#Case-Study-Profiling-and-Performance">7. Case Study: Profiling and Performance</a></li>
+<li><a href="#User-Manual">8. User Manual</a>
 <ul>
-<li><a href="#How-do-I-find-past-versions-of-a-blog-article">2.7.1. How do I find past versions of a blog article?</a></li>
-<li><a href="#How-do-I-unsubscribe-from-the-mailing-list">2.7.2. How do I unsubscribe from the mailing list?</a></li>
-<li><a href="#Can-I-visit-this-website-offline">2.7.3. Can I visit this website offline?</a></li>
-<li><a href="#I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">2.7.4. I can't find what I'm looking for. How is the documentation organized?</a></li>
+<li><a href="#How-do-I-find-past-versions-of-a-blog-article">8.1. How do I find past versions of a blog article?</a></li>
+<li><a href="#How-do-I-unsubscribe-from-the-mailing-list">8.2. How do I unsubscribe from the mailing list?</a></li>
+<li><a href="#Can-I-visit-this-website-offline">8.3. Can I visit this website offline?</a></li>
+<li><a href="#I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">8.4. I can't find what I'm looking for. How is the documentation organized?</a></li>
 </ul>
 </li>
-<li><a href="#Reference-Manual">2.8. Reference Manual</a>
+<li><a href="#Reference-Manual">9. Reference Manual</a>
 <ul>
-<li><a href="#Generate-Reference-Manual">2.8.1. Generate Reference Manual</a></li>
+<li><a href="#Generate-Reference-Manual">9.1. Generate Reference Manual</a></li>
 </ul>
 </li>
-<li><a href="#Project-History-Credits">2.9. Project History &amp; Credits</a></li>
-</ul>
-</li>
+<li><a href="#Project-History-Credits">10. Project History &amp; Credits</a></li>
 </ul>
 </div>
 </nav>
 <div id="outline-container-Introduction" class="outline-2">
 <h2 id="Introduction"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-Introduction">
-</div>
-</div>
-<div id="outline-container-org3ae5672" class="outline-2">
-<h2 id="org3ae5672"><span class="section-number-2">2.</span> <span class="todo TODO">TODO</span> Add SSL, port 443 instead.</h2>
-<div class="outline-text-2" id="text-2">
 <p>
 <span class="dropcap">W</span>elcome! This is the
 documentation webpage of my personal website. The canonical source code is
@@ -172,10 +162,11 @@ Copyright (c) 2021 Hanshen Wang. Source code is under the <a href="https://www.g
 Blog content is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode">CC-BY-SA 4.0 License</a> unless otherwise noted.
 </p>
 </div>
+</div>
 
-<div id="outline-container-Common-Lisp-Environment-Setup" class="outline-3">
-<h3 id="Common-Lisp-Environment-Setup"><span class="section-number-3">2.1.</span> Common Lisp Environment Setup</h3>
-<div class="outline-text-3" id="text-Common-Lisp-Environment-Setup">
+<div id="outline-container-Common-Lisp-Environment-Setup" class="outline-2">
+<h2 id="Common-Lisp-Environment-Setup"><span class="section-number-2">2.</span> Common Lisp Environment Setup</h2>
+<div class="outline-text-2" id="text-Common-Lisp-Environment-Setup">
 <ul class="org-ul">
 <li><a href="0d5cd091-ec8a-420d-9585-8d6ed856a00c">&lt;&#x2013;Common Lisp Config</a></li>
 <li><a href="031a3b02-b36c-4875-b714-6ff8e9a3978c">&lt;&#x2013;Practical Common Lisp</a></li>
@@ -250,8 +241,8 @@ building from source are options for later discretion. In the shell,
 
 <div class="org-src-container">
 <pre class="src src-bash">sbcl
-<span class="org-rainbow-delimiters-depth-1">(</span>+ 2 3<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
+* <span class="org-rainbow-delimiters-depth-1">(</span>+ 2 3<span class="org-rainbow-delimiters-depth-1">)</span>
+* <span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -398,9 +389,9 @@ useful.
 </p>
 </div>
 
-<div id="outline-container-Literate-Programming" class="outline-4">
-<h4 id="Literate-Programming"><span class="section-number-4">2.1.1.</span> Literate Programming</h4>
-<div class="outline-text-4" id="text-Literate-Programming">
+<div id="outline-container-Literate-Programming" class="outline-3">
+<h3 id="Literate-Programming"><span class="section-number-3">2.1.</span> Literate Programming</h3>
+<div class="outline-text-3" id="text-Literate-Programming">
 <p>
 Lisp was the language for research into artificial intelligence before the AI
 winter. Now the field calls itself machine intelligence. The aim remains much
@@ -444,7 +435,7 @@ is inside said code block. This saves you from having to call
 <p>
 Furthermore, for most languages you can only evaluate the
 entire code block. Not so for lisp. <code>M-x slime-compile-defun</code> and <code>M-x
-   slime-compile-region</code> do as they say on the tin: compile the specific
+slime-compile-region</code> do as they say on the tin: compile the specific
 function or highlighted region at cursor. <code>Poly-org</code> breaks these functions
 slightly as they do not treat <code>#+begin_src</code> and <code>#+end_src</code> as the start and
 end-of-file respectively. The following emacs lisp snippet fixes that.
@@ -467,7 +458,7 @@ end-of-file respectively. The following emacs lisp snippet fixes that.
 <p>
 Since we've already shaved the editor yak up to this point, the last package
 I'd like to mention that makes literate programming possible is
-<a href="https://gitlab.com/mtekman/org-tanglesync.el">org-tanglesync</a>. To "tangle" a file is, in literate programming parlance, to
+org-tanglesync]]. To "tangle" a file is, in literate programming parlance, to
 extract just the source code from a document. Then to de-tangle (two-way
 sync) has always been a problem, and traditionally <code>org-babel-detangle</code> has
 relied upon unsightly link comments to do so.
@@ -483,9 +474,9 @@ de-tangle a file exists out in the wild, please do let me know.
 </div>
 </div>
 
-<div id="outline-container-Project-Isidore-System-Definition" class="outline-3">
-<h3 id="Project-Isidore-System-Definition"><span class="section-number-3">2.2.</span> Project Isidore System Definition</h3>
-<div class="outline-text-3" id="text-Project-Isidore-System-Definition">
+<div id="outline-container-Project-Isidore-System-Definition" class="outline-2">
+<h2 id="Project-Isidore-System-Definition"><span class="section-number-2">3.</span> Project Isidore System Definition</h2>
+<div class="outline-text-2" id="text-Project-Isidore-System-Definition">
 <p>
 Bibliographies exist for a written corpus of work. The same sort of metadata is
 needed a code base. In Common Lisp, it is the <code>.asd</code> file.
@@ -509,9 +500,9 @@ design pattern.
 For an index of symbols, functions and definitions, see the <a href="#Reference-Manual">Reference Manual</a>.
 </p>
 </div>
-<div id="outline-container-Libraries-System-dependencies" class="outline-4">
-<h4 id="Libraries-System-dependencies"><span class="section-number-4">2.2.1.</span> Libraries &amp; System dependencies</h4>
-<div class="outline-text-4" id="text-Libraries-System-dependencies">
+<div id="outline-container-Libraries-System-dependencies" class="outline-3">
+<h3 id="Libraries-System-dependencies"><span class="section-number-3">3.1.</span> Libraries &amp; System dependencies</h3>
+<div class="outline-text-3" id="text-Libraries-System-dependencies">
 <ol class="org-ol">
 <li><p>
 Finding new Libraries &amp; Surveying the Ecosystem
@@ -553,6 +544,7 @@ together. He takes this burden upon himself so the end users might avoid
 <li><a href="https://github.com/CodyReichert/awesome-cl">GitHub - CodyReichert/awesome-cl: A curated list of awesome Common Lisp frame&#x2026;</a></li>
 <li><a href="https://www.cliki.net/">CLiki: the common lisp wiki</a></li>
 <li><a href="https://github.com/40ants/lisp-project-of-the-day">GitHub - 40ants/lisp-project-of-the-day: Here I'll post notes about Quicklisp&#x2026;</a></li>
+<li><a href="https://gist.github.com/digikar99/16066dbf24b8789c969ea58837e0fbef#femlisp-matlisp">A Survey of Simple Vector Addition Performance of the Numerical Computing Lib&#x2026;</a></li>
 </ul></li>
 <li><p>
 System Dependency graph
@@ -577,7 +569,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="org542e82c">
+<figure id="orgfbb1248">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -720,9 +712,9 @@ Used as a base template.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-Org-Publish-Pipeline" class="outline-3">
-<h3 id="Org-Publish-Pipeline"><span class="section-number-3">2.3.</span> Org Publish Pipeline</h3>
-<div class="outline-text-3" id="text-Org-Publish-Pipeline">
+<div id="outline-container-Org-Publish-Pipeline" class="outline-2">
+<h2 id="Org-Publish-Pipeline"><span class="section-number-2">4.</span> Org Publish Pipeline</h2>
+<div class="outline-text-2" id="text-Org-Publish-Pipeline">
 <p>
 In the <code>/assets/blog/</code> folder, all <code>HTML</code> files are generated by <code>org-publish</code>.
 <code>archive.html</code> lists all published articles.
@@ -975,9 +967,9 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 </div>
 </div>
 </div>
-<div id="outline-container-Development-Operations" class="outline-3">
-<h3 id="Development-Operations"><span class="section-number-3">2.4.</span> Development Operations</h3>
-<div class="outline-text-3" id="text-Development-Operations">
+<div id="outline-container-Development-Operations" class="outline-2">
+<h2 id="Development-Operations"><span class="section-number-2">5.</span> Development Operations</h2>
+<div class="outline-text-2" id="text-Development-Operations">
 <p>
 Follow industry best practice in <a href="https://www.redhat.com/en/topics/devops/what-is-ci-cd">automating part of development operations.</a> In
 the context of this project, CI/CD is done on the Github Actions platform.
@@ -985,11 +977,17 @@ Cheers to Github for allowing unlimited build limits for open source projects!
 In the following breakdown, I explain how to run the steps on the local machine.
 The result of automating all 3 subheading tasks can be found in <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml</a>
 </p>
+
+<p>
+For the uninitiated, an excellent git porcelain (with spacemacs layer
+integration) is <a href="https://magit.vc">Magit.</a> This, paired with [<a href="#chaconProGit2014">1</a>], takes care of
+your version control needs.
+</p>
 </div>
 
-<div id="outline-container-orgc654a71" class="outline-4">
-<h4 id="orgc654a71"><span class="section-number-4">2.4.1.</span> Continous Integration</h4>
-<div class="outline-text-4" id="text-2-4-1">
+<div id="outline-container-orgc654a71" class="outline-3">
+<h3 id="orgc654a71"><span class="section-number-3">5.1.</span> Continous Integration</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 Some measure of quality assurance through unit, integration and regression
 testing upon commit. This is done in <a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">MAKE.LISP</a>, which will run all tests found
@@ -1000,9 +998,9 @@ form <code>(asdf:test-system "project-isidore")</code>. Do note that the test
 </p>
 </div>
 
-<div id="outline-container-Testing" class="outline-5">
-<h5 id="Testing">Testing</h5>
-<div class="outline-text-5" id="text-Testing">
+<div id="outline-container-Testing" class="outline-4">
+<h4 id="Testing"><span class="section-number-4">5.1.1.</span> Testing</h4>
+<div class="outline-text-4" id="text-Testing">
 <p>
 <a href="https://www.hanshenwang.com/code-coverage-report/cover-index.html">Project Isidore code coverage report.</a> Tests are run prior to building, see
 <a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">Make.Lisp.</a>
@@ -1019,9 +1017,9 @@ Project Isidore code aims to be portable Common Lisp within reason. <a href="htt
 Portability Library Status</a>
 </p>
 </div>
-<div id="outline-container-Notes-on-Drakma" class="outline-6">
-<h6 id="Notes-on-Drakma">Notes on Drakma</h6>
-<div class="outline-text-6" id="text-Notes-on-Drakma">
+<div id="outline-container-Notes-on-Drakma" class="outline-5">
+<h5 id="Notes-on-Drakma">Notes on Drakma</h5>
+<div class="outline-text-5" id="text-Notes-on-Drakma">
 <p>
 From: <a href="https://courses.cs.northwestern.edu/325/admin/json-client.php">https://courses.cs.northwestern.edu/325/admin/json-client.php</a>
 </p>
@@ -1074,9 +1072,9 @@ text, e.g., "OK"
 </div>
 </div>
 
-<div id="outline-container-Debugging" class="outline-6">
-<h6 id="Debugging">Debugging</h6>
-<div class="outline-text-6" id="text-Debugging">
+<div id="outline-container-Debugging" class="outline-5">
+<h5 id="Debugging">Debugging</h5>
+<div class="outline-text-5" id="text-Debugging">
 <p>
 <a href="https://gist.github.com/nikodemus/659495/5461ac5181010bcd3118fa2cd03bc60aaf74d00a#file-sbcl-debugging-notes-txt">From a former maintainer of SBCL, Nikodemus Siivola.</a> The tracing and stickers
 functionality in the SLY IDE is also very useful. Call <code>sly-compile-defun</code> with
@@ -1203,9 +1201,9 @@ you're debugging.
 </blockquote>
 </div>
 </div>
-<div id="outline-container-Logging" class="outline-6">
-<h6 id="Logging">Logging</h6>
-<div class="outline-text-6" id="text-Logging">
+<div id="outline-container-Logging" class="outline-5">
+<h5 id="Logging">Logging</h5>
+<div class="outline-text-5" id="text-Logging">
 <p>
 Heroku will store your application logs for you. Logging is a step above print
 debugging and can be thought of as "live" documentation. If you don't have the
@@ -1215,9 +1213,9 @@ stains.
 </p>
 </div>
 </div>
-<div id="outline-container-Generate-Code-Coverage-Report" class="outline-6">
-<h6 id="Generate-Code-Coverage-Report">Generate Code Coverage Report</h6>
-<div class="outline-text-6" id="text-Generate-Code-Coverage-Report">
+<div id="outline-container-Generate-Code-Coverage-Report" class="outline-5">
+<h5 id="Generate-Code-Coverage-Report">Generate Code Coverage Report</h5>
+<div class="outline-text-5" id="text-Generate-Code-Coverage-Report">
 <div class="org-src-container">
 <pre class="src src-lisp"><span class="org-comment-delimiter">;;; </span><span class="org-comment">Generate Code Coverage Report</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">SBCL specific contrib module.</span>
@@ -1237,9 +1235,9 @@ stains.
 </div>
 </div>
 </div>
-<div id="outline-container-org7c90b58" class="outline-4">
-<h4 id="org7c90b58"><span class="section-number-4">2.4.2.</span> Continous Delivery</h4>
-<div class="outline-text-4" id="text-2-4-2">
+<div id="outline-container-org7c90b58" class="outline-3">
+<h3 id="org7c90b58"><span class="section-number-3">5.2.</span> Continous Delivery</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 Building an executable binary for all 3 major operating system platforms on the
 x86-64 architecture. Binaries built this way may <a href="https://github.com/HanshenWang/project-isidore/releases">be downloaded through the
@@ -1255,88 +1253,58 @@ and SBCL runtime included.
 </div>
 </div>
 
-<div id="outline-container-org70ab3f9" class="outline-4">
-<h4 id="org70ab3f9"><span class="section-number-4">2.4.3.</span> Continous Deployment</h4>
-<div class="outline-text-4" id="text-2-4-3">
-<p>
-Build a <a href="https://opencontainers.org/">container</a> image to easily deploy said executable binary on servers,
-making it accessible from the World Wide Web. No matter how you deploy, you will
-need a domain name. Cloudflare offers at-cost pricing for domain registration.
-</p>
+<div id="outline-container-org70ab3f9" class="outline-3">
+<h3 id="org70ab3f9"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
+<div class="outline-text-3" id="text-5-3">
+<table>
 
-<p>
-If you are deploying on-premises or on a virtual private server (VPS), lispers
-in the past have NGINX as a reverse proxy in front of Hunchentoot to cache
-static content. Hunchentoot is after all a thread-per-request server, and
-expensive lisp threads would be quite wasteful to spend on static content.
-However I use Cloudflare's free tier instead, which uses the same underlying
-technology but also acts as a Content Delivery Network (CDN) for said static
-content. <a href="https://developers.cloudflare.com/cache/about/default-cache-behavior#default-cached-file-extensions">Not all static assets are automatically cached.</a> To follow the <a href="https://support.cloudflare.com/hc/en-us/articles/360021023712-Best-Practices-Speed-up-your-Site-with-Custom-Caching-via-Cloudflare-Page-Rules">best
-practices</a> documented, we can cache the static anonymous HTML that is generated
-by our org blog.
-</p>
 
-<p>
-In partnership with Cloudflare we use <a href="https://fly.io">Fly.io.</a> In exchange for placing our
-executable binary inside a Docker container image, Fly.io will turn it into a
-lightweight virtual machine (VM) through <a href="https://firecracker-microvm.github.io/">Amazon Firecracker</a> and run it on their
-servers. Lovely. Fly.io differs from VPS providers like Hetzner by offering
-optional prepaid usage based pricing over contract based pricing. What tips the
-balance in their favour is the awesome team (<a href="https://fly.io/blog/">great technical blog posts</a>) and the
-generous free monthly allowance. It makes hobby projects affordable to host and
-expand. I'm very impressed, go give them a try, and no, I have no affiliation
-with them other than that of a happy customer.
-</p>
+<colgroup>
+<col  class="org-left">
 
-<p>
-The typical analogy I have heard to explain Docker containers is to compare them
-to an intermodal shipping container. Can you imagine shipping transatlantic
-cargo without standardized containers? It makes deployment of software much
-easier when the abstraction level goes as close as possible to the hardware.
-Like their metal counterparts, a software container image can be compared to a
-process with constraints placed by the kernel (the captain goes down with his
-ship) with an isolated filesystem that may have some holes poked through (though
-I'm sure modern shipping containers are considerably more rust-proof).
-</p>
+<col  class="org-left">
 
-<p>
-Github and Fly.io are well integrated. It simplifies the process of moving
-development code to production code to <code>git push origin/master</code>. This is done in
-<a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml.</a> For the uninitiated, in order to further enhance developer experience
-in Emacs, an excellent git porcelain (with spacemacs layer integration) is
-<a href="https://magit.vc">Magit.</a> This, paired with [<a href="#chaconProGit2014">1</a>], takes care of your version
-control needs.
-</p>
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Commit</th>
+<th scope="col" class="org-left">Company</th>
+<th scope="col" class="org-left">Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://github.com/HanshenWang/project-isidore/commit/603da4f0ab28c7e15a1811b96a0640d6ecba0a2a">603da4f</a></td>
+<td class="org-left">Heroku</td>
+<td class="org-left">Platform (Buildpacks)</td>
+</tr>
 
-<p>
-This website can be visited at:
-</p>
-<ul class="org-ul">
-<li><a href="https://www.hanshenwang.com">https://www.hanshenwang.com</a></li>
-<li><a href="https://project-isidore.fly.dev">https://project-isidore.fly.dev</a></li>
-</ul>
+<tr>
+<td class="org-left"><a href="https://github.com/BenedictHW/project-isidore/commit/1c7a8e9ba10ae2f5efa05f5ad9ddfc33bf9aa0bd">1c7a8e9</a></td>
+<td class="org-left">Fly.io</td>
+<td class="org-left">Platform (Docker)</td>
+</tr>
 
-<p>
-With how simple the application and dependencies currently are, it's arguable if
-a Dockerfile (aka a 16 line shell script) is even needed. Using Common Lisp on
-Heroku necessitates a custom buildpack (aka a 100 line shell script) anyways,
-and this was exactly the approach taken until <a href="https://github.com/HanshenWang/project-isidore/commit/603da4f0ab28c7e15a1811b96a0640d6ecba0a2a">commit 603da4f.</a>
-</p>
-</div>
-</div>
+<tr>
+<td class="org-left">TBA</td>
+<td class="org-left">Oracle Cloud Infrastructure</td>
+<td class="org-left">Virtual Private Server</td>
+</tr>
 
-<div id="outline-container-orgb296bc9" class="outline-4">
-<h4 id="orgb296bc9"><span class="section-number-4">2.4.4.</span> Oracle Cloud Infrastructure (OCI)</h4>
-<div class="outline-text-4" id="text-2-4-4">
-<p>
-The path so far as looked like: Heroku &gt; Docker (Fly.io) &gt; VPS (we are here) &gt;
-Physical Server? &gt; Homelab? &gt; Buy myself a soldering iron &amp; oscilloscope?
-</p>
+<tr>
+<td class="org-left">TBA</td>
+<td class="org-left">Multiple old Thinkpads</td>
+<td class="org-left">Physical Server</td>
+</tr>
 
-<p>
-<a href="https://medium.com/oracledevs/run-always-free-docker-container-on-oracle-cloud-infrastructure-c88e36b65610">Run Always Free Docker Container on Oracle Cloud Infrastructure | by Lucas Je&#x2026;</a>
-<a href="https://abishekmuthian.com/oracle-cloud-free-tier-quirks/">Oracle cloud free tier quirks - The Tallest Dwarf</a>
-</p>
+<tr>
+<td class="org-left">TBA</td>
+<td class="org-left">Electronic scrap, a soldering iron, and oscilloscope</td>
+<td class="org-left">FULL STACK</td>
+</tr>
+</tbody>
+</table>
 
 <p>
 Oracle Corporation offers the most generous free tier in cloud computing
@@ -1355,21 +1323,52 @@ Sowell as well) or on the other hand, preaching on the idolatrous love of money.
 What I will relate to below is my experience with Oracle cloud which has thus
 far been very positive. The high call of sacrificial charity may not be at play
 here; I will leave it to the CPAs to quantify the reciprocal goodwill generated
-here. Thank you Oracle.
-</p>
-
-<ol class="org-ol">
-<li><p>
-<a href="https://cloud.oracle.com">Sign in</a> at or create an Oracle cloud free account at <a href="https://www.oracle.com/ca-en/cloud/free/">Cloud Free Tier | Oracle
-Canada</a>
+here. Thank you Oracle, OCI has been great to use thus far.
 </p>
 
 <p>
-Generate a SSH Key Pair
+Goal:
+</p>
+
+<ul class="org-ul">
+<li>Project Isidore accessible from <a href="https://benedicthanshenwang.com">https://benedicthanshenwang.com</a></li>
+</ul>
+
+<p>
+Prerequisites:
+</p>
+
+<ul class="org-ul">
+<li>Familiarity with Linux</li>
+<li>Valid credit card</li>
+<li>Basic understanding of asymmetric encryption i.e. SSH, SSL/TLS, GPG</li>
+</ul>
+
+<p>
+See also:
+</p>
+
+<p>
+<a href="https://medium.com/oracledevs/run-always-free-docker-container-on-oracle-cloud-infrastructure-c88e36b65610">Run Always Free Docker Container on Oracle Cloud Infrastructure | by Lucas Je&#x2026;</a>
+</p>
+
+<p>
+<a href="https://abishekmuthian.com/oracle-cloud-free-tier-quirks/">Oracle cloud free tier quirks - The Tallest Dwarf</a>
+</p>
+
+
+<ol class="org-ol">
+<li><p>
+Create an Oracle cloud free account at <a href="https://www.oracle.com/ca-en/cloud/free/">Cloud Free Tier | Oracle Canada</a>
+</p>
+
+<p>
+We need some way of logging into our remote machine. Let's generate a SSH Key
+Pair.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">ssh-keygen -t rsa -N <span class="org-string">""</span> -b 2048 -C <span class="org-string">"oracle-vm-key"</span> -f ~/.ssh/oracle-vm-key
+<pre class="src src-sh">ssh-keygen -t ed25519 -a 100 -N <span class="org-string">""</span> -C <span class="org-string">"oracle-vm-key"</span> -f ~/.ssh/oracle-vm-key
 </pre>
 </div>
 
@@ -1380,22 +1379,15 @@ into the VM definition on OCI.
 </p></li>
 
 <li><p>
-Create a Compute instance with specs labeled "always free". Take note of the
-Virtual Cloud Network (VCN) name and subnet name as well. You can also select
-an Operating System image. <a href="https://docs.oracle.com/en-us/iaas/Content/Compute/References/bringyourownimage.htm">The free tier cannot run a custom OS image.</a>
+Create a Compute instance with <a href="https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm">specs (Oracle term is shapes) labeled "always free".</a>
 </p>
 
 <p>
-<b>Top left hamburger menu &gt; Compute &gt; Instances</b>
+<b>Top left hamburger menu &gt; Compute &gt; Instances &gt; Create Instance</b>
 </p>
 
 <p>
-Configure the SSH key and write down the public IP assigned to the VM. Note
-that <a href="https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/reserve-capacity.htm">capacity reservations are not available with Free Tier accounts.</a>
-</p>
-
-<p>
-2a. Bring your own Image - Debian Stable
+Optional: Bring your own Image - Debian Stable.
 </p>
 
 <p>
@@ -1406,6 +1398,81 @@ Import Image. Make sure "Paravirtualized Mode" is selected. After importing,
 click <b>Edit Details</b> and tick the box for "VM.Standard.A1.Flex". <b>Edit Custom
 Image Capabilities</b> to ensure UEFI<sub>64</sub> is preferred. Now you can create a
 compute instance as detailed above.
+</p>
+
+<p>
+After the "Image and Shape" section is the "Networking" section. The defaults
+are fine here. Take note of the Virtual Cloud Network (VCN) name and subnet
+name.
+</p>
+
+<p>
+Lastly, instead of generating a key pair, we can choose to copy and paste the
+contents of the public key (oracle-vm-key.pub) we created in step 1. Write
+down the public IP assigned to the VM.
+</p></li>
+
+<li><p>
+SSH into the Server &amp; Configure Server firewall
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ssh user@host-address -i private-key-file
+</pre>
+</div>
+
+<p>
+Replace the host-address with the public IP assigned to the VM. Replace
+private-key-file with a reference to the file that contains the SSH private
+key. "opc" is the default user for Oracle Linux. For my Debian image, the
+default user would be "debian".
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ssh debian@140.291.294.154 -i ~/.ssh/oracle-vm-key
+</pre>
+</div>
+
+<p>
+After successfully logging in, we can create the file ~/.ssh/config on our
+local machine if it does not already exist and add the following lines to
+connect more ergonomically.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">Host pi-server <span class="org-comment-delimiter"># </span><span class="org-comment">replace with an easy to type nickname.</span>
+  User debian
+  HostName 140.291.294.154
+  IdentityFile ~/.ssh/oracle-vm-key
+</pre>
+</div>
+
+<p>
+Optional: connect from <a href="https://www.gnu.org/software/tramp/">Emacs TRAMP.</a>
+</p>
+
+<p>
+Now <code>C-x C-f</code> with the address <code>/ssh:pi-server:/.</code> ought to work. Popping a
+shell should also just work thanks to the magic of TRAMP.
+</p>
+
+<p>
+For filtering of IP packets in general on Linux, know that <code>iptables</code> have
+been deprecated in favour of <code>nftables</code>. <code>firewalld</code> is a client that uses
+the latter as the backend. On our virtual machine,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">apt-cache search firewalld
+sudo apt install firewalld
+sudo firewall-cmd --list-all
+sudo firewall-cmd --add-port=8080/tcp
+sudo firewall-cmd --runtime-to-permanent
+</pre>
+</div>
+
+<p>
+<a href="https://docs.fedoraproject.org/en-US/quick-docs/firewalld/">Using firewalld :: Fedora Docs</a>
 </p></li>
 
 <li><p>
@@ -1414,14 +1481,19 @@ Virtual Cloud Network.
 </p>
 
 <p>
-Top left hamburger menu &gt; Networking &gt; Virtual Cloud Networks &gt; VCN-name &gt;
-Subnet-name &gt; Default Security List for VCN-name &gt; Add Ingress Rules
+We may have opened the ports we need on our server, but now we need to open
+said ports on the network level.
 </p>
 
 <p>
-Allow incoming requests from any IP address (source CIDR is set to 0.0.0.0/0
-and Source Port Range is left blank) to port 8080 (Destination Port Range is
-set to 8080).
+<b>Top left hamburger menu &gt; Networking &gt; Virtual Cloud Networks &gt; VCN-name &gt;
+Subnet-name &gt; Default Security List for VCN-name &gt; Add Ingress Rules</b>
+</p>
+
+<p>
+Example: To allow incoming requests from any IP address to port 8080: set
+source CIDR to 0.0.0.0/0 for IPV4 (::/0 for IPV6) and leave Source Port Range
+blank. Destination Port Range is set to 8080.
 </p>
 
 <p>
@@ -1439,105 +1511,61 @@ attention to their <a href="https://www.oracle.com/ca-en/cloud/free/faq/">FAQ</a
 However, if you have more Ampere A1 Compute instances provisioned than are
 available for an Always Free tenancy, <b>all existing Ampere A1 instances are
 disabled and then deleted after 30 days, unless you upgrade to a paid account.</b>
-To continue using your existing Arm-based instances as an Always Free user,
-before your trial ends, ensure that your total use of OCPUs and memory across
-all the Ampere A1 Compute instances in your tenancy is within the Always Free
-limit.
+[emphasis mine] To continue using your existing Arm-based instances as an
+Always Free user, before your trial ends, ensure that your total use of OCPUs
+and memory across all the Ampere A1 Compute instances in your tenancy is
+within the Always Free limit.
 </p>
 </blockquote>
 
 <p>
 You are able to re-create any deleted instances. Still, given the upgrade
-from a free account to pay-as-you-go relies on further fraud prevention
-through Cybersource and a upgrade process, I would not be surprised if a
-share of free-tier woes are unique to the account classification and Oracle's
-interpretation of "The Always Free services will continue to be available for
-unlimited time <b>as long as you use the services</b>" (Ibid.)
+process from a free account to pay-as-you-go relies on further fraud
+prevention through Cybersource, I would not be surprised if a share of user
+woes are unique to the free-tier classification and Oracle's interpretation
+of "The Always Free services will continue to be available for unlimited time
+<b>as long as you use the services</b>" (Ibid.)
 </p>
 
 <p>
 In my experience, you can enter your billing details (address and all)
 perfectly accurately. I even saw the test charge successfully debited and
-credited to my account on my online banking portal, but still the upgrade
-process failed. I suppose my gmail account was too new and had to change my
-email to my old outlook address in order for the upgrade to complete.
+credited to my online banking portal, but still the upgrade process failed. I
+suppose my gmail account was too new and had to change my email to my old
+outlook address in order for the upgrade process to complete.
+</p>
+
+<p>
+Perform due diligence, use the features all major cloud services provide to
+prevent going over budget.
+</p>
+
+<p>
+<b>Top left hamburger menu &gt; Billing &amp; Cost Management &gt; Budgets &gt; Create Budget</b>
 </p></li>
 
 <li><p>
-SSH into the VM &amp; connect from Emacs TRAMP
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">ssh opc@public-id-address -i rsa-private-key-file
-</pre>
-</div>
-
-<p>
-Replace the public-id-address with the public IP assigned to the VM. Replace
-rsa-private-key-file with a reference to the file that contains the SSH private
-key. "opc" is the default user for Oracle Linux. For my Debian image, the
-user would be "debian".
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">ssh debian@140.238.152.229 -i ~/.ssh/oracle-vm-key
-</pre>
-</div>
-
-<p>
-After successfully logging in, we can create the file ~/.ssh/config if it
-does not already exist and add the following lines to connect to any server
-for which this key is known for user debian.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-config">Host *
- User debian
- IdentityFile ~/.ssh/oracle-vm-key
-</pre>
-</div>
-
-<p>
-Now <code>C-x C-f</code> with the address <i>ssh:debian@140.238.152.229:</i>. ought to
-work. Popping a shell should also just work. The magic of TRAMP.
-</p>
-
-<p>
-(Optional) Lock down your SSH access.
-</p></li>
-
-<li>Configure VM firewall</li>
-
-<li><p>
-DNS Resolution - associate domain name with public IP addresses
-</p>
-
-<p>
-Enable IPV6, <a href="https://blog.51sec.org/2021/09/enable-ipv6-on-oracle-cloud.html">Enable IPv6 on Oracle Cloud Infrastructure &amp; Asiign it to CentOS - Cybersecur&#x2026;</a>
-Cloudflare DNS Records
-</p></li>
-
-<li><p>
-Install Git, SBCL and Quicklisp
+Install Git, SBCL and Quicklisp on the Server
 </p>
 
 <div class="org-src-container">
 <pre class="src src-sh">sudo apt-get update &amp;&amp; sudo apt-get upgrade
-<span class="org-comment-delimiter"># </span><span class="org-comment">build-essential for compiling C/C++ software, and zlib1g-dev for SBCL</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">core compression.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">build-essential to compile SBCL from source, and zlib1g-dev for SBCL core</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">compression.</span>
 sudo apt install build-essential zlib1g-dev git sbcl
 <span class="org-comment-delimiter"># </span><span class="org-comment">Replace git tag sbcl-2.2.4 with desired release.</span>
 git clone --branch sbcl-2.2.4 https://github.com/sbcl/sbcl.git /home/debian/sbcl/
-<span class="org-builtin">cd</span> /ssh:debian@140.238.152.229:/home/debian/sbcl/
-<span class="org-comment-delimiter"># </span><span class="org-comment">Bootstrap SBCL from source.</span>
+<span class="org-builtin">cd</span> /ssh:pi-server:/home/debian/sbcl/
+<span class="org-comment-delimiter"># </span><span class="org-comment">Bootstrap SBCL from source. See file INSTALL.</span>
 sudo sh make.sh --fancy --xc-host=<span class="org-string">'/usr/local/bin/sbcl'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Host SBCL location.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Install resulting binary.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Remove existing and install compiled binary.</span>
 sudo apt-get purge sbcl
 sudo sh install.sh
 <span class="org-comment-delimiter"># </span><span class="org-comment">Download quicklisp library manager.</span>
 wget https://beta.quicklisp.org/quicklisp.lisp --output-file=/home/debian/quicklisp.lisp
 <span class="org-comment-delimiter"># </span><span class="org-comment">Follow the installation steps listed at,</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">https://www.quicklisp.org/beta/#installation</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">i.e.</span>
 sbcl --load /home/debian/quicklisp.lisp
 * <span class="org-rainbow-delimiters-depth-1">(</span>quicklisp-quickstart:install<span class="org-rainbow-delimiters-depth-1">)</span>
 * <span class="org-rainbow-delimiters-depth-1">(</span>ql:add-to-init-file<span class="org-rainbow-delimiters-depth-1">)</span>
@@ -1572,8 +1600,7 @@ create a new file at <code>/etc/systemd/system/project-isidore.service</code>.
 <span class="org-variable-name">User</span>=debian
 <span class="org-variable-name">Group</span>=debian
 <span class="org-variable-name">WorkingDirectory</span>=/home/debian/quicklisp/local-projects/project-isidore
-<span class="org-comment-delimiter"># </span><span class="org-comment">We are binding to the privileged port 80.</span>
-<span class="org-variable-name">ExecStart</span>=sudo /home/debian/quicklisp/local-projects/project-isidore/bin/ProjectIsidore
+<span class="org-variable-name">ExecStart</span>=/home/debian/quicklisp/local-projects/project-isidore/bin/ProjectIsidore
 <span class="org-variable-name">Restart</span>=always
 
 [<span class="org-type">Install</span>]
@@ -1588,23 +1615,47 @@ sudo systemctl start &lt;service-name&gt;
 sudo systemctl stop &lt;service-name&gt;
 sudo systemctl restart &lt;service-name&gt;
 sudo systemctl status &lt;service-name&gt;
+<span class="org-comment-delimiter"># </span><span class="org-comment">Semantically different. Enable means to autostart on bootup.</span>
+sudo systemctl enable &lt;service-name&gt;
+sudo systemctl disable &lt;service-name&gt;
 </pre>
 </div>
 
 <p>
-Now the application should be reachable at 140.238.152.229:8080. To configure a
-service to start at boot, run systemctl enable [service-name]. This command
-symlinks the Jekyll service file in /etc/systemd/system into
-/etc/systemd/system/multi-user.target.wants, since we specified that the
-service is wanted by multi-user.target.
+Now the application should be reachable at <a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>.
+Sweet. Thanks to TRAMP, production deployments can be a simple matter of
+visiting the Emacs bookmarked directory, "git pull", rebuild and restart.
+Check out <code>project-isidore/.github/workflows/</code> for an example of automating
+production deployments.
+</p></li>
+
+<li><p>
+DNS Resolution - associate domain name with public IP addresses
 </p>
 
 <p>
-Sweet. Thanks to TRAMP, production deployments will be a simple matter of
-visiting the emacs bookmarked directory, <code>git pull</code> and rebuild. Of course with
-the incremental re-defintion in the REPL and our object database, <a href="https://cliki.net/Rucksack">Rucksack</a>, having
-<a href="http://clhs.lisp.se/Body/f_upda_1.htm">update-instance-for-redefined-class</a> it will be hard to resist the temptation
-of connecting sly to OCI.
+Visitors to our website won't want to key in <a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>. Our
+Domain Registrar will point <a href="http://my-domain-name.com">http://my-domain-name.com</a> to
+<a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>. Purchase a domain name if needed.
+</p>
+
+<p>
+I have no affiliation with any Domain Registrar companies, but know that
+Cloudflare offers at-cost pricing for domain registration. I will also be
+making use of their excellent yet generous services in the next step and have
+done so for years. They seem like an ethical company from what I can gather
+from their <a href="https://blog.cloudflare.com/project-jengo-redux-cloudflares-prior-art-search-bounty-returns/">blogs</a>. Oracle has my gratitude, but my recommendation of
+Cloudflare comes without reservations.
+</p>
+
+<p>
+Optional: <a href="https://blog.51sec.org/2021/09/enable-ipv6-on-oracle-cloud.html">Enable IPv6 on Oracle Cloud Infrastructure.</a>
+</p>
+
+<p>
+Cloudflare DNS Records is straightforward to use. Search online for updated
+ways to create a DNS A records (and/or AAAA records for IPV6) specific to
+your Domain Registrar.
 </p></li>
 
 <li><p>
@@ -1612,8 +1663,36 @@ Nginx reverse proxy &amp; SSL/TLS encryption
 </p>
 
 <p>
-Nginx is used as a reverse proxy and ssl termination. Nginx handles the
-computational load of SSL/TLS encryption and talks to Hunchentoot through HTTP.
+Cloudflare here acts as a reverse proxy (man-in-the-middle) between the
+website visitor (client) and the server; it provides Distributed Denial of
+Service (DDoS) protection as well as Content Delivery Network (CDN) services.
+</p>
+
+<p>
+Now by registering your site with Cloudflare your site will be served as
+HTTPS to the client. But communications from Cloudflare to our server is still
+via un-encrypted HTTP. We remedy this by using Origin Certificates.
+</p>
+
+<p>
+<a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin CA Certificates | Cloudflare</a>
+</p>
+
+<p>
+After setting up Authenticated Origin Pulls the origin server now only
+accepts requests that use a valid client certificate from Cloudflare. There
+will be no more directly connecting to the Nginx server via IP address.
+</p>
+
+<p>
+<a href="https://developers.cloudflare.com/ssl/origin-configuration/authenticated-origin-pull/set-up">Authenticated Origin Pulls | Cloudflare</a>
+</p>
+
+<p>
+Nginx is used as a reverse proxy and for SSL termination. Nginx handles the
+computational load of SSL/TLS encryption and talks to Hunchentoot through
+HTTP. It is also possible to have multiple Hunchentoot processes and to use
+Nginx as a load balancer.
 </p>
 
 <div class="org-src-container">
@@ -1622,52 +1701,159 @@ computational load of SSL/TLS encryption and talks to Hunchentoot through HTTP.
 </div>
 
 <p>
-SSH, SSL/TLS and GPG all take advantage of asymmetric encryption.
+<a href="https://www.linode.com/docs/guides/getting-started-with-nginx-part-1-installation-and-basic-setup/">Getting Started with NGINX: Installation and Basic Setup | Linode</a>
 </p>
 
 <p>
-Origin Certificate &gt; Cloudflare to your Server
+Optional - <a href="https://github.com/denji/nginx-tuning">optimize nginx for speed.</a>
 </p>
 
 <p>
-<a href="https://blog.cloudflare.com/introducing-universal-ssl/">Introducing Universal SSL</a>
-</p></li>
+Create /etc/nginx/conf.d/your-domain-name.com.conf with the contents,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">/etc/nginx/sites-available/default can be deleted.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">This redirects HTTP connections to the default HTTP port 80 to the default</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">HTTPS port 443. As we have Cloudflare authenticated origin pulls, there should</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">be no traffic that is not SSL/TLS encrypted.</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">server {</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">listen         80;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">listen         [::]:80;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">server_name    benedicthanshenwang.com www.benedicthanshenwang.com;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">return         301 https://benedicthanshenwang.com$request_uri;</span>
+<span class="org-comment-delimiter">#     </span><span class="org-comment">}</span>
+
+<span class="org-type">upstream hunchentoot_http_backend</span> {
+    server 127.0.0.1:8080;
+    keepalive 16;
+}
+
+<span class="org-type">server</span> {
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Basic Settings</span>
+  <span class="org-comment-delimiter">##</span>
+  server_tokens off;
+
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Ports</span>
+  <span class="org-comment-delimiter">##</span>
+  listen 443 ssl http2 default_server;
+  listen [::]:443 ssl http2 default_server;
+  server_name benedicthanshenwang.com www.benedicthanshenwang.com;
+  root /home/debian/quicklisp/local-projects/project-isidore;
+
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">SSL Settings</span>
+  <span class="org-comment-delimiter">##</span>
+  ssl_certificate     /home/debian/.ssh/benedicthanshenwang.crt;
+  ssl_certificate_key /home/debian/.ssh/benedicthanshenwang.key;
+  <span class="org-comment-delimiter"># </span><span class="org-comment">TLS 1.0 and 1.1 are deprecated.</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">https://www.ssllabs.com/ssltest</span>
+  ssl_protocols       TLSv1.2 TLSv1.3;
+  ssl_ciphers         EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
+  ssl_dhparam         /home/debian/.ssh/dhparam4096.pem;
+  keepalive_timeout   75;
+  ssl_session_cache   shared:SSL:10m;
+  ssl_session_timeout 10m;
+  ssl_verify_client   on;
+  ssl_client_certificate /home/debian/.ssh/authenticated_origin_pull_ca.pem;
+
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Gzip Settings</span>
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">No universal gzip compression due to CRIME and BREACH exploits.</span>
+  gzip          on;
+  gzip_types    text/plain text/css image/*;
+
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">HTTP Response Header Fields</span>
+  <span class="org-comment-delimiter">##</span>
+  add_header X-Content-Type-Options nosniff;
+  add_header X-Frame-Options SAMEORIGIN;
+  add_header X-XSS-Protection <span class="org-string">"1; mode=block"</span>;
+  add_header Referrer-Policy strict-origin-when-cross-origin;
+  add_header Content-Security-Policy <span class="org-string">"upgrade-insecure-requests;"</span>;
+  add_header Feature-Policy <span class="org-string">"encrypted-media 'self'; autoplay 'none'"</span>;
+
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Hunchentoot threads are expensive; use Nginx to serve static assets.</span>
+  <span class="org-comment-delimiter">##</span>
+  <span class="org-type">location /assets/</span> {
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Use the root defined under # Ports.</span>
+  }
+
+  <span class="org-type">location /</span> {
+    proxy_pass http://hunchentoot_http_backend;
+    proxy_http_version 1.1;
+    proxy_set_header <span class="org-string">"Connection"</span> <span class="org-string">""</span>;
+  }
+}
+</pre>
+</div>
+
+<p>
+Nginx and Project Isidore then may be set to start up on server reboot with
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo systemctl enable project-isidore.service
+sudo systemctl enable nginx.service
+systemctl list-unit-files --state=enabled
+sudo reboot
+systemctl list-units --type=service --state=running
+</pre>
+</div></li>
 
 <li><p>
 Developing a remote LISP image
 </p>
 
 <p>
+Of course with the incremental re-defintion in the LISP REPL and our object
+database, <a href="https://cliki.net/Rucksack">Rucksack</a>, having <a href="http://clhs.lisp.se/Body/f_upda_1.htm">update-instance-for-redefined-class</a> it would be
+fun to imagine the flexibility if we could connect a local sly to our
+production LISP image. Doing so gives us great observation capabilities and
+is an cool technique to add to our toolbox. What has by now become the stuff
+of internet legend, Ron Garret's story of <a href="https://flownet.com/ron/RAX2.pdf">Debugging code from 60 million
+miles away</a>, continues to serve as an inspiration.
+</p>
+
+<p>
 <a href="https://joaotavora.github.io/sly/#Setting-up-the-Lisp-image">SLY User Manual, version 1.0.42</a>
 </p>
 
+<p>
+For an example of how this application starts a slynk server see <a href="https://github.com/BenedictHW/project-isidore/commit/da1f7facd6bdfd61d537101ec301b6558834d672">da1f7fa</a>.
+There is no need to allow ingress on OCI's virtual cloud network or in
+firewalld for port 4005. The 4005 ports on both the local and remote machines
+are communicate via SSH port 22. Create the SSH tunnel on the local machine,
+</p>
+
 <div class="org-src-container">
-<pre class="src src-sh">ssh debian@140.238.152.229
-tmux new -s lisp-remote
-<span class="org-comment-delimiter"># </span><span class="org-comment">Remote repl</span>
-sbcl
-* <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload :project-isidore<span class="org-rainbow-delimiters-depth-1">)</span>
-* <span class="org-rainbow-delimiters-depth-1">(</span>initialize-application<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">ctrl b + d</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Return from remote REPL.</span>
-<span class="org-keyword">exit</span>
-tmux new -s lisp-local
-ssh -L4005:localhost:4005 debian@140.238.152.229
-<span class="org-comment-delimiter"># </span><span class="org-comment">ctrl b + d</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Return from local tmux session.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">M-x sly-connect RET "localhost" RET 4005 RET</span>
+<pre class="src src-sh">ssh -L4005:localhost:4005 pi-server
 </pre>
 </div>
 
 <p>
-Now we can open
+<code>M-x sly-connect RET "localhost" RET 4005 RET</code>.
+</p></li>
+
+<li><p>
+Crack open a cold one.
+</p>
+
+<p>
+Optional: with the boys.
 </p></li>
 </ol>
 </div>
 </div>
-<div id="outline-container-Benchmarking-Profiling" class="outline-4">
-<h4 id="Benchmarking-Profiling"><span class="section-number-4">2.4.5.</span> Micro Benchmarks</h4>
-<div class="outline-text-4" id="text-Benchmarking-Profiling">
+<div id="outline-container-Benchmarking-Profiling" class="outline-3">
+<h3 id="Benchmarking-Profiling"><span class="section-number-3">5.4.</span> Micro Benchmarks</h3>
+<div class="outline-text-3" id="text-Benchmarking-Profiling">
 <p>
 The most likely worse case scenario is a frontpage post to some link aggregate
 website such as <a href="https://old.reddit.com/">Reddit.</a> The number of requests made to the server per client
@@ -1688,7 +1874,7 @@ I originally spent some time seeing if there was a convenient way to hide
 blog, and what seemed like a minor annoyance at first proved useful when setting
 up Cloudflare page rules; it took one rule to tell Cloudflare to cache all URL's
 ending in <code>.html</code>. They have a very reasonable usage policy for their CDN (<a href="https://www.cloudflare.com/en-ca/terms/">see
-section 2.8 of their EULA</a>). Fly.io deserves applause in tandem, for their 100GB
+section 2.8 of their EULA</a>). OCI deserves applause in tandem, for their 10TB
 free data egress. Thank you to abuse-prevention teams in both these companies!
 It makes the homegrown part of the internet possible.
 </p>
@@ -1748,12 +1934,12 @@ HTTP Resource: <a href="https://www.hanshenwang.com/bible/1-1-1/1-1-31">https://
 </tr>
 
 <tr>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">e557bb5</td>
 <td class="org-left">Debian 11.3</td>
 <td class="org-left">4 OCPU VM.Standard.A1.Flex</td>
 <td class="org-left">24GB</td>
-<td class="org-right">&#xa0;</td>
-<td class="org-right">&#xa0;</td>
+<td class="org-right">3504</td>
+<td class="org-right">0</td>
 </tr>
 </tbody>
 </table>
@@ -1810,19 +1996,19 @@ HTTP Resource: <a href="https://www.hanshenwang.com/about">https://www.hanshenwa
 </tr>
 
 <tr>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">e557bb5</td>
 <td class="org-left">Debian 11.3</td>
 <td class="org-left">4 OCPU VM.Standard.A1.Flex</td>
 <td class="org-left">24GB</td>
-<td class="org-right">&#xa0;</td>
-<td class="org-right">&#xa0;</td>
+<td class="org-right">43</td>
+<td class="org-right">0</td>
 </tr>
 </tbody>
 </table>
 
 <p>
 300 clients per second for a duration of 1 minute.
-HTTP Resource: <a href="https://www.hanshenwang.com/public/blog/installation-of-spacemacs.html">https://www.hanshenwang.com/public/blog/installation-of-spacemacs.html</a>
+HTTP Resource: <a href="https://www.hanshenwang.com/assets/blog/installation-of-spacemacs.html">https://www.hanshenwang.com/assets/blog/installation-of-spacemacs.html</a>
 </p>
 
 <table>
@@ -1871,16 +2057,15 @@ HTTP Resource: <a href="https://www.hanshenwang.com/public/blog/installation-of-
 </tr>
 
 <tr>
-<td class="org-left">&#xa0;</td>
+<td class="org-left">e557bb5</td>
 <td class="org-left">Debian 11.3</td>
 <td class="org-left">4 OCPU VM.Standard.A1.Flex</td>
 <td class="org-left">24GB</td>
-<td class="org-right">&#xa0;</td>
-<td class="org-right">&#xa0;</td>
+<td class="org-right">37</td>
+<td class="org-right">0</td>
 </tr>
 </tbody>
 </table>
-
 
 <p>
 So with the bare minimum amount of testing done I can say with confidence that
@@ -1894,9 +2079,9 @@ For my future self, see also <code>sudo apt install apache2-utils</code> and <a 
 </div>
 </div>
 </div>
-<div id="outline-container-Data-Persistence" class="outline-3">
-<h3 id="Data-Persistence"><span class="section-number-3">2.5.</span> Data Persistence</h3>
-<div class="outline-text-3" id="text-Data-Persistence">
+<div id="outline-container-Data-Persistence" class="outline-2">
+<h2 id="Data-Persistence"><span class="section-number-2">6.</span> Data Persistence</h2>
+<div class="outline-text-2" id="text-Data-Persistence">
 <p>
 Project Isidore uses <a href="https://www.sqlite.org/whentouse.html">an embedded database</a> (Rucksack) over more typical
 client-server RDBMS's such as PostgreSQL. Extremely heavy read-heavy data or
@@ -1906,9 +2091,9 @@ improvements,</a> and as a result SQLite is a viable choice for this application
 </p>
 </div>
 
-<div id="outline-container-PostgreSQL" class="outline-4">
-<h4 id="PostgreSQL"><span class="section-number-4">2.5.1.</span> PostgreSQL</h4>
-<div class="outline-text-4" id="text-PostgreSQL">
+<div id="outline-container-PostgreSQL" class="outline-3">
+<h3 id="PostgreSQL"><span class="section-number-3">6.1.</span> PostgreSQL</h3>
+<div class="outline-text-3" id="text-PostgreSQL">
 <p>
 This section is now outdated. I implemented a trivial PostgreSQL mailing list
 but running what amounts to your own mail server that does not have its messages
@@ -1954,9 +2139,9 @@ psql -h localhost -d test -U user1
 </div>
 </div>
 </div>
-<div id="outline-container-In-Memory-Datastore" class="outline-4">
-<h4 id="In-Memory-Datastore"><span class="section-number-4">2.5.2.</span> In-Memory Datastore</h4>
-<div class="outline-text-4" id="text-In-Memory-Datastore">
+<div id="outline-container-In-Memory-Datastore" class="outline-3">
+<h3 id="In-Memory-Datastore"><span class="section-number-3">6.2.</span> In-Memory Datastore</h3>
+<div class="outline-text-3" id="text-In-Memory-Datastore">
 <p>
 Design constraints imposed by the current deployment platform, Heroku &amp; Github.
 </p>
@@ -2013,9 +2198,9 @@ Memory-Centric Data Management A Monash Information Services White Paper by Curt
 </div>
 </div>
 
-<div id="outline-container-BKNR-Datastore-vs-Rucksack-vs-Postmodern" class="outline-4">
-<h4 id="BKNR-Datastore-vs-Rucksack-vs-Postmodern"><span class="section-number-4">2.5.3.</span> BKNR.Datastore vs Rucksack vs Postmodern</h4>
-<div class="outline-text-4" id="text-BKNR-Datastore-vs-Rucksack-vs-Postmodern">
+<div id="outline-container-BKNR-Datastore-vs-Rucksack-vs-Postmodern" class="outline-3">
+<h3 id="BKNR-Datastore-vs-Rucksack-vs-Postmodern"><span class="section-number-3">6.3.</span> BKNR.Datastore vs Rucksack vs Postmodern</h3>
+<div class="outline-text-3" id="text-BKNR-Datastore-vs-Rucksack-vs-Postmodern">
 <p>
 <a href="https://common-lisp.net/project/rucksack/">Rucksack</a> measurements are listed first, then <a href="https://github.com/hanshuebner/bknr-datastore">BKNR.Datastore.</a>
 </p>
@@ -2238,9 +2423,9 @@ detection used to (up until the mid 2000's?) use Open Genera.
 </div>
 </div>
 
-<div id="outline-container-Case-Study-Profiling-and-Performance" class="outline-3">
-<h3 id="Case-Study-Profiling-and-Performance"><span class="section-number-3">2.6.</span> Case Study: Profiling and Performance</h3>
-<div class="outline-text-3" id="text-Case-Study-Profiling-and-Performance">
+<div id="outline-container-Case-Study-Profiling-and-Performance" class="outline-2">
+<h2 id="Case-Study-Profiling-and-Performance"><span class="section-number-2">7.</span> Case Study: Profiling and Performance</h2>
+<div class="outline-text-2" id="text-Case-Study-Profiling-and-Performance">
 <p>
 A through treatment of the generalities of optimization in Common Lisp can be
 found in weitzCommonLispRecipes2016 pages 503-560. Dr. Weitz testifies that lisp
@@ -2731,13 +2916,13 @@ After the addition of regex generated cross-references in version 1.2.2,
 </div>
 </div>
 
-<div id="outline-container-User-Manual" class="outline-3">
-<h3 id="User-Manual"><span class="section-number-3">2.7.</span> User Manual</h3>
-<div class="outline-text-3" id="text-User-Manual">
+<div id="outline-container-User-Manual" class="outline-2">
+<h2 id="User-Manual"><span class="section-number-2">8.</span> User Manual</h2>
+<div class="outline-text-2" id="text-User-Manual">
 </div>
-<div id="outline-container-How-do-I-find-past-versions-of-a-blog-article" class="outline-4">
-<h4 id="How-do-I-find-past-versions-of-a-blog-article"><span class="section-number-4">2.7.1.</span> How do I find past versions of a blog article?</h4>
-<div class="outline-text-4" id="text-How-do-I-find-past-versions-of-a-blog-article">
+<div id="outline-container-How-do-I-find-past-versions-of-a-blog-article" class="outline-3">
+<h3 id="How-do-I-find-past-versions-of-a-blog-article"><span class="section-number-3">8.1.</span> How do I find past versions of a blog article?</h3>
+<div class="outline-text-3" id="text-How-do-I-find-past-versions-of-a-blog-article">
 <p>
 To view the entire revision history of an article, find and click the article
 title on <a href="https://github.com/HanshenWang/project-isidore/tree/master/assets/blog">the repository's blog subfolder.</a> Then click on the <code>History</code> button
@@ -2748,9 +2933,9 @@ Machine</a> is also an option.
 </div>
 </div>
 
-<div id="outline-container-How-do-I-unsubscribe-from-the-mailing-list" class="outline-4">
-<h4 id="How-do-I-unsubscribe-from-the-mailing-list"><span class="section-number-4">2.7.2.</span> How do I unsubscribe from the mailing list?</h4>
-<div class="outline-text-4" id="text-How-do-I-unsubscribe-from-the-mailing-list">
+<div id="outline-container-How-do-I-unsubscribe-from-the-mailing-list" class="outline-3">
+<h3 id="How-do-I-unsubscribe-from-the-mailing-list"><span class="section-number-3">8.2.</span> How do I unsubscribe from the mailing list?</h3>
+<div class="outline-text-3" id="text-How-do-I-unsubscribe-from-the-mailing-list">
 <p>
 To remove an email address from the mailing list, fill out and submit the form
 on the <a href="https://www.hanshenwang.com/unsubscribe">unsubscribe page.</a> To resubscribe, visit <a href="https://www.hanshenwang.com/subscribe">https://www.hanshenwang.com/subscribe.</a>
@@ -2758,9 +2943,9 @@ on the <a href="https://www.hanshenwang.com/unsubscribe">unsubscribe page.</a> T
 </div>
 </div>
 
-<div id="outline-container-Can-I-visit-this-website-offline" class="outline-4">
-<h4 id="Can-I-visit-this-website-offline"><span class="section-number-4">2.7.3.</span> Can I visit this website offline?</h4>
-<div class="outline-text-4" id="text-Can-I-visit-this-website-offline">
+<div id="outline-container-Can-I-visit-this-website-offline" class="outline-3">
+<h3 id="Can-I-visit-this-website-offline"><span class="section-number-3">8.3.</span> Can I visit this website offline?</h3>
+<div class="outline-text-3" id="text-Can-I-visit-this-website-offline">
 <p>
 To access the website offline, download the appropriate executable
 from the project release page. <a href="https://github.com/HanshenWang/project-isidore/releases">Releases · HanshenWang/project-isidore · GitHub</a>.
@@ -2791,9 +2976,9 @@ WARRANTY. See the provided COPYING.txt included in the download.
 </div>
 </div>
 
-<div id="outline-container-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized" class="outline-4">
-<h4 id="I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized"><span class="section-number-4">2.7.4.</span> I can't find what I'm looking for. How is the documentation organized?</h4>
-<div class="outline-text-4" id="text-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">
+<div id="outline-container-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized" class="outline-3">
+<h3 id="I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized"><span class="section-number-3">8.4.</span> I can't find what I'm looking for. How is the documentation organized?</h3>
+<div class="outline-text-3" id="text-I-can't-find-what-I'm-looking-for-How-is-the-documentation-organized">
 <p>
 The documentation is organized according to the best practices outlined here:
 <a href="https://documentation.divio.com/">The documentation system — divio.</a>
@@ -2811,9 +2996,9 @@ commit messages.
 </div>
 </div>
 
-<div id="outline-container-Reference-Manual" class="outline-3">
-<h3 id="Reference-Manual"><span class="section-number-3">2.8.</span> Reference Manual</h3>
-<div class="outline-text-3" id="text-Reference-Manual">
+<div id="outline-container-Reference-Manual" class="outline-2">
+<h2 id="Reference-Manual"><span class="section-number-2">9.</span> Reference Manual</h2>
+<div class="outline-text-2" id="text-Reference-Manual">
 <p>
 Reference manuals are technical descriptions of Project Isidore's internal
 artifact architecture and how to operate it. For end users, please see the <a href="#User-Manual">User
@@ -2858,9 +3043,9 @@ other languages, thanks to the excellent introspection capabilities of SBCL and
 ASDF, but still are largely only useful for index generation.
 </p>
 </div>
-<div id="outline-container-Generate-Reference-Manual" class="outline-4">
-<h4 id="Generate-Reference-Manual"><span class="section-number-4">2.8.1.</span> Generate Reference Manual</h4>
-<div class="outline-text-4" id="text-Generate-Reference-Manual">
+<div id="outline-container-Generate-Reference-Manual" class="outline-3">
+<h3 id="Generate-Reference-Manual"><span class="section-number-3">9.1.</span> Generate Reference Manual</h3>
+<div class="outline-text-3" id="text-Generate-Reference-Manual">
 <p>
 The <a href="https://github.com/didierverna/declt">Declt Common Lisp library</a> is used generate the reference manual in <code>.texi</code>
 texinfo format. <a href="https://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html">GNU Texinfo</a> is able to convert a single <code>.texi</code> source file into
@@ -2960,9 +3145,9 @@ git add assets/reference-manual.html
 </div>
 </div>
 </div>
-<div id="outline-container-Project-History-Credits" class="outline-3">
-<h3 id="Project-History-Credits"><span class="section-number-3">2.9.</span> Project History &amp; Credits</h3>
-<div class="outline-text-3" id="text-Project-History-Credits">
+<div id="outline-container-Project-History-Credits" class="outline-2">
+<h2 id="Project-History-Credits"><span class="section-number-2">10.</span> Project History &amp; Credits</h2>
+<div class="outline-text-2" id="text-Project-History-Credits">
 <p>
 For previous project iterations and experience, see project-isidore-java repository
 on GitHub using Java Spring, and project-isidore-javascript currently on GitHub
@@ -2978,7 +3163,7 @@ without,
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
 <li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
-<li>Cloudflare, Fly.io, Github and Debian.</li>
+<li>Cloudflare, Oracle, Github and Debian.</li>
 </ul>
 
 <p>
@@ -2986,7 +3171,6 @@ Thank you!
 </p>
 </div>
 </div>
-<div class="outline-text-2" id="text-2">
 <div id="bibliography">
 <h2>References</h2>
 
@@ -3005,8 +3189,6 @@ Scott Chacon.
 </td>
 </tr>
 </table>
-</div>
-</div>
 </div>
 </div>
 <div id="postamble" class="status">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-05-20 Fri 16:24 -->
+<!-- 2022-05-23 Mon 16:58 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Installation of Spacemacs on Windows via WSL2</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Installation of Spacemacs on Windows via WSL2</h1>
                                     <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-19 Thu 15:41</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-23 Mon 16:58</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org26c08d5">
+<div class="abstract" id="org3cb19f2">
 <p>
 
 </p>
@@ -164,25 +164,13 @@ and upgrade to Windows 11.
 </p>
 
 <p>
-I am currently using a Thinkpad T470s that met all the Windows 11 requirements
-with the exception of a greater than 8th generation Intel CPU. Despite the
-official Windows 11 upgrade assistant refusing to allow an upgrade, using <a href="https://rufus.ie/en/">Rufus</a>
-to create a Windows 11 installation media worked flawlessly. The usual caveats
-apply. Backup any personal data, backup your Windows 10 product key, and check
-that the OEM has Windows 11 drivers for your model etc. Here I'd like to take a
-moment to thank Intel and Lenovo's Thinkpad group for providing Windows 11
-drivers for the 5 year old T470s with the Intel i5 6300-U. Support for your
-machine may vary. Please be careful.
-</p>
-
-<p>
 I have kept the old Windows 10 WSL installation walk through and have added my
 experience on setting up WSL on Windows 11.
 </p>
 
 <p>
-<a href="#orgff8dc6b">2</a>
-<a href="#orgf07945b">3</a>
+<a href="#orgff8dc6b">Windows 10 Installation</a>
+<a href="#orgf07945b">Windows 11 Installation</a>
 </p>
 </div>
 </div>
@@ -384,6 +372,18 @@ then let us rejoice at the new features added to WSL in the form of WSLg. WSLg
 has built-in support for graphical applications &#x2013; both the Wayland protocol and
 the X window system &#x2013; and pulseaudio. This simplifies the process considerably.
 </p>
+
+<p>
+I am currently using a Thinkpad T470s that met all the Windows 11 requirements
+with the exception of a greater than 8th generation Intel CPU. Despite the
+official Windows 11 upgrade assistant refusing to allow an upgrade, using <a href="https://rufus.ie/en/">Rufus</a>
+to create a Windows 11 installation media worked flawlessly. The usual caveats
+apply. Backup any personal data, backup your Windows 10 product key, and check
+that the OEM has Windows 11 drivers for your model etc. Here I'd like to take a
+moment to thank Intel and Lenovo's Thinkpad group for providing Windows 11
+drivers for the 5 year old T470s with the Intel i5 6300-U. Support for your
+machine may vary. Please be careful.
+</p>
 </div>
 
 <div id="outline-container-org0427d6f" class="outline-3">
@@ -402,11 +402,10 @@ wsl --install -d Debian
 </div>
 
 <p>
-Ubuntu 22.04 and above should work with WSLg out of the box. The upgrade process
-is only relevant if you have selected Debian as your WSL Linux distribution. The
-beginner friendly Ubuntu is derived from Debian, so all commands ought to work
-the same. After restarting your machine and creating a new WSL user check the OS
-version in the WSL bash shell,
+Ubuntu 22.04 and above should work with WSLg out of the box. The beginner
+friendly Ubuntu is derived from Debian, so all commands ought to work the same.
+After restarting your machine and creating a new WSL user check the OS version
+in the WSL bash shell,
 </p>
 
 <div class="org-src-container">
@@ -415,56 +414,9 @@ version in the WSL bash shell,
 </div>
 
 <p>
-If VERSION is not equal to the latest Debain stable release, we must upgrade.
-Debian <code>VERSION=9 (stretch)</code> is too old for WSLg.
+If VERSION is not equal to the latest Debain stable release (version = 11), <a href="https://wiki.debian.org/DebianUpgrade.">we
+must upgrade.</a> Debian <code>VERSION=9 (stretch)</code> is too old for WSLg.
 </p>
-
-<div class="org-src-container">
-<pre class="src src-bash"><span class="org-comment-delimiter"># </span><span class="org-comment">The following reproduced from https://wiki.debian.org/DebianUpgrade.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">First, ensure your system is up-to-date in it's current release.</span>
-$ sudo apt update
-$ sudo apt upgrade
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">If you haven't already, ensure all backups are up-to-date.</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">In a text editor, replace the codename of your release with that of the next release in APT's package sources</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">For instance, the line</span>
-<span class="org-comment-delimiter">#    </span><span class="org-comment">deb https://deb.debian.org/debian/ stretch main</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">should be replaced with</span>
-<span class="org-comment-delimiter">#    </span><span class="org-comment">deb https://deb.debian.org/debian/ bullseye main</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Below is an example of a sources.list for Debian 11/Bullseye.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian bullseye main</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian-security/ bullseye-security main</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">deb http://deb.debian.org/debian bullseye-updates main</span>
-$ sudo nano /etc/apt/sources.list /etc/apt/sources.list.d/*
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Clean and update package lists</span>
-$ sudo apt clean
-$ sudo apt update
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Perform the major release upgrade, removing packages if required</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Interrupting this step after downloading has completed is an excellent way to stress-test your backups</span>
-$ sudo apt full-upgrade
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Remove packages that are not required anymore</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Be sure to review this list: you may want to keep some of them</span>
-$ sudo apt autoremove
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Reboot to make changes effective (optional, but recommended)</span>
-$ sudo shutdown -r now
-
-</pre>
-</div>
-
-<p>
-Now back in Powershell we update WSL to successfully install WSLg.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-shell">wsl --update
-wsl --shutdown
-</pre>
-</div>
 </div>
 </div>
 
@@ -588,7 +540,7 @@ Now for the moment of truth. Launch Spacemacs by the following command in the WS
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash">$ emacs27 &amp;
+<pre class="src src-bash">emacs &amp;
 </pre>
 </div>
 
