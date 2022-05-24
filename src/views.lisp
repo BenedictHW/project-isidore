@@ -246,15 +246,29 @@ CL-USER> (bible-page '(1 2 3 37198))
 "
   (bible-page-template (:title "1883 Haydock Douay Rheims Bible")
     (:h1 :class "title" "1883 Haydock Douay Rheims Bible")
-    (:h4 "Presents commentary in a tabular format for ease of reading." (:a :href "/assets/blog/tabular-douay-rheims.html" "Click to learn more."))
-    (:div :style "overflow:auto"
+    (:h4 :style "text-align:center;" "Presents commentary in a tabular format
+ for ease of reading." (:a :href "/assets/blog/tabular-douay-rheims.html" "Click
+ to learn more."))
+    ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
+    ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
+    (:script (:raw
+              (parenscript:ps-inline
+                  (defun toggle-div-with-id (div-id)
+                    (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
+                      (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "block")
+                          (setf (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")))))))
+    (:button :onclick "toggleDivWithId(\"book-links\")" "Select Book")
+    (:br)
+    (:div :id "book-links" :style "overflow:auto;display:none;"
           ;; Present links to all books of the bible.
           (collect
               (mapping (((link title) (scan-alist +bible-book-url-alist+)))
                               (:div :style "width:200px;float:left"
                                     (:a :href link title)))))
     (:br)
-    (:div :style "overflow:auto"
+    (:button :onclick "toggleDivWithId(\"chapter-links\")" "Select Chapter")
+    (:div :id "chapter-links" :style "overflow:auto;display:none;"
           ;; Present links to all chapters of currently selected book.
           (collect
               (mapping (((link title) (scan-alist (make-bible-chapter-url-list uid-list))))
@@ -262,6 +276,7 @@ CL-USER> (bible-page '(1 2 3 37198))
                                     (:a :href link title)))))
     (:br)
     ;; Present search form for bible and haydock text.
+    (:br)
     (:div :id "query-form" :style "text-align:center;"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
