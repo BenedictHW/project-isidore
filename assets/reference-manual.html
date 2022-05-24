@@ -2003,7 +2003,9 @@ Next: <a href="#Exported-classes" accesskey="n" rel="next">Exported classes</a>,
 <dl>
 <dt id="index-bible">Generic Function: <strong>bible</strong> <em>VERB CONTENT-TYPE BEGINNING-VERSE &amp;optional ENDING-VERSE</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fMODEL_2236_2236BIBLE-generic-function"></span><span id="index-Generic-Function_002c-bible"></span>
-<dl compact="compact">
+<p>Provide &lsquo;bible-page&rsquo; with a list of BIBLE-UIDs. Lists are defined by a
+BEGINNING-VERSE and an optional ENDING-VERSE
+</p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fMODEL-package"><tt>project-isidore/model</tt></a>
 </p></dd>
@@ -2591,7 +2593,10 @@ Next: <a href="#Internal-conditions" accesskey="n" rel="next">Internal condition
 <dl>
 <dt id="index-bible_002dsearch">Generic Function: <strong>bible-search</strong> <em>VERB CONTENT-TYPE &amp;key QUERY</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER_2236_2236BIBLE_002dSEARCH-generic-function"></span><span id="index-Generic-Function_002c-bible_002dsearch"></span>
-<dl compact="compact">
+<p>This resource defines a read-only GET request of
+&lsquo;project-isidore:*search-index*&rsquo;. In the GET request, a QUERY parameter (of type
+STRING) is passed to &lsquo;project-isidore:bible-search-page&rsquo;.
+</p><dl compact="compact">
 <dt><strong>Package</strong></dt>
 <dd><p><a href="#go-to-the-PROJECT_002dISIDORE_002fCONTROLLER-package"><tt>project-isidore/controller</tt></a>
 </p></dd>
@@ -2602,7 +2607,8 @@ Next: <a href="#Internal-conditions" accesskey="n" rel="next">Internal condition
 <dd><dl>
 <dt id="index-bible_002dsearch-1">Method: <strong>bible-search</strong> <em>(HTTP-VERB <tt>get</tt>) (TYPE <tt>text/html</tt>) &amp;key QUERY</em></dt>
 <dd><span id="go-to-the-PROJECT_002dISIDORE_002fCONTROLLER_2236_2236BIBLE_002dSEARCH-SNOOZE_002dVERBS_2236_2236GET-SNOOZE_002dTYPES_2236_2236TEXT_002fHTML-method"></span><span id="index-Method_002c-bible_002dsearch"></span>
-</dd></dl>
+<p>Calls the view &lsquo;project-isidore:bible-search-page&rsquo; with STRING QUERY.
+</p></dd></dl>
 </dd>
 </dl>
 </dd></dl>

@@ -258,8 +258,9 @@ Navigate to http://localhost:~A to continue... ~%" port)
   (subscribe-page))
 
 
-(rip:defresource bible
-    (verb content-type beginning-verse &optional ending-verse)
+(rip:defresource bible (verb content-type beginning-verse &optional ending-verse)
+  (:documentation "Provide `bible-page' with a list of BIBLE-UIDs. Lists are defined by a
+BEGINNING-VERSE and an optional ENDING-VERSE")
   (:genpath bible-path))
 
 ;; See also `rip:no-such-resource' and `rip:invalid-resource-arguments' for more
@@ -365,9 +366,40 @@ ARG-COUNT-ERROR
            (signal 'rip:http-error)))))
 
 
-(rip:defresource bible-search
-    (verb content-type &key query)
+(rip:defresource bible-search (verb content-type &key query)
+  (:documentation "This resource defines a read-only GET request of
+`project-isidore:*search-index*'. In the GET request, a QUERY parameter (of type
+STRING) is passed to `project-isidore:bible-search-page'.")
   (:genpath bible-search-path))
 
-(rip:defroute bible-search (:get "text/html" &key query)
-  (bible-search-page (string query)))
+(defmethod rip:uri-to-arguments ((resource (eql #'bible-search)) uri)
+  "See `rip::read-for-resource-1'. The default behaviour of
+`rip::safe-simple-read-from-string' if a string is not passed is to try
+`rip::parse-integer-then-float' and then to try `rip::parse-symbol' on the
+input. This is all good and well for default behaviour but for the fact that if
+a GET request contains a `:' then it will look for a non-existent package while
+trying to pass the defroute a symbol. As the Snooze README states, while
+`rip:read-for-resource' can be specialized for the resource, it is better to go
+one step up the chain and specialize the generic function that passes
+`rip:read-for-resource' its inputs. And so for the resource `bible-search', the
+GET request will always be parsed as a string.
+
+Given GET request = /bible-search?query=bread+water+%2Bc%3A29
+
+Sly's trace dialog tells us it was called with
+
+> #<SNOOZE-COMMON:RESOURCE-GENERIC-FUNCTION PROJECT-ISIDORE/CONTROLLER::BIBLE-SEARCH (1)>
+> \"?query=bread+water+%2Bc%3A29\"
+
+And returns
+
+< (:QUERY \"bread water +c:29\") to `rip:defroute' BIBLE-SEARCH. "
+  (list
+   :query
+   (cadr (ppcre:split
+          "="
+          (quri:url-decode (quri:uri-query (quri:uri (string uri))))))))
+
+(rip:defroute bible-search (:get "text/html" &key (query string))
+  "Calls the view `project-isidore:bible-search-page' with STRING QUERY."
+  (bible-search-page query))
