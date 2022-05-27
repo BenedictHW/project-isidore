@@ -61,11 +61,26 @@ jobs:
 
     - name: Build Project Isidore
       run: |
-        ssh remote-prod 'sbcl --dynamic-space-size 20480 \
+        ssh remote-prod 'sbcl --dynamic-space-size 1750 \
           --load /home/debian/quicklisp/local-projects/project-isidore/src/make.lisp'
 
+    # Starting all 12 web servers without pause will result in every other or
+    # every third server starting successfully. My guess is that initializing a
+    # webserver opens some streams and it's best to avoid parallel behaviour.
     - name: Restart the Application
-      run: ssh remote-prod 'sudo systemctl restart project-isidore.service'
+      run: |
+        ssh remote-prod 'sudo systemctl restart project-isidore@8080.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8081.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8082.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8083.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8084.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8085.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8086.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8087.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8088.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8089.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8090.service && \
+          sleep 3 && sudo systemctl restart project-isidore@8091.service'
 
   build_docker_image:
     name: Docker Image Build

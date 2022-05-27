@@ -184,8 +184,7 @@ Slynk server is used to connect to a running production LISP image.
 
 See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
   (terminate-application)
-  (setf slynk:*use-dedicated-output-stream* nil
-        ;; To create an executable binary, MAKE.LISP calls
+  (setf ;; To create an executable binary, MAKE.LISP calls
         ;; `sb-ext:save-lisp-and-die', which closes all open file streams. We
         ;; open `*search-index*' and `*database*' again upon application start.
         *search-index* (make-instance 'montezuma:index
@@ -229,10 +228,14 @@ Navigate to http://localhost:~A to continue... ~%" port)
   (let ((port (if (equalp NIL (uiop:getenv "PORT"))
                   8080
                   (parse-integer (uiop:getenv "PORT")))))
-    (slynk:create-server :port 4005 :dont-close t)
+    ;; We only want one connection to a remote lisp.
+    (when (= 8091 port)
+      (progn
+        (slynk:create-server :port 4005 :dont-close t)
+        (setf slynk:*use-dedicated-output-stream* nil)))
     (initialize-application :port port)
     (format t "~% Close this window or press Control+C to exit the program...~%")
-    (terminate-application do-sigint-poll)
+    (terminate-application t)
     (bt:join-thread (find-if (lambda (th)
                                (search "hunchentoot"
                                        (bt:thread-name th)))
