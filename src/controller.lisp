@@ -175,8 +175,7 @@ gracefully shut down the web server and exit the lisp process."
     (format t "~%Server successfully stopped.~%")
     (return-from terminate-application t)))
 
-(defun initialize-application (&key (port 8080)
-                                 (cmd-user-interface nil))
+(defun initialize-application (&key (port 8080))
   "Start a web server at PORT. Takes a PORT parameter as Heroku assigns a
 different PORT per dyno/environment. CMD-USER-INTERFACE when set to true will
 determine cause C-c (control+c) to exit.
@@ -220,10 +219,6 @@ Homepage: https://www.hanshenwang.com/assets/blog/project-isidore-doc.html
 Source code repository: https://github.com/HanshenWang/project-isidore
 
 Navigate to http://localhost:~A to continue... ~%" port)
-  (when cmd-user-interface
-    (let ((do-sigint-poll t))
-      (format t "~% Close this window or press Control+C to exit the program...~%")
-      (terminate-application do-sigint-poll)))
   (return-from initialize-application t))
 
 (defun application-toplevel ()
@@ -231,16 +226,17 @@ Navigate to http://localhost:~A to continue... ~%" port)
   SAVE-LISP-AND-DIE to save Application as a Lisp image. Note PORT is a keyword
   argument that defaults to 8080. Heroku dynamically sets the PORT variable to
   be binded."
-  (slynk:create-server :port 4005 :dont-close t)
-  (initialize-application :port (if (equalp NIL (uiop:getenv "PORT"))
-                                    8080
-                                    (parse-integer (uiop:getenv "PORT")))
-                          :cmd-user-interface t)
-  (sb-thread:join-thread (find-if
-                          (lambda (th)
-                            (string= (sb-thread:thread-name th)
-                                     "hunchentoot-listener-127.0.0.1:8080"))
-                          (sb-thread:list-all-threads))))
+  (let ((port (if (equalp NIL (uiop:getenv "PORT"))
+                  8080
+                  (parse-integer (uiop:getenv "PORT")))))
+    (slynk:create-server :port 4005 :dont-close t)
+    (initialize-application :port port)
+    (format t "~% Close this window or press Control+C to exit the program...~%")
+    (terminate-application do-sigint-poll)
+    (bt:join-thread (find-if (lambda (th)
+                               (search "hunchentoot"
+                                       (bt:thread-name th)))
+                             (bt:all-threads)))))
 
 (rip:defroute homepage (:get "text/html")
   (index-page))
