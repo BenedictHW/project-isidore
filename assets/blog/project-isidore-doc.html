@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-05-23 Mon 16:30 -->
+<!-- 2022-05-28 Sat 13:37 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-23 Mon 16:11</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-28 Sat 13:36</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org807029a">
+<div class="abstract" id="org8e3c242">
 <p>
 
 </p>
@@ -569,7 +569,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="orgfbb1248">
+<figure id="org3b3c831">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -1211,6 +1211,42 @@ interactivity of the LISP REPL for diagnosis as physician, then you must debug
 through diagnosis as mortician. Good logs are as useful as detailed blood
 stains.
 </p>
+
+<p>
+Edi Weitz 2007-05-11 19:45:03 UTC
+Permalink
+Post by Slava Akhmechet
+</p>
+
+<p>
+I'm looking through the Hunchetoot log and occassionally I see the
+</p>
+
+<p>
+couldn't write to #&lt;SB-SYS:FD-STREAM for "a
+Connection reset by peer couldn't write to
+#&lt;SB-SYS:FD-STREAM for "a Broken pipe
+</p>
+
+<p>
+I don't see any problems in the browser, I only found out about
+these messages because I looked at the log. Can someone think of a
+situation in which these errors would occur without interrupting
+user experience and why?
+</p>
+
+<p>
+The user pressed "Stop" or went to another website before the page
+(including all images and other stuff) was fully loaded. "Broken
+pipe" and "Connection reset by peer" are pretty common error messages
+you'll find (for example) in every Apache logfile - this is nothing
+specific to Hunchentoot or Lisp.
+</p>
+
+<p>
+HTH,
+Edi.
+</p>
 </div>
 </div>
 <div id="outline-container-Generate-Code-Coverage-Report" class="outline-5">
@@ -1275,19 +1311,19 @@ and SBCL runtime included.
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><a href="https://github.com/HanshenWang/project-isidore/commit/603da4f0ab28c7e15a1811b96a0640d6ecba0a2a">603da4f</a></td>
+<td class="org-left">N/A</td>
 <td class="org-left">Heroku</td>
 <td class="org-left">Platform (Buildpacks)</td>
 </tr>
 
 <tr>
-<td class="org-left"><a href="https://github.com/BenedictHW/project-isidore/commit/1c7a8e9ba10ae2f5efa05f5ad9ddfc33bf9aa0bd">1c7a8e9</a></td>
+<td class="org-left"><a href="https://github.com/HanshenWang/project-isidore/commit/603da4f0ab28c7e15a1811b96a0640d6ecba0a2a">603da4f</a></td>
 <td class="org-left">Fly.io</td>
 <td class="org-left">Platform (Docker)</td>
 </tr>
 
 <tr>
-<td class="org-left">TBA</td>
+<td class="org-left"><a href="https://github.com/BenedictHW/project-isidore/commit/1c7a8e9ba10ae2f5efa05f5ad9ddfc33bf9aa0bd">1c7a8e9</a></td>
 <td class="org-left">Oracle Cloud Infrastructure</td>
 <td class="org-left">Virtual Private Server</td>
 </tr>
@@ -1295,7 +1331,7 @@ and SBCL runtime included.
 <tr>
 <td class="org-left">TBA</td>
 <td class="org-left">Multiple old Thinkpads</td>
-<td class="org-left">Physical Server</td>
+<td class="org-left">Physical Server(s)</td>
 </tr>
 
 <tr>
@@ -1320,10 +1356,11 @@ best and worst parts of litigation-happy corporate America.
 <p>
 But I'm not interested in traveling down <i>the road to serfdom</i> (love some Thomas
 Sowell as well) or on the other hand, preaching on the idolatrous love of money.
-What I will relate to below is my experience with Oracle cloud which has thus
-far been very positive. The high call of sacrificial charity may not be at play
-here; I will leave it to the CPAs to quantify the reciprocal goodwill generated
-here. Thank you Oracle, OCI has been great to use thus far.
+What I will relate to below is my experience with Oracle Cloud Infrastructure
+(OCI) which has thus far been very positive. The high call of sacrificial
+charity may not be at play here; I will leave it to the CPAs to quantify the
+reciprocal goodwill generated here. Thank you Oracle, OCI has been great to use
+thus far.
 </p>
 
 <p>
@@ -1331,7 +1368,7 @@ Goal:
 </p>
 
 <ul class="org-ul">
-<li>Project Isidore accessible from <a href="https://benedicthanshenwang.com">https://benedicthanshenwang.com</a></li>
+<li>Your web application accessible from <a href="https://my-domain-name.com">https://my-domain-name.com</a></li>
 </ul>
 
 <p>
@@ -1339,9 +1376,10 @@ Prerequisites:
 </p>
 
 <ul class="org-ul">
-<li>Familiarity with Linux</li>
-<li>Valid credit card</li>
+<li>Familiarity with Linux; access to a shell.</li>
+<li>Credit card</li>
 <li>Basic understanding of asymmetric encryption i.e. SSH, SSL/TLS, GPG</li>
+<li>A web application to deploy.</li>
 </ul>
 
 <p>
@@ -1500,9 +1538,10 @@ blank. Destination Port Range is set to 8080.
 <b>Caution is required</b> here when exposing our compute instance to the wild,
 wild internet. Oracle ought to and will shutdown any hijacked bot VPSs and
 terminate the accounts. I have also seen at least one email screen capture of
-account termination due to torrenting (while using OCI as a VPN). I think it
-goes without saying that crypto-mining violates some end user license
-agreement. While googling "oracle cloud caveats", I was led to pay special
+account termination due to torrenting copyrighted material (while using OCI
+as a VPN). I think it goes without saying that crypto-mining violates some
+end user license agreement. Consult <a href="https://docs.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/run-graphical-apps-securely-on-oci.pdf">Oracle's manual</a> to safely run graphical
+applications. While googling "oracle cloud caveats", I was led to pay special
 attention to their <a href="https://www.oracle.com/ca-en/cloud/free/faq/">FAQ</a>.
 </p>
 
@@ -1580,19 +1619,22 @@ Build and deploy project
 
 <div class="org-src-container">
 <pre class="src src-sh">git clone https://github.com/benedicthw/project-isidore.git /home/debian/quicklisp/local-projects/project-isidore
-sbcl --load /home/debian/quicklip/local-projects/project-isidore/src/make.lisp
+sbcl --dynamic-space-size 1750 --load /home/debian/quicklip/local-projects/project-isidore/src/make.lisp
 </pre>
 </div>
 
 <p>
 Now define the project as a service and use <a href="https://www.linode.com/docs/guides/what-is-systemd/">systemd</a> to initialize and manage
-it. For a great tutorial, see <a href="https://systemd-by-example.com/">systemd by example - the systemd playground</a>. We
-create a new file at <code>/etc/systemd/system/project-isidore.service</code>.
+it. For a great tutorial, see <a href="https://systemd-by-example.com/">systemd by example - the systemd playground</a>.
+Create a new file at <code>/etc/systemd/system/project-isidore@.service</code>. Because
+the file describes <a href="https://stackoverflow.com/questions/38570366/can-i-run-multiple-processes-each-with-different-port-using-systemd">a generic unit service that can be instantiated multiple
+times</a> we include a systemd specifier "%i" to represent the <a href="https://unix.stackexchange.com/questions/323914/dynamic-variables-in-systemd-service-unit-files">environment
+variable PORT</a> that our web server will be bound to.
 </p>
 
 <div class="org-src-container">
 <pre class="src src-conf">[<span class="org-type">Unit</span>]
-<span class="org-variable-name">Description</span>=project-isidore web application.
+<span class="org-variable-name">Description</span>=P.I. web application on port %i.
 <span class="org-variable-name">After</span>=network.target
 
 [<span class="org-type">Service</span>]
@@ -1600,6 +1642,7 @@ create a new file at <code>/etc/systemd/system/project-isidore.service</code>.
 <span class="org-variable-name">User</span>=debian
 <span class="org-variable-name">Group</span>=debian
 <span class="org-variable-name">WorkingDirectory</span>=/home/debian/quicklisp/local-projects/project-isidore
+<span class="org-variable-name">Environment</span>=PORT=%i
 <span class="org-variable-name">ExecStart</span>=/home/debian/quicklisp/local-projects/project-isidore/bin/ProjectIsidore
 <span class="org-variable-name">Restart</span>=always
 
@@ -1611,13 +1654,14 @@ create a new file at <code>/etc/systemd/system/project-isidore.service</code>.
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Tell systemd about the file we just created.</span>
 sudo systemctl daemon-reload
-sudo systemctl start &lt;service-name&gt;
-sudo systemctl stop &lt;service-name&gt;
-sudo systemctl restart &lt;service-name&gt;
-sudo systemctl status &lt;service-name&gt;
+<span class="org-comment-delimiter"># </span><span class="org-comment">project-isidore@8081.service, project-isidore@8082.service etc.</span>
+sudo systemctl start project-isidore@8080.service
+sudo systemctl stop project-isidore@8080.service
+sudo systemctl restart project-isidore@8080.service
+sudo systemctl status project-isidore@8080.service
 <span class="org-comment-delimiter"># </span><span class="org-comment">Semantically different. Enable means to autostart on bootup.</span>
-sudo systemctl enable &lt;service-name&gt;
-sudo systemctl disable &lt;service-name&gt;
+sudo systemctl enable project-isidore@8080.service
+sudo systemctl disable project-isidore@8080.service
 </pre>
 </div>
 
@@ -1636,7 +1680,7 @@ DNS Resolution - associate domain name with public IP addresses
 <p>
 Visitors to our website won't want to key in <a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>. Our
 Domain Registrar will point <a href="http://my-domain-name.com">http://my-domain-name.com</a> to
-<a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>. Purchase a domain name if needed.
+<a href="http://140.291.294.154">http://140.291.294.154</a>. Purchase a domain name if needed.
 </p>
 
 <p>
@@ -1649,17 +1693,40 @@ Cloudflare comes without reservations.
 </p>
 
 <p>
+Cloudflare DNS Records is straightforward to use. Search online for updated
+ways to create a DNS A records (and/or AAAA records for IPV6) specific to
+your Domain Registrar. Know that as port 80 is the default port for HTTP
+traffic, as entering <a href="http://my-domain-name.com">http://my-domain-name.com</a> is equivalent to entering
+<a href="http://my-domain-name.com">http://my-domain-name.com</a>. If you don't want visitors to have to key in
+<a href="http://my-domain-name.com:8080/">http://my-domain-name.com:8080/</a> then either read on, use OCI's docs to
+<a href="https://blogs.oracle.com/cloud-infrastructure/post/http-url-redirect-on-oracle-cloud-infrastructure">redirect a subdomain to a URL with a port number</a>, or configure your web
+server to listen on &#x2013; <a href="http://yaws.hyber.org/privbind.yaws">what is on UNIX a privileged port</a> &#x2013; 80. Cloudflare
+can also <a href="https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/">redirect all HTTP requests to HTTPS</a> instead of doing this on the
+server NGINX configuration.
+</p>
+
+<p>
 Optional: <a href="https://blog.51sec.org/2021/09/enable-ipv6-on-oracle-cloud.html">Enable IPv6 on Oracle Cloud Infrastructure.</a>
 </p>
 
 <p>
-Cloudflare DNS Records is straightforward to use. Search online for updated
-ways to create a DNS A records (and/or AAAA records for IPV6) specific to
-your Domain Registrar.
-</p></li>
+Optional: <a href="https://cloud.google.com/blog/products/networking/tcp-bbr-congestion-control-comes-to-gcp-your-internet-just-got-faster">Enable TCP BBR congestion control algorithm</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">On the server,</span>
+sudo sysctl net.ipv4.tcp_available_congestion_control
+sudo sysctl net.ipv4.tcp_congestion_control
+<span class="org-comment-delimiter"># </span><span class="org-comment">Add to /etc/sysctl.conf</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">net.core.default_qdisc=fq</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">net.ipv4.tcp_congestion_control=bbr</span>
+sudo sysctl -p
+sudo sysctl net.ipv4.tcp_congestion_control
+</pre>
+</div></li>
 
 <li><p>
-Nginx reverse proxy &amp; SSL/TLS encryption
+Optional: Nginx &amp; Cloudflare
 </p>
 
 <p>
@@ -1671,29 +1738,53 @@ Service (DDoS) protection as well as Content Delivery Network (CDN) services.
 <p>
 Now by registering your site with Cloudflare your site will be served as
 HTTPS to the client. But communications from Cloudflare to our server is still
-via un-encrypted HTTP. We remedy this by using Origin Certificates.
+via un-encrypted HTTP. We remedy this by using <a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin Certificates</a>.
 </p>
 
 <p>
-<a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin CA Certificates | Cloudflare</a>
+After <a href="https://developers.cloudflare.com/ssl/origin-configuration/authenticated-origin-pull/set-up">setting up Authenticated Origin Pulls</a> the origin server now only
+accepts HTTP requests that use Cloudflare's valid client certificate. There
+will be no more directly connecting to the web server via IP address.
 </p>
 
 <p>
-After setting up Authenticated Origin Pulls the origin server now only
-accepts requests that use a valid client certificate from Cloudflare. There
-will be no more directly connecting to the Nginx server via IP address.
+Nginx functions as,
+</p>
+
+<ul class="org-ul">
+<li>Web server for static content: Hunchentoot is a thread-per-request web
+server. Allocate the more expensive Hunchentoot threads for serving dynamic
+content.</li>
+<li>SSL termination</li>
+<li>Compression (gzip): reduce bandwidth of server responses to give faster
+network transit.</li>
+<li>Caching: Cached copy of the response will reduce Hunchentoot load.</li>
+<li><a href="https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/">Reverse Proxy</a>: forward requests from <a href="https://140.291.294.154">https://140.291.294.154</a> to
+<a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> where Hunchentoot accepts HTTP requests. Obviate need
+to distribute CL+SSL (openssl) while providing Github Release binaries.</li>
+<li>Load balancing: Gain service redundancy by having multiple Hunchentoot
+processes.</li>
+</ul>
+
+<p>
+Upon completion of Cloudflare setup HTTP requests on port 80 will be
+redirected to HTTPS and encryption will be end-to-end. Nginx will be
+listening on the default HTTPS port, 443. Nginx will then communicate with
+the Hunchentoot server(s) locally. Therefore the port 8080 may be closed and
+port 443 must be opened on both the Virtual Cloud Network level and the
+server firewall level as demonstrated in steps 3 and 4.
 </p>
 
 <p>
-<a href="https://developers.cloudflare.com/ssl/origin-configuration/authenticated-origin-pull/set-up">Authenticated Origin Pulls | Cloudflare</a>
+A basic infrastructure diagram:
 </p>
 
-<p>
-Nginx is used as a reverse proxy and for SSL termination. Nginx handles the
-computational load of SSL/TLS encryption and talks to Hunchentoot through
-HTTP. It is also possible to have multiple Hunchentoot processes and to use
-Nginx as a load balancer.
-</p>
+
+<figure id="org943c50b">
+<img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
+
+<figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
+</figure>
 
 <div class="org-src-container">
 <pre class="src src-sh">sudo apt install nginx
@@ -1709,7 +1800,18 @@ Optional - <a href="https://github.com/denji/nginx-tuning">optimize nginx for sp
 </p>
 
 <p>
-Create /etc/nginx/conf.d/your-domain-name.com.conf with the contents,
+Edit <code>/etc/nginx/nginx.conf</code> to add,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-type">http</span> {
+  <span class="org-variable-name">proxy_cache_path /home/debian/quicklisp/local-projects/project-isidore/.cache levels</span>=1:2 keys_zone=project_isidore_cache:100m max_size=10g inactive=60m use_temp_path=off;
+}
+</pre>
+</div>
+
+<p>
+Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the contents,
 </p>
 
 <div class="org-src-container">
@@ -1728,6 +1830,17 @@ Create /etc/nginx/conf.d/your-domain-name.com.conf with the contents,
 
 <span class="org-type">upstream hunchentoot_http_backend</span> {
     server 127.0.0.1:8080;
+    server 127.0.0.1:8081;
+    server 127.0.0.1:8082;
+    server 127.0.0.1:8083;
+    server 127.0.0.1:8084;
+    server 127.0.0.1:8085;
+    server 127.0.0.1:8086;
+    server 127.0.0.1:8087;
+    server 127.0.0.1:8088;
+    server 127.0.0.1:8089;
+    server 127.0.0.1:8090;
+    server 127.0.0.1:8091;
     keepalive 16;
 }
 
@@ -1779,6 +1892,11 @@ Create /etc/nginx/conf.d/your-domain-name.com.conf with the contents,
   add_header Feature-Policy <span class="org-string">"encrypted-media 'self'; autoplay 'none'"</span>;
 
   <span class="org-comment-delimiter">##</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Cache. See in /etc/nginx/nginx.conf proxy_cache_path.</span>
+  <span class="org-comment-delimiter">##</span>
+  proxy_cache project_isidore_cache;
+
+  <span class="org-comment-delimiter">##</span>
   <span class="org-comment-delimiter"># </span><span class="org-comment">Hunchentoot threads are expensive; use Nginx to serve static assets.</span>
   <span class="org-comment-delimiter">##</span>
   <span class="org-type">location /assets/</span> {
@@ -1799,7 +1917,18 @@ Nginx and Project Isidore then may be set to start up on server reboot with
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">sudo systemctl enable project-isidore.service
+<pre class="src src-sh">sudo systemctl enable project-isidore@8080.service
+sudo systemctl enable project-isidore@8081.service
+sudo systemctl enable project-isidore@8082.service
+sudo systemctl enable project-isidore@8083.service
+sudo systemctl enable project-isidore@8084.service
+sudo systemctl enable project-isidore@8085.service
+sudo systemctl enable project-isidore@8086.service
+sudo systemctl enable project-isidore@8087.service
+sudo systemctl enable project-isidore@8088.service
+sudo systemctl enable project-isidore@8089.service
+sudo systemctl enable project-isidore@8090.service
+sudo systemctl enable project-isidore@8091.service
 sudo systemctl enable nginx.service
 systemctl list-unit-files --state=enabled
 sudo reboot
@@ -1839,6 +1968,15 @@ are communicate via SSH port 22. Create the SSH tunnel on the local machine,
 
 <p>
 <code>M-x sly-connect RET "localhost" RET 4005 RET</code>.
+</p>
+
+<p>
+I was playing around with connecting sly to a remote LISP image. I wondered
+if slynk:create-server would still work after sbcl:save-lisp-and-die. I mean
+there's no reason to think it wouldn't, but I had to move the
+slynk:create-server form to the toplevel function used by
+sbcl:save-lisp-and-die. Otherwise "sudo ss -tulpn | grep LISTEN" didn't show
+the open port. Mentioning this if it saves somebody else some time.
 </p></li>
 
 <li><p>
@@ -2068,13 +2206,144 @@ HTTP Resource: <a href="https://www.hanshenwang.com/assets/blog/installation-of-
 </table>
 
 <p>
-So with the bare minimum amount of testing done I can say with confidence that
-my website is well prepared given the restraints on cost (just the domain name
-registration), time, and money.
+For a primer on high performance LISP web servers see <a href="https://fukamachi.hashnode.dev/woo-a-high-performance-common-lisp-web-server">Woo: a high-performance
+Common Lisp web server</a>. It should be pointed out that the hunchentoot listed on
+Woo's benchmark graph is the single threaded version. <a href="https://github.com/fukamachi/woo/blob/master/benchmark.md%20">The multi-threaded version
+benchmarks are more impressive.</a>
 </p>
 
 <p>
-For my future self, see also <code>sudo apt install apache2-utils</code> and <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml"><code>wrk</code></a>.
+These stress tests are run with <code>sudo apt install wrk</code> on OCI's A1 Flex VM's
+with 4 cores and 24GB at commit d0f10c5.
+</p>
+
+<ol class="org-ol">
+<li><p>
+Cl-tbnl-gserver-tmgr
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8081/about"</span>
+Running 10s test @ http://localhost:8081/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.94ms    2.84ms  43.51ms   90.52%
+    Req/Sec     0.91k   509.03     1.73k    46.00%
+  27146 requests<span class="org-keyword"> in</span> 10.02s, 50.51MB read
+Requests/sec:   2709.57
+Transfer/sec:      5.04MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8081/about"</span>
+Running 10s test @ http://localhost:8081/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.93ms    2.82ms  51.14ms   90.58%
+    Req/Sec     0.91k   660.73     2.08k    64.67%
+  27306 requests<span class="org-keyword"> in</span> 10.02s, 50.81MB read
+Requests/sec:   2726.07
+Transfer/sec:      5.07MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8081/about"</span>
+Running 10s test @ http://localhost:8081/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.92ms    2.82ms  49.55ms   90.39%
+    Req/Sec     1.37k   808.96     2.52k    52.00%
+  27355 requests<span class="org-keyword"> in</span> 10.02s, 50.90MB read
+Requests/sec:   2731.18
+Transfer/sec:      5.08MB
+</pre>
+</div></li>
+
+<li><p>
+Default multi-threaded Hunchentoot
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8082/about"</span>
+Running 10s test @ http://localhost:8082/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    64.00ms  131.31ms   1.95s    92.41%
+    Req/Sec   504.07    391.26     1.67k    71.28%
+  14308 requests<span class="org-keyword"> in</span> 10.05s, 26.62MB read
+  Socket errors: connect 0, read 0, write 0, timeout 36
+Requests/sec:   1423.18
+Transfer/sec:      2.65MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8082/about"</span>
+Running 10s test @ http://localhost:8082/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    65.20ms  142.16ms   1.96s    93.24%
+    Req/Sec   416.33    321.55     1.55k    69.21%
+  14800 requests<span class="org-keyword"> in</span> 10.08s, 27.54MB read
+  Socket errors: connect 0, read 0, write 0, timeout 40
+Requests/sec:   1468.68
+Transfer/sec:      2.73MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8082/about"</span>
+Running 10s test @ http://localhost:8082/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    65.67ms  145.15ms   2.00s    93.67%
+    Req/Sec   452.20    421.83     2.00k    74.68%
+  14152 requests<span class="org-keyword"> in</span> 10.06s, 26.33MB read
+  Socket errors: connect 0, read 0, write 0, timeout 35
+Requests/sec:   1406.08
+Transfer/sec:      2.62MB
+</pre>
+</div></li>
+
+<li><p>
+Clack with Woo and libev-dev
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8083/about"</span>
+Running 10s test @ http://localhost:8083/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    43.78ms   29.71ms 221.07ms   88.44%
+    Req/Sec   634.03    234.05     0.91k    77.25%
+  25272 requests<span class="org-keyword"> in</span> 10.02s, 47.02MB read
+Requests/sec:   2522.89
+Transfer/sec:      4.69MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8083/about"</span>
+Running 10s test @ http://localhost:8083/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    55.64ms   72.08ms 597.50ms   92.30%
+    Req/Sec   630.25    245.64     0.95k    76.80%
+  24364 requests<span class="org-keyword"> in</span> 10.02s, 45.33MB read
+Requests/sec:   2432.66
+Transfer/sec:      4.53MB
+
+debian@master-instance:~$ wrk -t4 -c100 -d10 <span class="org-string">"http://localhost:8083/about"</span>
+Running 10s test @ http://localhost:8083/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency    44.21ms   29.66ms 204.73ms   88.33%
+    Req/Sec   629.64    227.31     0.89k    78.00%
+  25085 requests<span class="org-keyword"> in</span> 10.01s, 46.67MB read
+Requests/sec:   2505.62
+Transfer/sec:      4.66MB
+</pre>
+</div></li>
+</ol>
+
+<p>
+Because MAKE.LISP fiddles with compiler knobs in search of performance, a single
+project-isidore@.service in production can reach upwards of 3300 requests per
+second. To improve application resiliency Nginx is used to load balance between 12
+project-isidore processes each at 1.75GB of RAM.
+</p>
+
+<p>
+So with the bare minimum amount of testing done I can say with confidence that
+my website is well prepared given the restraints on cost (just the domain name
+registration), time, and money.
 </p>
 </div>
 </div>
@@ -3006,7 +3275,7 @@ Manual</a>.
 </p>
 
 <p>
-<a href="https://www.hanshenwang.com/public/reference-manual.html">The Project Isidore Reference Manual</a> is complete with cross-references to ASDF
+<a href="https://www.hanshenwang.com/assets/reference-manual.html">The Project Isidore Reference Manual</a> is complete with cross-references to ASDF
 component dependencies, parents and children, classes' direct methods, super and
 subclasses, slot readers and writers, setf expanders access and update functions
 etc. The reference manual also includes exhaustive and multiple-entry indexes
