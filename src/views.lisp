@@ -41,6 +41,7 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
   `(spinneret:with-html-string
+     (:doctype)
      (:html :lang "en"
             (:head
              (:title, title)
@@ -227,6 +228,7 @@ located in the `web-page-template' macro and the copyright footer. The work is
 in the public domain and frankly I think it's tacky to plaster the top navbar
 with my name."
   `(spinneret:with-html-string
+     (:doctype)
      (:html :lang "en"
             (:head
              (:title, title)
