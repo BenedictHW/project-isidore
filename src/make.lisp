@@ -10,7 +10,7 @@
 
 (format t "~%~&        ====== MAKE.LISP ======~%")
 ;; I also like to live dangerously.
-(declaim (optimize (safety 0) (speed 3) (space 0) (debug 0) (compilation-speed 0)))
+(declaim (optimize (safety 2) (speed 3) (space 0) (debug 0) (compilation-speed 0)))
 
 ;;; I. ENVIRONMENT VARIABLES
 (defvar *build-dir* (if (uiop:getenvp "BUILD_DIR")

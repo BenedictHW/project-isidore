@@ -61,7 +61,7 @@ jobs:
 
     - name: Build Project Isidore
       run: |
-        ssh remote-prod 'sbcl --dynamic-space-size 1750 \
+        ssh remote-prod 'sbcl --dynamic-space-size 2048 \
           --load /home/debian/quicklisp/local-projects/project-isidore/src/make.lisp'
 
     # Starting all 12 web servers without pause will result in every other or
