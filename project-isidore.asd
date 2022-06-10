@@ -9,6 +9,9 @@
   :author "Benedict Hanshen Wang <admin@benedicthanshenwang.com>"
   :maintainer "Benedict Hanshen Wang <admin@benedicthanshenwang.com>"
   :description "Personal Web Application"
+  :long-description
+  "Project Isidore is currently a blog as well as a modern reproduction of the
+1859 Haydock Bible."
   :license  "GNU Affero General Public License 3.0 or later"
   :homepage "https://www.benedicthanshenwang.com/blog/project-isidore-doc.html"
   :bug-tracker "https://github.com/BenedictHW/project-isidore/issues"
@@ -16,10 +19,17 @@
   :class :package-inferred-system
   :pathname "src"
   :depends-on ("project-isidore/packages" "deploy")
-  :in-order-to ((asdf:test-op (asdf:test-op "project-isidore-test")))
+  :in-order-to ((asdf:test-op (asdf:test-op "project-isidore/test")))
   :defsystem-depends-on (:deploy)
   :build-operation "deploy-op"
   :build-pathname "ProjectIsidore"
   :entry-point "project-isidore:application-toplevel")
 
 (register-system-packages "project-isidore/packages" '(:project-isidore))
+
+(asdf:defsystem "project-isidore/test"
+  :class :package-inferred-system
+  :pathname "test"
+  :depends-on ("project-isidore/test/tests")
+  :perform (asdf:test-op
+            (op c) (uiop:symbol-call :parachute :test :project-isidore/test/tests)))

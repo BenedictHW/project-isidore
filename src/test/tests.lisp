@@ -1,7 +1,7 @@
 ;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
-(defpackage #:project-isidore-test/tests
+(defpackage #:project-isidore/test/tests
   (:use #:common-lisp
         #:project-isidore)
   ;; Testing framework.
@@ -15,16 +15,16 @@
 To run locally evaluate in the listener, (asdf:test-system :project-isidore) The
 test suite is run prior to the build process. See MAKE.LISP."))
 
-(in-package #:project-isidore-test/tests)
+(in-package #:project-isidore/test/tests)
 
 (parachute:define-test master-suite
   :description "The master suite of all Project Isidore tests")
 
 (parachute:define-test can-app-init-and-exit
-  :description "Check that application starts and exits gracefully. Terminate
-  application must be run otherwise save-lisp-and-die cannot save core as there
-  needs to be one thread, and initializing the application will create a
-  hunchentoot thread."
+  :description "Check that application starts and exits gracefully. Terminate application must
+  be run otherwise save-lisp-and-die cannot save core as there needs to be one
+  thread, and initializing the application will create a hunchentoot thread. We
+  select port 3510 as port 8080-8091 will be busy on the production server."
   :parent master-suite
   (parachute:skip-on (win32) "Hunchentoot has poor Microsoft Windows support."
                      (parachute:true (progn

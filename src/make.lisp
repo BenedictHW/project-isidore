@@ -16,7 +16,7 @@
 (defvar *build-dir* (if (uiop:getenvp "BUILD_DIR")
                             (pathname-directory (pathname (concatenate 'string (uiop:getenv "BUILD_DIR") "/")))
                             ;; Local BUILD_DIR should be similar to
-                            ;; /home/$USER/project-isidore/
+                            ;; /home/$USER/quicklisp/local-projects/project-isidore/
                             (pathname-directory (uiop:pathname-parent-directory-pathname (uiop:getcwd)))))
 
 (defvar *cache-dir* (if (uiop:getenvp "CACHE_DIR")
