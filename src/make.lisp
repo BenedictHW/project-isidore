@@ -73,22 +73,26 @@
                  (format nil "http://beta.quicklisp.org/dist/quicklisp/~A/distinfo.txt" ql-dist-version)
                  :replace t :prompt nil))))
 
+;;; IV. BUILDING
 ;; Nginx is used for SSL Termination and as a Reverse Proxy.
 (push :hunchentoot-no-ssl *features*)
-;;; IV. BUILDING
-(ql:quickload "project-isidore")
-;; (asdf:test-system "project-isidore")
-;; Attempt to prune LISP image of testing artifacts to save space?
-;; More prudent to ensure tests are side effect free...
-;; (loop for system in
-;;       '(:parachute :dexador :project-isidore-test/tests)
-;;       do (progn
-;;            (delete-package system)
-;;            (asdf:clear-system system)))
-(format t "~&        ====== Build Successful | Deo Gratias ======~%")
-(format t "~&        ====== END OF MAKE.LISP ======~%")
-(asdf:make "project-isidore") ; see "project-isidore.asd" for more.
-;; SBCL's `save-lisp-and-die' kills the lisp process at the end. However this
-;; behaviour is implementation dependent. This command is here in case it does
-;; not kill the lisp process.
-(uiop:quit)
+(if (asdf:test-system "project-isidore")
+    (progn
+      ;; Attempt to prune LISP image of testing artifacts to save space?
+      ;; More prudent to ensure tests are side effect free...
+      ;; (loop for system in
+      ;;       '(:parachute :dexador :project-isidore-test/tests)
+      ;;       do (progn
+      ;;            (delete-package system)
+      ;;            (asdf:clear-system system)))
+      (format t "~&        ====== Build Successful | Deo Gratias ======~%")
+      (format t "~&        ====== END OF MAKE.LISP ======~%")
+      (asdf:make "project-isidore") ; see "project-isidore.asd" for more.
+      ;; SBCL's `save-lisp-and-die' kills the lisp process at the end. However this
+      ;; behaviour is implementation dependent. This command is here in case it does
+      ;; not kill the lisp process.
+      (uiop:quit 0))
+    (progn
+      (format t "~&        ====== Fix Failed Tests | Build Cancelled ======~%")
+      (format t "~&        ====== END OF MAKE.LISP ======~%")
+      (uiop:quit 100)))

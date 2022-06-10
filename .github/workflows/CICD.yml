@@ -52,16 +52,11 @@ jobs:
     # insufficient permission for adding an object to repository database
     # Run the command EXACTLY as written: sudo chown -R "${USER:-$(id -un)}" .
     # in the root of the remote-prod git repo.
-    - name: Run Test Suite
+    - name: Build Project Isidore
       run: |
         ssh remote-prod 'cd /home/debian/quicklisp/local-projects/project-isidore && \
           git fetch && git reset --hard origin/master && \
-          sbcl --eval "(ql:quickload :project-isidore-test)" \
-          --eval "(parachute:test-toplevel :project-isidore-test/tests)"'
-
-    - name: Build Project Isidore
-      run: |
-        ssh remote-prod 'sbcl --dynamic-space-size 2048 \
+          sbcl --dynamic-space-size 2048 \
           --load /home/debian/quicklisp/local-projects/project-isidore/src/make.lisp'
 
     # Starting all 12 web servers without pause will result in every other or
