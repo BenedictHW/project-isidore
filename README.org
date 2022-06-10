@@ -1,6 +1,6 @@
 * Project Isidore
-#+html: <a href="https://github.com/HanshenWang/project-isidore/releases/"><img src="https://img.shields.io/github/v/release/HanshenWang/project-isidore"/></a></br>
-[[https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml][https://github.com/HanshenWang/project-isidore/actions/workflows/CICD.yml/badge.svg?branch=master]]
+#+html: <a href="https://github.com/BenedictHW/project-isidore/releases/"><img src="https://img.shields.io/github/v/release/HanshenWang/project-isidore"/></a></br>
+[[https://github.com/BenedictHW/project-isidore/actions/workflows/CICD.yml][https://github.com/BenedictHW/project-isidore/actions/workflows/CICD.yml/badge.svg?branch=master]]
 
 The third iteration of my personal website. It was quite fun building this with
 Common Lisp. Pull requests and patches -- see "project-isidore.asd" for the
@@ -80,7 +80,7 @@ $ sbcl --load quicklisp.lisp
 
    Or download a tagged docker container image from [[https://github.com/BenedictHW/project-isidore/pkgs/container/project-isidore][the project packages page.]]
 
-Please visit https://hanshenwang.com/assets/blog/project-isidore-doc.html for online
+Please visit https://benedicthanshenwang.com/assets/blog/project-isidore-doc.html for online
 documentation. The same document can be found locally at
 "/assets/blog/project-isidore-doc.html".
 

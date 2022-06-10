@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-05-28 Sat 13:37 -->
+<!-- 2022-06-09 Thu 12:10 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -40,7 +40,7 @@
 
                                     <div class="header header-fixed">
                                       <div class="navbar container">
-                                        <div class="logo"><a href="/">Hanshen Wang</a></div>
+                                        <div class="logo"><a href="/">BHW</a></div>
                                         <input type="checkbox" id="navbar-toggle" >
                                         <label for="navbar-toggle"><i></i></label>
                                         <nav class="menu">
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-28 Sat 13:36</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-08 Wed 13:51</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org8e3c242">
+<div class="abstract" id="org0019abe">
 <p>
 
 </p>
@@ -105,7 +105,11 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 <li><a href="#org7c90b58">5.2. Continous Delivery</a></li>
 <li><a href="#org70ab3f9">5.3. Continous Deployment</a></li>
-<li><a href="#Benchmarking-Profiling">5.4. Micro Benchmarks</a></li>
+<li><a href="#Benchmarking-Profiling">5.4. Micro Benchmarks</a>
+<ul>
+<li><a href="#org7015784">5.4.1. Standards Compliance</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Data-Persistence">6. Data Persistence</a>
@@ -569,7 +573,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="org3b3c831">
+<figure id="org93e624e">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -1425,17 +1429,11 @@ Create a Compute instance with <a href="https://docs.oracle.com/en-us/iaas/Conte
 </p>
 
 <p>
-Optional: Bring your own Image - Debian Stable.
-</p>
-
-<p>
-<a href="https://cloud.debian.org/images/cloud/">Download</a> the correct <code>.qcow2</code> file for your system architecture (ARM64 in our
-case). In OCI search for <b>Storage &gt; Object Storage &amp; Archive &gt; Buckets</b>, and
-upload the file into a bucket. Go to <b>Compute &gt; Custom Images</b> and click on
-Import Image. Make sure "Paravirtualized Mode" is selected. After importing,
-click <b>Edit Details</b> and tick the box for "VM.Standard.A1.Flex". <b>Edit Custom
-Image Capabilities</b> to ensure UEFI<sub>64</sub> is preferred. Now you can create a
-compute instance as detailed above.
+Note the ability to resize your boot volume now or later. I believe the
+minimum boot volume size is 50GB. So with the free allowance of 200GB it is
+possible to have 4 VM instances. Until necessity requires it, I would
+rather avoid the added complexity of distributed computing. Therefore I
+enlarge the boot volume of my one VM to 200GB.
 </p>
 
 <p>
@@ -1448,6 +1446,20 @@ name.
 Lastly, instead of generating a key pair, we can choose to copy and paste the
 contents of the public key (oracle-vm-key.pub) we created in step 1. Write
 down the public IP assigned to the VM.
+</p>
+
+<p>
+Optional: Bring your own Image - Debian Stable.
+</p>
+
+<p>
+<a href="https://cloud.debian.org/images/cloud/">Download</a> the correct <code>.qcow2</code> file for your system architecture (ARM64 in our
+case). In OCI search for <b>Storage &gt; Object Storage &amp; Archive &gt; Buckets</b>, and
+upload the file into a bucket. Go to <b>Compute &gt; Custom Images</b> and click on
+Import Image. Make sure "Paravirtualized Mode" is selected. After importing,
+click <b>Edit Details</b> and tick the box for "VM.Standard.A1.Flex". <b>Edit Custom
+Image Capabilities</b> to ensure UEFI<sub>64</sub> is preferred. Now you can create a
+compute instance as detailed above.
 </p></li>
 
 <li><p>
@@ -1511,7 +1523,23 @@ sudo firewall-cmd --runtime-to-permanent
 
 <p>
 <a href="https://docs.fedoraproject.org/en-US/quick-docs/firewalld/">Using firewalld :: Fedora Docs</a>
-</p></li>
+</p>
+
+<p>
+Optional: Set the correct timezone for the server
+</p>
+
+<p>
+For example, Cron daemons and logging timestamps are set to use the system
+timezone.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">timedatectl
+timedatectl list-timezones
+sudo timedatectl set-timezone America/Toronto
+</pre>
+</div></li>
 
 <li><p>
 Setup Ingress Rules in Security List for VM to open up the ports on
@@ -1674,7 +1702,7 @@ production deployments.
 </p></li>
 
 <li><p>
-DNS Resolution - associate domain name with public IP addresses
+<a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-dns-terminology-components-and-concepts">DNS</a> Resolution - associate domain name with public IP addresses
 </p>
 
 <p>
@@ -1758,7 +1786,7 @@ content.</li>
 <li>SSL termination</li>
 <li>Compression (gzip): reduce bandwidth of server responses to give faster
 network transit.</li>
-<li>Caching: Cached copy of the response will reduce Hunchentoot load.</li>
+<li><a href="https://lucassymons.net/posts/optimizing-your-cdn-cache-with-cloudflare-and-nginx/">Caching</a>: Cached copy of the response will reduce Hunchentoot load.</li>
 <li><a href="https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/">Reverse Proxy</a>: forward requests from <a href="https://140.291.294.154">https://140.291.294.154</a> to
 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> where Hunchentoot accepts HTTP requests. Obviate need
 to distribute CL+SSL (openssl) while providing Github Release binaries.</li>
@@ -1780,7 +1808,13 @@ A basic infrastructure diagram:
 </p>
 
 
-<figure id="org943c50b">
+<figure id="org3b9e1c0">
+<img src="file:///home/ben/quicklisp/local-projects/project-isidore/assets/pi-infra.svg" alt="pi-infra.svg" class="org-svg">
+
+</figure>
+
+
+<figure id="orgef4530f">
 <img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
 
 <figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
@@ -1800,33 +1834,11 @@ Optional - <a href="https://github.com/denji/nginx-tuning">optimize nginx for sp
 </p>
 
 <p>
-Edit <code>/etc/nginx/nginx.conf</code> to add,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-conf"><span class="org-type">http</span> {
-  <span class="org-variable-name">proxy_cache_path /home/debian/quicklisp/local-projects/project-isidore/.cache levels</span>=1:2 keys_zone=project_isidore_cache:100m max_size=10g inactive=60m use_temp_path=off;
-}
-</pre>
-</div>
-
-<p>
 Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the contents,
 </p>
 
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">/etc/nginx/sites-available/default can be deleted.</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">This redirects HTTP connections to the default HTTP port 80 to the default</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">HTTPS port 443. As we have Cloudflare authenticated origin pulls, there should</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">be no traffic that is not SSL/TLS encrypted.</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">server {</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">listen         80;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">listen         [::]:80;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">server_name    benedicthanshenwang.com www.benedicthanshenwang.com;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">return         301 https://benedicthanshenwang.com$request_uri;</span>
-<span class="org-comment-delimiter">#     </span><span class="org-comment">}</span>
 
 <span class="org-type">upstream hunchentoot_http_backend</span> {
     server 127.0.0.1:8080;
@@ -1841,20 +1853,24 @@ Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the cont
     server 127.0.0.1:8089;
     server 127.0.0.1:8090;
     server 127.0.0.1:8091;
-    keepalive 16;
+    keepalive 200;
+    keepalive_requests 10000000;
+    keepalive_timeout 15m;
 }
 
 <span class="org-type">server</span> {
   <span class="org-comment-delimiter">##</span>
   <span class="org-comment-delimiter"># </span><span class="org-comment">Basic Settings</span>
   <span class="org-comment-delimiter">##</span>
+  reset_timedout_connection on;
   server_tokens off;
+  access_log off;
 
   <span class="org-comment-delimiter">##</span>
   <span class="org-comment-delimiter"># </span><span class="org-comment">Ports</span>
   <span class="org-comment-delimiter">##</span>
-  listen 443 ssl http2 default_server;
-  listen [::]:443 ssl http2 default_server;
+  <span class="org-variable-name">listen 443 ssl http2 default_server backlog</span>=65536;
+  <span class="org-variable-name">listen [::]:443 ssl http2 default_server backlog</span>=65536;
   server_name benedicthanshenwang.com www.benedicthanshenwang.com;
   root /home/debian/quicklisp/local-projects/project-isidore;
 
@@ -1864,13 +1880,12 @@ Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the cont
   ssl_certificate     /home/debian/.ssh/benedicthanshenwang.crt;
   ssl_certificate_key /home/debian/.ssh/benedicthanshenwang.key;
   <span class="org-comment-delimiter"># </span><span class="org-comment">TLS 1.0 and 1.1 are deprecated.</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">https://www.ssllabs.com/ssltest</span>
   ssl_protocols       TLSv1.2 TLSv1.3;
   ssl_ciphers         EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
   ssl_dhparam         /home/debian/.ssh/dhparam4096.pem;
-  keepalive_timeout   75;
-  ssl_session_cache   shared:SSL:10m;
+  ss l_session_cache   shared:SSL:10m;
   ssl_session_timeout 10m;
+  <span class="org-comment-delimiter"># </span><span class="org-comment">Only allow Cloudflare to connect to our server.</span>
   ssl_verify_client   on;
   ssl_client_certificate /home/debian/.ssh/authenticated_origin_pull_ca.pem;
 
@@ -1891,22 +1906,27 @@ Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the cont
   add_header Content-Security-Policy <span class="org-string">"upgrade-insecure-requests;"</span>;
   add_header Feature-Policy <span class="org-string">"encrypted-media 'self'; autoplay 'none'"</span>;
 
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Cache. See in /etc/nginx/nginx.conf proxy_cache_path.</span>
-  <span class="org-comment-delimiter">##</span>
-  proxy_cache project_isidore_cache;
+  sendfile on;
+  tcp_nopush on;
+  tcp_nodelay on;
+  aio threads;
+  <span class="org-variable-name">open_file_cache max</span>=1000000 inactive=3d;
+  open_file_cache_valid 1d;
 
   <span class="org-comment-delimiter">##</span>
   <span class="org-comment-delimiter"># </span><span class="org-comment">Hunchentoot threads are expensive; use Nginx to serve static assets.</span>
   <span class="org-comment-delimiter">##</span>
   <span class="org-type">location /assets/</span> {
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Use the root defined under # Ports.</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Use the root defined under # Ports.</span>
+    add_header Cache-Control <span class="org-string">"max-age=86400, must-revalidate"</span>;
   }
 
   <span class="org-type">location /</span> {
     proxy_pass http://hunchentoot_http_backend;
     proxy_http_version 1.1;
     proxy_set_header <span class="org-string">"Connection"</span> <span class="org-string">""</span>;
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Cloudflare Edge Free TTL is 2 hours.</span>
+    add_header Cache-Control <span class="org-string">"max-age=7200, must-revalidate"</span>;
   }
 }
 </pre>
@@ -1934,7 +1954,21 @@ systemctl list-unit-files --state=enabled
 sudo reboot
 systemctl list-units --type=service --state=running
 </pre>
-</div></li>
+</div>
+
+<p>
+Optional: Block automated WordPress Vulnerability scanning
+</p>
+
+<p>
+WordPress powers 43% of all websites. This means any public facing website
+will face a barrage of probing attacks targeting WordPress vulnerabilities.
+Use Cloudflare's Web Application Firewall to block all requests with URI
+paths containing "php" or "wp-includes" from reaching Nginx. <code>cat
+   /var/log/nginx/access.log</code> to get a glimpse of web traffic hitting Nginx and
+consider writing a <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard#Standard">robots.txt</a> with roughly half of all internet traffic is
+bots.
+</p></li>
 
 <li><p>
 Developing a remote LISP image
@@ -1985,10 +2019,88 @@ Crack open a cold one.
 
 <p>
 Optional: with the boys.
-</p></li>
+</p>
+
+<p>
+Trying to install a fresh Guix System from a custom image (guix system
+image) would boot successfully but ssh would not work. let's then mutate a
+ubuntu image into a Guix System,
+</p>
+
+<p>
+nonobvious things not included in the manual,
+</p>
+
+<p>
+use root profile.
+know a1 uses edk2/uefi boot
+know oracle mandates dhcp not static ip like digital ocean.
+<a href="https://lists.gnu.org/archive/html/guix-devel/2017-04/msg00139.html">Installing Guix System from a debian installation will conflict.</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt update &amp;&amp; sudo apt upgrade
+<span class="org-comment-delimiter"># </span><span class="org-comment">Prefer distribution packaged guix over binary installation.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Binary installation had problems running guile-fibers tests.</span>
+sudo apt install guix
+<span class="org-comment-delimiter"># </span><span class="org-comment">Guix commands should be prefixed with sudo to utilize root profile.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">We are using the root profile for guix and not our user profile.</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Mixing them will result in errors.</span>
+sudo guix pull
+<span class="org-comment-delimiter"># </span><span class="org-comment">Create system config in /etc/config.scm</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Bootstrap Guix System.</span>
+sudo guix system reconfigure /etc/config.scm
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-scheme"><span class="org-rainbow-delimiters-depth-1">(</span>use-modules <span class="org-rainbow-delimiters-depth-2">(</span>gnu<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>use-service-modules networking ssh<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>use-package-modules admin ssh<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>operating-system
+ <span class="org-rainbow-delimiters-depth-2">(</span>host-name <span class="org-string">"project-isidore-server"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>timezone <span class="org-string">"America/Toronto"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>locale <span class="org-string">"en_US.UTF-8"</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>keyboard-layout <span class="org-rainbow-delimiters-depth-3">(</span>keyboard-layout <span class="org-string">"us"</span> <span class="org-string">"altgr-intl"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>bootloader <span class="org-rainbow-delimiters-depth-3">(</span>bootloader-configuration
+              <span class="org-rainbow-delimiters-depth-4">(</span>bootloader grub-efi-bootloader<span class="org-rainbow-delimiters-depth-4">)</span>
+              <span class="org-rainbow-delimiters-depth-4">(</span>target <span class="org-string">"/boot/efi"</span><span class="org-rainbow-delimiters-depth-4">)</span>
+              <span class="org-rainbow-delimiters-depth-4">(</span>terminal-outputs '<span class="org-rainbow-delimiters-depth-5">(</span>console<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>file-systems <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-rainbow-delimiters-depth-4">(</span>file-system
+                      <span class="org-rainbow-delimiters-depth-5">(</span>device <span class="org-rainbow-delimiters-depth-6">(</span>file-system-label <span class="org-string">"my-root"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                      <span class="org-rainbow-delimiters-depth-5">(</span>mount-point <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-5">)</span>
+                      <span class="org-rainbow-delimiters-depth-5">(</span>type <span class="org-string">"ext4"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+                     %base-file-systems<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>initrd-modules <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-string">"virtio_scsi"</span> %base-initrd-modules<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>users <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-rainbow-delimiters-depth-4">(</span>user-account
+               <span class="org-rainbow-delimiters-depth-5">(</span>name <span class="org-string">"bhw"</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>comment <span class="org-string">"Benedict Hanshen Wang"</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>password <span class="org-string">""</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-string">"users"</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>supplementary-groups '<span class="org-rainbow-delimiters-depth-6">(</span><span class="org-string">"wheel"</span> <span class="org-string">"netdev"</span>
+                                       <span class="org-string">"audio"</span> <span class="org-string">"video"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
+               <span class="org-rainbow-delimiters-depth-5">(</span>home-directory <span class="org-string">"/home/bhw"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+              %base-user-accounts<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>sudoers-file <span class="org-rainbow-delimiters-depth-3">(</span>plain-file <span class="org-string">"sudoers"</span> <span class="org-string">"\</span>
+<span class="org-string">root ALL=(ALL) ALL</span>
+<span class="org-string">%wheel ALL=NOPASSWD: ALL\n"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>packages <span class="org-rainbow-delimiters-depth-3">(</span>cons* openssh %base-packages<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
+ <span class="org-rainbow-delimiters-depth-2">(</span>services <span class="org-rainbow-delimiters-depth-3">(</span>cons*
+            <span class="org-rainbow-delimiters-depth-4">(</span>service dhcp-client-service-type<span class="org-rainbow-delimiters-depth-4">)</span>
+            <span class="org-rainbow-delimiters-depth-4">(</span>service openssh-service-type
+                     <span class="org-rainbow-delimiters-depth-5">(</span>openssh-configuration
+                      <span class="org-rainbow-delimiters-depth-6">(</span>permit-root-login 'without-password<span class="org-rainbow-delimiters-depth-6">)</span>
+                      <span class="org-rainbow-delimiters-depth-6">(</span>password-authentication? #false<span class="org-rainbow-delimiters-depth-6">)</span>
+                      <span class="org-rainbow-delimiters-depth-6">(</span>authorized-keys
+                       `<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"bhw"</span> ,<span class="org-rainbow-delimiters-depth-9">(</span>local-file <span class="org-string">"/home/ubuntu/.ssh/oracle-vm-key.pub"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span>
+                         <span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"root"</span> ,<span class="org-rainbow-delimiters-depth-9">(</span>local-file <span class="org-string">"/home/ubuntu/.ssh/oracle-vm-key.pub"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
+            %base-services<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+</pre>
+</div></li>
 </ol>
 </div>
 </div>
+
 <div id="outline-container-Benchmarking-Profiling" class="outline-3">
 <h3 id="Benchmarking-Profiling"><span class="section-number-3">5.4.</span> Micro Benchmarks</h3>
 <div class="outline-text-3" id="text-Benchmarking-Profiling">
@@ -2209,7 +2321,8 @@ HTTP Resource: <a href="https://www.hanshenwang.com/assets/blog/installation-of-
 For a primer on high performance LISP web servers see <a href="https://fukamachi.hashnode.dev/woo-a-high-performance-common-lisp-web-server">Woo: a high-performance
 Common Lisp web server</a>. It should be pointed out that the hunchentoot listed on
 Woo's benchmark graph is the single threaded version. <a href="https://github.com/fukamachi/woo/blob/master/benchmark.md%20">The multi-threaded version
-benchmarks are more impressive.</a>
+benchmarks are more impressive.</a> The article about Woo also fails to mention
+quux-hunchentoot which employs a thread-pooling extension to Hunchentoot.
 </p>
 
 <p>
@@ -2337,17 +2450,29 @@ Transfer/sec:      4.66MB
 Because MAKE.LISP fiddles with compiler knobs in search of performance, a single
 project-isidore@.service in production can reach upwards of 3300 requests per
 second. To improve application resiliency Nginx is used to load balance between 12
-project-isidore processes each at 1.75GB of RAM.
+project-isidore processes each at 2GB of RAM. Lastly, of note is the 4GBps
+network bandwidth offered by Oracle Cloud. My bottleneck should be at this
+point the rucksack database, despite offering concurrent transactions.
 </p>
 
 <p>
 So with the bare minimum amount of testing done I can say with confidence that
-my website is well prepared given the restraints on cost (just the domain name
-registration), time, and money.
+my website is well prepared given the restraints on cost, time, and money.
 </p>
 </div>
+
+<div id="outline-container-org7015784" class="outline-4">
+<h4 id="org7015784"><span class="section-number-4">5.4.1.</span> Standards Compliance</h4>
+<div class="outline-text-4" id="text-5-4-1">
+<ul class="org-ul">
+<li><a href="https://www.ssllabs.com/ssltest">SSL Server Test (Powered by Qualys SSL Labs)</a></li>
+<li><a href="https://web.dev/measure/">Measure page quality</a></li>
+</ul>
 </div>
 </div>
+</div>
+</div>
+
 <div id="outline-container-Data-Persistence" class="outline-2">
 <h2 id="Data-Persistence"><span class="section-number-2">6.</span> Data Persistence</h2>
 <div class="outline-text-2" id="text-Data-Persistence">
@@ -3474,7 +3599,7 @@ Scott Chacon.
                               <footer>
                                 <div class="copyright-container">
                                     Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><a href="https://hanshenwang.com/subscribe"> Mailing List. </a><br/>
-                                    Copyright 2021 Hanshen Wang. <br/>
+                                    Copyright 2021 Benedict Hanshen Wang. <br/>
                                     Blog content is available under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> CC-BY-SA 4.0 </a> unless otherwise noted.<br/>
                                     Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.0.50 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a><br/>
                                 </div>

@@ -1,6 +1,6 @@
 ;;;; generate-doc.lisp
 ;;; See subheading 'Generate Reference Manual' at
-;;; https://www.hanshenwang.com/assets/blog/project-isidore-doc.html/
+;;; https://www.benedicthanshenwang.com/assets/blog/project-isidore-doc.html/
 
 (load "~/quicklisp/setup.lisp") ; Quicklisp is installed in default location
 (ql:quickload :project-isidore) ; If you need to download dependencies

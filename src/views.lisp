@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Hanshen Wang <Hanshen@HanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/views
@@ -52,7 +52,7 @@ all other web app pages uses this boilerplate."
             (:body
              (:div :class "header header-fixed"
                    (:div :class "navbar container"
-                         (:div :class "logo" (:a :href "/" "Hanshen Wang"))
+                         (:div :class "logo" (:a :href "/" "BHW"))
                          (:input :type "checkbox" :id "navbar-toggle")
                          (:label :for "navbar-toggle" (:i))
                          (:nav :class "menu"
@@ -62,16 +62,16 @@ all other web app pages uses this boilerplate."
                                 (:li (:a :href "/assets/blog/archive.html" "Blog"))
                                 (:li (:a :href "/contact" "Contact"))))))
              (:div :class "main" ,@body)
-             (:hr)
              (:footer
+              (:hr)
               (:div :class "copyright-container"
-                    (:div :class "copyright" "Copyright &copy; 2021 Hanshen Wang.")))))))
+                    (:div :class "copyright" "Copyright (c) 2021 Benedict Hanshen Wang.")))))))
 
 (defun index-page ()
   (spinneret:with-html-string
     (:html :lang "en"
            (:head
-            (:title "HanshenWang.com")
+            (:title "BHW.com")
             (:meta :charset "utf-8")
             (:meta :name "viewport"
                    :content "width=device-width, initial-scale=1")
@@ -95,7 +95,7 @@ all other web app pages uses this boilerplate."
                                ;; index.js typewriter effect needs the greeting
                                ;; to be HTML tag h1.
                                (:h1 "Hey There!") (:br)
-                               (:h2 "I'm Hanshen.") (:br)
+                               (:h2 "I'm Ben.") (:br)
                                (:h2 "Nice to meet you.")))
                    (:hr)
                    (:br)
@@ -130,7 +130,7 @@ all other web app pages uses this boilerplate."
 
 
 (defun about-page ()
-  (web-page-template (:title "HanshenWang.com")
+  (web-page-template (:title "BHW.com")
     (:h1 :class "title" "About")
     (:h1 "The story so far...")
     (:p "Hey there. I'm currently a student up in the Great White North.
@@ -148,7 +148,7 @@ all other web app pages uses this boilerplate."
     use, and pay it forwards.")))
 
 (defun work-page ()
-  (web-page-template (:title "HanshenWang.com")
+  (web-page-template (:title "BHW.com")
     (:h1 :class "title" "Work")
     (:h1 "Professional Portfolio ")
     (:a :target "_blank"
@@ -163,12 +163,12 @@ all other web app pages uses this boilerplate."
     leisure. As with the above," (:a :href "/contact" "do contact me") "if
     something is missing")
     (:ul
-     (:li (:a :target "_blank" :href "https://github.com/HanshenWang" "Github
+     (:li (:a :target "_blank" :href "https://github.com/BenedictHW" "Github
      Repositories"))
      (:li (:a :href "/assets/blog/archive.html" "Collected Notes")))))
 
 (defun contact-page ()
-  (web-page-template (:title "HanshenWang.com")
+  (web-page-template (:title "BHW.com")
     (:h1 :class "title" "Contact")
     (:h1 "Ways to get in contact")
     ;; https://stackoverflow.com/questions/483212/effective-method-to-hide-email-from-spam-bots
@@ -184,17 +184,17 @@ all other web app pages uses this boilerplate."
     secondary source, at" (:a :target "_blank"
                               :href "https://keys.openpgp.org" "https://keys.openpgp.org."))
     (:p "To receive blog article updates please use" (:a :target "_blank" :href
-                                                         "https://hanshenwang.com/assets/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
-                                                         "_blank" :href "https://hanshenwang.com/subscribe" "Subscribe to the Mailing
+                                                         "https://benedicthanshenwang.com/assets/blog/rss.xml" "the Blog RSS Feed") " or " (:a :target
+                                                         "_blank" :href "https://benedicthanshenwang.com/subscribe" "Subscribe to the Mailing
   List."))
     (:h1 :id "article-history" "Blog Article Transparency Policy")
     (:p "All edits made to an article after the initial publication date can be
     found" (:a :target "_blank"
-               :href "https://github.com/HanshenWang/project-isidore/tree/master/assets/blog" "in
+               :href "https://github.com/BenedictHW/project-isidore/tree/master/assets/blog" "in
     the version-controlled Github repository ."))))
 
 (defun subscribe-page ()
-  (web-page-template (:title "HanshenWang.com")
+  (web-page-template (:title "BHW.com")
     (:h1 :class "title" "Subscribe to Mailing List")
     (:p "The Real Simple Syndication (RSS) protocol best represents the World
   Wide Web as originally visualized: as an information highway. It does so while
@@ -205,7 +205,7 @@ all other web app pages uses this boilerplate."
         :href "https://www.wired.com/story/rss-readers-feedly-inoreader-old-reader/"
         "Further information on getting started with RSS can be found here.")
     (:a :target "_blank"
-        :href "http://hanshenwang.com/assets/blog/rss.xml"
+        :href "http://benedicthanshenwang.com/assets/blog/rss.xml"
         "My blog RSS is here.")
     (:p "I highly recommend the use of RSS for newsgroups and news reading.
   Still, an option exists to receive new blog articles by E-mail. This mailing
@@ -375,7 +375,7 @@ query-form"
                 (:p " It's certainly pithy. Though I had a vague feeling I had heard it somewhere once upon a time.")
                 (:code "Query> battle")
                 (:br)
-                (:code "Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=battle" "https://www.hanshenwang.com/bible-search?query=battle"))
+                (:code "Result>" (:a :target "_blank" :href "https://www.benedicthanshenwang.com/bible-search?query=battle" "https://www.benedicthanshenwang.com/bible-search?query=battle"))
 
                 (:p " The first column indicates the scoring of the result where a higher score is ranked as a better match. The rows are arranged in decreasing order of said score. Note the top result is Isaiah 22:2 with a score of 129.")
                 (:p " I see that my query has no explicit FIELD, so 'battle' was implicitly matched against all five fields as noted above under section 1. Explicit fields and operators are optional.")
@@ -384,24 +384,24 @@ query-form"
 
                 (:code " Query> +t:battle")
                 (:br)
-                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle"))
+                (:code " Result>" (:a :target "_blank" :href "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle" "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle"))
 
                 (:p " Now the top result is now I Maccabees 2:35. There are still too many results. Let's filter her down a bit more. It sounds like the quotation would belong to the Wisdom books, and as of now 'battle' is pulling in too many results from the Historical books. To exclude all results from the book of I and II Maccabees,")
                 (:code " Query> +t:battle !b:maccabees")
                 (:br)
-                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees"))
+                (:code " Result>" (:a :target "_blank" :href "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees" "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees"))
 
                 (:p " We can use the wildcard operator to make our lives a little bit easier. We can remove Judges, and Judith as they all begin with the pattern 'Ju'. Another very common use case for the wildcard operator is plurals.")
 
                 (:code " Query> +t:battle !b:maccabees !b:ju*")
                 (:br)
-                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*"))
+                (:code " Result>" (:a :target "_blank" :href "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*" "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aj*"))
 
                 (:p " Let us finish the search by adding another term: '+t:race'. Note queries are whitespace sensitive.")
 
                 (:code " Query> +t:battle !b:maccabees !b:ju* +t:race")
                 (:br)
-                (:code " Result>" (:a :target "_blank" :href "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace" "https://www.hanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace"))
+                (:code " Result>" (:a :target "_blank" :href "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace" "https://www.benedicthanshenwang.com/bible-search?query=%2Bt%3Abattle+%21b%3Amaccabees+%21b%3Aju*+%2Bt%3Arace"))
 
                 (:p "Deo gratias, we have found our verse: Ecclesiastes 9:11.")
                 (:blockquote "I turned me to another thing, and I saw that under the sun, the race is not to the swift, nor the battle to the strong, nor bread to the wise, nor riches to the learned, nor favour to the skilful: but time and chance in all.")
