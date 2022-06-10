@@ -4,15 +4,14 @@
 (uiop:define-package #:project-isidore/controller
   (:use #:common-lisp
         #:series
-        #:hunchentoot
         #:project-isidore/views
-        #:project-isidore/model
-        #:project-isidore/gserver-taskmaster)
+        #:project-isidore/model)
   (:import-from #:alexandria)
+  (:import-from #:hunchentoot)
   (:import-from #:hunchensocket)
-  (:import-from #:cl-gserver)
-  (:import-from #:snooze)
+  (:import-from #:quux-hunchentoot)
   (:import-from #:slynk)
+  (:import-from #:snooze)
   ;; No package local nicknames. See commit 1962a26.
   (:export :*server*
            #:initialize-application
@@ -58,44 +57,6 @@ Work-in-progress.
 
 (in-package #:project-isidore/controller)
 
-(defclass gserver-tmgr (hunchentoot:multi-threaded-taskmaster)
-  ((asystem :initform (cl-gserver.actor-system:make-actor-system
-                       '(:dispatchers (:shared (:workers 0)))))
-   (router :initform nil
-           :reader router
-           :documentation
-           "the actor router. it contains as many workers as is specified in `:max-thread-count'.")
-   (max-thread-count :initarg :max-thread-count
-                     :type integer
-                     :initform 8
-                     :accessor taskmaster-max-thread-count
-                     :documentation
-                     "The number of gservers that should be spawned to handle requests.
-A number of <cores> * 2 could be a good value.")
-   (thread-count :initform 0
-                 :type integer
-                 :accessor taskmaster-thread-count
-                 :documentation "The currently running number of gservers.")))
-
-(defmethod initialize-instance :after ((self gserver-tmgr) &key)
-  (with-slots (asystem router max-thread-count) self
-    (unless router
-      (setf router (cl-gserver.router:make-router)))
-    (dotimes (i max-thread-count)
-      (cl-gserver.router:add-routee router (make-tmgr-worker asystem)))))
-
-(defmethod taskmaster-thread-count :around ((self gserver-tmgr))
-  (length (slot-value self 'max-thread-count)))
-
-(defmethod execute-acceptor ((self gserver-tmgr))
-  (call-next-method))
-
-(defmethod handle-incoming-connection ((self gserver-tmgr) socket)
-  (cl-gserver.actor:tell (router self) `(:process ,(hunchentoot:taskmaster-acceptor self) ,socket)))
-
-(defmethod shutdown ((self gserver-tmgr))
-  (with-slots (router) self
-    (cl-gserver.router:stop router)))
 
 (defclass snooze-acceptor (hunchensocket:websocket-acceptor
                            hunchentoot:easy-acceptor) ())
@@ -195,11 +156,15 @@ See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
         *database* (rs:open-rucksack (asdf:system-relative-pathname
                                       :project-isidore "data/rucksack/"))
         rip:*catch-errors* :verbose
-        *server* (hunchentoot:start (make-instance 'snooze-acceptor
-                                                   :port port
-                                                   :address "127.0.0.1"
-                                                   :taskmaster (make-instance 'gserver-tmgr)
-                                                   :access-log-destination nil)))
+        *server* (hunchentoot:start
+                  (make-instance 'snooze-acceptor
+                                 :port port
+                                 :address "127.0.0.1"
+                                 :taskmaster (make-instance
+                                              'quux-hunchentoot:thread-pooling-taskmaster
+                                              :max-thread-count 8
+                                              :max-accept-count 1000000)
+                                 :access-log-destination nil)))
   (format t "~%
 ========================================
 Project Isidore v1.2.1 (A.D. 2022-01-15)
