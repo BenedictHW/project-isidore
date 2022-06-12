@@ -3,7 +3,7 @@
 
 (uiop:define-package #:project-isidore/views
   (:use #:common-lisp
-        #:series
+        ;; #:series ; does not play well with spinneret
         #:project-isidore/styles
         #:project-isidore/model)
   (:import-from #:spinneret)
@@ -264,18 +264,16 @@ CL-USER> (bible-page '(1 2 3 37198))
     (:br)
     (:div :id "book-links" :style "overflow:auto;display:none;"
           ;; Present links to all books of the bible.
-          (collect
-              (mapping (((link title) (scan-alist +bible-book-url-alist+)))
-                              (:div :style "width:200px;float:left"
-                                    (:a :href link title)))))
+          (loop for (link . link-text) in +bible-book-url-alist+
+                do (:div :style "width:200px;float:left"
+                         (:a :href link link-text))))
     (:br)
     (:button :onclick "toggleDivWithId(\"chapter-links\")" "Select Chapter")
     (:div :id "chapter-links" :style "overflow:auto;display:none;"
           ;; Present links to all chapters of currently selected book.
-          (collect
-              (mapping (((link title) (scan-alist (make-bible-chapter-url-list uid-list))))
-                              (:div :style "width:200px;float:left"
-                                    (:a :href link title)))))
+          (loop for (link . link-text) in (make-bible-chapter-url-list uid-list)
+                do (:div :style "width:200px;float:left"
+                         (:a :href link link-text))))
     (:br)
     ;; Present search form for bible and haydock text.
     (:br)
@@ -288,27 +286,26 @@ CL-USER> (bible-page '(1 2 3 37198))
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
             (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-            (iterate
-              ((font-name (scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
-              (:option :value font-name font-name)))
+            (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
+                  do (:option :value font-name font-name)))
           (:script (:raw
                     (parenscript:ps-inline
                         (defun change-to-font (font)
                           (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:table :id "main-content"
             ;; Present tabular view of bible text.
-            (iterate ((bible-uid (scan uid-list)))
-              (:tr :style "line-height: 1.5em;"
-                   (:td (:raw (get-heading-text bible-uid)))
-                   (:td (progn
-                          (:raw (get-bible-text bible-uid))
-                          (:br)
-                          (:br)
-                          (when (get-cross-references-text-with-links bible-uid)
-                            (:raw (get-cross-references-text-with-links bible-uid)))))
-                   (:td :width "55%"
-                        (when (get-footnotes-text-with-links bible-uid)
-                          (:raw (get-footnotes-text-with-links bible-uid)))))))))
+            (loop for bible-uid in uid-list
+                  do (:tr :style "line-height: 1.5em;"
+                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (progn
+                                 (:raw (get-bible-text bible-uid))
+                                 (:br)
+                                 (:br)
+                                 (when (get-cross-references-text-with-links bible-uid)
+                                   (:raw (get-cross-references-text-with-links bible-uid)))))
+                          (:td :style "width:55%"
+                               (when (get-footnotes-text-with-links bible-uid)
+                                 (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -437,9 +434,8 @@ query-form"
     (:div :class "font-dropdown-menu"
           (:select :id "input-font" :class "input" :onchange "changeToFont(this);"
             (:option :value "Times New Roman" :selected "selected" "Times New Roman")
-            (iterate
-              ((font-name (scan (list "Arial" "Courier New" "Garamond" "Verdana"))))
-              (:option :value font-name font-name)))
+            (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
+                  do (:option :value font-name font-name)))
           (:script (:raw
                     (parenscript:ps-inline
                              (defun change-to-font (font)
@@ -454,20 +450,19 @@ query-form"
             ;; 37199 includes all verses of the bible. The extra are from chapter/book
             ;; descriptions etc. BIBLE-UID is a lie here, it ought to be named
             ;; MONTEZUMA-UID. They should be the same, but be careful with behaviour.
-            (collect
-                (mapping (((bible-uid score) (scan-alist (search-bible query '(:num-docs 37199)))))
-                         (:tr :style "line-height: 1.5em;"
-                              ;; HACK Score of 1.37 > 137.
-                              ;; Coerce double float to string with precision of 2.
-                              (:td (write-to-string (floor score 0.01)))
-                              (:td (:raw (get-heading-text bible-uid)))
-                              (:td (progn
-                                     (:raw (get-bible-text bible-uid))
-                                     (:br) (:br)
-                                     (when (get-cross-references-text-with-links bible-uid)
-                                       (:raw (get-cross-references-text-with-links bible-uid)))))
-                              (:td :width "50%" (when (get-footnotes-text-with-links bible-uid)
-                                                  (:raw (get-footnotes-text-with-links bible-uid))))))))))
+            (loop for (bible-uid . score) in (search-bible query '(:num-docs 37199))
+                  do (:tr :style "line-height: 1.5em;"
+                          ;; HACK Score of 1.37 > 137.
+                          ;; Coerce double float to string with precision of 2.
+                          (:td (write-to-string (floor score 0.01)))
+                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (progn
+                                 (:raw (get-bible-text bible-uid))
+                                 (:br) (:br)
+                                 (when (get-cross-references-text-with-links bible-uid)
+                                   (:raw (get-cross-references-text-with-links bible-uid)))))
+                          (:td :style "width:50%" (when (get-footnotes-text-with-links bible-uid)
+                                                    (:raw (get-footnotes-text-with-links bible-uid)))))))))
 
 ;;; Conditional and Error handling pages.
 

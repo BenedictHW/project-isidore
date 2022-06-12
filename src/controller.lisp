@@ -125,7 +125,7 @@ gracefully shut down the web server and exit the lisp process."
        #+allegro excl:interrupt-signal
        () (progn
             (format *error-output* "~%Aborting.~&~%")
-            (slynk:stop-server :port 4005)
+            (slynk:stop-server)
             (hunchentoot:stop *server*)
             (format t "~%Server successfully stopped.~%")
             (uiop:quit)))
