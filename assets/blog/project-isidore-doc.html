@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-09 Thu 12:10 -->
+<!-- 2022-06-14 Tue 18:18 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-08 Wed 13:51</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-14 Tue 15:53</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org0019abe">
+<div class="abstract" id="orgfee82c8">
 <p>
 
 </p>
@@ -104,7 +104,11 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </ul>
 </li>
 <li><a href="#org7c90b58">5.2. Continous Delivery</a></li>
-<li><a href="#org70ab3f9">5.3. Continous Deployment</a></li>
+<li><a href="#org70ab3f9">5.3. Continous Deployment</a>
+<ul>
+<li><a href="#org3af73c3">5.3.1. Oracle Cloud Infrastructure</a></li>
+</ul>
+</li>
 <li><a href="#Benchmarking-Profiling">5.4. Micro Benchmarks</a>
 <ul>
 <li><a href="#org7015784">5.4.1. Standards Compliance</a></li>
@@ -573,7 +577,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="org93e624e">
+<figure id="org1c80968">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -979,7 +983,6 @@ Follow industry best practice in <a href="https://www.redhat.com/en/topics/devop
 the context of this project, CI/CD is done on the Github Actions platform.
 Cheers to Github for allowing unlimited build limits for open source projects!
 In the following breakdown, I explain how to run the steps on the local machine.
-The result of automating all 3 subheading tasks can be found in <a href="https://github.com/HanshenWang/project-isidore/blob/master/.github/workflows/CICD.yml">CICD.yml</a>
 </p>
 
 <p>
@@ -994,11 +997,7 @@ your version control needs.
 <div class="outline-text-3" id="text-5-1">
 <p>
 Some measure of quality assurance through unit, integration and regression
-testing upon commit. This is done in <a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">MAKE.LISP</a>, which will run all tests found
-in the <code>/tests</code> project sub-directory. <a href="https://github.com/HanshenWang/project-isidore#development-quick-start">Prerequisite: <code>project-isidore</code> must be
-successfully loaded into the Lisp image.</a> Then inside the Lisp REPL, evaluate the
-form <code>(asdf:test-system "project-isidore")</code>. Do note that the test
-<code>generate-data-finish</code> has side effects.
+testing upon commit. This is done in <a href="https://github.com/BenedictHW/project-isidore/blob/master/src/make.lisp">MAKE.LISP</a>, see also <a href="https://github.com/BenedictHW/project-isidore/blob/master/test/tests.lisp">TESTS.LISP</a>.
 </p>
 </div>
 
@@ -1006,8 +1005,7 @@ form <code>(asdf:test-system "project-isidore")</code>. Do note that the test
 <h4 id="Testing"><span class="section-number-4">5.1.1.</span> Testing</h4>
 <div class="outline-text-4" id="text-Testing">
 <p>
-<a href="https://www.hanshenwang.com/code-coverage-report/cover-index.html">Project Isidore code coverage report.</a> Tests are run prior to building, see
-<a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">Make.Lisp.</a>
+<a href="https://www.hanshenwang.com/code-coverage-report/cover-index.html">Project Isidore code coverage report.</a>
 </p>
 
 <p>
@@ -1268,7 +1266,7 @@ Edi.
 <span class="org-rainbow-delimiters-depth-1">(</span>asdf:test-system <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">HTML report output location</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>sb-cover:report <span class="org-string">"../assets/code-coverage-report/"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-2">(</span>optimize <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:store-coverage-data 0<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span><span class="org-rainbow-delimiters-unmatched">))</span>
+<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">declaim</span> <span class="org-rainbow-delimiters-depth-2">(</span>optimize <span class="org-rainbow-delimiters-depth-3">(</span>sb-cover:store-coverage-data 0<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 </div>
@@ -1282,7 +1280,8 @@ Edi.
 Building an executable binary for all 3 major operating system platforms on the
 x86-64 architecture. Binaries built this way may <a href="https://github.com/HanshenWang/project-isidore/releases">be downloaded through the
 Github release interface.</a> This is done as the final step of <a href="https://github.com/HanshenWang/project-isidore/blob/master/bin/make.lisp">MAKE.LISP</a> by calling
-<code>(asdf:make "system-name")</code>.
+<code>(asdf:make "system-name")</code>. More esoteric architecture/OS pairs will have to
+compile from source, refer to <a href="http://sbcl.org/platform-table.html">the SBCL compiler supported platform table</a>.
 </p>
 
 <p>
@@ -1347,362 +1346,69 @@ and SBCL runtime included.
 </table>
 
 <p>
-Oracle Corporation offers the most generous free tier in cloud computing
-(infrastructure-as-a-service) by far. I speculate that this is due to Amazon Web
-Services (AWS) capturing the biggest part of the Cloud Infrastructure Services
-pie with Oracle competing with the likes of Google and IBM. Oracle historically
-has had disputes over their stewardship of Open Source software (Java/JVM patent
-issues, MySQL, OpenOffice, and Solaris) and &#x2013; with a significant portion of
-their clients being Fortune 500 companies&#x2013; you could say that it represents the
-best and worst parts of litigation-happy corporate America.
+Having to go through initial setup of a new computer dampens the otherwise
+joyous occasion of unwrapping new hardware. The pain is multiplied if it happens
+to be one's job to manage many computers. In its most general form, nerds around
+the world are busy tackling the problem of software <a href="https://en.wikipedia.org/wiki/Reproducibility">reproducibility.</a> NixOS and
+Guix System are the ones currently well-known. I would prefer Guix over NixOS
+myself on account of preferring Guile Scheme over the Nix Expression Language
+(<a href="https://nixos.wiki/wiki/Nix_Expression_Language">self-admittedly designed with the goal of not being a full-featured, general
+purpose language</a>). I was not able to get Guix System (version 1.3.0) working on
+Oracle's aarch64 A1-Flex VMs. Please email me if you have. In the meantime I am
+using and enjoying <a href="https://spwhitton.name/tech/code/consfigurator/">consfigurator</a>, at least avoiding another Tower of Babel
+situation.
 </p>
 
 <p>
-But I'm not interested in traveling down <i>the road to serfdom</i> (love some Thomas
-Sowell as well) or on the other hand, preaching on the idolatrous love of money.
-What I will relate to below is my experience with Oracle Cloud Infrastructure
-(OCI) which has thus far been very positive. The high call of sacrificial
-charity may not be at play here; I will leave it to the CPAs to quantify the
-reciprocal goodwill generated here. Thank you Oracle, OCI has been great to use
-thus far.
+Current infrastructure diagram:
 </p>
 
-<p>
-Goal:
-</p>
 
-<ul class="org-ul">
-<li>Your web application accessible from <a href="https://my-domain-name.com">https://my-domain-name.com</a></li>
-</ul>
+<figure id="orgc697aea">
+<img src="file:///home/ben/quicklisp/local-projects/project-isidore/assets/pi-infra.svg" alt="pi-infra.svg" class="org-svg">
+
+</figure>
+
+
+<figure id="org2fa59dc">
+<img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
+
+<figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
+</figure>
 
 <p>
 Prerequisites:
 </p>
 
 <ul class="org-ul">
-<li>Familiarity with Linux; access to a shell.</li>
-<li>Credit card</li>
-<li>Basic understanding of asymmetric encryption i.e. SSH, SSL/TLS, GPG</li>
-<li>A web application to deploy.</li>
+<li>Access to a Linux shell,</li>
+<li>Basic familiarity with asymmetric encryption i.e. SSH, SSL/TLS, GPG</li>
+<li><a href="#Introduction">Project Isidore source code.</a></li>
+<li><a href="#Common-Lisp-Environment-Setup">Common Lisp development environment set up.</a></li>
 </ul>
-
-<p>
-See also:
-</p>
-
-<p>
-<a href="https://medium.com/oracledevs/run-always-free-docker-container-on-oracle-cloud-infrastructure-c88e36b65610">Run Always Free Docker Container on Oracle Cloud Infrastructure | by Lucas Je&#x2026;</a>
-</p>
-
-<p>
-<a href="https://abishekmuthian.com/oracle-cloud-free-tier-quirks/">Oracle cloud free tier quirks - The Tallest Dwarf</a>
-</p>
 
 
 <ol class="org-ol">
 <li><p>
-Create an Oracle cloud free account at <a href="https://www.oracle.com/ca-en/cloud/free/">Cloud Free Tier | Oracle Canada</a>
+Deploy Project Isidore
 </p>
 
 <p>
-We need some way of logging into our remote machine. Let's generate a SSH Key
-Pair.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">ssh-keygen -t ed25519 -a 100 -N <span class="org-string">""</span> -C <span class="org-string">"oracle-vm-key"</span> -f ~/.ssh/oracle-vm-key
-</pre>
-</div>
-
-<p>
-The file oracle-vm-key contains the private key (not passphrase protected)
-and the file oracle-vm-key.pub contains the public key that we will paste
-into the VM definition on OCI.
-</p></li>
-
-<li><p>
-Create a Compute instance with <a href="https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm">specs (Oracle term is shapes) labeled "always free".</a>
+Root SSH access to a Debian machine is needed. Whether this is a physical
+server or a virtual private server through a cloud provider is up to you. I
+have a guided setup on <a href="#org3af73c3">Oracle Cloud Infrastructure</a>.
 </p>
 
 <p>
-<b>Top left hamburger menu &gt; Compute &gt; Instances &gt; Create Instance</b>
-</p>
-
-<p>
-Note the ability to resize your boot volume now or later. I believe the
-minimum boot volume size is 50GB. So with the free allowance of 200GB it is
-possible to have 4 VM instances. Until necessity requires it, I would
-rather avoid the added complexity of distributed computing. Therefore I
-enlarge the boot volume of my one VM to 200GB.
-</p>
-
-<p>
-After the "Image and Shape" section is the "Networking" section. The defaults
-are fine here. Take note of the Virtual Cloud Network (VCN) name and subnet
-name.
-</p>
-
-<p>
-Lastly, instead of generating a key pair, we can choose to copy and paste the
-contents of the public key (oracle-vm-key.pub) we created in step 1. Write
-down the public IP assigned to the VM.
-</p>
-
-<p>
-Optional: Bring your own Image - Debian Stable.
-</p>
-
-<p>
-<a href="https://cloud.debian.org/images/cloud/">Download</a> the correct <code>.qcow2</code> file for your system architecture (ARM64 in our
-case). In OCI search for <b>Storage &gt; Object Storage &amp; Archive &gt; Buckets</b>, and
-upload the file into a bucket. Go to <b>Compute &gt; Custom Images</b> and click on
-Import Image. Make sure "Paravirtualized Mode" is selected. After importing,
-click <b>Edit Details</b> and tick the box for "VM.Standard.A1.Flex". <b>Edit Custom
-Image Capabilities</b> to ensure UEFI<sub>64</sub> is preferred. Now you can create a
-compute instance as detailed above.
-</p></li>
-
-<li><p>
-SSH into the Server &amp; Configure Server firewall
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">ssh user@host-address -i private-key-file
-</pre>
-</div>
-
-<p>
-Replace the host-address with the public IP assigned to the VM. Replace
-private-key-file with a reference to the file that contains the SSH private
-key. "opc" is the default user for Oracle Linux. For my Debian image, the
-default user would be "debian".
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">ssh debian@140.291.294.154 -i ~/.ssh/oracle-vm-key
-</pre>
-</div>
-
-<p>
-After successfully logging in, we can create the file ~/.ssh/config on our
-local machine if it does not already exist and add the following lines to
-connect more ergonomically.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-conf">Host pi-server <span class="org-comment-delimiter"># </span><span class="org-comment">replace with an easy to type nickname.</span>
-  User debian
-  HostName 140.291.294.154
-  IdentityFile ~/.ssh/oracle-vm-key
-</pre>
-</div>
-
-<p>
-Optional: connect from <a href="https://www.gnu.org/software/tramp/">Emacs TRAMP.</a>
-</p>
-
-<p>
-Now <code>C-x C-f</code> with the address <code>/ssh:pi-server:/.</code> ought to work. Popping a
-shell should also just work thanks to the magic of TRAMP.
-</p>
-
-<p>
-For filtering of IP packets in general on Linux, know that <code>iptables</code> have
-been deprecated in favour of <code>nftables</code>. <code>firewalld</code> is a client that uses
-the latter as the backend. On our virtual machine,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">apt-cache search firewalld
-sudo apt install firewalld
-sudo firewall-cmd --list-all
-sudo firewall-cmd --add-port=8080/tcp
-sudo firewall-cmd --runtime-to-permanent
-</pre>
-</div>
-
-<p>
-<a href="https://docs.fedoraproject.org/en-US/quick-docs/firewalld/">Using firewalld :: Fedora Docs</a>
-</p>
-
-<p>
-Optional: Set the correct timezone for the server
-</p>
-
-<p>
-For example, Cron daemons and logging timestamps are set to use the system
-timezone.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">timedatectl
-timedatectl list-timezones
-sudo timedatectl set-timezone America/Toronto
-</pre>
-</div></li>
-
-<li><p>
-Setup Ingress Rules in Security List for VM to open up the ports on
-Virtual Cloud Network.
-</p>
-
-<p>
-We may have opened the ports we need on our server, but now we need to open
-said ports on the network level.
-</p>
-
-<p>
-<b>Top left hamburger menu &gt; Networking &gt; Virtual Cloud Networks &gt; VCN-name &gt;
-Subnet-name &gt; Default Security List for VCN-name &gt; Add Ingress Rules</b>
-</p>
-
-<p>
-Example: To allow incoming requests from any IP address to port 8080: set
-source CIDR to 0.0.0.0/0 for IPV4 (::/0 for IPV6) and leave Source Port Range
-blank. Destination Port Range is set to 8080.
-</p>
-
-<p>
-<b>Caution is required</b> here when exposing our compute instance to the wild,
-wild internet. Oracle ought to and will shutdown any hijacked bot VPSs and
-terminate the accounts. I have also seen at least one email screen capture of
-account termination due to torrenting copyrighted material (while using OCI
-as a VPN). I think it goes without saying that crypto-mining violates some
-end user license agreement. Consult <a href="https://docs.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/run-graphical-apps-securely-on-oci.pdf">Oracle's manual</a> to safely run graphical
-applications. While googling "oracle cloud caveats", I was led to pay special
-attention to their <a href="https://www.oracle.com/ca-en/cloud/free/faq/">FAQ</a>.
-</p>
-
-<blockquote>
-<p>
-However, if you have more Ampere A1 Compute instances provisioned than are
-available for an Always Free tenancy, <b>all existing Ampere A1 instances are
-disabled and then deleted after 30 days, unless you upgrade to a paid account.</b>
-[emphasis mine] To continue using your existing Arm-based instances as an
-Always Free user, before your trial ends, ensure that your total use of OCPUs
-and memory across all the Ampere A1 Compute instances in your tenancy is
-within the Always Free limit.
-</p>
-</blockquote>
-
-<p>
-You are able to re-create any deleted instances. Still, given the upgrade
-process from a free account to pay-as-you-go relies on further fraud
-prevention through Cybersource, I would not be surprised if a share of user
-woes are unique to the free-tier classification and Oracle's interpretation
-of "The Always Free services will continue to be available for unlimited time
-<b>as long as you use the services</b>" (Ibid.)
-</p>
-
-<p>
-In my experience, you can enter your billing details (address and all)
-perfectly accurately. I even saw the test charge successfully debited and
-credited to my online banking portal, but still the upgrade process failed. I
-suppose my gmail account was too new and had to change my email to my old
-outlook address in order for the upgrade process to complete.
-</p>
-
-<p>
-Perform due diligence, use the features all major cloud services provide to
-prevent going over budget.
-</p>
-
-<p>
-<b>Top left hamburger menu &gt; Billing &amp; Cost Management &gt; Budgets &gt; Create Budget</b>
-</p></li>
-
-<li><p>
-Install Git, SBCL and Quicklisp on the Server
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">sudo apt-get update &amp;&amp; sudo apt-get upgrade
-<span class="org-comment-delimiter"># </span><span class="org-comment">build-essential to compile SBCL from source, and zlib1g-dev for SBCL core</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">compression.</span>
-sudo apt install build-essential zlib1g-dev git sbcl
-<span class="org-comment-delimiter"># </span><span class="org-comment">Replace git tag sbcl-2.2.4 with desired release.</span>
-git clone --branch sbcl-2.2.4 https://github.com/sbcl/sbcl.git /home/debian/sbcl/
-<span class="org-builtin">cd</span> /ssh:pi-server:/home/debian/sbcl/
-<span class="org-comment-delimiter"># </span><span class="org-comment">Bootstrap SBCL from source. See file INSTALL.</span>
-sudo sh make.sh --fancy --xc-host=<span class="org-string">'/usr/local/bin/sbcl'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">Host SBCL location.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Remove existing and install compiled binary.</span>
-sudo apt-get purge sbcl
-sudo sh install.sh
-<span class="org-comment-delimiter"># </span><span class="org-comment">Download quicklisp library manager.</span>
-wget https://beta.quicklisp.org/quicklisp.lisp --output-file=/home/debian/quicklisp.lisp
-<span class="org-comment-delimiter"># </span><span class="org-comment">Follow the installation steps listed at,</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">https://www.quicklisp.org/beta/#installation</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">i.e.</span>
-sbcl --load /home/debian/quicklisp.lisp
-* <span class="org-rainbow-delimiters-depth-1">(</span>quicklisp-quickstart:install<span class="org-rainbow-delimiters-depth-1">)</span>
-* <span class="org-rainbow-delimiters-depth-1">(</span>ql:add-to-init-file<span class="org-rainbow-delimiters-depth-1">)</span>
-* <span class="org-rainbow-delimiters-depth-1">(</span>quit<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">quicklisp.lisp may be deleted.</span>
-</pre>
-</div></li>
-
-<li><p>
-Build and deploy project
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">git clone https://github.com/benedicthw/project-isidore.git /home/debian/quicklisp/local-projects/project-isidore
-sbcl --dynamic-space-size 1750 --load /home/debian/quicklip/local-projects/project-isidore/src/make.lisp
-</pre>
-</div>
-
-<p>
-Now define the project as a service and use <a href="https://www.linode.com/docs/guides/what-is-systemd/">systemd</a> to initialize and manage
-it. For a great tutorial, see <a href="https://systemd-by-example.com/">systemd by example - the systemd playground</a>.
-Create a new file at <code>/etc/systemd/system/project-isidore@.service</code>. Because
-the file describes <a href="https://stackoverflow.com/questions/38570366/can-i-run-multiple-processes-each-with-different-port-using-systemd">a generic unit service that can be instantiated multiple
-times</a> we include a systemd specifier "%i" to represent the <a href="https://unix.stackexchange.com/questions/323914/dynamic-variables-in-systemd-service-unit-files">environment
-variable PORT</a> that our web server will be bound to.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-conf">[<span class="org-type">Unit</span>]
-<span class="org-variable-name">Description</span>=P.I. web application on port %i.
-<span class="org-variable-name">After</span>=network.target
-
-[<span class="org-type">Service</span>]
-<span class="org-variable-name">Type</span>=simple
-<span class="org-variable-name">User</span>=debian
-<span class="org-variable-name">Group</span>=debian
-<span class="org-variable-name">WorkingDirectory</span>=/home/debian/quicklisp/local-projects/project-isidore
-<span class="org-variable-name">Environment</span>=PORT=%i
-<span class="org-variable-name">ExecStart</span>=/home/debian/quicklisp/local-projects/project-isidore/bin/ProjectIsidore
-<span class="org-variable-name">Restart</span>=always
-
-[<span class="org-type">Install</span>]
-<span class="org-variable-name">WantedBy</span>=multi-user.target
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Tell systemd about the file we just created.</span>
-sudo systemctl daemon-reload
-<span class="org-comment-delimiter"># </span><span class="org-comment">project-isidore@8081.service, project-isidore@8082.service etc.</span>
-sudo systemctl start project-isidore@8080.service
-sudo systemctl stop project-isidore@8080.service
-sudo systemctl restart project-isidore@8080.service
-sudo systemctl status project-isidore@8080.service
-<span class="org-comment-delimiter"># </span><span class="org-comment">Semantically different. Enable means to autostart on bootup.</span>
-sudo systemctl enable project-isidore@8080.service
-sudo systemctl disable project-isidore@8080.service
-</pre>
-</div>
-
-<p>
-Now the application should be reachable at <a href="http://140.291.294.154:8080">http://140.291.294.154:8080</a>.
-Sweet. Thanks to TRAMP, production deployments can be a simple matter of
-visiting the Emacs bookmarked directory, "git pull", rebuild and restart.
-Check out <code>project-isidore/.github/workflows/</code> for an example of automating
-production deployments.
+Read PRODUCTION.LISP to properly supply SSH credentials and SSL keys.
 </p></li>
 
 <li><p>
 <a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-dns-terminology-components-and-concepts">DNS</a> Resolution - associate domain name with public IP addresses
+</p>
+
+<p>
+Optional: <a href="https://blog.51sec.org/2021/09/enable-ipv6-on-oracle-cloud.html">Enable IPv6 on Oracle Cloud Infrastructure.</a>
 </p>
 
 <p>
@@ -1713,58 +1419,40 @@ Domain Registrar will point <a href="http://my-domain-name.com">http://my-domain
 
 <p>
 I have no affiliation with any Domain Registrar companies, but know that
-Cloudflare offers at-cost pricing for domain registration. I will also be
-making use of their excellent yet generous services in the next step and have
-done so for years. They seem like an ethical company from what I can gather
-from their <a href="https://blog.cloudflare.com/project-jengo-redux-cloudflares-prior-art-search-bounty-returns/">blogs</a>. Oracle has my gratitude, but my recommendation of
-Cloudflare comes without reservations.
+Cloudflare offers at-cost (zero-margin) pricing for domain registration. I
+will also be making use of their excellent yet generous services in the next
+step and have done so for years. They seem like an ethical company from what
+I can gather from their <a href="https://blog.cloudflare.com/project-jengo-redux-cloudflares-prior-art-search-bounty-returns/">blogs</a>. Oracle has my gratitude, but my recommendation
+of Cloudflare comes without reservations.
 </p>
 
 <p>
-Cloudflare DNS Records is straightforward to use. Search online for updated
-ways to create a DNS A records (and/or AAAA records for IPV6) specific to
-your Domain Registrar. Know that as port 80 is the default port for HTTP
-traffic, as entering <a href="http://my-domain-name.com">http://my-domain-name.com</a> is equivalent to entering
+<a href="https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/">Cloudflare DNS Records is straightforward to use.</a> Search online for current
+methods to create a DNS A records (and/or AAAA records for IPV6) specific to
+your Domain Registrar. Port 80 is the default port for HTTP traffic, as
+entering <a href="http://my-domain-name.com">http://my-domain-name.com</a> is equivalent to entering
 <a href="http://my-domain-name.com">http://my-domain-name.com</a>. If you don't want visitors to have to key in
 <a href="http://my-domain-name.com:8080/">http://my-domain-name.com:8080/</a> then either read on, use OCI's docs to
 <a href="https://blogs.oracle.com/cloud-infrastructure/post/http-url-redirect-on-oracle-cloud-infrastructure">redirect a subdomain to a URL with a port number</a>, or configure your web
 server to listen on &#x2013; <a href="http://yaws.hyber.org/privbind.yaws">what is on UNIX a privileged port</a> &#x2013; 80. Cloudflare
 can also <a href="https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/">redirect all HTTP requests to HTTPS</a> instead of doing this on the
-server NGINX configuration.
-</p>
-
-<p>
-Optional: <a href="https://blog.51sec.org/2021/09/enable-ipv6-on-oracle-cloud.html">Enable IPv6 on Oracle Cloud Infrastructure.</a>
-</p>
-
-<p>
-Optional: <a href="https://cloud.google.com/blog/products/networking/tcp-bbr-congestion-control-comes-to-gcp-your-internet-just-got-faster">Enable TCP BBR congestion control algorithm</a>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">On the server,</span>
-sudo sysctl net.ipv4.tcp_available_congestion_control
-sudo sysctl net.ipv4.tcp_congestion_control
-<span class="org-comment-delimiter"># </span><span class="org-comment">Add to /etc/sysctl.conf</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">net.core.default_qdisc=fq</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">net.ipv4.tcp_congestion_control=bbr</span>
-sudo sysctl -p
-sudo sysctl net.ipv4.tcp_congestion_control
-</pre>
-</div></li>
+server NGINX configuration. This allows me to close port 80 and only have
+port 443 exposed to the public.
+</p></li>
 
 <li><p>
-Optional: Nginx &amp; Cloudflare
+Cloudflare
 </p>
 
 <p>
 Cloudflare here acts as a reverse proxy (man-in-the-middle) between the
 website visitor (client) and the server; it provides Distributed Denial of
-Service (DDoS) protection as well as Content Delivery Network (CDN) services.
+Service (DDoS) protection as well as Content Delivery Network (CDN) caching
+services.
 </p>
 
 <p>
-Now by registering your site with Cloudflare your site will be served as
+Now by registering your domain with Cloudflare your domain will be served as
 HTTPS to the client. But communications from Cloudflare to our server is still
 via un-encrypted HTTP. We remedy this by using <a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin Certificates</a>.
 </p>
@@ -1776,198 +1464,12 @@ will be no more directly connecting to the web server via IP address.
 </p>
 
 <p>
-Nginx functions as,
-</p>
-
-<ul class="org-ul">
-<li>Web server for static content: Hunchentoot is a thread-per-request web
-server. Allocate the more expensive Hunchentoot threads for serving dynamic
-content.</li>
-<li>SSL termination</li>
-<li>Compression (gzip): reduce bandwidth of server responses to give faster
-network transit.</li>
-<li><a href="https://lucassymons.net/posts/optimizing-your-cdn-cache-with-cloudflare-and-nginx/">Caching</a>: Cached copy of the response will reduce Hunchentoot load.</li>
-<li><a href="https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/">Reverse Proxy</a>: forward requests from <a href="https://140.291.294.154">https://140.291.294.154</a> to
-<a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> where Hunchentoot accepts HTTP requests. Obviate need
-to distribute CL+SSL (openssl) while providing Github Release binaries.</li>
-<li>Load balancing: Gain service redundancy by having multiple Hunchentoot
-processes.</li>
-</ul>
-
-<p>
-Upon completion of Cloudflare setup HTTP requests on port 80 will be
-redirected to HTTPS and encryption will be end-to-end. Nginx will be
-listening on the default HTTPS port, 443. Nginx will then communicate with
-the Hunchentoot server(s) locally. Therefore the port 8080 may be closed and
-port 443 must be opened on both the Virtual Cloud Network level and the
-server firewall level as demonstrated in steps 3 and 4.
-</p>
-
-<p>
-A basic infrastructure diagram:
-</p>
-
-
-<figure id="org3b9e1c0">
-<img src="file:///home/ben/quicklisp/local-projects/project-isidore/assets/pi-infra.svg" alt="pi-infra.svg" class="org-svg">
-
-</figure>
-
-
-<figure id="orgef4530f">
-<img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
-
-<figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
-</figure>
-
-<div class="org-src-container">
-<pre class="src src-sh">sudo apt install nginx
-</pre>
-</div>
-
-<p>
-<a href="https://www.linode.com/docs/guides/getting-started-with-nginx-part-1-installation-and-basic-setup/">Getting Started with NGINX: Installation and Basic Setup | Linode</a>
-</p>
-
-<p>
-Optional - <a href="https://github.com/denji/nginx-tuning">optimize nginx for speed.</a>
-</p>
-
-<p>
-Create <code>/etc/nginx/conf.d/benedicthanshenwang.com.conf</code> with the contents,
-</p>
-
-<div class="org-src-container">
-<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">/etc/nginx/sites-available/default can be deleted.</span>
-
-<span class="org-type">upstream hunchentoot_http_backend</span> {
-    server 127.0.0.1:8080;
-    server 127.0.0.1:8081;
-    server 127.0.0.1:8082;
-    server 127.0.0.1:8083;
-    server 127.0.0.1:8084;
-    server 127.0.0.1:8085;
-    server 127.0.0.1:8086;
-    server 127.0.0.1:8087;
-    server 127.0.0.1:8088;
-    server 127.0.0.1:8089;
-    server 127.0.0.1:8090;
-    server 127.0.0.1:8091;
-    keepalive 200;
-    keepalive_requests 10000000;
-    keepalive_timeout 15m;
-}
-
-<span class="org-type">server</span> {
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Basic Settings</span>
-  <span class="org-comment-delimiter">##</span>
-  reset_timedout_connection on;
-  server_tokens off;
-  access_log off;
-
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Ports</span>
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-variable-name">listen 443 ssl http2 default_server backlog</span>=65536;
-  <span class="org-variable-name">listen [::]:443 ssl http2 default_server backlog</span>=65536;
-  server_name benedicthanshenwang.com www.benedicthanshenwang.com;
-  root /home/debian/quicklisp/local-projects/project-isidore;
-
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">SSL Settings</span>
-  <span class="org-comment-delimiter">##</span>
-  ssl_certificate     /home/debian/.ssh/benedicthanshenwang.crt;
-  ssl_certificate_key /home/debian/.ssh/benedicthanshenwang.key;
-  <span class="org-comment-delimiter"># </span><span class="org-comment">TLS 1.0 and 1.1 are deprecated.</span>
-  ssl_protocols       TLSv1.2 TLSv1.3;
-  ssl_ciphers         EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
-  ssl_dhparam         /home/debian/.ssh/dhparam4096.pem;
-  ss l_session_cache   shared:SSL:10m;
-  ssl_session_timeout 10m;
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Only allow Cloudflare to connect to our server.</span>
-  ssl_verify_client   on;
-  ssl_client_certificate /home/debian/.ssh/authenticated_origin_pull_ca.pem;
-
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Gzip Settings</span>
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">No universal gzip compression due to CRIME and BREACH exploits.</span>
-  gzip          on;
-  gzip_types    text/plain text/css image/*;
-
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">HTTP Response Header Fields</span>
-  <span class="org-comment-delimiter">##</span>
-  add_header X-Content-Type-Options nosniff;
-  add_header X-Frame-Options SAMEORIGIN;
-  add_header X-XSS-Protection <span class="org-string">"1; mode=block"</span>;
-  add_header Referrer-Policy strict-origin-when-cross-origin;
-  add_header Content-Security-Policy <span class="org-string">"upgrade-insecure-requests;"</span>;
-  add_header Feature-Policy <span class="org-string">"encrypted-media 'self'; autoplay 'none'"</span>;
-
-  sendfile on;
-  tcp_nopush on;
-  tcp_nodelay on;
-  aio threads;
-  <span class="org-variable-name">open_file_cache max</span>=1000000 inactive=3d;
-  open_file_cache_valid 1d;
-
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-comment-delimiter"># </span><span class="org-comment">Hunchentoot threads are expensive; use Nginx to serve static assets.</span>
-  <span class="org-comment-delimiter">##</span>
-  <span class="org-type">location /assets/</span> {
-    <span class="org-comment-delimiter"># </span><span class="org-comment">Use the root defined under # Ports.</span>
-    add_header Cache-Control <span class="org-string">"max-age=86400, must-revalidate"</span>;
-  }
-
-  <span class="org-type">location /</span> {
-    proxy_pass http://hunchentoot_http_backend;
-    proxy_http_version 1.1;
-    proxy_set_header <span class="org-string">"Connection"</span> <span class="org-string">""</span>;
-    <span class="org-comment-delimiter"># </span><span class="org-comment">Cloudflare Edge Free TTL is 2 hours.</span>
-    add_header Cache-Control <span class="org-string">"max-age=7200, must-revalidate"</span>;
-  }
-}
-</pre>
-</div>
-
-<p>
-Nginx and Project Isidore then may be set to start up on server reboot with
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">sudo systemctl enable project-isidore@8080.service
-sudo systemctl enable project-isidore@8081.service
-sudo systemctl enable project-isidore@8082.service
-sudo systemctl enable project-isidore@8083.service
-sudo systemctl enable project-isidore@8084.service
-sudo systemctl enable project-isidore@8085.service
-sudo systemctl enable project-isidore@8086.service
-sudo systemctl enable project-isidore@8087.service
-sudo systemctl enable project-isidore@8088.service
-sudo systemctl enable project-isidore@8089.service
-sudo systemctl enable project-isidore@8090.service
-sudo systemctl enable project-isidore@8091.service
-sudo systemctl enable nginx.service
-systemctl list-unit-files --state=enabled
-sudo reboot
-systemctl list-units --type=service --state=running
-</pre>
-</div>
-
-<p>
-Optional: Block automated WordPress Vulnerability scanning
-</p>
-
-<p>
-WordPress powers 43% of all websites. This means any public facing website
-will face a barrage of probing attacks targeting WordPress vulnerabilities.
-Use Cloudflare's Web Application Firewall to block all requests with URI
-paths containing "php" or "wp-includes" from reaching Nginx. <code>cat
-   /var/log/nginx/access.log</code> to get a glimpse of web traffic hitting Nginx and
-consider writing a <a href="https://en.wikipedia.org/wiki/Robots_exclusion_standard#Standard">robots.txt</a> with roughly half of all internet traffic is
-bots.
+This helps Cloudflare's <a href="https://developers.cloudflare.com/waf/">Web Application Firewall</a> and its blocking of
+automated WordPress vulnerability scanning. WordPress powers 43% of all
+websites. This means any public website will face a barrage of probing
+attacks targeting WordPress vulnerabilities. As an example, use Web
+Application Firewall to block all requests with URI paths containing "php" or
+"wp-includes" from reaching Nginx.
 </p></li>
 
 <li><p>
@@ -2019,85 +1521,226 @@ Crack open a cold one.
 
 <p>
 Optional: with the boys.
+</p></li>
+</ol>
+</div>
+
+<div id="outline-container-org3af73c3" class="outline-4">
+<h4 id="org3af73c3"><span class="section-number-4">5.3.1.</span> Oracle Cloud Infrastructure</h4>
+<div class="outline-text-4" id="text-5-3-1">
+<p>
+Oracle Corporation offers the most generous free tier in cloud computing
+(Infrastructure-as-a-Service) by far. I speculate that this is due to Amazon Web
+Services (AWS) capturing the biggest part of the pie with Oracle competing with
+the likes of Google and IBM. Oracle historically has had disputes over their
+stewardship of Open Source software (Java/JVM patent issues, MySQL, OpenOffice,
+and Solaris) and &#x2013; with a significant portion of their clients being Fortune
+500 companies&#x2013; you could say that it represents the best and worst parts of
+litigation-happy corporate America. But I'm not interested in traveling down
+<i>the road to serfdom</i> (love some Thomas Sowell as well) and neither am I
+interested in preaching on the idolatrous love of money. What I will relate to
+below is my experience with Oracle Cloud Infrastructure (OCI) which has thus far
+been very positive. Thank you Oracle, OCI has been great to use thus far. <a href="https://www.oracle.com/ca-en/cloud/free/">Create
+an account to get started.</a>
+</p>
+
+
+<p>
+See also:
 </p>
 
 <p>
-Trying to install a fresh Guix System from a custom image (guix system
-image) would boot successfully but ssh would not work. let's then mutate a
-ubuntu image into a Guix System,
+<a href="https://medium.com/oracledevs/run-always-free-docker-container-on-oracle-cloud-infrastructure-c88e36b65610">Run Always Free Docker Container on Oracle Cloud Infrastructure | by Lucas Je&#x2026;</a>
 </p>
 
 <p>
-nonobvious things not included in the manual,
+<a href="https://abishekmuthian.com/oracle-cloud-free-tier-quirks/">Oracle cloud free tier quirks - The Tallest Dwarf</a>
+</p>
+
+<ol class="org-ol">
+<li><p>
+<a href="https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/launchinginstance.htm">Create a Compute instance</a>
 </p>
 
 <p>
-use root profile.
-know a1 uses edk2/uefi boot
-know oracle mandates dhcp not static ip like digital ocean.
-<a href="https://lists.gnu.org/archive/html/guix-devel/2017-04/msg00139.html">Installing Guix System from a debian installation will conflict.</a>
+<a href="https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/importingcustomimagelinux.htm#Importing_Custom_Linux_Images">Bring your own Image</a> - Debian Stable.
+</p>
+
+<p>
+<a href="https://cloud.debian.org/images/cloud/">Download</a> the correct <code>.qcow2</code> file for your system architecture (ARM64 in our
+case). In OCI search for <b>Storage &gt; Object Storage &amp; Archive &gt; Buckets</b>, and
+upload the file into a bucket. Go to <b>Compute &gt; Custom Images</b> and click on
+Import Image. Make sure "Paravirtualized Mode" is selected. After importing,
+click <b>Edit Details</b> and tick the box for "VM.Standard.A1.Flex". <b>Edit Custom
+Image Capabilities</b> to ensure UEFI<sub>64</sub> is preferred.
+</p>
+
+<p>
+<b>Top left hamburger menu &gt; Compute &gt; Instances &gt; Create Instance</b>
+</p>
+
+<p>
+Select the imported Debian image and a <a href="https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier_topic-Always_Free_Resources.htm">shape labeled "always free".</a>
+</p>
+
+<p>
+After the "Image and Shape" section is the "Networking" section. The defaults
+are fine here. Rename if desired and take note of the Virtual Cloud Network
+(VCN) name and subnet name.
+</p>
+
+<p>
+Under the subheading "Add SSH keys" we can choose to copy and paste the
+contents of a public key. Generate it like so:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">sudo apt update &amp;&amp; sudo apt upgrade
-<span class="org-comment-delimiter"># </span><span class="org-comment">Prefer distribution packaged guix over binary installation.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Binary installation had problems running guile-fibers tests.</span>
-sudo apt install guix
-<span class="org-comment-delimiter"># </span><span class="org-comment">Guix commands should be prefixed with sudo to utilize root profile.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">We are using the root profile for guix and not our user profile.</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Mixing them will result in errors.</span>
-sudo guix pull
-<span class="org-comment-delimiter"># </span><span class="org-comment">Create system config in /etc/config.scm</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Bootstrap Guix System.</span>
-sudo guix system reconfigure /etc/config.scm
+<pre class="src src-sh">ssh-keygen -t ed25519 -a 100 -N <span class="org-string">""</span> -C <span class="org-string">"oracle-vm-key"</span> -f ~/.ssh/oracle-vm-key
 </pre>
 </div>
 
+<p>
+The file oracle-vm-key contains the private key (-N "" means no passphrase
+protection). The file oracle-vm-key.pub contains the public key that we will
+give to <a href="https://cloudinit.readthedocs.io/en/latest/">cloud-init</a> by pasting the contents of the public key
+<code>~/.ssh/oracle-vm-key.pub</code> file.
+</p>
+
+<p>
+Note the ability to specify a custom boot volume size. I believe the minimum
+boot volume size is 47GB. So with the free allowance of 200GB it is possible
+to have 4 VM instances. For now I would rather avoid the added complexity of
+distributed computing. I enlarge the boot volume of my one VM to 200GB.
+</p>
+
+<p>
+After the instance is finished provisioning, write down the public IP address
+assigned to the VM.
+</p></li>
+
+<li><p>
+Setup Root SSH login into the Server
+</p>
+
 <div class="org-src-container">
-<pre class="src src-scheme"><span class="org-rainbow-delimiters-depth-1">(</span>use-modules <span class="org-rainbow-delimiters-depth-2">(</span>gnu<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>use-service-modules networking ssh<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>use-package-modules admin ssh<span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>operating-system
- <span class="org-rainbow-delimiters-depth-2">(</span>host-name <span class="org-string">"project-isidore-server"</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>timezone <span class="org-string">"America/Toronto"</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>locale <span class="org-string">"en_US.UTF-8"</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>keyboard-layout <span class="org-rainbow-delimiters-depth-3">(</span>keyboard-layout <span class="org-string">"us"</span> <span class="org-string">"altgr-intl"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>bootloader <span class="org-rainbow-delimiters-depth-3">(</span>bootloader-configuration
-              <span class="org-rainbow-delimiters-depth-4">(</span>bootloader grub-efi-bootloader<span class="org-rainbow-delimiters-depth-4">)</span>
-              <span class="org-rainbow-delimiters-depth-4">(</span>target <span class="org-string">"/boot/efi"</span><span class="org-rainbow-delimiters-depth-4">)</span>
-              <span class="org-rainbow-delimiters-depth-4">(</span>terminal-outputs '<span class="org-rainbow-delimiters-depth-5">(</span>console<span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>file-systems <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-rainbow-delimiters-depth-4">(</span>file-system
-                      <span class="org-rainbow-delimiters-depth-5">(</span>device <span class="org-rainbow-delimiters-depth-6">(</span>file-system-label <span class="org-string">"my-root"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-                      <span class="org-rainbow-delimiters-depth-5">(</span>mount-point <span class="org-string">"/"</span><span class="org-rainbow-delimiters-depth-5">)</span>
-                      <span class="org-rainbow-delimiters-depth-5">(</span>type <span class="org-string">"ext4"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-                     %base-file-systems<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>initrd-modules <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-string">"virtio_scsi"</span> %base-initrd-modules<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>users <span class="org-rainbow-delimiters-depth-3">(</span>cons <span class="org-rainbow-delimiters-depth-4">(</span>user-account
-               <span class="org-rainbow-delimiters-depth-5">(</span>name <span class="org-string">"bhw"</span><span class="org-rainbow-delimiters-depth-5">)</span>
-               <span class="org-rainbow-delimiters-depth-5">(</span>comment <span class="org-string">"Benedict Hanshen Wang"</span><span class="org-rainbow-delimiters-depth-5">)</span>
-               <span class="org-rainbow-delimiters-depth-5">(</span>password <span class="org-string">""</span><span class="org-rainbow-delimiters-depth-5">)</span>
-               <span class="org-rainbow-delimiters-depth-5">(</span>group <span class="org-string">"users"</span><span class="org-rainbow-delimiters-depth-5">)</span>
-               <span class="org-rainbow-delimiters-depth-5">(</span>supplementary-groups '<span class="org-rainbow-delimiters-depth-6">(</span><span class="org-string">"wheel"</span> <span class="org-string">"netdev"</span>
-                                       <span class="org-string">"audio"</span> <span class="org-string">"video"</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span>
-               <span class="org-rainbow-delimiters-depth-5">(</span>home-directory <span class="org-string">"/home/bhw"</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-              %base-user-accounts<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>sudoers-file <span class="org-rainbow-delimiters-depth-3">(</span>plain-file <span class="org-string">"sudoers"</span> <span class="org-string">"\</span>
-<span class="org-string">root ALL=(ALL) ALL</span>
-<span class="org-string">%wheel ALL=NOPASSWD: ALL\n"</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>packages <span class="org-rainbow-delimiters-depth-3">(</span>cons* openssh %base-packages<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>services <span class="org-rainbow-delimiters-depth-3">(</span>cons*
-            <span class="org-rainbow-delimiters-depth-4">(</span>service dhcp-client-service-type<span class="org-rainbow-delimiters-depth-4">)</span>
-            <span class="org-rainbow-delimiters-depth-4">(</span>service openssh-service-type
-                     <span class="org-rainbow-delimiters-depth-5">(</span>openssh-configuration
-                      <span class="org-rainbow-delimiters-depth-6">(</span>permit-root-login 'without-password<span class="org-rainbow-delimiters-depth-6">)</span>
-                      <span class="org-rainbow-delimiters-depth-6">(</span>password-authentication? #false<span class="org-rainbow-delimiters-depth-6">)</span>
-                      <span class="org-rainbow-delimiters-depth-6">(</span>authorized-keys
-                       `<span class="org-rainbow-delimiters-depth-7">(</span><span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"bhw"</span> ,<span class="org-rainbow-delimiters-depth-9">(</span>local-file <span class="org-string">"/home/ubuntu/.ssh/oracle-vm-key.pub"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span>
-                         <span class="org-rainbow-delimiters-depth-8">(</span><span class="org-string">"root"</span> ,<span class="org-rainbow-delimiters-depth-9">(</span>local-file <span class="org-string">"/home/ubuntu/.ssh/oracle-vm-key.pub"</span><span class="org-rainbow-delimiters-depth-9">)</span><span class="org-rainbow-delimiters-depth-8">)</span><span class="org-rainbow-delimiters-depth-7">)</span><span class="org-rainbow-delimiters-depth-6">)</span><span class="org-rainbow-delimiters-depth-5">)</span><span class="org-rainbow-delimiters-depth-4">)</span>
-            %base-services<span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<pre class="src src-sh">ssh user@host-address -i private-key-file
 </pre>
-</div></li>
+</div>
+
+<p>
+Replace the host-address with the public IP assigned to the VM. Replace
+private-key-file with a reference to the file that contains the SSH private
+key. "opc" is the default user for Oracle Linux. For the Debian image, the
+default user would be "debian". So in our local shell,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">ssh debian@140.291.294.154 -i ~/.ssh/oracle-vm-key
+<span class="org-comment-delimiter"># </span><span class="org-comment">Setup Root SSH access.</span>
+sudo sed -i -e <span class="org-string">'s/PermitRootLogin no/PermitRootLogin without-password/'</span> /etc/ssh/sshd_config
+sudo cp -f /home/debian/.ssh/authorized_keys /root/.ssh/authorized_keys
+<span class="org-keyword">exit</span>
+</pre>
+</div>
+
+<p>
+Create the file ~/.ssh/config on our local machine if it does not already
+exist and add the following lines to connect more ergonomically with <code>$ ssh
+   oci-a1-flex</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf">Host oci-a1-flex
+  User root
+  HostName 140.291.294.154
+  IdentityFile ~/.ssh/oracle-vm-key
+  <span class="org-comment-delimiter"># </span><span class="org-comment">mkdir ~/.ssh/controlmasters/</span>
+  ControlPath ~/.ssh/controlmasters/%r@%h:%p
+  ControlMaster auto
+  ControlPersist yes
+</pre>
+</div>
+
+<p>
+Optional: connect from <a href="https://www.gnu.org/software/tramp/">Emacs TRAMP.</a>
+</p>
+
+<p>
+Now <code>C-x C-f</code> with the address <code>/ssh:pi-server:/.</code> ought to work. Popping a
+shell should also just work thanks to the magic of TRAMP.
+</p></li>
+
+<li><p>
+Setup Ingress Rules in Security List to open ports on Virtual Cloud Network.
+</p>
+
+<p>
+We can open the ports we need on our server, but we also need to open said
+ports on the <a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/overview.htm">virtual cloud network level</a>.
+</p>
+
+<p>
+<b>Top left hamburger menu &gt; Networking &gt; Virtual Cloud Networks &gt; VCN-name &gt;
+Subnet-name &gt; Default Security List for VCN-name &gt; Add Ingress Rules</b>
+</p>
+
+<p>
+Example: To allow incoming requests from any IP address to port 443: set
+source CIDR to 0.0.0.0/0 for IPV4 (::/0 for IPV6) and leave Source Port Range
+blank. Destination Port Range is set to 443.
+</p>
+
+<p>
+<b>Caution is required</b> here when exposing our compute instance to the wild,
+wild internet. Oracle ought to and will shutdown any hijacked bot VPSs and
+terminate the accounts. I have also seen at least one email screen capture of
+account termination due to torrenting copyrighted material (while using OCI
+as a VPN). I think it goes without saying that crypto-mining violates some
+end user license agreement. Consult <a href="https://docs.oracle.com/en-us/iaas/Content/Resources/Assets/whitepapers/run-graphical-apps-securely-on-oci.pdf">Oracle's manual</a> to safely run graphical
+applications. While googling "oracle cloud caveats", I was led to pay special
+attention to their <a href="https://www.oracle.com/ca-en/cloud/free/faq/">FAQ</a>.
+</p>
+
+<blockquote>
+<p>
+However, if you have more Ampere A1 Compute instances provisioned than are
+available for an Always Free tenancy, <b>all existing Ampere A1 instances are
+disabled and then deleted after 30 days, unless you upgrade to a paid account.</b>
+[emphasis mine] To continue using your existing Arm-based instances as an
+Always Free user, before your trial ends, ensure that your total use of OCPUs
+and memory across all the Ampere A1 Compute instances in your tenancy is
+within the Always Free limit.
+</p>
+</blockquote>
+
+<p>
+You are able to re-create any deleted instances. Still, given the upgrade
+process from a free account to pay-as-you-go relies on further fraud
+prevention through Cybersource, I would not be surprised if a share of user
+woes are unique to the free-tier classification and Oracle's interpretation
+of "The Always Free services will continue to be available for unlimited time
+<b>as long as you use the services</b>" (Ibid.)
+</p>
+
+<p>
+In my experience of <a href="https://docs.oracle.com/en/cloud/paas/nosql-cloud/csnsd/upgrade-your-free-oracle-cloud-promotion-1.html">upgrading an always free tenancy to pay-as-you-go</a>, you
+can enter your billing details perfectly accurately. I even saw the test
+charge successfully debited and credited to my online banking portal, but
+still the upgrade process failed. I suppose my gmail account was too new and
+had to change my email to my old outlook address in order for the upgrade
+process to complete.
+</p>
+
+<p>
+Perform due diligence, use the features all major cloud services provide to
+prevent going over budget.
+</p>
+
+<p>
+<b>Top left hamburger menu &gt; Billing &amp; Cost Management &gt; Budgets &gt; Create Budget</b>
+</p></li>
 </ol>
+</div>
 </div>
 </div>
 
@@ -2322,7 +1965,8 @@ For a primer on high performance LISP web servers see <a href="https://fukamachi
 Common Lisp web server</a>. It should be pointed out that the hunchentoot listed on
 Woo's benchmark graph is the single threaded version. <a href="https://github.com/fukamachi/woo/blob/master/benchmark.md%20">The multi-threaded version
 benchmarks are more impressive.</a> The article about Woo also fails to mention
-quux-hunchentoot which employs a thread-pooling extension to Hunchentoot.
+quux-hunchentoot which employs a thread-pooling taskmaster as an extension to
+Hunchentoot.
 </p>
 
 <p>
@@ -2442,6 +2086,41 @@ Running 10s test @ http://localhost:8083/about
   25085 requests<span class="org-keyword"> in</span> 10.01s, 46.67MB read
 Requests/sec:   2505.62
 Transfer/sec:      4.66MB
+</pre>
+</div></li>
+
+<li><p>
+Quux-Hunchentoot Thread Pool
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">debian@master-instance:~$ wrk -t4 -c100 -d10 http://localhost:8080/
+Running 10s test @ http://localhost:8080/
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.34ms    4.82ms 166.69ms   94.11%
+    Req/Sec   820.70    791.93     2.29k    72.15%
+  24371 requests<span class="org-keyword"> in</span> 10.04s, 160.35MB read
+Requests/sec:   2426.30
+Transfer/sec:     15.96MB
+debian@master-instance:~$ wrk -t4 -c100 -d10 http://localhost:8080/
+Running 10s test @ http://localhost:8080/
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     3.13ms    2.97ms  43.67ms   93.27%
+    Req/Sec     1.28k   452.76     1.89k    72.50%
+  25593 requests<span class="org-keyword"> in</span> 10.05s, 168.39MB read
+Requests/sec:   2546.40
+Transfer/sec:     16.75MB
+debian@master-instance:~$ wrk -t4 -c100 -d10 http://localhost:8080/about
+Running 10s test @ http://localhost:8080/about
+  4 threads and 100 connections
+  Thread Stats   Avg      Stdev     Max   +/- Stdev
+    Latency     2.86ms    2.70ms  52.46ms   94.02%
+    Req/Sec     0.94k   653.16     2.06k    64.67%
+  27966 requests<span class="org-keyword"> in</span> 10.04s, 52.09MB read
+Requests/sec:   2784.27
+Transfer/sec:      5.19MB
 </pre>
 </div></li>
 </ol>
@@ -3557,7 +3236,8 @@ without,
 <li>Wonderful friends and family</li>
 <li>(Spac)Emacs Community</li>
 <li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
-<li>Cloudflare, Oracle, Github and Debian.</li>
+<li>Debian Community</li>
+<li>Oracle Cloud Infrastructure, Cloudflare, Github.</li>
 </ul>
 
 <p>

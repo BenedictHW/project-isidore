@@ -54,7 +54,7 @@ jobs:
       run: |
         ssh remote-prod 'cd /home/debian/quicklisp/local-projects/project-isidore && \
           git fetch && git reset --hard origin/master && \
-          sbcl --dynamic-space-size 2048 \
+          /usr/local/bin/sbcl --dynamic-space-size 2048 \
           --load /home/debian/quicklisp/local-projects/project-isidore/make.lisp'
 
     # Starting all 12 web servers without pause will result in every other or

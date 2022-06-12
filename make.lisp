@@ -5,12 +5,12 @@
 
 ;; To use your local .sbclrc which possibly contains lines `ql:add-to-init-file'.
 
-;; "sbcl --load /path/to/this/file.lisp"
+;; "$ sbcl --load /path/to/this/file.lisp"
 
 ;; Bypass any SBCL Initialization Files on Production deployments with,
 ;; http://www.sbcl.org/manual/#Command-Line-Options
 
-;; "sbcl --dynamic-space-size 2048 --control-stack-size 10 --no-userinit
+;; "$ sbcl --dynamic-space-size 2048 --control-stack-size 10 --no-userinit
 ;; --no-sysinit --load /path/to/this/file.lisp"
 
 (in-package #:cl-user) ; The buildpack requires cl-user package space.
@@ -34,7 +34,7 @@
 ;;; See ASDF manual section 4.1 Configuring ASDF to find your systems.
 
 ;; Upgrade > ASDF 3.3.5 to use package local nicknames with package inferred
-;; systems. See commit 1962a26.
+;; systems. See commit bf210b8.
 (load (make-pathname :directory (append *build-dir* '("lib"))
                      :defaults "upgrade-asdf.lisp"))
 (provide "asdf")
@@ -44,8 +44,8 @@
                                    :inherit-configuration))
 
 ;;; III. QUICKLISP CONFIGURATION
-;;; On SBCL MAKE.LISP is called with --no-userinit and --no-sysinit. We cannot
-;;; assume the existence of a ".sbclrc" initialization file which loads
+;;; On SBCL MAKE.LISP can be called with --no-userinit and --no-sysinit. We
+;;; cannot assume the existence of a ".sbclrc" initialization file which loads
 ;;; quicklisp into the lisp image.
 (let ((ql-setup
         ;; Return existing quicklisp system pathname if located with ASDF.
