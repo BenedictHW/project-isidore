@@ -2,14 +2,15 @@
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/views
-  (:use #:common-lisp
-        ;; #:series ; does not play well with spinneret
-        #:project-isidore/styles
-        #:project-isidore/model)
-  (:import-from #:spinneret)
-  ;; Do not enable series' implicit mapping with parenscript. See commit a611c91.
-  (:import-from #:parenscript)
-  ;; No package local nicknames. See commit 1962a26.
+  (:use #:common-lisp)
+  ;; NOTE using #:series; results in warnings with spinneret. Do not enable
+  ;; series' implicit mapping with parenscript. See commit a611c91.
+  (:local-nicknames
+   (#:js    #:parenscript)
+   (#:html  #:spinneret)
+   (#:css   #:project-isidore/styles)
+   (#:model #:project-isidore/model)
+   (#:data  #:project-isidore/data))
   (:export
    #:index-page #:about-page #:work-page #:contact-page #:subscribe-page
 
@@ -40,7 +41,7 @@ REPL and insert =[sly-elided string of length x]=. To disable this behavior,
   "Template HTML for application webpages. Other than the landing page (aka
 'index.html'), the static blog post HTML files and other generated HTML files,
 all other web app pages uses this boilerplate."
-  `(spinneret:with-html-string
+  `(html:with-html-string
      (:doctype)
      (:html :lang "en"
             (:head
@@ -68,14 +69,14 @@ all other web app pages uses this boilerplate."
                     (:div :class "copyright" "Copyright (c) 2021 Benedict Hanshen Wang.")))))))
 
 (defun index-page ()
-  (spinneret:with-html-string
+  (html:with-html-string
     (:html :lang "en"
            (:head
             (:title "BHW.com")
             (:meta :charset "utf-8")
             (:meta :name "viewport"
                    :content "width=device-width, initial-scale=1")
-            (:style (:raw (index-css))))
+            (:style (:raw (css:index-css))))
            (:body
             ;; background CSS3 slideshow
             (:ul :class "slideshow"
@@ -110,23 +111,23 @@ all other web app pages uses this boilerplate."
             ;; For a tutorial see: https://app.leby.org/post/fun-with-parenscript/
             (:script
              (:raw
-              (parenscript:ps-inline
-                  ((parenscript:chain ps-dom2-symbols:document
-                                      (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
-                                                                          (lambda (event)
-                                                                            (parenscript:var data-text (parenscript:array "Hey there," "Bonjour." "¡Hola!" "??????." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
-                                                                            (defun type-writer(text i fn-callback)
-                                                                              (cond ((< i (length text))
-                                                                                     (setf (parenscript:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(parenscript:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
-                                                                                     (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
-                                                                                    ((equal (parenscript:typeof fn-callback) "function")
-                                                                                     (ps-window-wd-symbols:set-timeout fn-callback 700))))
-                                                                            (defun start-text-animation (i)
-                                                                              (when (equal (parenscript:typeof (aref data-text i)) "undefined")
-                                                                                (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
-                                                                              (when (< i (length (aref data-text i)))
-                                                                                (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
-                                                                            (start-text-animation 0))))))))))))
+              (js:ps-inline
+                  ((js:chain ps-dom2-symbols:document
+                             (ps-dom2-symbols:add-event-listener "DOMContentLoaded"
+                                                                 (lambda (event)
+                                                                   (js:var data-text (js:array "Hey there," "Bonjour." "¡Hola!" "??????." "Hello!" "Guten Tag." "Good Day," "Welcome!" "Konnichiwa,"))
+                                                                   (defun type-writer(text i fn-callback)
+                                                                     (cond ((< i (length text))
+                                                                            (setf (js:chain ps-dom2-symbols:document(query-selector "h1")ps-dom-nonstandard-symbols:inner-h-t-m-l) (+(js:chain text (substring 0 (+ i 1))) "<span aria-hidden=\"true\"></span>"))
+                                                                            (ps-window-wd-symbols:set-timeout (lambda () (type-writer text (+ i 1) fn-callback)) 100))
+                                                                           ((equal (js:typeof fn-callback) "function")
+                                                                            (ps-window-wd-symbols:set-timeout fn-callback 700))))
+                                                                   (defun start-text-animation (i)
+                                                                     (when (equal (js:typeof (aref data-text i)) "undefined")
+                                                                       (ps-window-wd-symbols:set-timeout (lambda () (start-text-animation 0))2000))
+                                                                     (when (< i (length (aref data-text i)))
+                                                                       (type-writer (aref data-text i) 0 (lambda () (start-text-animation (+ i 1))))))
+                                                                   (start-text-animation 0))))))))))))
 
 
 (defun about-page ()
@@ -227,7 +228,7 @@ all other web app pages uses this boilerplate."
 located in the `web-page-template' macro and the copyright footer. The work is
 in the public domain and frankly I think it's tacky to plaster the top navbar
 with my name."
-  `(spinneret:with-html-string
+  `(html:with-html-string
      (:doctype)
      (:html :lang "en"
             (:head
@@ -254,7 +255,7 @@ CL-USER> (bible-page '(1 2 3 37198))
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
     (:script (:raw
-              (parenscript:ps-inline
+              (js:ps-inline
                   (defun toggle-div-with-id (div-id)
                     (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
                       (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
@@ -264,14 +265,14 @@ CL-USER> (bible-page '(1 2 3 37198))
     (:br)
     (:div :id "book-links" :style "overflow:auto;display:none;"
           ;; Present links to all books of the bible.
-          (loop for (link . link-text) in +bible-book-url-alist+
+          (loop for (link . link-text) in data:+bible-book-url-alist+
                 do (:div :style "width:200px;float:left"
                          (:a :href link link-text))))
     (:br)
     (:button :onclick "toggleDivWithId(\"chapter-links\")" "Select Chapter")
     (:div :id "chapter-links" :style "overflow:auto;display:none;"
           ;; Present links to all chapters of currently selected book.
-          (loop for (link . link-text) in (make-bible-chapter-url-list uid-list)
+          (loop for (link . link-text) in (model:make-bible-chapter-url-list uid-list)
                 do (:div :style "width:200px;float:left"
                          (:a :href link link-text))))
     (:br)
@@ -289,23 +290,23 @@ CL-USER> (bible-page '(1 2 3 37198))
             (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
                   do (:option :value font-name font-name)))
           (:script (:raw
-                    (parenscript:ps-inline
+                    (js:ps-inline
                         (defun change-to-font (font)
                           (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:table :id "main-content"
             ;; Present tabular view of bible text.
             (loop for bible-uid in uid-list
                   do (:tr :style "line-height: 1.5em;"
-                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (:raw (model:get-heading-text bible-uid)))
                           (:td (progn
-                                 (:raw (get-bible-text bible-uid))
+                                 (:raw (model:get-bible-text bible-uid))
                                  (:br)
                                  (:br)
-                                 (when (get-cross-references-text-with-links bible-uid)
-                                   (:raw (get-cross-references-text-with-links bible-uid)))))
+                                 (when (model:get-cross-references-text-with-links bible-uid)
+                                   (:raw (model:get-cross-references-text-with-links bible-uid)))))
                           (:td :style "width:55%"
-                               (when (get-footnotes-text-with-links bible-uid)
-                                 (:raw (get-footnotes-text-with-links bible-uid)))))))))
+                               (when (model:get-footnotes-text-with-links bible-uid)
+                                 (:raw (model:get-footnotes-text-with-links bible-uid)))))))))
 
 (defun bible-search-page (query)
   "127.0.0.1:8080/bible?query=chicken where QUERY \"chicken\" is a string.
@@ -322,7 +323,7 @@ query-form"
     ;; Toggles HTML division form with ID "query-syntax" on click. Parenscript
     ;; compiles "toggle-syntax-help" to camel case toggleDivWithId
     (:script (:raw
-              (parenscript:ps-inline
+              (js:ps-inline
                   (defun toggle-div-with-id (div-id)
                     (let ((syntax-help-div (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id div-id))))
                       (if (ps:equal (ps:chain syntax-help-div ps-dom2-symbols:style ps-dom2-symbols:display) "none")
@@ -437,9 +438,9 @@ query-form"
             (loop for font-name in (list "Arial" "Courier New" "Garamond" "Verdana")
                   do (:option :value font-name font-name)))
           (:script (:raw
-                    (parenscript:ps-inline
-                             (defun change-to-font (font)
-                               (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
+                    (js:ps-inline
+                        (defun change-to-font (font)
+                          (setf (ps:chain ps-dom2-symbols:document (ps-dom2-symbols:get-element-by-id "main-content") ps-dom2-symbols:style ps-dom2-symbols:font-family) (ps:chain font ps-dom2-symbols:value)))))))
     (:div :id "query-form" :style "text-align:center;"
           (:form :action "/bible-search" :method "GET"
                  (:label "Search: ")
@@ -450,19 +451,19 @@ query-form"
             ;; 37199 includes all verses of the bible. The extra are from chapter/book
             ;; descriptions etc. BIBLE-UID is a lie here, it ought to be named
             ;; MONTEZUMA-UID. They should be the same, but be careful with behaviour.
-            (loop for (bible-uid . score) in (search-bible query '(:num-docs 37199))
+            (loop for (bible-uid . score) in (model:search-bible query '(:num-docs 37199))
                   do (:tr :style "line-height: 1.5em;"
                           ;; HACK Score of 1.37 > 137.
                           ;; Coerce double float to string with precision of 2.
                           (:td (write-to-string (floor score 0.01)))
-                          (:td (:raw (get-heading-text bible-uid)))
+                          (:td (:raw (model:get-heading-text bible-uid)))
                           (:td (progn
-                                 (:raw (get-bible-text bible-uid))
+                                 (:raw (model:get-bible-text bible-uid))
                                  (:br) (:br)
-                                 (when (get-cross-references-text-with-links bible-uid)
-                                   (:raw (get-cross-references-text-with-links bible-uid)))))
-                          (:td :style "width:50%" (when (get-footnotes-text-with-links bible-uid)
-                                                    (:raw (get-footnotes-text-with-links bible-uid)))))))))
+                                 (when (model:get-cross-references-text-with-links bible-uid)
+                                   (:raw (model:get-cross-references-text-with-links bible-uid)))))
+                          (:td :style "width:50%" (when (model:get-footnotes-text-with-links bible-uid)
+                                                    (:raw (model:get-footnotes-text-with-links bible-uid)))))))))
 
 ;;; Conditional and Error handling pages.
 

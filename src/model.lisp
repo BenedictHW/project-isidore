@@ -2,14 +2,14 @@
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/model
-  (:use #:common-lisp
-        #:series
-        #:project-isidore/data)
-  (:import-from #:rucksack)
-  (:import-from #:montezuma)
-  ;; No package local nicknames. See commit 1962a26.
+  (:use #:common-lisp #:series)
+  (:local-nicknames
+   (#:ext           #:project-isidore/theophilus)
+   (#:data          #:project-isidore/data)
+   (#:db            #:rucksack)
+   (#:search-engine #:montezuma))
   (:export
-   :*database* :bible
+   :bible
    :unique-id-of :heading-of :text-of :cross-references-of :footnotes-of
 
    #:get-bible-uid #:bible-obj-with-id #:valid-bible-uid-p
@@ -20,12 +20,13 @@
    #:get-footnotes-text-with-links
    #:get-cross-references-text-with-links
 
-   #:bible-book-convert-dwim #:bible-url-to-uid :+bible-book-url-alist+
-   #:make-bible-chapter-url-list
+   #:bible-book-convert-dwim #:bible-url-to-uid #:make-bible-chapter-url-list
 
-   :*search-index* #:search-bible
+   #:search-bible
 
-   :*reference-regex*)
+   :*reference-regex*
+
+   #:reopen-fd-streams)
   (:documentation
    "Project Isidore Object Schema.
 
@@ -51,15 +52,15 @@ See pg 668 of weitzCommonLispRecipes2016 for cookbook recipes on BKNR.DATASTORE.
 (in-package #:project-isidore/model)
 
 (defparameter *database*
-  (rs:open-rucksack
+  (db:open-rucksack
    (asdf:system-relative-pathname :project-isidore "data/rucksack/")))
 
 ;; 37199 (BIBLE-UID range = 0-37198) objects of class bible should exist. If
 ;; total objects exceeds the cache size, it can be set with, (setf
-;; (rs:cache-size (rs:rucksack-cache rs:*rucksack*)) 1 000 000) . The default is
+;; (db:cache-size (db:rucksack-cache db:*rucksack*)) 1 000 000) . The default is
 ;; 100 000.
 
-(rs:with-transaction ()
+(db:with-transaction ()
   (defclass bible ()
     ((unique-id :initarg :unique-id :reader unique-id-of
                 :type fixnum
@@ -90,7 +91,7 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
                    :documentation
                    "Haydock text of the object instance."))
     (:index t)
-    (:metaclass rs:persistent-class)
+    (:metaclass db:persistent-class)
     (:documentation
      "Each verse of the Bible is created as an object instance of class `bible',
   each with appropriate text in it's slot. FOOTNOTES however, may be
@@ -98,15 +99,15 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
 
 (defun get-bible-uid (book chapter verse)
   "Return a unique identifier assigned to each instance of class `bible'.
-   As class `bible' is of CLOS metaclass `rs:persistent-class', this
+   As class `bible' is of CLOS metaclass `db:persistent-class', this
   returns the aforementioned unique identifier as an integer value bound to slot
   ID. BOOK CHAPTER and VERSE must be an integer with the range 1 - 35817.
 
   Example:
   (get-bible-uid 47 3 6) => 27917
   (get-bible-uid 12983 29394 2938498) => NIL "
-  (rs:with-transaction ()
-    (rs:rucksack-map-class
+  (db:with-transaction ()
+    (db:rucksack-map-class
      *database* 'bible (lambda (obj)
                          (if
                           (equalp (list
@@ -120,8 +121,8 @@ Ex. \"((BOOK . 1) (CHAPTER . 2) (VERSE . 3))\"")
   "Returns the instance of object class `bible' when BIBLE-UID matches
 UNIQUE-ID. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by
 calling `get-bible-uid'."
-  (rs:with-transaction ()
-    (rs:rucksack-map-slot *database* 'bible 'unique-id
+  (db:with-transaction ()
+    (db:rucksack-map-slot *database* 'bible 'unique-id
                           (lambda (obj)
                             (return-from bible-obj-with-id obj))
                           :equal bible-uid)))
@@ -150,8 +151,8 @@ SIMPLE-TYPE-ERROR
    (bible-book-convert-dwim 47) => \"Matthew\" "
   (if (stringp book)
       ;; string-equal is case insensitive. string= is case sensitive.
-      (cdr (assoc book +bible-book-numbers-alist+ :test #'string-equal))
-      (car (rassoc book +bible-book-numbers-alist+))))
+      (cdr (assoc book data:+bible-book-numbers-alist+ :test #'string-equal))
+      (car (rassoc book data:+bible-book-numbers-alist+))))
 
 (defun get-bible-text (bible-uid)
   "Returns the text slot of object class `bible' in a string. If BIBLE-UID is invalid return NIL. The BIBLE-UID can be found by calling `get-bible-uid'."
@@ -211,7 +212,7 @@ where C. is short form for chapter. "
                       (setf verse (parse-integer (car (last (cl-ppcre:split ":" metadata-list))) :junk-allowed t))
                       (setf book (cond ((integerp book) book)
                                        ((string-equal "C" book) internal-chapter)
-                                       (t (cdr (assoc book +bible-book-numbers-alist+ :test #'string-equal)))))
+                                       (t (cdr (assoc book data:+bible-book-numbers-alist+ :test #'string-equal)))))
                       (return-from bible-ref-to-url
                         (if (not book)
                             nil
@@ -278,7 +279,7 @@ Example:
          (get-bible-uid end-book end-chapter end-verse)))))
 
 (defun make-bible-chapter-url-list (uid-list)
-  "Selects the right links from `+bible-chapter-url-alist+' based on the interval
+  "Selects the right links from `data:+bible-chapter-url-alist+' based on the interval
 created from the first and last elements of list UID-LIST. Note that for an
 interval that is within a single book or single chapter, the function is
 recursed to cover all chapters within the book. If this is not done during the
@@ -296,13 +297,13 @@ Example:
         (ending-uid (first (last uid-list))))
     ;; Special case: last book of the bible.
     (cond ((<= (get-bible-uid 73 0 0) beginning-uid)
-           (nthcdr 1312 +bible-chapter-url-alist+))
+           (nthcdr 1312 data:+bible-chapter-url-alist+))
           ((= (cdar (heading-of (bible-obj-with-id beginning-uid)))
               (cdar (heading-of (bible-obj-with-id ending-uid))))
            (make-bible-chapter-url-list
             (list (get-bible-uid
                    (cdar (heading-of (bible-obj-with-id beginning-uid)))
-                   ;; call with 1, as `+bible-chapter-url-alist+' has no chapter 0's.
+                   ;; call with 1, as `data:+bible-chapter-url-alist+' has no chapter 0's.
                    1 1)
                   (get-bible-uid
                    (+ 1 (cdar (heading-of (bible-obj-with-id ending-uid))))
@@ -324,20 +325,20 @@ Example:
              (nthcdr
               (position
                (rassoc (car (ppcre:split ":" (get-heading-text beginning-uid)))
-                       +bible-chapter-url-alist+
+                       data:+bible-chapter-url-alist+
                        :test #'string-equal)
-               +bible-chapter-url-alist+)
-              +bible-chapter-url-alist+)
+               data:+bible-chapter-url-alist+)
+              data:+bible-chapter-url-alist+)
              (nthcdr
               (position
                (rassoc (car (ppcre:split ":" (get-heading-text ending-uid)))
-                       +bible-chapter-url-alist+
+                       data:+bible-chapter-url-alist+
                        :test #'string-equal)
-               +bible-chapter-url-alist+)
-              +bible-chapter-url-alist+)))))))
+               data:+bible-chapter-url-alist+)
+              data:+bible-chapter-url-alist+)))))))
 
 (defparameter *search-index*
-  (make-instance 'montezuma:index
+  (make-instance 'search-engine:index
                  :path (asdf:system-relative-pathname :project-isidore "data/montezuma/")
                  :default-field "*"
                  :fields '("b" "c" "v" "t" "f" "x"))
@@ -349,13 +350,25 @@ Example:
   "Searches the Bible and Haydock's commentary. Returns an association list of
 Bible unique ID's and a relevance score "
   (let ((results '()))
-    (montezuma:search-each *search-index* query
+    (search-engine:search-each *search-index* query
                            #'(lambda (doc score)
                                (declare (optimize)
                                         (fixnum doc))
                                (push (cons doc score) results))
                            options)
     (nreverse results)))
+
+(defun reopen-fd-streams ()
+  " To create an executable binary, MAKE.LISP calls
+`sb-ext:save-lisp-and-die', which closes all open file streams. We
+open `*search-index*' and `*database*' again upon application start. "
+  (setf *search-index* (make-instance 'search-engine:index
+                                      :path (asdf:system-relative-pathname
+                                             :project-isidore "data/montezuma/")
+                                      :default-field "*"
+                                      :fields '("b" "c" "v" "t" "h"))
+        *database* (db:open-rucksack (asdf:system-relative-pathname
+                                      :project-isidore "data/rucksack/"))))
 
 ;; https://gist.github.com/carboleum/cf03b4c16655f257d96bda8f41f51471
 ;; Gmail is limited to 500 emails a day.

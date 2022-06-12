@@ -1,7 +1,7 @@
 ;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
-#-asdf3.1 (error "Project Isidore requires ASDF 3.1 or later. Please upgrade your ASDF.")
+#-asdf3.3 (error "Project Isidore requires ASDF 3.3 or later. Please upgrade your ASDF. See commit bf210b8.")
 
 (asdf:defsystem "project-isidore"
   :name "Project Isidore"

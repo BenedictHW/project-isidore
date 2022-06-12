@@ -2,17 +2,14 @@
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/controller
-  (:use #:common-lisp
-        #:series
-        #:project-isidore/views
-        #:project-isidore/model)
-  (:import-from #:alexandria)
-  (:import-from #:hunchentoot)
-  (:import-from #:hunchensocket)
-  (:import-from #:quux-hunchentoot)
-  (:import-from #:slynk)
-  (:import-from #:snooze)
-  ;; No package local nicknames. See commit 1962a26.
+  (:use #:common-lisp #:series)
+  (:local-nicknames
+   (#:ext       #:project-isidore/theophilus)
+   (#:webserver #:project-isidore/webserver)
+   (#:http      #:snooze)
+   (#:view      #:project-isidore/views)
+   (#:model     #:project-isidore/model)
+   (#:lisp-ide  #:slynk))
   (:export :*server*
            #:initialize-application
            #:terminate-application
@@ -33,9 +30,9 @@ This package contains URI handler and routing logic.
 This includes the HTML blog articles, reference manual, code coverage report,
 external CSS files, JS files, webp photos and png photos all located under
 \"project-isidore/assets/\". See the
-`hunchentoot:create-folder-dispatcher-and-handler' form.
+`webserver:create-folder-dispatcher-and-handler' form.
 
-`hunchentoot:define-easy-handler' links an uri with a function postfixed with
+`webserver:define-easy-handler' links an uri with a function postfixed with
 '-page'. It is said function which will generate the \"view\", or output HTML.
 
 2. Serve dynamically generated HTML via HTTP.
@@ -58,53 +55,53 @@ Work-in-progress.
 (in-package #:project-isidore/controller)
 
 
-(defclass snooze-acceptor (hunchensocket:websocket-acceptor
-                           hunchentoot:easy-acceptor) ())
+(defclass snooze-acceptor (webserver:websocket-acceptor
+                           webserver:easy-acceptor) ())
 
 
-(defclass chat-room (hunchensocket:websocket-resource)
+(defclass chat-room (webserver:websocket-resource)
   ((name :initarg :name :initform (error "Name this room!") :reader name))
   (:default-initargs :client-class 'user))
 
-(defclass user (hunchensocket:websocket-client)
+(defclass user (webserver:websocket-client)
   ((name :initarg :user-agent :reader name :initform (error "Name this user!"))))
 
 (defvar *chat-rooms* (list (make-instance 'chat-room :name "/bongo")
                            (make-instance 'chat-room :name "/fury")))
 
 (defun find-room (request)
-  (find (hunchentoot:script-name request) *chat-rooms* :test #'string= :key #'name))
+  (find (webserver:script-name request) *chat-rooms* :test #'string= :key #'name))
 
 (defun broadcast (room message &rest args)
-  (loop for peer in (hunchensocket:clients room)
-        do (hunchensocket:send-text-message peer (apply #'format nil message args))))
+  (loop for peer in (webserver:clients room)
+        do (webserver:send-text-message peer (apply #'format nil message args))))
 
-(defmethod hunchensocket:client-connected ((room chat-room) user)
+(defmethod webserver:client-connected ((room chat-room) user)
   (broadcast room "~a has joined ~a" (name user) (name room)))
 
-(defmethod hunchensocket:client-disconnected ((room chat-room) user)
+(defmethod webserver:client-disconnected ((room chat-room) user)
   (broadcast room "~a has left ~a" (name user) (name room)))
 
-(defmethod hunchensocket:text-message-received ((room chat-room) user message)
+(defmethod webserver:text-message-received ((room chat-room) user message)
   (broadcast room "~a says ~a" (name user) message))
 
-(setf hunchensocket:*websocket-dispatch-table*
+(setf webserver:*websocket-dispatch-table*
       (list 'find-room))
 
 
-(setf hunchentoot:*dispatch-table*
-      (list (hunchentoot:create-static-file-dispatcher-and-handler
+(setf webserver:*dispatch-table*
+      (list (webserver:create-static-file-dispatcher-and-handler
              "/favicon.ico"
              (asdf:system-relative-pathname
               :project-isidore "assets/favicon.ico"))
-            (hunchentoot:create-folder-dispatcher-and-handler
+            (webserver:create-folder-dispatcher-and-handler
              "/assets/"
              (asdf:system-relative-pathname
               :project-isidore "assets/"))
-            (rip:make-hunchentoot-app '((rip:*home-resource* . homepage)))))
+            (http:make-hunchentoot-app '((http:*home-resource* . homepage)))))
 
 (defvar *server* nil "To be used in `initialize-application' to create an
-instance of class `hunchentoot:acceptor' to listen to a PORT")
+instance of class `webserver:acceptor' to listen to a PORT")
 
 (defun terminate-application (&optional sigint-poll)
   "Stop the web server started by `initialize-application', if it exists. When
@@ -125,13 +122,14 @@ gracefully shut down the web server and exit the lisp process."
        #+allegro excl:interrupt-signal
        () (progn
             (format *error-output* "~%Aborting.~&~%")
-            (slynk:stop-server)
-            (hunchentoot:stop *server*)
+            (lisp-ide:stop-server 4005)
+            (webserver:stop *server*)
             (format t "~%Server successfully stopped.~%")
             (uiop:quit)))
       (error (c) (format t "Whoops, an unknown error occured:~&~a~&" c))))
   (when *server*
-    (hunchentoot:stop *server*)
+    (lparallel:end-kernel)
+    (webserver:stop *server*)
     (setq *server* nil)
     (format t "~%Server successfully stopped.~%")
     (return-from terminate-application t)))
@@ -145,23 +143,14 @@ Slynk server is used to connect to a running production LISP image.
 
 See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
   (terminate-application)
-  (setf ;; To create an executable binary, MAKE.LISP calls
-        ;; `sb-ext:save-lisp-and-die', which closes all open file streams. We
-        ;; open `*search-index*' and `*database*' again upon application start.
-        *search-index* (make-instance 'montezuma:index
-                                      :path (asdf:system-relative-pathname
-                                             :project-isidore "data/montezuma/")
-                                      :default-field "*"
-                                      :fields '("b" "c" "v" "t" "h"))
-        *database* (rs:open-rucksack (asdf:system-relative-pathname
-                                      :project-isidore "data/rucksack/"))
-        rip:*catch-errors* :verbose
-        *server* (hunchentoot:start
+  (model:reopen-fd-streams)
+  (setf http:*catch-errors* :verbose
+        *server* (webserver:start
                   (make-instance 'snooze-acceptor
                                  :port port
                                  :address "127.0.0.1"
                                  :taskmaster (make-instance
-                                              'quux-hunchentoot:thread-pooling-taskmaster
+                                              'webserver:thread-pooling-taskmaster
                                               :max-thread-count 8
                                               :max-accept-count 1000000)
                                  :access-log-destination nil)))
@@ -196,8 +185,8 @@ Navigate to http://localhost:~A to continue... ~%" port)
     ;; We only want one connection to a remote lisp.
     (when (= 8091 port)
       (progn
-        (slynk:create-server :port 4005 :dont-close t)
-        (setf slynk:*use-dedicated-output-stream* nil)))
+        (lisp-ide:create-server :port 4005 :dont-close t)
+        (setf lisp-ide:*use-dedicated-output-stream* nil)))
     (initialize-application :port port)
     (format t "~% Close this window or press Control+C to exit the program...~%")
     (terminate-application t)
@@ -206,50 +195,50 @@ Navigate to http://localhost:~A to continue... ~%" port)
                                        (bt:thread-name th)))
                              (bt:all-threads)))))
 
-(rip:defroute homepage (:get "text/html")
-  (index-page))
+(http:defroute homepage (:get "text/html")
+  (view:index-page))
 
-(rip:defroute about (:get "text/html")
-  (about-page))
+(http:defroute about (:get "text/html")
+  (view:about-page))
 
-(rip:defroute work (:get "text/html")
-  (work-page))
+(http:defroute work (:get "text/html")
+  (view:work-page))
 
-(rip:defroute contact (:get "text/html")
-  (contact-page))
+(http:defroute contact (:get "text/html")
+  (view:contact-page))
 
-(rip:defroute subscribe (:get "text/html")
-  (subscribe-page))
+(http:defroute subscribe (:get "text/html")
+  (view:subscribe-page))
 
 
-(rip:defresource bible (verb content-type beginning-verse &optional ending-verse)
+(http:defresource bible (verb content-type beginning-verse &optional ending-verse)
   (:documentation "Provide `bible-page' with a list of BIBLE-UIDs. Lists are defined by a
 BEGINNING-VERSE and an optional ENDING-VERSE")
   (:genpath bible-path))
 
-;; See also `rip:no-such-resource' and `rip:invalid-resource-arguments' for more
+;; See also `http:no-such-resource' and `http:invalid-resource-arguments' for more
 ;; examples.
-(define-condition negative-range (rip:http-condition)
+(define-condition negative-range (http:http-condition)
   ((endpoints :initarg :endpoints :accessor endpoints-of))
   (:default-initargs
    :status-code 416))
 
-(defmethod rip:explain-condition ((condition negative-range)
+(defmethod http:explain-condition ((condition negative-range)
                                   (resource (eql #'bible))
                                   (ct snooze-types:text/html))
-  (negative-range-condition-page (endpoints-of condition)))
+  (view:negative-range-condition-page (endpoints-of condition)))
 
-(defmethod rip:explain-condition ((condition rip:no-such-resource)
+(defmethod http:explain-condition ((condition http:no-such-resource)
                                   resource ; Generic 404 page.
                                   (ct snooze-types:text/html))
-    (404-condition-page (hunchentoot:script-name*)))
+    (view:404-condition-page (webserver:script-name*)))
 
-(defmethod rip:explain-condition ((condition rip:invalid-resource-arguments)
+(defmethod http:explain-condition ((condition http:invalid-resource-arguments)
                                   (resource (eql #'bible))
                                   (ct snooze-types:text/html))
-  (400-condition-page))
+  (view:400-condition-page))
 
-(rip:defroute bible (:get "text/html" (beginning-uid integer) &optional ending-uid)
+(http:defroute bible (:get "text/html" (beginning-uid integer) &optional ending-uid)
   (unless ending-uid
     (setf ending-uid beginning-uid))
   (cond
@@ -262,19 +251,19 @@ BEGINNING-VERSE and an optional ENDING-VERSE")
     ;; /bible/fo0b3r will select the symbol defroute below.
     ((and (<= 0 beginning-uid)
           (>= 7 beginning-uid))
-     (signal 'rip:invalid-resource-arguments))
+     (signal 'http:invalid-resource-arguments))
     ((> beginning-uid ending-uid)
      (signal 'negative-range :endpoints (list beginning-uid ending-uid)))
-    ((or (not (valid-bible-uid-p beginning-uid))
-         (not (valid-bible-uid-p ending-uid)))
-     (signal 'rip:invalid-resource-arguments))
+    ((or (not (model:valid-bible-uid-p beginning-uid))
+         (not (model:valid-bible-uid-p ending-uid)))
+     (signal 'http:invalid-resource-arguments))
     ((<= beginning-uid ending-uid)
-     (bible-page (alexandria:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
+     (view:bible-page (ext:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
     (t
-     (signal 'rip:http-error))))
+     (signal 'http:http-error))))
 
 (defun parse-uid-sym (uid-sym)
-  "Human readable call to `bible-page'. UID-SYM must be of the following format,
+  "Human readable call to `view:bible-page'. UID-SYM must be of the following format,
 BOOK-delimiter-CHAPTER-delimiter-VERSE, where delimiters are the SAME single
 NON-alphanumeric unreserved character. CHAPTER and VERSE must be numeric,
 whereas BOOK must be alphanumeric. Unreserved characters are defined as
@@ -291,7 +280,7 @@ Ex. /bible/genesis-2-10,/bible/47~4~2 etc.
 > (parse-uid-sym '1.2-10)
 ARG-COUNT-ERROR
 "
-  (let ((list (alexandria:extremum
+  (let ((list (ext:extremum
                 (mapcar #'(lambda (unreserved-char)
                             (ppcre:split unreserved-char (string uid-sym)))
                         '("-" "\\." "_" "~"))
@@ -299,53 +288,53 @@ ARG-COUNT-ERROR
     (if (= 3 (length list)) ; Assume a sublist of 3 is properly parsed.
         (destructuring-bind (book chapter verse)
             list
-          (get-bible-uid
+          (model:get-bible-uid
            (if (parse-integer book :junk-allowed t)
                ;; It has a number, but is it a prefix or by its lonesome?
                (if (ppcre:scan "[0-9]{1}[a-zA-Z]" book)
-                   (bible-book-convert-dwim
+                   (model:bible-book-convert-dwim
                     (concatenate 'string
                                  (subseq book 0 1) ; IV Kings will not work.
                                  " "
                                  (cadr (ppcre:split "[0-9]" book))))
                    (parse-integer book))
-               (bible-book-convert-dwim book))
+               (model:bible-book-convert-dwim book))
            (parse-integer chapter)
            (parse-integer verse)))
-        (signal 'rip:invalid-resource-arguments))))
+        (signal 'http:invalid-resource-arguments))))
 
-(rip:defroute bible (:get "text/html" (beginning-sym symbol) &optional ending-sym)
+(http:defroute bible (:get "text/html" (beginning-sym symbol) &optional ending-sym)
   (unless ending-sym
     (setf ending-sym beginning-sym))
   (let ((beginning-uid (parse-uid-sym beginning-sym))
         (ending-uid (parse-uid-sym ending-sym)))
     (cond ((> beginning-uid ending-uid)
            (signal 'negative-range :endpoints (list beginning-sym ending-sym)))
-          ((or (not (valid-bible-uid-p beginning-uid))
-               (not (valid-bible-uid-p ending-uid)))
-           (signal 'rip:invalid-resource-arguments))
+          ((or (not (model:valid-bible-uid-p beginning-uid))
+               (not (model:valid-bible-uid-p ending-uid)))
+           (signal 'http:invalid-resource-arguments))
           ((<= beginning-uid ending-uid)
-           (bible-page (alexandria:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
+           (view:bible-page (ext:iota (+ 1 (- ending-uid beginning-uid)) :start beginning-uid)))
           (t
-           (signal 'rip:http-error)))))
+           (signal 'http:http-error)))))
 
 
-(rip:defresource bible-search (verb content-type &key query)
+(http:defresource bible-search (verb content-type &key query)
   (:documentation "This resource defines a read-only GET request of
 `project-isidore:*search-index*'. In the GET request, a QUERY parameter (of type
 STRING) is passed to `project-isidore:bible-search-page'.")
   (:genpath bible-search-path))
 
-(defmethod rip:uri-to-arguments ((resource (eql #'bible-search)) uri)
-  "See `rip::read-for-resource-1'. The default behaviour of
-`rip::safe-simple-read-from-string' if a string is not passed is to try
-`rip::parse-integer-then-float' and then to try `rip::parse-symbol' on the
+(defmethod http:uri-to-arguments ((resource (eql #'bible-search)) uri)
+  "See `http::read-for-resource-1'. The default behaviour of
+`http::safe-simple-read-from-string' if a string is not passed is to try
+`http::parse-integer-then-float' and then to try `http::parse-symbol' on the
 input. This is all good and well for default behaviour but for the fact that if
 a GET request contains a `:' then it will look for a non-existent package while
 trying to pass the defroute a symbol. As the Snooze README states, while
-`rip:read-for-resource' can be specialized for the resource, it is better to go
+`http:read-for-resource' can be specialized for the resource, it is better to go
 one step up the chain and specialize the generic function that passes
-`rip:read-for-resource' its inputs. And so for the resource `bible-search', the
+`http:read-for-resource' its inputs. And so for the resource `bible-search', the
 GET request will always be parsed as a string.
 
 Given GET request = /bible-search?query=bread+water+%2Bc%3A29
@@ -357,13 +346,13 @@ Sly's trace dialog tells us it was called with
 
 And returns
 
-< (:QUERY \"bread water +c:29\") to `rip:defroute' BIBLE-SEARCH. "
+< (:QUERY \"bread water +c:29\") to `http:defroute' BIBLE-SEARCH. "
   (list
    :query
    (cadr (ppcre:split
           "="
           (quri:url-decode (quri:uri-query (quri:uri (string uri))))))))
 
-(rip:defroute bible-search (:get "text/html" &key (query string))
+(http:defroute bible-search (:get "text/html" &key (query string))
   "Calls the view `project-isidore:bible-search-page' with STRING QUERY."
-  (bible-search-page query))
+  (view:bible-search-page query))
