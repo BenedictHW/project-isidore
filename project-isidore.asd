@@ -33,3 +33,9 @@
   :depends-on ("project-isidore/test/tests")
   :perform (asdf:test-op
             (op c) (uiop:symbol-call :parachute :test :project-isidore/test/tests)))
+
+(asdf:defsystem "project-isidore/infrastructure"
+  :serial t
+  :pathname "src/infrastructure"
+  :depends-on (#:consfigurator #:cl-interpol)
+  :components ((:file "production")))
