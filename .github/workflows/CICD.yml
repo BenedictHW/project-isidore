@@ -21,8 +21,6 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
@@ -100,10 +98,8 @@ jobs:
         FROM clfoundation/sbcl:2.2.4-slim as build
         COPY . /project-isidore/
         ARG BUILD_DIR=/project-isidore
-        ARG CACHE_DIR=/pi-build-cache
         ARG QL_DIST_VER=2022-04-01
-        RUN apt-get update && apt-get install -y curl \
-            && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp \
+        RUN apt-get update \
             && sbcl --dynamic-space-size 512 --load $BUILD_DIR/make.lisp \
             && chmod a+x $BUILD_DIR/bin/ProjectIsidore
         FROM gcr.io/distroless/base-debian11
@@ -162,23 +158,15 @@ jobs:
     - name: Setup GNU/Linux Environment
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
-        sudo apt install sbcl zlib1g-dev && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp
-
-    # If Packages.lisp changes, the cache will be invalidated.
-    # Github policy also invalidates caches not accessed in 7 days.
-    - name: Cache Quicklisp Libraries
-      uses: actions/cache@v2
-      with:
-        path: ${{ Env.CACHE_DIR }}
-        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
+        sudo apt update \
+        sudo apt install sbcl zlib1g-dev
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 512 --load $BUILD_DIR/make.lisp
+      run: sbcl --load $BUILD_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
@@ -208,23 +196,14 @@ jobs:
     - name: Setup MacOS Environment
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "CACHE_DIR=$HOME/buildcache/" >> $GITHUB_ENV
         echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
-        brew install sbcl zlib && curl https://beta.quicklisp.org/quicklisp.lisp -o $BUILD_DIR/quicklisp.lisp
-
-    # If Packages.lisp changes, the cache will be invalidated.
-    # Github policy also invalidates caches not accessed in 7 days.
-    - name: Cache Quicklisp Libraries
-      uses: actions/cache@v2
-      with:
-        path: ${{ Env.CACHE_DIR }}
-        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
+        brew install sbcl zlib
 
     - name: Build Project Isidore
-      run: sbcl --dynamic-space-size 512 --load $BUILD_DIR/make.lisp
+      run: sbcl --load $BUILD_DIR/make.lisp
 
     # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
@@ -281,18 +260,10 @@ jobs:
         Start-Process msiexec.exe -Wait -ArgumentList '/I ${{ Env.CACHE_DIR }}sbcl-bin.msi INSTALLDIR="${{ Env.CACHE_DIR }}sbcl\" /quiet';
         Invoke-WebRequest -uri "https://beta.quicklisp.org/quicklisp.lisp" -Method "GET" -OutFile "${{ Env.BUILD_DIR }}\quicklisp.lisp";
 
-    # If Packages.lisp changes, the cache will be invalidated.
-    # Github policy also invalidates caches not accessed in 7 days.
-    - name: Cache Quicklisp Libraries
-      uses: actions/cache@v2
-      with:
-        path: ${{ Env.CACHE_DIR }}
-        key: ${{ runner.os }}-build-${{ hashFiles('**/packages.lisp') }}
-
     - name: Build Project Isidore
       shell: pwsh
       run:
-        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --dynamic-space-size 512 --load "${{ Env.BUILD_DIR }}\src\make.lisp"
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --load "${{ Env.BUILD_DIR }}\src\make.lisp"
 
     - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
