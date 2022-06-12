@@ -35,7 +35,6 @@
             (op c) (uiop:symbol-call :parachute :test :project-isidore/test/tests)))
 
 (asdf:defsystem "project-isidore/infrastructure"
-  :serial t
-  :pathname "src/infrastructure"
-  :depends-on (#:consfigurator #:cl-interpol)
-  :components ((:file "production")))
+  :class :package-inferred-system
+  :pathname "infrastructure"
+  :depends-on ("project-isidore/infrastructure/production"))

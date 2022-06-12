@@ -9,7 +9,8 @@
    (#:http      #:snooze)
    (#:view      #:project-isidore/views)
    (#:model     #:project-isidore/model)
-   (#:lisp-ide  #:slynk))
+   (#:lisp-ide  #:slynk)
+   )
   (:export :*server*
            #:initialize-application
            #:terminate-application

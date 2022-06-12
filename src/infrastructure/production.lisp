@@ -1,14 +1,25 @@
 ;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
-(in-package :cl-user)
 
-(consfigurator:defpackage-consfig :project-isidore/infrastructure
-  (:use #:cl #:alexandria #:consfigurator)
-  (:export #:deploy-to-production))
+(uiop:define-package #:project-isidore/infrastructure/production
+  (:use #:common-lisp #:series)
+  (:local-nicknames
+   (#:conf        #:consfigurator)
+   (#:os          #:consfigurator.property.os)
+   (#:timezone    #:consfigurator.property.timezone)
+   (#:apt         #:consfigurator.property.apt)
+   (#:file        #:consfigurator.property.file)
+   (#:firewalld   #:consfigurator.property.firewalld)
+   (#:git         #:consfigurator.property.git)
+   (#:cmd         #:consfigurator.property.cmd)
+   (#:systemd     #:consfigurator.property.systemd)
+   (#:reboot      #:consfigurator.property.reboot))
+  (:export #:deploy-to-production)
+  (:documentation ""))
 
-(in-package :project-isidore/infrastructure)
+(in-package :project-isidore/infrastructure/production)
 
-(in-consfig "project-isidore/infrastructure")
+(conf:in-consfig "project-isidore/infrastructure/production")
 
 (named-readtables:in-readtable :consfigurator)
 
@@ -27,12 +38,12 @@
 'QL_DIST_VER', which is defined in MAKE.LISP")
 
 ;;; Snapshot our local copy of Project Isidore as a tar archive...
-(try-register-data-source :git-snapshot
+(conf:try-register-data-source :git-snapshot
                           :name (asdf:primary-system-name "project-isidore")
                           :repo (asdf:system-source-directory "project-isidore")
                           :depth 1 :branch "master")
 
-(defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
+(conf:defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
   "Web and file server. Consfigurator, while a general implementation, only works
 with Debian GNU/Linux.
 
