@@ -25,8 +25,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
 jobs:
-  deploy_on_production:
-    name: Deploy to Production Machine
+  stage_on_production:
+    name: Stage to Production Machine
     runs-on: [ubuntu-latest]
 
     steps:
@@ -56,24 +56,6 @@ jobs:
           git fetch && git reset --hard origin/master && \
           /usr/local/bin/sbcl --dynamic-space-size 2048 \
           --load /home/debian/quicklisp/local-projects/project-isidore/make.lisp'
-
-    # Starting all 12 web servers without pause will result in every other or
-    # every third server starting successfully. My guess is that initializing a
-    # webserver opens some streams and it's best to avoid parallel behaviour.
-    - name: Restart the Application
-      run: |
-        ssh remote-prod 'sudo systemctl restart project-isidore@8080.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8081.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8082.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8083.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8084.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8085.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8086.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8087.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8088.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8089.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8090.service && \
-          sleep 3 && sudo systemctl restart project-isidore@8091.service'
 
   build_docker_image:
     name: Docker Image Build
