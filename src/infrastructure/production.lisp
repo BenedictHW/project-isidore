@@ -12,13 +12,13 @@
 
 (named-readtables:in-readtable :consfigurator)
 
-;;; Sudo apt install packages listed in,
-;; (consfigurator.property.package:*consfigurator-system-dependencies*)
-
 (defun deploy-to-production ()
   "In the future, do some validation that hosts are configured properly."
   (oci-a1-flex))
 
+;;; =================================
+;;; 0. CONSFIGURATOR DATA
+;;; =================================
 (defparameter *linux-production-dir* "/usr/local/src/"
   "Project Isidore parent pathname on GNU/Linux hosts.")
 
@@ -26,11 +26,17 @@
   "Production Quicklisp Distribution Version passed as an ENV variable
 'QL_DIST_VER', which is defined in MAKE.LISP")
 
+;;; Snapshot our local copy of Project Isidore as a tar archive...
+(try-register-data-source :git-snapshot
+                          :name (asdf:primary-system-name "project-isidore")
+                          :repo (asdf:system-source-directory "project-isidore")
+                          :depth 1 :branch "master")
+
 (defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
-  " Web and file server. Consfigurator, while a general implementation, only works
+  "Web and file server. Consfigurator, while a general implementation, only works
 with Debian GNU/Linux.
 
-You need two things.
+You need three things.
 
 1. Remote Root SSH login access as defined locally in ~/.ssh/config
 
@@ -136,14 +142,7 @@ sda       8:0    0   200G  0 disk
   ;;; ===========================
   ;;; II. APPLICATION COMPILATION
   ;;; ===========================
-
-  ;; Snapshot our local copy of Project Isidore as a tar archive...
-  (try-register-data-source :git-snapshot
-                            :name (asdf:primary-system-name "project-isidore")
-                            :repo (asdf:system-source-directory "project-isidore")
-                            :depth 1 :branch "master")
-
-  ;; And extract it on production to `*linux-production-dir*'.
+  ;; Extract git snapshot on production to `*linux-production-dir*'.
   (git:snapshot-extracted *linux-production-dir*
                           (asdf:primary-system-name "project-isidore") :replace t)
 
@@ -349,4 +348,4 @@ server {
 ")
   (systemd:daemon-reloaded)
   (systemd:enabled "nginx.service")
-  (consfigurator.property.reboot:rebooted-at-end))
+  (reboot:rebooted-at-end))
