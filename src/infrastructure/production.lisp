@@ -12,13 +12,13 @@
 
 (named-readtables:in-readtable :consfigurator)
 
-;;; Sudo apt install packages listed in,
-;; (consfigurator.property.package:*consfigurator-system-dependencies*)
-
 (defun deploy-to-production ()
   "In the future, do some validation that hosts are configured properly."
   (oci-a1-flex))
 
+;;; =================================
+;;; 0. CONSFIGURATOR DATA
+;;; =================================
 (defparameter *linux-production-dir* "/usr/local/src/"
   "Project Isidore parent pathname on GNU/Linux hosts.")
 
@@ -26,11 +26,17 @@
   "Production Quicklisp Distribution Version passed as an ENV variable
 'QL_DIST_VER', which is defined in MAKE.LISP")
 
+;;; Snapshot our local copy of Project Isidore as a tar archive...
+(try-register-data-source :git-snapshot
+                          :name (asdf:primary-system-name "project-isidore")
+                          :repo (asdf:system-source-directory "project-isidore")
+                          :depth 1 :branch "master")
+
 (defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
-  " Web and file server. Consfigurator, while a general implementation, only works
+  "Web and file server. Consfigurator, while a general implementation, only works
 with Debian GNU/Linux.
 
-You need two things.
+You need three things.
 
 1. Root SSH access as defined in ~/.ssh/config
 
@@ -50,8 +56,10 @@ below. Now Cloudflare can verify our host's identity.
 
 https://developers.cloudflare.com/ssl/origin-configuration/origin-ca
 
-VM.Standard.A1.Flex
-https://amperecomputing.com/processors/ampere-altra/
+3. Sudo apt install packages listed in,
+`consfigurator.property.package:*consfigurator-system-dependencies*'
+
+VM.Standard.A1.Flex https://amperecomputing.com/processors/ampere-altra/
 
 Can SSH into server after deployment for quick sanity check.
 systemctl list-units --type=service --state=running
@@ -95,14 +103,7 @@ systemctl list-units --type=service --state=running
   ;;; ===========================
   ;;; II. APPLICATION COMPILATION
   ;;; ===========================
-
-  ;; Snapshot our local copy of Project Isidore as a tar archive...
-  (try-register-data-source :git-snapshot
-                            :name (asdf:primary-system-name "project-isidore")
-                            :repo (asdf:system-source-directory "project-isidore")
-                            :depth 1 :branch "master")
-
-  ;; And extract it on production to `*linux-production-dir*'.
+  ;; Extract git snapshot on production to `*linux-production-dir*'.
   (git:snapshot-extracted *linux-production-dir*
                           (asdf:primary-system-name "project-isidore") :replace t)
 
@@ -308,15 +309,4 @@ server {
 ")
   (systemd:daemon-reloaded)
   (systemd:enabled "nginx.service")
-  (consfigurator.property.reboot:rebooted-at-end))
-
-;; } instead of "
-;; apt:mirrors instead of mirror.
-;; (file:has-ownership is not recursive?
-;; get-path-to-system-tarball cannot deal with sly and slynk directory
-;; when using sbcl 2.2.5?
-;; Difficulty getting VERSION files.
-;; usocket's version.sexp was not found in /root/.cache/consfigurator/systems/usocket.
-;; Hunchensocket, snooze. quri data folder.
-;; Is this a permission issue?
-;; Excellent restarts + tramp, humans know best.
+  (reboot:rebooted-at-end))
