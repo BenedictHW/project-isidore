@@ -2,8 +2,12 @@
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 (in-package :cl-user)
 
+;;; If (ql:quickload "consfigurator") fails with CFFI unable to find C libraries,
+;;; sudo apt install packages listed in
+;;; `consfigurator.property.package:*consfigurator-system-dependencies*'.
+
 (consfigurator:defpackage-consfig :project-isidore/infrastructure
-  (:use #:cl #:alexandria #:consfigurator)
+  (:use #:cl #:consfigurator)
   (:export #:deploy-to-production))
 
 (in-package :project-isidore/infrastructure)
@@ -13,30 +17,68 @@
 (named-readtables:in-readtable :consfigurator)
 
 (defun deploy-to-production ()
-  "In the future, do some validation that hosts are configured properly."
+  " In the future, do some validation that hosts are configured properly. Until
+then, read the docstring of the defined host oci-a1-flex.
+
+Inside a LISP REPL,
+
+(ql:quickload \"project-isidore\")
+(ql:quickload \"project-isidore/infrastructure\")
+(in-package \"project-isidore/infrastructure\")
+(deploy-to-production)"
   (oci-a1-flex))
 
 ;;; =================================
 ;;; 0. CONSFIGURATOR DATA
 ;;; =================================
-(defparameter *linux-production-dir* "/usr/local/src/"
-  "Project Isidore parent pathname on GNU/Linux hosts.")
+
+;;; TIME = `*prod-ql-dist-ver*',`*prod-sbcl-ver*', Project Isidore master
+;;; branch, Debian GNU/Linux.
+
+;;; SPACE = `*linux-production-dir*'
+
+;;; MATTER = `oci-a1-flex' server specification.
+
+(defparameter *linux-production-dir*
+  (concatenate 'string
+               "/usr/local/src/"
+               (asdf:primary-system-name "project-isidore")
+               "/")
+  "Project Isidore production directory STRING on GNU/Linux hosts. See the Linux
+Filesystem Hierarchy Standard.")
 
 (defparameter *prod-ql-dist-ver* "2022-04-01"
-  "Production Quicklisp Distribution Version passed as an ENV variable
-'QL_DIST_VER', which is defined in MAKE.LISP")
+  "Production Quicklisp Distribution Version STRING passed as an ENV variable
+'QL_DIST_VER', which is utilized in MAKE.LISP. Date must have the same format as
+given in (ql::available-versions (ql::dist \"quicklisp\"))")
 
-;;; Snapshot our local copy of Project Isidore as a tar archive...
+(defparameter *prod-sbcl-ver* "sbcl-2.2.5"
+  "Production SBCL Compiler Version STRING. Must have the same format as canonical
+SBCL git tags. Use Debian packaged SBCL to bootstrap.")
+
+;;; Snapshot our local copy of Project Isidore and package as tar archive.
 (try-register-data-source :git-snapshot
                           :name (asdf:primary-system-name "project-isidore")
                           :repo (asdf:system-source-directory "project-isidore")
                           :depth 1 :branch "master")
 
-(defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
-  "Web and file server. Consfigurator, while a general implementation, only works
-with Debian GNU/Linux.
+;;; Implicit Data - SBCL source code repository is located at
+;;; https://github.com/sbcl/sbcl.git
 
-You need three things.
+;;; Implicit Data - Quicklisp Library Manager is situation normal.
+
+;;; Because the remote Lisp uses the root user, know that $ sbcl and $ sudo
+;;; sbcl have different initialization files. This is because sudo sbcl uses
+;;; the /root/ instead of /home/debian.
+;;; http://www.sbcl.org/manual/#Initialization-Files
+(defhost oci-a1-flex (:deploy ((:ssh :user "root") :sbcl))
+  " Currently the only production web and file server. Consfigurator, while easily
+extensible, works best with Debian GNU/Linux. It also takes great pains to be
+portable (such as using the agnostic lizard library) but this host utilizes SBCL
+to compile application code. Consfigurator can produce both disk images and
+containers, although in this case I assume the server is initialized with Debian
+GNU/Linux as the operating system. Two pieces of information are unique to this
+host,
 
 1. Remote Root SSH login access as defined locally in ~/.ssh/config
 
@@ -93,6 +135,8 @@ sda       8:0    0   200G  0 disk
   (apt:updated)
   (apt:upgraded)
 
+  ;; Customize OS settings to better function as a webserver.
+
   ;; https://cloud.google.com/blog/products/networking/tcp-bbr-congestion-
   ;; control-comes-to-gcp-your-internet-just-got-faster
 
@@ -142,32 +186,32 @@ sda       8:0    0   200G  0 disk
   ;;; ===========================
   ;;; II. APPLICATION COMPILATION
   ;;; ===========================
-  ;; Extract git snapshot on production to `*linux-production-dir*'.
-  (git:snapshot-extracted *linux-production-dir*
+
+  ;; Move git snapshot to remote machine.
+  (git:snapshot-extracted (uiop:pathname-parent-directory-pathname
+                           (pathname *linux-production-dir*))
                           (asdf:primary-system-name "project-isidore") :replace t)
 
-  ;; Because the remote Lisp uses the root user, know that $ sbcl and $ sudo
-  ;; sbcl have different initialization files. This is because sudo sbcl uses
-  ;; the /root/ instead of /home/debian.
-  ;; http://www.sbcl.org/manual/#Initialization-Files
-  (cmd:single :env (list :BUILD_DIR
-                         (concatenate 'string
-                                      *linux-production-dir*
-                                      (asdf:primary-system-name "project-isidore"))
+  ;; FIXME This shell command may fail silently and be reported as "done". Add
+  ;; better condition handling here.
+  (cmd:single :env (list :BUILD_DIR *linux-production-dir*
                          :QL_DIST_VER *prod-ql-dist-ver*)
               (concatenate 'string
+                           "cd "
+                           *linux-production-dir*
+                           " && "
                            ;; NOTE /usr/local/bin/sbcl used instead of
                            ;; /usr/bin/sbcl "sudo apt install sbcl" binary is
                            ;; located at /usr/bin/sbcl. SBCL compiled from
                            ;; source is located at /usr/local/bin/sbcl.
-                           "/usr/local/bin/sbcl"
-                           " "
+                           "/usr/local/bin/sbcl "
+                           ;; KLUDGE "--control-stack-size='4Mb' breaks."
+                           "--control-stack-size '4Mb' "
                            ;; NOTE Use --script and not --load.
                            ;; http://www.sbcl.org/manual/#Toplevel-Options
-                           "--dynamic-space-size '2048' --control-stack-size '10' --script '"
+                           "--script '"
                            *linux-production-dir*
-                           (asdf:primary-system-name "project-isidore")
-                           "/make.lisp'"))
+                           "make.lisp'"))
 
   ;;; ===========================================================
   ;;; III. APPLICATION INTEGRATION IN OS SYSTEM & SERVICE MANAGER
@@ -176,7 +220,7 @@ sda       8:0    0   200G  0 disk
   ;; Define Project Isidore as a systemd service. The file describes a generic
   ;; unit service that can be instantiated multiple times. Include a systemd
   ;; specifier "%i" to represent the environment variable PORT that a particular
-  ;; web server will be bound to.
+  ;; Project Isidore web server process will be bound to.
   ;;
   ;; https://www.linode.com/docs/guides/what-is-systemd/
 
@@ -190,6 +234,7 @@ sda       8:0    0   200G  0 disk
 
   (file:has-content
    "/etc/systemd/system/project-isidore@.service"
+   (concatenate 'string
    "
 [Unit]
 Description=P.I. web application on port %i.
@@ -199,13 +244,19 @@ After=network.target
 Type=simple
 User=root
 Group=root
-WorkingDirectory=/usr/local/src/project-isidore/
+WorkingDirectory="
+*linux-production-dir*
+"
 Environment=PORT=%i
-ExecStart=/usr/local/src/project-isidore/bin/ProjectIsidore
+ExecStart="
+*linux-production-dir*
+;; NOTE Hardcoded binary name.
+"bin/ProjectIsidore"
+"
 Restart=always
 
 [Install]
-WantedBy=multi-user.target")
+WantedBy=multi-user.target"))
   ;; Tell systemd about the file we just created.
   (systemd:daemon-reloaded)
   ;; Check how much RAM is availiable on VM and deploy that many processes?
@@ -255,6 +306,7 @@ WantedBy=multi-user.target")
   (apt:installed "nginx")
   (file:has-content
    "/etc/nginx/conf.d/benedicthanshenwang.com.conf"
+   (concatenate 'string
    "
 # /etc/nginx/sites-available/default can be deleted.
 
@@ -282,23 +334,25 @@ server {
   ##
   reset_timedout_connection on;
   server_tokens off;
-  access_log off;
 
   ##
   # Ports
   ##
   listen 443 ssl http2 default_server backlog=65536;
   listen [::]:443 ssl http2 default_server backlog=65536;
+  # NOTE Hardcoded domain name.
   server_name benedicthanshenwang.com www.benedicthanshenwang.com;
-  root /home/debian/quicklisp/local-projects/project-isidore;
+  root "
+  *linux-production-dir* ";"
+"
 
   ##
   # SSL Settings
   ##
-  ssl_certificate        /usr/local/src/project-isidore/assets/benedicthanshenwang.crt;
+  ssl_certificate        /etc/ssl/private/benedicthanshenwang.crt;
   ssl_certificate_key    /etc/ssl/private/benedicthanshenwang.key;
-  ssl_dhparam            /usr/local/src/project-isidore/assets/dhparam4096.pem;
-  ssl_client_certificate /usr/local/src/project-isidore/assets/authenticated_origin_pull_ca.pem;
+  ssl_dhparam            /etc/ssl/private/dhparam4096.pem;
+  ssl_client_certificate /etc/ssl/private/authenticated_origin_pull_ca.pem;
   ssl_verify_client   on;
   ssl_protocols       TLSv1.2 TLSv1.3;
   ssl_ciphers         EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
@@ -345,7 +399,7 @@ server {
     add_header Cache-Control \"max-age=7200, must-revalidate\";
   }
 }
-")
+"))
   (systemd:daemon-reloaded)
   (systemd:enabled "nginx.service")
   (reboot:rebooted-at-end))

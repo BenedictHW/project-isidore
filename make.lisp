@@ -10,7 +10,7 @@
 ;; Bypass any SBCL Initialization Files on Production deployments with,
 ;; http://www.sbcl.org/manual/#Command-Line-Options
 
-;; "$ sbcl --dynamic-space-size 2048 --control-stack-size 10 --no-userinit
+;; "$ sbcl --dynamic-space-size 2048 --control-stack-size 4 --no-userinit
 ;; --no-sysinit --load /path/to/this/file.lisp"
 
 (in-package #:cl-user) ; The buildpack requires cl-user package space.
