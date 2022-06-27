@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-14 Tue 18:18 -->
+<!-- 2022-06-24 Fri 19:39 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-14 Tue 15:53</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-24 Fri 19:39</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="orgfee82c8">
+<div class="abstract" id="org5ffe62d">
 <p>
 
 </p>
@@ -524,8 +524,10 @@ Looking for a library? In addition to online search queries, use command(s)
 <pre class="src src-lisp"><span class="org-rainbow-delimiters-depth-1">(</span>ql:system-apropos <span class="org-builtin">:library</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; search for term in quicklisp dist</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:who-depends-on <span class="org-builtin">:library</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; usage in lisp ecosystem</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql-dist:dependency-tree <span class="org-builtin">:library</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; number of dependencies upstream</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">See quicklisp-stats README for example usage</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:quicklisp-stats</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; look at quicklisp download stats</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">See quicklisp-stats README for example usage.</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"quicklisp-stats"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; look at quicklisp download stats</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"quicksearch"</span><span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>qs:quicksearch <span class="org-string">"bluetooth"</span> <span class="org-builtin">:du</span> 100<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -577,7 +579,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="org1c80968">
+<figure id="org6e7b219">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -1355,22 +1357,27 @@ myself on account of preferring Guile Scheme over the Nix Expression Language
 (<a href="https://nixos.wiki/wiki/Nix_Expression_Language">self-admittedly designed with the goal of not being a full-featured, general
 purpose language</a>). I was not able to get Guix System (version 1.3.0) working on
 Oracle's aarch64 A1-Flex VMs. Please email me if you have. In the meantime I am
-using and enjoying <a href="https://spwhitton.name/tech/code/consfigurator/">consfigurator</a>, at least avoiding another Tower of Babel
-situation.
+using and enjoying <a href="https://spwhitton.name/tech/code/consfigurator/">consfigurator</a> for declarative server configuration, at least
+avoiding another Tower of Babel situation.
 </p>
 
 <p>
 Current infrastructure diagram:
 </p>
 
+<p>
+Note to self, before scaling this solution horizontally, consider the <a href="https://www.frankmcsherry.org/assets/COST.pdf">COST</a> of
+doing so.
+</p>
 
-<figure id="orgc697aea">
+
+<figure id="org4c3fcc8">
 <img src="file:///home/ben/quicklisp/local-projects/project-isidore/assets/pi-infra.svg" alt="pi-infra.svg" class="org-svg">
 
 </figure>
 
 
-<figure id="org2fa59dc">
+<figure id="org6a8914d">
 <img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
 
 <figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
@@ -1400,7 +1407,7 @@ have a guided setup on <a href="#org3af73c3">Oracle Cloud Infrastructure</a>.
 </p>
 
 <p>
-Read PRODUCTION.LISP to properly supply SSH credentials and SSL keys.
+Read <a href="https://github.com/BenedictHW/project-isidore/blob/master/src/infrastructure/production.lisp">PRODUCTION.LISP</a> to properly supply SSH credentials and SSL keys.
 </p></li>
 
 <li><p>
@@ -1540,7 +1547,7 @@ litigation-happy corporate America. But I'm not interested in traveling down
 <i>the road to serfdom</i> (love some Thomas Sowell as well) and neither am I
 interested in preaching on the idolatrous love of money. What I will relate to
 below is my experience with Oracle Cloud Infrastructure (OCI) which has thus far
-been very positive. Thank you Oracle, OCI has been great to use thus far. <a href="https://www.oracle.com/ca-en/cloud/free/">Create
+been very positive. Thank you Oracle, OCI has been great to use. <a href="https://www.oracle.com/ca-en/cloud/free/">Create
 an account to get started.</a>
 </p>
 
@@ -1654,8 +1661,7 @@ exist and add the following lines to connect more ergonomically with <code>$ ssh
   User root
   HostName 140.291.294.154
   IdentityFile ~/.ssh/oracle-vm-key
-  <span class="org-comment-delimiter"># </span><span class="org-comment">mkdir ~/.ssh/controlmasters/</span>
-  ControlPath ~/.ssh/controlmasters/%r@%h:%p
+  ControlPath ~/.ssh/%r@%h:%p
   ControlMaster auto
   ControlPersist yes
 </pre>
@@ -2489,8 +2495,8 @@ found in Prechault and Garret when comparing Lisp v. Java v. C/C++. <a href="htt
 is also a DARPA funded shop that uses Common Lisp.</a> I would also be remiss if I
 did not mention the <a href="https://github.com/clasp-developers/clasp/releases/tag/1.0.0">recent milestone of CLASP</a> (Common Lisp implementation with
 C++ interop) version 1.0. The geriatric IP of Symbolics is still closed source;
-rumor is there are still legacy DoD contracts and that American Express's fraud
-detection used to (up until the mid 2000's?) use Open Genera.
+rumor is there are still legacy DoD contracts and that <a href="https://stacks.stanford.edu/file/druid:pv219hc9300/pv219hc9300.pdf">American Express's fraud
+detection used to</a> (up until the mid 2000's?) use Open Genera.
 </p>
 </div>
 </div>
@@ -3233,15 +3239,15 @@ without,
 </p>
 
 <ul class="org-ul">
-<li>Wonderful friends and family</li>
-<li>(Spac)Emacs Community</li>
-<li>Common Lisp Community <a href="#Libraries-System-dependencies">(see library authors)</a></li>
-<li>Debian Community</li>
-<li>Oracle Cloud Infrastructure, Cloudflare, Github.</li>
+<li>Wonderful friends and family :)</li>
+<li>(<a href="https://github.com/syl20bnr/spacemacs/graphs/contributors">Spac</a>)<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Acknowledgments.html">Emacs Community</a></li>
+<li><a href="#Libraries-System-dependencies">Common Lisp Community</a></li>
+<li><a href="https://contributors.debian.org/">Debian Community</a></li>
+<li><a href="https://www.oracle.com/ca-en/cloud/">Oracle Cloud Infrastructure</a>, <a href="https://www.cloudflare.com/">Cloudflare</a>, <a href="https://github.com/syl20bnr/spacemacs/graphs/contributors">Github</a>.</li>
 </ul>
 
 <p>
-Thank you!
+From the bottom of my heart, thank you!
 </p>
 </div>
 </div>

@@ -35,11 +35,11 @@ How to represent tree structure? XML, JSON or SEXP?
 https://unthought.net/2016/08/16-xml-json-trees-and-lisp/
 https://eli.thegreenplace.net/2012/03/04/some-thoughts-on-json-vs-s-expressions
 
-Microsoft Word uses XML. Web browsers render (X)HTML. Jupyter notebooks use JSON.
+Microsoft Word eses XML. Web browsers render (X)HTML. Jupyter notebooks use JSON.
 
 I see no great benefits to inserting an extra layer. CLOS Obj. > JSON > XML.
 
-OUTDATED (Back when I used BKNR.Datastore)
+OUTDATED (Back when I used BKNR.Datastore, Redis for Common Lisp)
 
 For an indepth explanation on in-memory datastores, see:
 

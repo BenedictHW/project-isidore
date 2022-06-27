@@ -102,7 +102,8 @@ all other web app pages uses this boilerplate."
                    (:br)
                    (:p "Welcome to my personal website! This website was built with"
                        (:a :href "https://nextjs.org" :target "_blank" :rel "noreferrer" (:s "Next.js and React"))
-                       (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" :rel "noreferrer" " Hunchentoot") "and Common Lisp. My resume can be found under the work tab. I hope you find what you're looking for,and may the wind be always at your back.")
+                       (:a :href "https://edicl.github.io/hunchentoot/" :target "_blank" :rel "noreferrer" " Hunchentoot") "and "
+                       (:a :href "/assets/blog/project-isidore-doc.html#Project-History-Credits" :target "_blank" :rel "noreferrer" "Common Lisp.") "My resume can be found under the work tab. I hope you find what you're looking for,and may the wind be always at your back.")
                    (:p :class "portfolio-button"
                        (:a :href "/about" "About")
                        (:a :href "/work" "Work")

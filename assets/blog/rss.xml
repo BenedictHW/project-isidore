@@ -9,18 +9,18 @@
 	   xmlns:georss="http://www.georss.org/georss"
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
      xmlns:media="http://search.yahoo.com/mrss/"><channel>
-  <title>Hanshen Wang Blog RSS</title>
+  <title>Benedict Hanshen Wang Blog RSS</title>
   <atom:link href="http://benedicthanshenwang.com/rss.xml" rel="self" type="application/rss+xml" />
   <link>http://benedicthanshenwang.com/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Wed, 30 Mar 2022 17:26:13 -0400</pubDate>
-  <lastBuildDate>Wed, 30 Mar 2022 17:26:13 -0400</lastBuildDate>
-  <generator>Emacs 27.1 Org-mode 9.5.2</generator>
-  <webMaster>hanshen@benedicthanshenwang.com (Hanshen Wang)</webMaster>
+  <pubDate>Fri, 24 Jun 2022 19:39:38 -0400</pubDate>
+  <lastBuildDate>Fri, 24 Jun 2022 19:39:38 -0400</lastBuildDate>
+  <generator>Emacs 29.0 Org-mode 9.5.2</generator>
+  <webMaster>admin@benedicthanshenwang.com (Benedict Hanshen Wang)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
-    <title>Hanshen Wang Blog RSS</title>
+    <title>Benedict Hanshen Wang Blog RSS</title>
     <link>http://benedicthanshenwang.com/</link>
   </image>
 
@@ -28,7 +28,7 @@
   <item>
     <title>Reasons to try Double Edge Safety Razors</title>
     <link>http://benedicthanshenwang.com/blog/reasons-to-try-double-edge-safety-razors.html</link>
-    <author>hanshen@benedicthanshenwang.com (Hanshen Wang)</author>
+    <author>admin@benedicthanshenwang.com (Benedict Hanshen Wang)</author>
     <guid isPermaLink="false">http://benedicthanshenwang.com/blog/reasons-to-try-double-edge-safety-razors.html</guid>
     <pubDate>Wed, 16 Feb 2022 00:00:00 -0500</pubDate>
 
@@ -37,7 +37,7 @@
   <item>
     <title>Tabular Douay Rheims</title>
     <link>http://benedicthanshenwang.com/blog/tabular-douay-rheims.html</link>
-    <author>hanshen@benedicthanshenwang.com (Hanshen Wang)</author>
+    <author>admin@benedicthanshenwang.com (Benedict Hanshen Wang)</author>
     <guid isPermaLink="false">http://benedicthanshenwang.com/blog/tabular-douay-rheims.html</guid>
     <pubDate>Fri, 10 Dec 2021 00:00:00 -0500</pubDate>
 
@@ -46,16 +46,16 @@
   <item>
     <title>Project Isidore Design Notebook</title>
     <link>http://benedicthanshenwang.com/blog/project-isidore-doc.html</link>
-    <author>hanshen@benedicthanshenwang.com (Hanshen Wang)</author>
+    <author>admin@benedicthanshenwang.com (Benedict Hanshen Wang)</author>
     <guid isPermaLink="false">http://benedicthanshenwang.com/blog/project-isidore-doc.html</guid>
     <pubDate>Fri, 17 Sep 2021 00:00:00 -0400</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
-    <title>Installation of Spacemacs on Windows 10 via WSL2</title>
+    <title>Installation of Spacemacs on Windows via WSL2</title>
     <link>http://benedicthanshenwang.com/blog/installation-of-spacemacs.html</link>
-    <author>hanshen@benedicthanshenwang.com (Hanshen Wang)</author>
+    <author>admin@benedicthanshenwang.com (Benedict Hanshen Wang)</author>
     <guid isPermaLink="false">http://benedicthanshenwang.com/blog/installation-of-spacemacs.html</guid>
     <pubDate>Thu, 04 Feb 2021 00:00:00 -0500</pubDate>
 
