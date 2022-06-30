@@ -52,7 +52,7 @@ Filesystem Hierarchy Standard.")
 'QL_DIST_VER', which is utilized in MAKE.LISP. Date must have the same format as
 given in (ql::available-versions (ql::dist \"quicklisp\"))")
 
-(defparameter *prod-sbcl-ver* "sbcl-2.2.5"
+(defparameter *prod-sbcl-ver* "sbcl-2.2.6"
   "Production SBCL Compiler Version STRING. Must have the same format as canonical
 SBCL git tags. Use Debian packaged SBCL to bootstrap.")
 
