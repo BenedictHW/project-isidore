@@ -51,7 +51,8 @@
         ;; Return existing quicklisp system pathname if located with ASDF.
         (when (asdf:find-system "quicklisp" nil)
           (uiop:merge-pathnames*
-           (asdf:system-source-directory "quicklisp") "setup.lisp")))
+           (uiop:pathname-parent-directory-pathname
+            (asdf:system-source-directory "quicklisp")) "setup.lisp")))
       ;; Needs quicklisp system to set valid value.
       (ql-dist-version nil))
   (if (pathnamep ql-setup)

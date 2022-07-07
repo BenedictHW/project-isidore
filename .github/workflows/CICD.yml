@@ -41,21 +41,17 @@ jobs:
         cat >>~/.ssh/config <<END
         Host remote-prod
           HostName              ${{ Env.SSH_HOST }}
-          User                  debian
+          User                  root
           IdentityFile          ~/.ssh/oracle-vm-key
           StrictHostKeyChecking no
         END
 
-    # Should you encounter,
-    # insufficient permission for adding an object to repository database
-    # Run the command EXACTLY as written: sudo chown -R "${USER:-$(id -un)}" .
-    # in the root of the remote-prod git repo.
     - name: Build Project Isidore
       run: |
-        ssh remote-prod 'cd /home/debian/quicklisp/local-projects/project-isidore && \
-          git fetch && git reset --hard origin/master && \
-          /usr/local/bin/sbcl --dynamic-space-size 2048 \
-          --load /home/debian/quicklisp/local-projects/project-isidore/make.lisp'
+        ssh remote-prod 'export QL_DIST_VER=2022-04-01 && \
+          export BUILD_DIR=/root/project-isidore/ && \
+          cd $BUILD_DIR && git fetch && git reset --hard origin/master && \
+          /usr/local/bin/sbcl --load $BUILD_DIR/make.lisp'
 
   build_docker_image:
     name: Docker Image Build
@@ -63,7 +59,7 @@ jobs:
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: [ubuntu-latest]
     # Following jobs must succeed
-    needs: [deploy_on_production]
+    needs: [stage_on_production]
     permissions:
       packages: write
       contents: read
@@ -128,7 +124,7 @@ jobs:
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     # Following jobs must succeed
-    needs: [deploy_on_production]
+    needs: [stage_on_production]
     runs-on: [ubuntu-latest]
 
     steps:
@@ -150,7 +146,6 @@ jobs:
     - name: Build Project Isidore
       run: sbcl --load $BUILD_DIR/make.lisp
 
-    # Github current policy is to retain logs and artifacts for 90 days.
     - name: GNU/Linux Upload Lisp Build
       uses: actions/upload-artifact@v2
       with:
@@ -166,7 +161,7 @@ jobs:
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     # Following jobs must succeed
-    needs: [deploy_on_production]
+    needs: [stage_on_production]
     runs-on: [macos-latest]
 
     steps:
@@ -187,7 +182,6 @@ jobs:
     - name: Build Project Isidore
       run: sbcl --load $BUILD_DIR/make.lisp
 
-    # Github current policy is to retain logs and artifacts for 90 days.
     - name: Darwin Upload Lisp Build
       uses: actions/upload-artifact@v2
       with:
@@ -203,7 +197,7 @@ jobs:
     # Only run create_release if the tag starts with 'v'
     if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     # Following jobs must succeed
-    needs: [deploy_on_production]
+    needs: [stage_on_production]
     runs-on: [windows-latest]
 
     steps:
@@ -245,7 +239,7 @@ jobs:
     - name: Build Project Isidore
       shell: pwsh
       run:
-        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --load "${{ Env.BUILD_DIR }}\src\make.lisp"
+        ${{ Env.CACHE_DIR }}sbcl\sbcl.exe --load "${{ Env.BUILD_DIR }}\make.lisp"
 
     - name: MSWindows Upload Lisp Build
       uses: actions/upload-artifact@v2
