@@ -48,7 +48,7 @@ jobs:
 
     - name: Build Project Isidore
       run: |
-        ssh remote-prod 'export QL_DIST_VER=2022-04-01 && \
+        ssh remote-prod 'export QL_DIST_VER=2022-07-08 && \
           export BUILD_DIR=/root/project-isidore/ && \
           cd $BUILD_DIR && git fetch && git reset --hard origin/master && \
           /usr/local/bin/sbcl --load $BUILD_DIR/make.lisp'
@@ -72,30 +72,28 @@ jobs:
 
     - name: Create Dockerfile
       run: |
-        FLY_CONFIG=$(cat << EOF
+        DOCKERFILE=$(cat << EOF
         FROM clfoundation/sbcl:2.2.4-slim as build
         COPY . /project-isidore/
         ARG BUILD_DIR=/project-isidore
-        ARG QL_DIST_VER=2022-04-01
+        ARG QL_DIST_VER=2022-07-08
         RUN apt-get update \
             && sbcl --dynamic-space-size 512 --load $BUILD_DIR/make.lisp \
             && chmod a+x $BUILD_DIR/bin/ProjectIsidore
         FROM gcr.io/distroless/base-debian11
-        COPY --from=build /lib/x86_64-linux-gnu/libz.so.1 /lib/x86_64-linux-gnu/libz.so.1
         COPY --from=build /project-isidore/bin/ /project-isidore/bin/
         COPY --from=build /project-isidore/assets/ /project-isidore/assets/
         COPY --from=build /project-isidore/data/ /project-isidore/data/
         CMD ["/project-isidore/bin/ProjectIsidore"]
         EOF
         )
-        echo "FLY_CONFIG<<EOF" >> $GITHUB_ENV
-        echo "$FLY_CONFIG" >> $GITHUB_ENV
+        echo "DOCKERFILE<<EOF" >> $GITHUB_ENV
+        echo "$DOCKERFILE" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
-      id: fly_config
 
     - name: Write Dockerfile Configuration
       run: |
-        echo '${{ env.FLY_CONFIG }}' >> ${{ github.workspace }}/Dockerfile
+        echo '${{ env.DOCKERFILE }}' >> ${{ github.workspace }}/Dockerfile
 
     - name: Build Container Image
       run: docker build . --file Dockerfile --tag project-isidore --label "runnumber=${GITHUB_RUN_ID}"
@@ -136,7 +134,7 @@ jobs:
     - name: Setup GNU/Linux Environment
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-07-08" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -173,7 +171,7 @@ jobs:
     - name: Setup MacOS Environment
       run: |
         echo "BUILD_DIR=${{ github.workspace }}/" >> $GITHUB_ENV
-        echo "QL_DIST_VER=2022-04-01" >> $GITHUB_ENV
+        echo "QL_DIST_VER=2022-07-08" >> $GITHUB_ENV
 
     - name: Install SBCL & Quicklisp
       run: |
@@ -217,7 +215,7 @@ jobs:
         git config --global core.autocrlf false;
         echo "BUILD_DIR=${{ github.workspace }}\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "CACHE_DIR=${{ github.workspace }}\buildcache\" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
-        echo "QL_DIST_VER=2022-04-01" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
+        echo "QL_DIST_VER=2022-07-08" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
         echo "CL_IMPL_VER=2.2.6" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append;
 
     # Check out your repository under $GITHUB_WORKSPACE, so your job can access it

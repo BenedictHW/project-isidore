@@ -2,18 +2,19 @@
 ;;; See subheading 'Generate Reference Manual' at
 ;;; https://www.benedicthanshenwang.com/assets/blog/project-isidore-doc.html/
 
-(load "~/quicklisp/setup.lisp") ; Quicklisp is installed in default location
-(ql:quickload :project-isidore) ; If you need to download dependencies
+;; Quicklisp is installed in default location.
+(load "~/quicklisp/setup.lisp")
+(ql:quickload :project-isidore)
 (ql:quickload :net.didierverna.declt)
 ;; Generate 'project-isidore.texi' in TEXI-DIRECTORY
 (net.didierverna.declt:declt :project-isidore
-                             :texi-name "reference-manual"
-                             :texi-directory
+                             :file-name "reference-manual"
+                             :output-directory
                              (asdf:system-relative-pathname
                               :project-isidore "assets/")
                              :library-name "Project Isidore"
                              ;; links are machine specific
-                             :hyperlinks nil
+                             :locations nil
                              ;; :long will print generation time. This will be
                              ;; picked up by git. Otherwise I would pick :long
                              :declt-notice :short)

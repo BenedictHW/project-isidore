@@ -47,7 +47,7 @@ Inside a LISP REPL,
   "Project Isidore production directory STRING on GNU/Linux hosts. See the Linux
 Filesystem Hierarchy Standard.")
 
-(defparameter *prod-ql-dist-ver* "2022-04-01"
+(defparameter *prod-ql-dist-ver* "2022-07-08"
   "Production Quicklisp Distribution Version STRING passed as an ENV variable
 'QL_DIST_VER', which is utilized in MAKE.LISP. Date must have the same format as
 given in (ql::available-versions (ql::dist \"quicklisp\"))")
@@ -188,9 +188,10 @@ sda       8:0    0   200G  0 disk
   ;;; ===========================
 
   ;; Move git snapshot to remote machine.
-  (git:snapshot-extracted (uiop:pathname-parent-directory-pathname
+  (git:snapshot-extracted (asdf:primary-system-name "project-isidore")
+                          (uiop:pathname-parent-directory-pathname
                            (pathname *linux-production-dir*))
-                          (asdf:primary-system-name "project-isidore") :replace t)
+                          :replace t)
 
   ;; FIXME This shell command may fail silently and be reported as "done". Add
   ;; better condition handling here.
@@ -460,4 +461,4 @@ server {
 "))
   (systemd:daemon-reloaded)
   (systemd:enabled "nginx.service")
-  (reboot:rebooted-at-end))
+  (reboot:at-end))
