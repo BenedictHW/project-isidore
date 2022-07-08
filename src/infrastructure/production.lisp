@@ -259,7 +259,7 @@ Restart=always
 WantedBy=multi-user.target"))
   ;; Tell systemd about the file we just created.
   (systemd:daemon-reloaded)
-  ;; Check how much RAM is availiable on VM and deploy that many processes?
+  ;; Check how much RAM is available on VM and deploy that many processes?
   (systemd:enabled "project-isidore@8080.service")
   (systemd:enabled "project-isidore@8081.service")
   (systemd:enabled "project-isidore@8082.service")
@@ -272,6 +272,35 @@ WantedBy=multi-user.target"))
   (systemd:enabled "project-isidore@8089.service")
   (systemd:enabled "project-isidore@8090.service")
   (systemd:enabled "project-isidore@8091.service")
+  (systemd:enabled "project-isidore@8092.service")
+  (systemd:enabled "project-isidore@8093.service")
+  (systemd:enabled "project-isidore@8094.service")
+  (systemd:enabled "project-isidore@8095.service")
+  (systemd:enabled "project-isidore@8096.service")
+  (systemd:enabled "project-isidore@8097.service")
+  (systemd:enabled "project-isidore@8098.service")
+  (systemd:enabled "project-isidore@8099.service")
+  (systemd:enabled "project-isidore@8100.service")
+  (systemd:enabled "project-isidore@8101.service")
+  (systemd:enabled "project-isidore@8102.service")
+  (systemd:enabled "project-isidore@8103.service")
+  (systemd:enabled "project-isidore@8104.service")
+  (systemd:enabled "project-isidore@8105.service")
+  (systemd:enabled "project-isidore@8106.service")
+  (systemd:enabled "project-isidore@8107.service")
+  (systemd:enabled "project-isidore@8108.service")
+  (systemd:enabled "project-isidore@8109.service")
+  (systemd:enabled "project-isidore@8110.service")
+  (systemd:enabled "project-isidore@8111.service")
+  (systemd:enabled "project-isidore@8112.service")
+  (systemd:enabled "project-isidore@8113.service")
+  (systemd:enabled "project-isidore@8114.service")
+  (systemd:enabled "project-isidore@8115.service")
+  (systemd:enabled "project-isidore@8116.service")
+  (systemd:enabled "project-isidore@8117.service")
+  (systemd:enabled "project-isidore@8118.service")
+  (systemd:enabled "project-isidore@8119.service")
+  (systemd:enabled "project-isidore@8120.service")
 
   ;;; =======================
   ;;; IV. NGINX REVERSE PROXY
@@ -323,6 +352,35 @@ upstream hunchentoot_http_backend {
     server 127.0.0.1:8089;
     server 127.0.0.1:8090;
     server 127.0.0.1:8091;
+    server 127.0.0.1:8092;
+    server 127.0.0.1:8093;
+    server 127.0.0.1:8094;
+    server 127.0.0.1:8095;
+    server 127.0.0.1:8096;
+    server 127.0.0.1:8097;
+    server 127.0.0.1:8098;
+    server 127.0.0.1:8099;
+    server 127.0.0.1:8100;
+    server 127.0.0.1:8101;
+    server 127.0.0.1:8102;
+    server 127.0.0.1:8103;
+    server 127.0.0.1:8104;
+    server 127.0.0.1:8105;
+    server 127.0.0.1:8106;
+    server 127.0.0.1:8107;
+    server 127.0.0.1:8108;
+    server 127.0.0.1:8109;
+    server 127.0.0.1:8110;
+    server 127.0.0.1:8111;
+    server 127.0.0.1:8112;
+    server 127.0.0.1:8113;
+    server 127.0.0.1:8114;
+    server 127.0.0.1:8115;
+    server 127.0.0.1:8116;
+    server 127.0.0.1:8117;
+    server 127.0.0.1:8118;
+    server 127.0.0.1:8119;
+    server 127.0.0.1:8120;
     keepalive 200;
     keepalive_requests 10000000;
     keepalive_timeout 15m;
