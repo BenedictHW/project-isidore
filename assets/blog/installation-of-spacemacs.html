@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-05-23 Mon 16:58 -->
+<!-- 2022-07-18 Mon 19:17 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Installation of Spacemacs on Windows via WSL2</title>
@@ -40,7 +40,7 @@
 
                                     <div class="header header-fixed">
                                       <div class="navbar container">
-                                        <div class="logo"><a href="/">Hanshen Wang</a></div>
+                                        <div class="logo"><a href="/">BHW</a></div>
                                         <input type="checkbox" id="navbar-toggle" >
                                         <label for="navbar-toggle"><i></i></label>
                                         <nav class="menu">
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Installation of Spacemacs on Windows via WSL2</h1>
                                     <p class="subtitle">A step by step guided installation tutorial with context</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-05-23 Mon 16:58</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-29 Wed 02:14</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org3cb19f2">
+<div class="abstract" id="orgffa7889">
 <p>
 
 </p>
@@ -77,18 +77,18 @@ capabilities of GNU Emacs from within Windows OS.
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#Introduction">1. Introduction</a></li>
-<li><a href="#orgff8dc6b">2. Windows 10 Installation</a>
+<li><a href="#org9eb3617">2. Windows 10 Installation</a>
 <ul>
 <li><a href="#Install-Microsoft-Windows-Subsystem-for-Linux-WSL-Your-Linux-Distribution">2.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
 <li><a href="#Install-X-Server">2.2. Install X Server</a></li>
-<li><a href="#org0aeae80">2.3. Install Emacs</a></li>
+<li><a href="#orga68651c">2.3. Install Emacs</a></li>
 </ul>
 </li>
-<li><a href="#orgf07945b">3. Windows 11 Installation</a>
+<li><a href="#org7bcccf0">3. Windows 11 Installation</a>
 <ul>
-<li><a href="#org0427d6f">3.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
-<li><a href="#org6aa2352">3.2. Install Emacs from official Debian package distribution</a></li>
-<li><a href="#org5e12722">3.3. Install Emacs from source</a></li>
+<li><a href="#org4f0675b">3.1. Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</a></li>
+<li><a href="#org80de7b0">3.2. Install Emacs from official Debian package distribution</a></li>
+<li><a href="#org2591c01">3.3. Install Emacs from source</a></li>
 </ul>
 </li>
 <li><a href="#Install-Spacemacs">4. Install Spacemacs</a>
@@ -169,14 +169,14 @@ experience on setting up WSL on Windows 11.
 </p>
 
 <p>
-<a href="#orgff8dc6b">Windows 10 Installation</a>
-<a href="#orgf07945b">Windows 11 Installation</a>
+<a href="#org9eb3617">Windows 10 Installation</a>
+<a href="#org7bcccf0">Windows 11 Installation</a>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgff8dc6b" class="outline-2">
-<h2 id="orgff8dc6b"><span class="section-number-2">2.</span> Windows 10 Installation</h2>
+<div id="outline-container-org9eb3617" class="outline-2">
+<h2 id="org9eb3617"><span class="section-number-2">2.</span> Windows 10 Installation</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li><p>
@@ -338,8 +338,8 @@ below.
 </div>
 </div>
 
-<div id="outline-container-org0aeae80" class="outline-3">
-<h3 id="org0aeae80"><span class="section-number-3">2.3.</span> Install Emacs</h3>
+<div id="outline-container-orga68651c" class="outline-3">
+<h3 id="orga68651c"><span class="section-number-3">2.3.</span> Install Emacs</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Spacemacs is a preset configuration of Emacs, so we must first make sure Emacs
@@ -363,8 +363,8 @@ Now we are ready to proceed to <a href="#Install-Spacemacs">4</a>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf07945b" class="outline-2">
-<h2 id="orgf07945b"><span class="section-number-2">3.</span> Windows 11 Installation</h2>
+<div id="outline-container-org7bcccf0" class="outline-2">
+<h2 id="org7bcccf0"><span class="section-number-2">3.</span> Windows 11 Installation</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 If the Windows 10 installation process seems replete with hacks and workarounds,
@@ -386,8 +386,8 @@ machine may vary. Please be careful.
 </p>
 </div>
 
-<div id="outline-container-org0427d6f" class="outline-3">
-<h3 id="org0427d6f"><span class="section-number-3">3.1.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h3>
+<div id="outline-container-org4f0675b" class="outline-3">
+<h3 id="org4f0675b"><span class="section-number-3">3.1.</span> Install Microsoft Windows Subsystem for Linux (WSL) &amp; Your Linux Distribution</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The following inside Windows Powershell (run as Admin) will enable WSL,
@@ -420,8 +420,8 @@ must upgrade.</a> Debian <code>VERSION=9 (stretch)</code> is too old for WSLg.
 </div>
 </div>
 
-<div id="outline-container-org6aa2352" class="outline-3">
-<h3 id="org6aa2352"><span class="section-number-3">3.2.</span> Install Emacs from official Debian package distribution</h3>
+<div id="outline-container-org80de7b0" class="outline-3">
+<h3 id="org80de7b0"><span class="section-number-3">3.2.</span> Install Emacs from official Debian package distribution</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 No nonsense, no fuss. Inside your WSL bash shell,
@@ -434,8 +434,8 @@ No nonsense, no fuss. Inside your WSL bash shell,
 </div>
 </div>
 
-<div id="outline-container-org5e12722" class="outline-3">
-<h3 id="org5e12722"><span class="section-number-3">3.3.</span> Install Emacs from source</h3>
+<div id="outline-container-org2591c01" class="outline-3">
+<h3 id="org2591c01"><span class="section-number-3">3.3.</span> Install Emacs from source</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 I wrote the initial tutorial for Windows 10, for Emacs was also my introduction
@@ -1065,7 +1065,7 @@ installation - How to use the Adobe Source Code Pro font? - Ask Ubuntu</a>
                               <hr/>
                               <footer>
                                 <div class="copyright-container">
-                                    Comments? Corrections? <a href="https://benedicthanshenwang.com/contact"> Please do reach out.</a><a href="https://benedicthanshenwang.com/blog/rss.xml"> RSS Feed. </a><a href="https://benedicthanshenwang.com/subscribe"> Mailing List. </a><br/>
+                                    Comments? Corrections? <a href="https://hanshenwang.com/contact"> Please do reach out.</a><a href="https://hanshenwang.com/blog/rss.xml"> RSS Feed. </a><a href="https://hanshenwang.com/subscribe"> Mailing List. </a><br/>
                                     Copyright 2021 Benedict Hanshen Wang. <br/>
                                     Blog content is available under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"> CC-BY-SA 4.0 </a> unless otherwise noted.<br/>
                                     Created with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 29.0.50 (<a href="https://orgmode.org">Org</a> mode 9.5.2) on <a href="https://www.gnu.org">GNU</a>/<a href="https://www.kernel.org/">Linux</a><br/>

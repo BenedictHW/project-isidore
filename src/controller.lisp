@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <foss@bhw.name>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/controller
@@ -159,7 +159,7 @@ See APPLICATION-TOPLEVEL for the main function or entry point in MAKE.LISP. "
 Project Isidore v1.2.1 (A.D. 2022-01-15)
 ========================================
 
-Copyright (c) 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+Copyright (c) 2021 Benedict Hanshen Wang <foss@bhw.name>
 
 Project Isidore is free software, provided as is, and comes with ABSOLUTELY NO
 WARRANTY. This program is licensed under the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -167,7 +167,7 @@ Version 3, 19 November 2007 You are welcome to redistribute the program or any
 parts hereof under certain conditions. Please visit
 https://www.gnu.org/licenses/agpl-3.0.html for License details.
 
-Homepage: https://www.benedicthanshenwang.com/assets/blog/project-isidore-doc.html
+Homepage: https://www.bhw.name/assets/blog/project-isidore-doc.html
 
 Source code repository: https://github.com/BenedictHW/project-isidore
 

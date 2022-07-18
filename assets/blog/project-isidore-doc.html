@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2022-06-24 Fri 19:39 -->
+<!-- 2022-07-18 Mon 19:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Project Isidore Design Notebook</title>
@@ -55,10 +55,10 @@
                                     </div>
                                     <h1 class="title">Project Isidore Design Notebook</h1>
                                     <p class="subtitle">Divus Isidorus Hispalensis ora pro nobis</p> <br/>
-                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-06-24 Fri 19:39</p>
+                                    <p class="updated"><a href="/contact#article-history">Updated:</a> 2022-07-18 Mon 19:26</p>
 </div>
 <div id="content" class="content">
-<div class="abstract" id="org5ffe62d">
+<div class="abstract" id="org595eba3">
 <p>
 
 </p>
@@ -91,7 +91,7 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 <li><a href="#Org-Publish-Pipeline">4. Org Publish Pipeline</a></li>
 <li><a href="#Development-Operations">5. Development Operations</a>
 <ul>
-<li><a href="#orgc654a71">5.1. Continous Integration</a>
+<li><a href="#orgba3a52a">5.1. Continous Integration</a>
 <ul>
 <li><a href="#Testing">5.1.1. Testing</a>
 <ul>
@@ -103,15 +103,15 @@ via <a href="https://orgmode.org/worg/org-contrib/babel/">org-babel.</a>
 </li>
 </ul>
 </li>
-<li><a href="#org7c90b58">5.2. Continous Delivery</a></li>
-<li><a href="#org70ab3f9">5.3. Continous Deployment</a>
+<li><a href="#org3a40ab5">5.2. Continous Delivery</a></li>
+<li><a href="#org20e710a">5.3. Continous Deployment</a>
 <ul>
-<li><a href="#org3af73c3">5.3.1. Oracle Cloud Infrastructure</a></li>
+<li><a href="#orgc2125f8">5.3.1. Oracle Cloud Infrastructure</a></li>
 </ul>
 </li>
 <li><a href="#Benchmarking-Profiling">5.4. Micro Benchmarks</a>
 <ul>
-<li><a href="#org7015784">5.4.1. Standards Compliance</a></li>
+<li><a href="#org148f879">5.4.1. Standards Compliance</a></li>
 </ul>
 </li>
 </ul>
@@ -527,7 +527,7 @@ Looking for a library? In addition to online search queries, use command(s)
 <span class="org-comment-delimiter">;; </span><span class="org-comment">See quicklisp-stats README for example usage.</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"quicklisp-stats"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; look at quicklisp download stats</span>
 <span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-string">"quicksearch"</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>qs:quicksearch <span class="org-string">"bluetooth"</span> <span class="org-builtin">:du</span> 100<span class="org-rainbow-delimiters-depth-1">)</span>
+<span class="org-rainbow-delimiters-depth-1">(</span>qs:? <span class="org-string">"bluetooth"</span> <span class="org-builtin">:du</span> 100<span class="org-rainbow-delimiters-depth-1">)</span>
 </pre>
 </div>
 
@@ -579,7 +579,7 @@ Call <code>sly-eval-buffer</code> on the following code block to update the grap
 </div>
 
 
-<figure id="org6e7b219">
+<figure id="orgbe7a0d4">
 <img src="../project-isidore-dependency-graph.png" alt="Project Isidore dependency graph">
 
 <figcaption><span class="figure-number">Figure 1: </span>Project Isidore dependency graph</figcaption>
@@ -717,6 +717,9 @@ Used as a base template.</li>
 <li><a href="https://readevalprint.tumblr.com/post/101841449553/its-alive">READ EVAL PRINT — It's alive! The path from library to web-app.</a></li>
 <li><a href="https://github.com/no-defun-allowed/nqthm">GitHub - no-defun-allowed/nqthm: nqthm - the original(ish) Boyer-Moore theore&#x2026;</a></li>
 <li><a href="https://github.com/urweb/urweb">GitHub - urweb/urweb: The Ur/Web programming language</a></li>
+<li><a href="https://old.reddit.com/r/lisp/comments/vo1wes/lisa_a_productionrule_system_for_the_development/">LISA - a production-rule system for the development of Lisp-based Intelligent&#x2026;</a></li>
+<li><a href="https://arxiv.org/html/2205.11103">EPTCS 359: ACL2 Theorem Prover and its Applications</a></li>
+<li><a href="https://github.com/hemml/OMGlib">GitHub - hemml/OMGlib: A Common Lisp library to build fully dynamic web inter&#x2026;</a></li>
 </ul></li>
 </ol>
 </div>
@@ -757,7 +760,7 @@ Other exemplars here: <a href="https://old.reddit.com/r/emacs/comments/ng9hyq/go
 </p>
 
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org88b79cb"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
+<pre class="src src-emacs-lisp" id="org84d40b8"><span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-comment-delimiter">;; </span><span class="org-comment">*** Org Ox Publish Config</span>
 <span class="org-comment-delimiter">;;</span><span class="org-comment">-------------------------------------------------------------------------</span>
 <span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">require</span> '<span class="org-constant">ox-rss</span><span class="org-rainbow-delimiters-depth-1">)</span>
@@ -994,8 +997,8 @@ your version control needs.
 </p>
 </div>
 
-<div id="outline-container-orgc654a71" class="outline-3">
-<h3 id="orgc654a71"><span class="section-number-3">5.1.</span> Continous Integration</h3>
+<div id="outline-container-orgba3a52a" class="outline-3">
+<h3 id="orgba3a52a"><span class="section-number-3">5.1.</span> Continous Integration</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Some measure of quality assurance through unit, integration and regression
@@ -1275,8 +1278,8 @@ Edi.
 </div>
 </div>
 </div>
-<div id="outline-container-org7c90b58" class="outline-3">
-<h3 id="org7c90b58"><span class="section-number-3">5.2.</span> Continous Delivery</h3>
+<div id="outline-container-org3a40ab5" class="outline-3">
+<h3 id="org3a40ab5"><span class="section-number-3">5.2.</span> Continous Delivery</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 Building an executable binary for all 3 major operating system platforms on the
@@ -1294,8 +1297,8 @@ and SBCL runtime included.
 </div>
 </div>
 
-<div id="outline-container-org70ab3f9" class="outline-3">
-<h3 id="org70ab3f9"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
+<div id="outline-container-org20e710a" class="outline-3">
+<h3 id="org20e710a"><span class="section-number-3">5.3.</span> Continous Deployment</h3>
 <div class="outline-text-3" id="text-5-3">
 <table>
 
@@ -1331,6 +1334,12 @@ and SBCL runtime included.
 <td class="org-left"><a href="https://github.com/BenedictHW/project-isidore/commit/1c7a8e9ba10ae2f5efa05f5ad9ddfc33bf9aa0bd">1c7a8e9</a></td>
 <td class="org-left">Oracle Cloud Infrastructure</td>
 <td class="org-left">Virtual Private Server</td>
+</tr>
+
+<tr>
+<td class="org-left">TBA</td>
+<td class="org-left">Hetzner?</td>
+<td class="org-left">&#xa0;</td>
 </tr>
 
 <tr>
@@ -1371,13 +1380,13 @@ doing so.
 </p>
 
 
-<figure id="org4c3fcc8">
+<figure id="orgd600275">
 <img src="file:///home/ben/quicklisp/local-projects/project-isidore/assets/pi-infra.svg" alt="pi-infra.svg" class="org-svg">
 
 </figure>
 
 
-<figure id="org6a8914d">
+<figure id="org432941e">
 <img src="../pi-infra.svg" alt="Project Isidore Infrastructure" class="org-svg">
 
 <figcaption><span class="figure-number">Figure 2: </span>Project Isidore Infrastructure</figcaption>
@@ -1388,22 +1397,18 @@ Prerequisites:
 </p>
 
 <ul class="org-ul">
-<li>Access to a Linux shell,</li>
-<li>Basic familiarity with asymmetric encryption i.e. SSH, SSL/TLS, GPG</li>
 <li><a href="#Introduction">Project Isidore source code.</a></li>
 <li><a href="#Common-Lisp-Environment-Setup">Common Lisp development environment set up.</a></li>
-</ul>
+<li>Basic familiarity with <a href="https://cryptography.io/en/latest/hazmat/primitives/asymmetric/">asymmetric encryption</a>.</li>
 
-
-<ol class="org-ol">
 <li><p>
 Deploy Project Isidore
 </p>
 
 <p>
-Root SSH access to a Debian machine is needed. Whether this is a physical
-server or a virtual private server through a cloud provider is up to you. I
-have a guided setup on <a href="#org3af73c3">Oracle Cloud Infrastructure</a>.
+Shell access with Root SSH credentials to a Debian machine is needed. Whether
+this is a physical server or a virtual private server is up to you. I have a
+guided setup on <a href="#orgc2125f8">Oracle Cloud Infrastructure</a>.
 </p>
 
 <p>
@@ -1425,21 +1430,35 @@ Domain Registrar will point <a href="http://my-domain-name.com">http://my-domain
 </p>
 
 <p>
-I have no affiliation with any Domain Registrar companies, but know that
-Cloudflare offers at-cost (zero-margin) pricing for domain registration. I
-will also be making use of their excellent yet generous services in the next
-step and have done so for years. They seem like an ethical company from what
-I can gather from their <a href="https://blog.cloudflare.com/project-jengo-redux-cloudflares-prior-art-search-bounty-returns/">blogs</a>. Oracle has my gratitude, but my recommendation
-of Cloudflare comes without reservations.
+I am not getting paid to say this, but if you are in the market for a Domain
+Name Registrar, I am a happy customer of Porkbun. Unlike Google, you can
+reach a human being. Three cheers for Porkbun, and may they grow in success
+without losing their human touch.
+</p>
+
+<blockquote>
+<p>
+First time customer, brand new account. Foolishly tried to register a domain on
+my overcharged credit card on the first try. Account was flagged and locked
+(understandably). Paid off credit card, contacted chat support, account was
+unlocked and order completed in less than 5 minutes. Lovely experience.
+Appreciate the cute graphics as well. &#x2013; <a href="https://ca.trustpilot.com/reviews/62d5b6948000af4a8843ea43">review by some stranger named Ben</a>
+</p>
+</blockquote>
+
+<p>
+Cloudflare seem like an ethical company from what I can gather from their
+<a href="https://blog.cloudflare.com/project-jengo-redux-cloudflares-prior-art-search-bounty-returns/">blogs</a> and I'll be making use of their generous free tier in the next steps.
+Oracle has my gratitude, but my recommendation of Porkbun and Cloudflare
+comes without reservations.
 </p>
 
 <p>
-<a href="https://developers.cloudflare.com/dns/manage-dns-records/how-to/create-dns-records/">Cloudflare DNS Records is straightforward to use.</a> Search online for current
-methods to create a DNS A records (and/or AAAA records for IPV6) specific to
-your Domain Registrar. Port 80 is the default port for HTTP traffic, as
-entering <a href="http://my-domain-name.com">http://my-domain-name.com</a> is equivalent to entering
-<a href="http://my-domain-name.com">http://my-domain-name.com</a>. If you don't want visitors to have to key in
-<a href="http://my-domain-name.com:8080/">http://my-domain-name.com:8080/</a> then either read on, use OCI's docs to
+Search online for current methods to create a DNS A records (and/or AAAA
+records for IPV6) specific to your Domain Registrar. Port 80 is the default
+port for HTTP traffic, as entering <a href="http://my-domain-name.com">http://my-domain-name.com</a> is equivalent to
+entering <a href="http://my-domain-name.com">http://my-domain-name.com</a>. If you don't want visitors to have to
+key in <a href="http://my-domain-name.com:8080/">http://my-domain-name.com:8080/</a> then either read on, use OCI's docs to
 <a href="https://blogs.oracle.com/cloud-infrastructure/post/http-url-redirect-on-oracle-cloud-infrastructure">redirect a subdomain to a URL with a port number</a>, or configure your web
 server to listen on &#x2013; <a href="http://yaws.hyber.org/privbind.yaws">what is on UNIX a privileged port</a> &#x2013; 80. Cloudflare
 can also <a href="https://developers.cloudflare.com/ssl/edge-certificates/additional-options/always-use-https/">redirect all HTTP requests to HTTPS</a> instead of doing this on the
@@ -1448,20 +1467,16 @@ port 443 exposed to the public.
 </p></li>
 
 <li><p>
-Cloudflare
+Denial-of-Service protection and Content Delivery Network with Cloudflare
 </p>
 
 <p>
 Cloudflare here acts as a reverse proxy (man-in-the-middle) between the
-website visitor (client) and the server; it provides Distributed Denial of
-Service (DDoS) protection as well as Content Delivery Network (CDN) caching
-services.
-</p>
-
-<p>
-Now by registering your domain with Cloudflare your domain will be served as
-HTTPS to the client. But communications from Cloudflare to our server is still
-via un-encrypted HTTP. We remedy this by using <a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin Certificates</a>.
+website visitor (client) and the server; it provides protection as well as
+caching services. Now by registering your domain with Cloudflare your domain
+will be served as HTTPS to the client. But communications from Cloudflare to
+our server is still via un-encrypted HTTP. We remedy this by using <a href="https://developers.cloudflare.com/ssl/origin-configuration/origin-ca">Origin
+Certificates</a>.
 </p>
 
 <p>
@@ -1529,11 +1544,11 @@ Crack open a cold one.
 <p>
 Optional: with the boys.
 </p></li>
-</ol>
+</ul>
 </div>
 
-<div id="outline-container-org3af73c3" class="outline-4">
-<h4 id="org3af73c3"><span class="section-number-4">5.3.1.</span> Oracle Cloud Infrastructure</h4>
+<div id="outline-container-orgc2125f8" class="outline-4">
+<h4 id="orgc2125f8"><span class="section-number-4">5.3.1.</span> Oracle Cloud Infrastructure</h4>
 <div class="outline-text-4" id="text-5-3-1">
 <p>
 Oracle Corporation offers the most generous free tier in cloud computing
@@ -2146,8 +2161,8 @@ my website is well prepared given the restraints on cost, time, and money.
 </p>
 </div>
 
-<div id="outline-container-org7015784" class="outline-4">
-<h4 id="org7015784"><span class="section-number-4">5.4.1.</span> Standards Compliance</h4>
+<div id="outline-container-org148f879" class="outline-4">
+<h4 id="org148f879"><span class="section-number-4">5.4.1.</span> Standards Compliance</h4>
 <div class="outline-text-4" id="text-5-4-1">
 <ul class="org-ul">
 <li><a href="https://www.ssllabs.com/ssltest">SSL Server Test (Powered by Qualys SSL Labs)</a></li>
@@ -3149,7 +3164,7 @@ is nice to have an auto-generated manual though.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh" id="orgf7398c0"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
+<pre class="src src-sh" id="org84f619b"><span class="org-comment-delimiter">#</span><span class="org-comment">!/bin/</span><span class="org-keyword">sh</span>
 <span class="org-comment-delimiter">#</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">An example hook script to verify what is about to be committed.</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Called by "git commit" with no arguments.  The hook should</span>
@@ -3180,50 +3195,10 @@ git add assets/reference-manual.html
 <span class="org-comment-delimiter"># </span><span class="org-comment">exec git diff-index --check --cached $against --</span>
 </pre>
 </div>
+</div>
+</div>
+</div>
 
-<div class="org-src-container">
-<pre class="src src-lisp" id="orgffab2bd"><span class="org-comment-delimiter">;;;; </span><span class="org-comment">generate-doc.lisp</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">See subheading 'Generate Reference Manual' at</span>
-<span class="org-comment-delimiter">;;; </span><span class="org-comment">https://www.hanshenwang.com/public/blog/project-isidore-doc.html/</span>
-
-<span class="org-rainbow-delimiters-depth-1">(</span>load <span class="org-string">"~/quicklisp/setup.lisp"</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; Quicklisp is installed in default location</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:project-isidore</span><span class="org-rainbow-delimiters-depth-1">)</span> <span class="org-comment">; If you need to download dependencies</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>ql:quickload <span class="org-builtin">:net.didierverna.declt</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Generate 'project-isidore.texi' in TEXI-DIRECTORY</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>net.didierverna.declt:declt <span class="org-builtin">:project-isidore</span>
-                             <span class="org-builtin">:texi-name</span> <span class="org-string">"reference-manual"</span>
-                             <span class="org-builtin">:texi-directory</span>
-                             <span class="org-rainbow-delimiters-depth-2">(</span>asdf:system-relative-pathname
-                              <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-2">)</span>
-                             <span class="org-builtin">:library-name</span> <span class="org-string">"Project Isidore"</span>
-                             <span class="org-comment-delimiter">;; </span><span class="org-comment">links are machine specific</span>
-                             <span class="org-builtin">:hyperlinks</span> nil
-                             <span class="org-comment-delimiter">;; </span><span class="org-comment">:long will print generation time. This will be</span>
-                             <span class="org-comment-delimiter">;; </span><span class="org-comment">picked up by git. Otherwise I would pick :long</span>
-                             <span class="org-builtin">:declt-notice</span> <span class="org-builtin">:short</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">https://lispcookbook.github.io/cl-cookbook/os.html#input-and-output-from-subprocess</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*shell*</span> <span class="org-rainbow-delimiters-depth-2">(</span>uiop:launch-program <span class="org-string">"bash"</span> <span class="org-builtin">:input</span> <span class="org-builtin">:stream</span>
-                                                  <span class="org-builtin">:output</span> <span class="org-builtin">:stream</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Change to proper directory</span>
-<span class="org-rainbow-delimiters-depth-1">(</span><span class="org-keyword">defparameter</span> <span class="org-variable-name">*reference-manual-path*</span> <span class="org-rainbow-delimiters-depth-2">(</span>concatenate
-                             'string <span class="org-string">"cd "</span>
-                             <span class="org-rainbow-delimiters-depth-3">(</span>namestring
-                              <span class="org-rainbow-delimiters-depth-4">(</span>asdf:system-relative-pathname
-                               <span class="org-builtin">:project-isidore</span> <span class="org-string">"assets/"</span><span class="org-rainbow-delimiters-depth-4">)</span><span class="org-rainbow-delimiters-depth-3">)</span><span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>write-line *reference-manual-path* <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-comment-delimiter">;; </span><span class="org-comment">Convert .texi to .html</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>write-line
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">For makeinfo flags, see</span>
-   <span class="org-comment-delimiter">;; </span><span class="org-comment">https://www.gnu.org/software/texinfo/manual/texinfo/texinfo.html#HTML-CSS</span>
- <span class="org-string">"makeinfo --html 'reference-manual.texi' --no-split --css-include='global.css'"</span>
- <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>force-output <span class="org-rainbow-delimiters-depth-2">(</span>uiop:process-info-input *shell*<span class="org-rainbow-delimiters-depth-2">)</span><span class="org-rainbow-delimiters-depth-1">)</span>
-<span class="org-rainbow-delimiters-depth-1">(</span>uiop:quit<span class="org-rainbow-delimiters-depth-1">)</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
 <div id="outline-container-Project-History-Credits" class="outline-2">
 <h2 id="Project-History-Credits"><span class="section-number-2">10.</span> Project History &amp; Credits</h2>
 <div class="outline-text-2" id="text-Project-History-Credits">
@@ -3242,8 +3217,8 @@ without,
 <li>Wonderful friends and family :)</li>
 <li>(<a href="https://github.com/syl20bnr/spacemacs/graphs/contributors">Spac</a>)<a href="https://www.gnu.org/software/emacs/manual/html_node/emacs/Acknowledgments.html">Emacs Community</a></li>
 <li><a href="#Libraries-System-dependencies">Common Lisp Community</a></li>
-<li><a href="https://contributors.debian.org/">Debian Community</a></li>
-<li><a href="https://www.oracle.com/ca-en/cloud/">Oracle Cloud Infrastructure</a>, <a href="https://www.cloudflare.com/">Cloudflare</a>, <a href="https://github.com/syl20bnr/spacemacs/graphs/contributors">Github</a>.</li>
+<li><a href="https://contributors.debian.org/">GNU/Linux Debian Community</a></li>
+<li><a href="https://www.oracle.com/ca-en/cloud/">Oracle Cloud Infrastructure</a>, <a href="https://www.cloudflare.com/">Cloudflare</a>, <a href="https://github.com/syl20bnr/spacemacs/graphs/contributors">Github</a> and <a href="https://porkbun.com/about">Porkbun</a>.</li>
 </ul>
 
 <p>

@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <foss@bhw.name>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 (in-package :cl-user)
 
@@ -335,7 +335,7 @@ WantedBy=multi-user.target"))
 
   (apt:installed "nginx")
   (file:has-content
-   "/etc/nginx/conf.d/benedicthanshenwang.com.conf"
+   "/etc/nginx/conf.d/bhw.name.conf"
    (concatenate 'string
    "
 # /etc/nginx/sites-available/default can be deleted.
@@ -400,7 +400,7 @@ server {
   listen 443 ssl http2 default_server backlog=65536;
   listen [::]:443 ssl http2 default_server backlog=65536;
   # NOTE Hardcoded domain name.
-  server_name benedicthanshenwang.com www.benedicthanshenwang.com;
+  server_name bhw.name www.bhw.name;
   root "
   *linux-production-dir* ";"
 "
@@ -408,8 +408,8 @@ server {
   ##
   # SSL Settings
   ##
-  ssl_certificate        /etc/ssl/private/benedicthanshenwang.crt;
-  ssl_certificate_key    /etc/ssl/private/benedicthanshenwang.key;
+  ssl_certificate        /etc/ssl/private/bhw.name.pem;
+  ssl_certificate_key    /etc/ssl/private/bhw.name.key;
   ssl_dhparam            /etc/ssl/private/dhparam4096.pem;
   ssl_client_certificate /etc/ssl/private/authenticated_origin_pull_ca.pem;
   ssl_verify_client   on;

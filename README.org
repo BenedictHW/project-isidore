@@ -80,8 +80,7 @@ $ sbcl --load quicklisp.lisp
 
    Or download a tagged docker container image from [[https://github.com/BenedictHW/project-isidore/pkgs/container/project-isidore][the project packages page.]]
 
-Please visit https://benedicthanshenwang.com/assets/blog/project-isidore-doc.html for online
-documentation. The same document can be found locally at
-"/assets/blog/project-isidore-doc.html".
+Please visit https://www.bhw.name/assets/blog/project-isidore-doc.html for
+online documentation.
 
 [[https://develop.spacemacs.org][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]

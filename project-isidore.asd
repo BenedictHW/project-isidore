@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <foss@bhw.name>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 #-asdf3.3 (error "Project Isidore requires ASDF 3.3 or later. Please upgrade your ASDF. See commit bf210b8.")
@@ -6,8 +6,8 @@
 (asdf:defsystem "project-isidore"
   :name "Project Isidore"
   :version "1.2.1"
-  :author "Benedict Hanshen Wang <admin@benedicthanshenwang.com>"
-  :maintainer "Benedict Hanshen Wang <admin@benedicthanshenwang.com>"
+  :author "Benedict Hanshen Wang <foss@bhw.name>"
+  :maintainer "Benedict Hanshen Wang <foss@bhw.name>"
   :description "Personal Web Application"
   :long-description
   "Project Isidore is currently a blog as well as a modern reproduction of the

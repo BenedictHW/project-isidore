@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <foss@bhw.name>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (uiop:define-package #:project-isidore/webserver

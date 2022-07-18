@@ -1,4 +1,4 @@
-;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <Admin@BenedictHanshenWang.com>
+;;;; SPDX-FileCopyrightText: 2021 Benedict Hanshen Wang <foss@bhw.name>
 ;;;; SPDX-License-Identifier: AGPL-3.0-or-later
 
 (defpackage #:project-isidore/test/tests
@@ -57,7 +57,7 @@ test suite is run prior to the build process. See MAKE.LISP."))
   See https://httpstatuses.com/ for a list of HTTP status codes."
   :parent master-suite
   (parachute:true
-   (= 200 (nth-value 1 (dex:get "https://www.BenedictHanshenWang.com/")))))
+   (= 200 (nth-value 1 (dex:get "https://www.bhw.name/")))))
 
 (parachute:define-test generate-data-finish
   :description "Check that `bible-page' and `bible-search-page' finishes."
